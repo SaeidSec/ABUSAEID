@@ -490,6 +490,59 @@
             /* Accent color */
             border-radius: 4px;
         }
+
+        /* Mobile Performance Optimizations */
+        @media (max-width: 768px) {
+
+            /* Disable heavy background effects */
+            .geometric-shapes,
+            .glow-orbs,
+            .cyber-scan,
+            .matrix-rain,
+            .cyber-particles,
+            .threat-indicator {
+                display: none !important;
+            }
+
+            /* Simplify Body Background */
+            body::before {
+                background: linear-gradient(135deg, #0f0f23 0%, #1a1a3e 100%);
+                animation: none;
+            }
+
+            body::after {
+                background-image: none;
+            }
+
+            /* Disable Backdrop Blur for Performance */
+            .backdrop-blur-xl {
+                backdrop-filter: none !important;
+                -webkit-backdrop-filter: none !important;
+                background: rgba(15, 15, 35, 0.98) !important;
+            }
+
+            /* Simplify Shadows */
+            .card {
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2) !important;
+            }
+
+            .card-hover:hover {
+                transform: none !important;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2) !important;
+            }
+
+            /* Reduce Animation Overhead */
+            * {
+                animation-duration: 0s !important;
+                transition: none !important;
+            }
+
+            /* Keep essential transitions for UI feedback if needed, but generally disable for perf */
+            a,
+            button {
+                transition: opacity 0.2s ease !important;
+            }
+        }
     </style>
 </head>
 
@@ -1737,6 +1790,7 @@
          * Creates floating cyber particles with code snippets and threat indicators
          */
         function initCyberParticles() {
+            if (window.innerWidth < 768) return; // Disable on mobile
             const particlesContainer = document.getElementById('particles');
             const particleSymbols = [
                 { text: '0x4A2F', type: 'normal' },
@@ -1792,6 +1846,7 @@
          * Creates Matrix-style falling code rain effect
          */
         function initMatrixRain() {
+            if (window.innerWidth < 768) return; // Disable on mobile
             const matrixContainer = document.getElementById('matrix-rain');
             const characters = '01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲンABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*(){}[]<>/\\|';
             const columns = Math.floor(window.innerWidth / 20);
