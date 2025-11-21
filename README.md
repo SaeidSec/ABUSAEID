@@ -2,6 +2,8 @@
 
 ![Portfolio Preview](coverphoto.jpeg)
 
+[**🚀 Live Demo**](https://saeidsec.netlify.app/)
+
 ## 🛡️ Overview
 
 Welcome to the professional portfolio of **Abu Saeid**, a dedicated **SOC Analyst**, **Incident Responder**, and **SIEM Specialist**. This static website showcases my expertise in cybersecurity, including threat hunting, digital forensics, malware analysis, and AI-driven SOC automation.
