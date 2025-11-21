@@ -1,0 +1,2303 @@
+<!--
+    SOC Analyst Portfolio: Abu Saeid (DARK MODE ONLY)
+
+    This portfolio is optimized for a permanent dark theme, removing all light mode logic
+    and theme toggles for a cleaner, focused experience. The quick stats section has also been removed.
+
+    Deployment Instructions:
+    1. Save this code as 'index.html'.
+    2. Upload this file to a static hosting service.
+-->
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <!-- MANDATORY: Viewport meta tag ensures responsiveness on mobile devices -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Abu Saeid | SOC Analyst | Incident Responder | SIEM Specialist ( Wazuh, Elastic Search , IBM QRadar , Splunk
+        ) | Threat Hunter | Digital Forensics & Malware Analysis | VAPT & OWASP Top 10 | AI SOC Automation | Writer |
+        Photographer |</title>
+    <!-- SEO & Metadata -->
+    <meta name="description"
+        content="Professional portfolio of a SOC Analyst specializing in threat hunting, incident response, AI/ML automations, and purple teaming operations.">
+    <meta name="keywords"
+        content="SOC, Cybersecurity, AI/ML, Automation, Purple Teaming, Threat Hunting, Incident Response, SIEM, Wazuh, Elastic, Abu Saeid">
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons CDN -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        /*
+        Custom Styles for Aesthetics (PERMANENT DARK MODE)
+        -----------------------------------------------------
+        */
+        :root {
+            --color-accent: #0588A7;
+            /* Primary Blue/Cyan */
+            --color-bg: #121212;
+            --color-bg-card: #1e1e1e;
+            --color-text-main: #f0f0f0;
+            --color-text-muted: #9ca3af;
+            --color-border: #2d2d2d;
+        }
+
+        /* Base Styling & Font (Modern Professional Theme) */
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0f0f23;
+            color: var(--color-text-main);
+            transition: background-color 0.5s, color 0.5s;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Layer 1: Vibrant Gradient Mesh Background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -5;
+            background:
+                radial-gradient(circle at 20% 20%, rgba(5, 136, 167, 0.25) 0%, transparent 40%),
+                radial-gradient(circle at 80% 80%, rgba(139, 92, 246, 0.2) 0%, transparent 40%),
+                radial-gradient(circle at 40% 60%, rgba(0, 255, 157, 0.15) 0%, transparent 35%),
+                radial-gradient(circle at 70% 30%, rgba(255, 107, 107, 0.12) 0%, transparent 35%),
+                linear-gradient(135deg, #0f0f23 0%, #1a1a3e 50%, #0f0f23 100%);
+            animation: gradientShift 15s ease-in-out infinite;
+        }
+
+        @keyframes gradientShift {
+
+            0%,
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+
+            50% {
+                opacity: 0.9;
+                transform: scale(1.05);
+            }
+        }
+
+        /* Layer 2: Visible Grid Pattern with Glow */
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -4;
+            background-image:
+                linear-gradient(rgba(5, 136, 167, 0.08) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(5, 136, 167, 0.08) 1px, transparent 1px);
+            background-size: 60px 60px;
+            opacity: 1;
+        }
+
+        /* Animated Geometric Shapes */
+        .geometric-shapes {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -3;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .shape {
+            position: absolute;
+            border: 2px solid rgba(5, 136, 167, 0.2);
+            border-radius: 20% 80% 60% 40% / 70% 30% 70% 30%;
+            animation: floatShape 20s ease-in-out infinite;
+        }
+
+        .shape:nth-child(1) {
+            width: 300px;
+            height: 300px;
+            top: 10%;
+            left: 5%;
+            background: radial-gradient(circle, rgba(5, 136, 167, 0.1) 0%, transparent 70%);
+            animation-delay: 0s;
+        }
+
+        .shape:nth-child(2) {
+            width: 400px;
+            height: 400px;
+            top: 50%;
+            right: 10%;
+            background: radial-gradient(circle, rgba(139, 92, 246, 0.08) 0%, transparent 70%);
+            animation-delay: -5s;
+            border-color: rgba(139, 92, 246, 0.2);
+        }
+
+        .shape:nth-child(3) {
+            width: 250px;
+            height: 250px;
+            bottom: 15%;
+            left: 40%;
+            background: radial-gradient(circle, rgba(0, 255, 157, 0.08) 0%, transparent 70%);
+            animation-delay: -10s;
+            border-color: rgba(0, 255, 157, 0.2);
+        }
+
+        @keyframes floatShape {
+
+            0%,
+            100% {
+                transform: translate(0, 0) rotate(0deg);
+            }
+
+            33% {
+                transform: translate(30px, -30px) rotate(120deg);
+            }
+
+            66% {
+                transform: translate(-20px, 20px) rotate(240deg);
+            }
+        }
+
+        /* Glowing Orbs */
+        .glow-orbs {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -3;
+            pointer-events: none;
+        }
+
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(60px);
+            animation: orbFloat 12s ease-in-out infinite;
+        }
+
+        .orb:nth-child(1) {
+            width: 400px;
+            height: 400px;
+            background: rgba(5, 136, 167, 0.15);
+            top: -10%;
+            left: -10%;
+            animation-delay: 0s;
+        }
+
+        .orb:nth-child(2) {
+            width: 500px;
+            height: 500px;
+            background: rgba(139, 92, 246, 0.12);
+            bottom: -15%;
+            right: -15%;
+            animation-delay: -4s;
+        }
+
+        .orb:nth-child(3) {
+            width: 350px;
+            height: 350px;
+            background: rgba(0, 255, 157, 0.1);
+            top: 40%;
+            left: 50%;
+            animation-delay: -8s;
+        }
+
+        @keyframes orbFloat {
+
+            0%,
+            100% {
+                transform: translate(0, 0) scale(1);
+            }
+
+            50% {
+                transform: translate(50px, 50px) scale(1.1);
+            }
+        }
+
+        /* Enhanced Scanning Line - More Visible */
+        .cyber-scan {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg,
+                    transparent 0%,
+                    rgba(5, 136, 167, 0) 20%,
+                    rgba(5, 136, 167, 0.9) 50%,
+                    rgba(5, 136, 167, 0) 80%,
+                    transparent 100%);
+            box-shadow:
+                0 0 30px rgba(5, 136, 167, 0.8),
+                0 0 60px rgba(5, 136, 167, 0.5);
+            z-index: 1;
+            animation: scan 8s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        @keyframes scan {
+            0% {
+                top: -5%;
+                opacity: 0;
+            }
+
+            10% {
+                opacity: 1;
+            }
+
+            90% {
+                opacity: 1;
+            }
+
+            100% {
+                top: 105%;
+                opacity: 0;
+            }
+        }
+
+        /* Removed vertical scan for cleaner look */
+        .cyber-scan-vertical {
+            display: none;
+        }
+
+        /* Removed glitch effect for professionalism */
+        .cyber-glitch {
+            display: none;
+        }
+
+        /* Enhanced Visible Particles */
+        .cyber-particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            color: rgba(5, 136, 167, 0.6);
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            font-weight: 600;
+            text-shadow: 0 0 15px rgba(5, 136, 167, 0.8);
+            animation: floatClean 16s linear infinite;
+        }
+
+        .particle.warning {
+            color: rgba(255, 193, 7, 0.6);
+            text-shadow: 0 0 15px rgba(255, 193, 7, 0.8);
+        }
+
+        .particle.danger {
+            color: rgba(244, 67, 54, 0.6);
+            text-shadow: 0 0 15px rgba(244, 67, 54, 0.8);
+        }
+
+        .particle.success {
+            color: rgba(0, 255, 157, 0.6);
+            text-shadow: 0 0 15px rgba(0, 255, 157, 0.8);
+        }
+
+        @keyframes floatClean {
+            0% {
+                transform: translateY(100vh) translateX(0);
+                opacity: 0;
+            }
+
+            10% {
+                opacity: 1;
+            }
+
+            90% {
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateY(-10vh) translateX(40px);
+                opacity: 0;
+            }
+        }
+
+        /* Stylish Corner Indicators - More Visible */
+        .threat-indicator {
+            position: fixed;
+            width: 50px;
+            height: 50px;
+            border: 2px solid rgba(5, 136, 167, 0.6);
+            z-index: 1;
+            pointer-events: none;
+            animation: cornerPulse 2.5s ease-in-out infinite;
+        }
+
+        .threat-indicator.top-left {
+            top: 25px;
+            left: 25px;
+            border-right: none;
+            border-bottom: none;
+        }
+
+        .threat-indicator.top-right {
+            top: 25px;
+            right: 25px;
+            border-left: none;
+            border-bottom: none;
+        }
+
+        .threat-indicator.bottom-left {
+            bottom: 25px;
+            left: 25px;
+            border-right: none;
+            border-top: none;
+        }
+
+        .threat-indicator.bottom-right {
+            bottom: 25px;
+            right: 25px;
+            border-left: none;
+            border-top: none;
+        }
+
+        @keyframes cornerPulse {
+
+            0%,
+            100% {
+                opacity: 0.5;
+                box-shadow: 0 0 15px rgba(5, 136, 167, 0.4);
+            }
+
+            50% {
+                opacity: 1;
+                box-shadow: 0 0 30px rgba(5, 136, 167, 0.8);
+            }
+        }
+
+        /* Visible Matrix Rain */
+        .matrix-rain {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+            overflow: hidden;
+            opacity: 0.25;
+        }
+
+        .matrix-column {
+            position: absolute;
+            top: -100%;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            color: rgba(5, 136, 167, 0.7);
+            text-shadow: 0 0 10px rgba(5, 136, 167, 0.6);
+            white-space: nowrap;
+            animation: matrixFall linear infinite;
+        }
+
+        @keyframes matrixFall {
+            0% {
+                top: -100%;
+                opacity: 0;
+            }
+
+            10% {
+                opacity: 1;
+            }
+
+            90% {
+                opacity: 1;
+            }
+
+            100% {
+                top: 100%;
+                opacity: 0;
+            }
+        }
+
+        .card {
+            background-color: var(--color-bg-card);
+            border: 1px solid var(--color-border);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+        }
+
+        .project-tag {
+            background-color: #2d2d2d;
+            color: var(--color-text-muted);
+            border: 1px solid #374151;
+        }
+
+        /* Accent Color for Headings/Links/CTAs */
+        .text-accent,
+        .border-accent,
+        .hover\:bg-accent:hover {
+            color: var(--color-accent);
+        }
+
+        .bg-accent {
+            background-color: var(--color-accent);
+        }
+
+        /* Custom Hover Effect for Cards (Dark Mode Shadow) */
+        .card-hover:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5), 0 4px 6px -2px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Custom Scroll Reveal Animation */
+        .reveal {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+            will-change: opacity, transform;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Project Card Details Modal */
+        .modal {
+            transition: opacity 0.3s ease-in-out;
+        }
+
+        .modal.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        /* Custom scrollbar for better feel */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background-color: rgba(5, 136, 167, 0.7);
+            /* Accent color */
+            border-radius: 4px;
+        }
+    </style>
+</head>
+
+<body class="dark min-h-screen">
+    <!-- Cybersecurity Background Effects - Multi-Layer -->
+    <div class="cyber-scan"></div>
+    <div class="cyber-scan-vertical"></div>
+    <div class="cyber-glitch"></div>
+    <div class="cyber-particles" id="particles"></div>
+    <div class="matrix-rain" id="matrix-rain"></div>
+
+    <!-- Geometric Shapes -->
+    <div class="geometric-shapes">
+        <div class="shape"></div>
+        <div class="shape"></div>
+        <div class="shape"></div>
+    </div>
+
+    <!-- Glowing Orbs -->
+    <div class="glow-orbs">
+        <div class="orb"></div>
+        <div class="orb"></div>
+        <div class="orb"></div>
+    </div>
+
+    <!-- Threat Indicators - Corner Brackets -->
+    <div class="threat-indicator top-left"></div>
+    <div class="threat-indicator top-right"></div>
+    <div class="threat-indicator bottom-left"></div>
+    <div class="threat-indicator bottom-right"></div>
+
+    <!-- JSON-LD Structured Data for Person Profile -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Abu Saeid",
+      "jobTitle": "SOC Analyst | Cybersecurity Researcher | AI/ML Automations",
+      "url": "https://yourdomain.com",
+      "email": "mailto:contact.abusaeid@gmail.com",
+      "alumniOf": "Green University of Bangladesh",
+      "sameAs": [
+        "https://github.com/SaeidSec",
+        "https://www.linkedin.com/in/mdabusaeid/",
+        "https://www.researchgate.net/profile/Your-ID"
+      ]
+    }
+    </script>
+
+    <!-- Navigation Bar - Modern Glassmorphism -->
+    <header class="sticky top-0 z-50 transition duration-500">
+        <!-- Glassmorphism Background -->
+        <div
+            class="backdrop-blur-xl bg-gradient-to-r from-[#0f0f23]/90 via-[#1a1a3e]/85 to-[#0f0f23]/90 border-b-2 border-cyan-500/20 shadow-lg shadow-cyan-500/10">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+                <a href="#hero"
+                    class="text-2xl font-extrabold tracking-tight bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent transition duration-300 hover:from-cyan-300 hover:to-blue-400">
+                    ABU SAEID
+                </a>
+                <!-- Desktop Navigation -->
+                <nav class="hidden md:flex space-x-8 items-center font-medium">
+                    <a href="#projects"
+                        class="text-gray-300 hover:text-cyan-400 transition duration-300 relative group">
+                        Projects
+                        <span
+                            class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-cyan-400 to-blue-500 group-hover:w-full transition-all duration-300"></span>
+                    </a>
+                    <a href="#experience"
+                        class="text-gray-300 hover:text-cyan-400 transition duration-300 relative group">
+                        Experience
+                        <span
+                            class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-cyan-400 to-blue-500 group-hover:w-full transition-all duration-300"></span>
+                    </a>
+                    <a href="#articles"
+                        class="text-gray-300 hover:text-cyan-400 transition duration-300 relative group">
+                        Blog/Article
+                        <span
+                            class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-cyan-400 to-blue-500 group-hover:w-full transition-all duration-300"></span>
+                    </a>
+                    <a href="#skills" class="text-gray-300 hover:text-cyan-400 transition duration-300 relative group">
+                        Skills
+                        <span
+                            class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-cyan-400 to-blue-500 group-hover:w-full transition-all duration-300"></span>
+                    </a>
+                    <a href="#contact" class="text-gray-300 hover:text-cyan-400 transition duration-300 relative group">
+                        Contact
+                        <span
+                            class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-cyan-400 to-blue-500 group-hover:w-full transition-all duration-300"></span>
+                    </a>
+                </nav>
+                <!-- Mobile Menu Button -->
+                <div class="flex items-center md:hidden space-x-2">
+                    <button id="mobile-menu-button" aria-label="Open Menu"
+                        class="p-2 rounded-lg hover:bg-cyan-500/20 transition duration-300 border border-cyan-500/30">
+                        <i data-lucide="menu" class="h-6 w-6 text-cyan-400 icon"></i>
+                    </button>
+                </div>
+            </div>
+            <!-- Mobile Menu Panel (Hidden by default) -->
+            <div id="mobile-menu"
+                class="hidden md:hidden absolute w-full backdrop-blur-xl bg-[#0f0f23]/95 border-t border-cyan-500/20 shadow-lg pb-2">
+                <a href="#projects"
+                    class="block px-4 py-3 text-gray-300 hover:bg-cyan-500/10 hover:text-cyan-400 transition duration-300"
+                    onclick="closeMobileMenu()">Projects</a>
+                <a href="#experience"
+                    class="block px-4 py-3 text-gray-300 hover:bg-cyan-500/10 hover:text-cyan-400 transition duration-300"
+                    onclick="closeMobileMenu()">Experience</a>
+                <a href="#articles"
+                    class="block px-4 py-3 text-gray-300 hover:bg-cyan-500/10 hover:text-cyan-400 transition duration-300"
+                    onclick="closeMobileMenu()">Blog/Article</a>
+                <a href="#skills"
+                    class="block px-4 py-3 text-gray-300 hover:bg-cyan-500/10 hover:text-cyan-400 transition duration-300"
+                    onclick="closeMobileMenu()">Skills</a>
+                <a href="#contact"
+                    class="block px-4 py-3 text-gray-300 hover:bg-cyan-500/10 hover:text-cyan-400 transition duration-300"
+                    onclick="closeMobileMenu()">Contact</a>
+                <div class="border-t border-cyan-500/20 mt-2 pt-2">
+                    <a href="https://drive.google.com/uc?export=download&id=1w0xbniv_xDg1qkcF-r-2CXblbCyUi-ip"
+                        target="_blank"
+                        class="block text-center mx-4 py-2 bg-gradient-to-r from-cyan-500 to-blue-600 text-white rounded-lg hover:from-cyan-400 hover:to-blue-500 transition duration-300 font-semibold shadow-lg shadow-cyan-500/30">Download
+                        Resume</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20">
+
+        <!-- 1. Hero Section with Profile Photo -->
+        <section id="hero" class="py-20 md:py-36 reveal">
+            <div class="max-w-6xl mx-auto">
+                <!-- Responsive Grid: Stacks on mobile, side-by-side on desktop -->
+                <div class="grid md:grid-cols-2 gap-12 items-center">
+
+                    <!-- Left Side: Professional Hero Photo Design (Circular) -->
+                    <div class="flex justify-center md:justify-end order-1 md:order-1 w-full">
+                        <div
+                            class="relative group w-full max-w-md md:max-w-full aspect-square flex justify-center items-center">
+
+                            <!-- Outer Glow Ring - Animated -->
+                            <div
+                                class="absolute inset-0 bg-gradient-to-r from-cyan-500 via-blue-500 to-purple-600 rounded-full opacity-20 blur-2xl group-hover:opacity-40 transition-all duration-700 animate-pulse">
+                            </div>
+
+                            <!-- Rotating Gradient Border -->
+                            <div class="absolute inset-2 bg-gradient-to-r from-accent via-blue-500 to-purple-600 rounded-full opacity-75 group-hover:opacity-100 transition-opacity duration-500"
+                                style="animation: rotate 8s linear infinite;">
+                            </div>
+
+                            <!-- Inner Container with Geometric Pattern -->
+                            <div
+                                class="relative w-[90%] h-[90%] bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 rounded-full p-1 overflow-hidden flex justify-center items-center">
+
+                                <!-- Geometric Pattern Overlay -->
+                                <div class="absolute inset-0 opacity-10 rounded-full">
+                                    <div class="absolute top-0 left-0 w-full h-full"
+                                        style="background-image: repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(5, 136, 167, 0.1) 10px, rgba(5, 136, 167, 0.1) 20px);">
+                                    </div>
+                                </div>
+
+                                <!-- Scan Line Effect -->
+                                <div class="absolute inset-0 overflow-hidden rounded-full pointer-events-none">
+                                    <div class="absolute w-full h-1 bg-gradient-to-r from-transparent via-accent to-transparent opacity-50"
+                                        style="animation: scan 3s ease-in-out infinite;">
+                                    </div>
+                                </div>
+
+                                <!-- Profile Photo with Clip Path -->
+                                <div class="relative w-full h-full overflow-hidden rounded-full">
+                                    <img src="coverphoto.jpeg" alt="Abu Saeid - SOC Analyst"
+                                        class="relative w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700 ease-out">
+
+                                    <!-- Gradient Overlay on Hover -->
+                                    <div
+                                        class="absolute inset-0 bg-gradient-to-t from-accent/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                                    </div>
+                                </div>
+
+                                <!-- Floating Particles -->
+                                <div
+                                    class="absolute top-1/4 left-1/4 w-2 h-2 bg-accent rounded-full opacity-60 animate-ping">
+                                </div>
+                                <div class="absolute top-3/4 right-1/4 w-1.5 h-1.5 bg-blue-400 rounded-full opacity-40"
+                                    style="animation: float 4s ease-in-out infinite;">
+                                </div>
+                                <div class="absolute top-1/2 right-1/3 w-1 h-1 bg-purple-400 rounded-full opacity-50"
+                                    style="animation: float 5s ease-in-out infinite 1s;">
+                                </div>
+                            </div>
+
+                            <!-- Status Badge -->
+                            <div
+                                class="absolute -bottom-2 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-accent to-blue-500 text-white px-6 py-2 rounded-full shadow-lg shadow-accent/50 font-semibold text-sm flex items-center gap-2 group-hover:scale-110 transition-transform duration-300 whitespace-nowrap z-10">
+                                <span class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
+                                SOC Analyst & Researcher
+                            </div>
+
+                        </div>
+                    </div><!-- Right Side: Content -->
+                    <div class="text-center md:text-left order-2 md:order-2">
+                        <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold mb-4 tracking-tighter">
+                            Abu Saeid
+                        </h1>
+                        <p class="text-xl sm:text-2xl md:text-2xl font-light text-gray-300 mb-6">
+                            SOC Analyst | Incident Responder | SIEM Specialist ( Wazuh, Elastic Search , IBM QRadar ,
+                            Splunk ) |
+                            Threat Hunter | Digital Forensics & Malware Analysis | VAPT & OWASP Top 10 | AI SOC
+                            Automation |
+                            Writer | Photographer |
+                        </p>
+                        <p class="text-base md:text-lg text-gray-400 mb-8">
+                            Pioneering **Proactive Defense** through **Threat Hunting**, **Automated Triage**, and
+                            **ML-driven
+                            Anomaly Detection** in critical SOC environments.
+                        </p>
+
+
+                        <!-- CTAs: Responsive Layout -->
+                        <div class="flex flex-col gap-4">
+                            <!-- First Row: View Projects & Download Resume -->
+                            <div class="flex flex-col sm:flex-row gap-4">
+                                <a href="#projects"
+                                    class="cta-button bg-accent text-white py-3 px-8 rounded-xl font-semibold hover:bg-opacity-90 transition duration-300 shadow-lg shadow-accent/50 flex items-center justify-center">
+                                    <i data-lucide="scan" class="h-5 w-5 mr-2 icon"></i> View Projects
+                                </a>
+                                <a href="https://drive.google.com/uc?export=download&id=1w0xbniv_xDg1qkcF-r-2CXblbCyUi-ip"
+                                    target="_blank"
+                                    class="cta-button bg-gray-700 text-white py-3 px-8 rounded-xl font-semibold hover:bg-gray-600 transition duration-300 flex items-center justify-center">
+                                    <i data-lucide="download" class="h-5 w-5 mr-2 icon"></i> Download Resume
+                                </a>
+                            </div>
+                            <div class="mt-auto">
+                                <a href="https://www.linkedin.com/in/mdabusaeid/" target="_blank"
+                                    class="w-full py-2 px-4 rounded-lg bg-gray-800 hover:bg-accent hover:text-white text-accent text-sm font-medium transition-all duration-300 flex items-center justify-center gap-2 group">
+                                    <i data-lucide="external-link"
+                                        class="h-4 w-4 group-hover:scale-110 transition-transform"></i> Show Credential
+                                </a>
+                            </div>
+                            <!-- Second Row: Contact -->
+                            <a href="#contact"
+                                class="cta-button bg-gray-700 text-white py-3 px-8 rounded-xl font-semibold hover:bg-gray-600 transition duration-300 flex items-center justify-center">
+                                <i data-lucide="mail" class="h-5 w-5 mr-2 icon"></i> Contact
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. About Section -->
+        <section id="about" class="py-16 md:py-24 reveal">
+            <h2 class="text-3xl font-bold mb-12 text-center text-gray-100">About Me</h2>
+            <div class="max-w-6xl mx-auto">
+                <!-- Responsive Grid: Photo on left, content on right -->
+                <div class="grid md:grid-cols-2 gap-12 items-center">
+
+                    <!-- Left Side: Professional Photo Design -->
+                    <div class="flex justify-center md:justify-start order-1 md:order-1 w-full">
+                        <div class="relative group w-full max-w-md md:max-w-full">
+
+                            <!-- Outer Glow Ring - Animated -->
+                            <div
+                                class="absolute -inset-4 bg-gradient-to-r from-cyan-500 via-blue-500 to-purple-600 rounded-3xl opacity-20 blur-2xl group-hover:opacity-40 transition-all duration-700 animate-pulse">
+                            </div>
+
+                            <!-- Rotating Gradient Border -->
+                            <div class="absolute -inset-2 bg-gradient-to-r from-accent via-blue-500 to-purple-600 rounded-2xl opacity-75 group-hover:opacity-100 transition-opacity duration-500"
+                                style="animation: rotate 8s linear infinite;">
+                            </div>
+
+                            <!-- Inner Container with Geometric Pattern -->
+                            <div
+                                class="relative bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 rounded-2xl p-1 overflow-hidden">
+
+                                <!-- Geometric Pattern Overlay -->
+                                <div class="absolute inset-0 opacity-10">
+                                    <div class="absolute top-0 left-0 w-full h-full"
+                                        style="background-image: repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(5, 136, 167, 0.1) 10px, rgba(5, 136, 167, 0.1) 20px);">
+                                    </div>
+                                </div>
+
+                                <!-- Scan Line Effect -->
+                                <div class="absolute inset-0 overflow-hidden rounded-2xl pointer-events-none">
+                                    <div class="absolute w-full h-1 bg-gradient-to-r from-transparent via-accent to-transparent opacity-50"
+                                        style="animation: scan 3s ease-in-out infinite;">
+                                    </div>
+                                </div>
+
+                                <!-- Corner Accents -->
+                                <div
+                                    class="absolute top-2 left-2 w-8 h-8 border-l-2 border-t-2 border-accent opacity-60">
+                                </div>
+                                <div
+                                    class="absolute top-2 right-2 w-8 h-8 border-r-2 border-t-2 border-accent opacity-60">
+                                </div>
+                                <div
+                                    class="absolute bottom-2 left-2 w-8 h-8 border-l-2 border-b-2 border-accent opacity-60">
+                                </div>
+                                <div
+                                    class="absolute bottom-2 right-2 w-8 h-8 border-r-2 border-b-2 border-accent opacity-60">
+                                </div>
+
+                                <!-- Profile Photo with Clip Path -->
+                                <div class="relative overflow-hidden rounded-xl">
+                                    <img src="1758903157.png" alt="Abu Saeid - About Me"
+                                        class="relative w-full h-auto aspect-square object-cover transform group-hover:scale-105 transition-transform duration-700 ease-out">
+
+                                    <!-- Gradient Overlay on Hover -->
+                                    <div
+                                        class="absolute inset-0 bg-gradient-to-t from-accent/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                                    </div>
+                                </div>
+
+                                <!-- Floating Particles -->
+                                <div
+                                    class="absolute top-1/4 left-1/4 w-2 h-2 bg-accent rounded-full opacity-60 animate-ping">
+                                </div>
+                                <div class="absolute top-3/4 right-1/4 w-1.5 h-1.5 bg-blue-400 rounded-full opacity-40"
+                                    style="animation: float 4s ease-in-out infinite;">
+                                </div>
+                                <div class="absolute top-1/2 right-1/3 w-1 h-1 bg-purple-400 rounded-full opacity-50"
+                                    style="animation: float 5s ease-in-out infinite 1s;">
+                                </div>
+                            </div>
+
+                            <!-- Status Badge -->
+                            <div
+                                class="absolute -bottom-4 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-accent to-blue-500 text-white px-6 py-2 rounded-full shadow-lg shadow-accent/50 font-semibold text-sm flex items-center gap-2 group-hover:scale-110 transition-transform duration-300">
+                                <span class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
+                                Available for Opportunities
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <style>
+                        @keyframes rotate {
+                            0% {
+                                transform: rotate(0deg);
+                            }
+
+                            100% {
+                                transform: rotate(360deg);
+                            }
+                        }
+
+                        @keyframes scan {
+
+                            0%,
+                            100% {
+                                top: -10%;
+                                opacity: 0;
+                            }
+
+                            10% {
+                                opacity: 1;
+                            }
+
+                            90% {
+                                opacity: 1;
+                            }
+
+                            100% {
+                                top: 110%;
+                                opacity: 0;
+                            }
+                        }
+
+                        @keyframes float {
+
+                            0%,
+                            100% {
+                                transform: translateY(0px);
+                            }
+
+                            50% {
+                                transform: translateY(-20px);
+                            }
+                        }
+                    </style>
+
+                    <!-- Right Side: Text Content -->
+                    <div class="text-gray-300 text-lg space-y-6 order-2 md:order-2">
+                        <p>
+                            I am a dedicated **SOC Analyst and Cybersecurity Researcher** with a strong focus on
+                            bridging
+                            operational security with advanced analytical methods. My primary experience lies in Level
+                            1/Level 2
+                            Security Operations, specializing in **incident triage, threat hunting**, and the
+                            development of
+                            robust **SIEM (Wazuh/Elastic)** architectures. I translate threat intelligence into
+                            actionable
+                            detection rules, constantly tuning and hardening defense posture against emerging TTPs.
+                        </p>
+                        <p>
+                            My core value lies in **automation**. I leverage Python and SOAR-lite methodologies to
+                            automate
+                            repetitive tasks, significantly reducing Mean Time to Detection (MTTD) and Mean Time to
+                            Respond
+                            (MTTR). This includes developing playbooks for automated enrichment, containment, and,
+                            critically,
+                            implementing **AI/ML models** for anomaly detection to overcome rule-based detection
+                            fatigue.
+                        </p>
+                        <p>
+                            I am passionate about **Purple Teaming**, advocating for a collaborative approach where
+                            red-team
+                            insights directly inform and validate blue-team detections. This continuous feedback loop
+                            ensures
+                            defensive controls are measurable and effective. My academic work further explores the
+                            intersection
+                            of AI and security:
+                            <span class="block mt-2 font-semibold">
+                                <i data-lucide="graduation-cap" class="h-5 w-5 mr-2 icon text-accent"></i> Research
+                                Thesis: <a href="#thesis" class="text-accent hover:underline">NeuroCrypt — Federated BCI
+                                    Learning with
+                                    Zero-Trust Semantic Security.</a>
+                            </span>
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. Core Skills / Competencies: Responsive Grid -->
+        <section id="skills" class="py-16 md:py-24 reveal">
+            <h2 class="text-3xl font-bold mb-12 text-center text-gray-100">Core Skills & Competencies</h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Skills will be dynamically rendered here by JS -->
+            </div>
+        </section>
+
+        <!-- 4. Tools & Stack: Responsive Grid -->
+        <section id="tools" class="py-16 md:py-24 reveal">
+            <h2 class="text-3xl font-bold mb-12 text-center text-gray-100">Tools & Stack Proficiency</h2>
+            <div id="tools-container" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-6">
+                <!-- Tools will be dynamically rendered here by JS -->
+            </div>
+        </section>
+
+        <!-- 5. Projects & Case Studies: Responsive Grid -->
+        <section id="projects" class="py-16 md:py-24 reveal">
+            <h2 class="text-3xl font-bold mb-12 text-center text-gray-100">Key Projects & Case Studies</h2>
+
+            <!-- Filter Buttons: Responsive flex-wrap -->
+            <div id="project-filters" class="flex flex-wrap justify-center gap-3 mb-10">
+                <button data-filter="All"
+                    class="project-filter-btn active py-2 px-4 rounded-full text-sm font-medium transition duration-300 bg-accent text-white">All</button>
+                <button data-filter="Automation"
+                    class="project-filter-btn py-2 px-4 rounded-full text-sm font-medium transition duration-300 bg-gray-700 hover:bg-accent hover:text-white">Automation</button>
+                <button data-filter="SIEM"
+                    class="project-filter-btn py-2 px-4 rounded-full text-sm font-medium transition duration-300 bg-gray-700 hover:bg-accent hover:text-white">SIEM
+                    Engineering</button>
+                <button data-filter="PurpleTeam"
+                    class="project-filter-btn py-2 px-4 rounded-full text-sm font-medium transition duration-300 bg-gray-700 hover:bg-accent hover:text-white">Purple
+                    Teaming</button>
+                <button data-filter="Research"
+                    class="project-filter-btn py-2 px-4 rounded-full text-sm font-medium transition duration-300 bg-gray-700 hover:bg-accent hover:text-white">Research</button>
+            </div>
+
+            <!-- Project Cards Grid: Responsive Grid -->
+            <div id="project-cards-container" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Project cards will be dynamically rendered here by JS -->
+            </div>
+        </section>
+
+        <!-- 6. Blog / Articles (Updated Title): Responsive Grid -->
+        <section id="articles" class="py-16 md:py-24 reveal">
+            <h2 class="text-3xl font-bold mb-4 text-center text-gray-100">Security Insights & Publications</h2>
+            <p class="text-center text-gray-300 text-lg mb-12 max-w-3xl mx-auto">
+                Sharing knowledge and experiences in cybersecurity through research papers, technical articles, and
+                practical insights from the frontlines of digital defense.
+            </p>
+
+            <!-- Category Filter Buttons -->
+            <div class="flex flex-wrap justify-center gap-3 mb-12">
+                <button onclick="filterArticles('all')"
+                    class="article-filter-btn active px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 bg-accent text-white shadow-lg shadow-accent/25">All
+                    Posts</button>
+                <button onclick="filterArticles('Society / education')"
+                    class="article-filter-btn px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 bg-gray-800 text-gray-400 hover:bg-gray-700 hover:text-white border border-gray-700">Society
+                    / education</button>
+                <button onclick="filterArticles('Cybersecurity / devsecops')"
+                    class="article-filter-btn px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 bg-gray-800 text-gray-400 hover:bg-gray-700 hover:text-white border border-gray-700">Cybersecurity
+                    / devsecops</button>
+                <button onclick="filterArticles('Cybersecurity / ai')"
+                    class="article-filter-btn px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 bg-gray-800 text-gray-400 hover:bg-gray-700 hover:text-white border border-gray-700">Cybersecurity
+                    / ai</button>
+                <button onclick="filterArticles('Cybersecurity / web')"
+                    class="article-filter-btn px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 bg-gray-800 text-gray-400 hover:bg-gray-700 hover:text-white border border-gray-700">Cybersecurity
+                    / web</button>
+                <button onclick="filterArticles('Cybersecurity / telecom')"
+                    class="article-filter-btn px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 bg-gray-800 text-gray-400 hover:bg-gray-700 hover:text-white border border-gray-700">Cybersecurity
+                    / telecom</button>
+            </div>
+
+            <div id="articles-container" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Articles will be dynamically rendered here by JS -->
+            </div>
+        </section>
+
+        <!-- 7. Professional Experience -->
+        <section id="experience" class="py-16 md:py-24 reveal">
+            <h2 class="text-3xl font-bold mb-8 text-center text-gray-100">Professional Experience</h2>
+            <p class="text-center text-gray-300 text-lg mb-12 max-w-3xl mx-auto">
+                My journey in cybersecurity, from offensive security research to defensive SOC operations. Each role has
+                strengthened my expertise in protecting digital assets and responding to threats.
+            </p>
+
+            <!-- Stats Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-16 max-w-4xl mx-auto">
+                <div class="card p-6 rounded-xl text-center">
+                    <div class="text-4xl font-bold text-accent mb-2">10+</div>
+                    <div class="text-gray-400">Months Experience</div>
+                </div>
+                <div class="card p-6 rounded-xl text-center">
+                    <div class="text-4xl font-bold text-accent mb-2">5</div>
+                    <div class="text-gray-400">Critical Incidents</div>
+                </div>
+                <div class="card p-6 rounded-xl text-center">
+                    <div class="text-4xl font-bold text-accent mb-2">15%</div>
+                    <div class="text-gray-400">Response Time Improvement</div>
+                </div>
+            </div>
+
+            <!-- Filter Buttons -->
+            <div class="flex justify-center gap-4 mb-12">
+                <button id="current-role-btn" onclick="filterExperience('current')"
+                    class="experience-filter-btn px-6 py-3 rounded-xl font-semibold transition duration-300 bg-accent text-white">
+                    Current Role
+                </button>
+                <button id="previous-experience-btn" onclick="filterExperience('previous')"
+                    class="experience-filter-btn px-6 py-3 rounded-xl font-semibold transition duration-300 bg-gray-700 text-gray-300 hover:bg-gray-600">
+                    Previous Experience
+                </button>
+            </div>
+
+            <!-- Current Role Section (Empty State) -->
+            <div id="current-role-section" class="max-w-5xl mx-auto">
+                <div class="card p-12 rounded-xl text-center">
+                    <i data-lucide="briefcase" class="h-16 w-16 mx-auto mb-4 text-gray-500 icon"></i>
+                    <h3 class="text-2xl font-bold text-gray-300 mb-3">Currently Focusing on Studies</h3>
+                    <p class="text-gray-400 text-lg">
+                        I'm currently a full-time student pursuing my B.Sc. in Computer Science & Engineering at Green
+                        University of Bangladesh.
+                    </p>
+                    <p class="text-gray-400 mt-2">
+                        Open to internship and entry-level opportunities in SOC Analysis and Cybersecurity!
+                    </p>
+                </div>
+            </div>
+
+            <!-- Previous Experience Timeline -->
+            <div id="previous-experience-section" class="max-w-5xl mx-auto space-y-8" style="display: none;">
+
+                <!-- Experience Card 1: Cyber Academy -->
+                <div class="card p-6 md:p-8 rounded-xl hover:shadow-2xl transition-all duration-300">
+                    <div class="flex flex-col md:flex-row md:items-start md:justify-between mb-4">
+                        <div class="flex-1">
+                            <h3 class="text-2xl font-bold text-accent mb-2">Cyber Security Analyst</h3>
+                            <p class="text-lg font-semibold text-gray-200 mb-1">Cyber Academy · Internship</p>
+                            <p class="text-sm text-gray-400 mb-2">
+                                <i data-lucide="calendar" class="h-4 w-4 inline mr-1 icon"></i>
+                                Aug 2024 - Sep 2024 · 2 mos
+                            </p>
+                            <p class="text-sm text-gray-400">
+                                <i data-lucide="map-pin" class="h-4 w-4 inline mr-1 icon"></i>
+                                Islāmābād, Pakistan · Remote
+                            </p>
+                        </div>
+                    </div>
+                    <div class="text-gray-300 space-y-3">
+                        <p>Interned at Cyber Academy, focusing on Security Information and Event Management (SIEM)
+                            operations using Wazuh.</p>
+                        <ul class="list-disc list-inside space-y-2 ml-4">
+                            <li>Learned to correlate Windows Event Logs and Sysmon data to identify anomalies and
+                                potential attacks</li>
+                            <li>Enhanced technical abilities in incident detection, log analysis, and endpoint
+                                monitoring — key competencies for a SOC Analyst role</li>
+                        </ul>
+                        <div class="flex flex-wrap gap-2 mt-4">
+                            <span class="bg-accent/20 text-accent px-3 py-1 rounded-full text-sm">Security Incident
+                                Response</span>
+                            <span class="bg-accent/20 text-accent px-3 py-1 rounded-full text-sm">Wazuh</span>
+                            <span class="bg-accent/20 text-accent px-3 py-1 rounded-full text-sm">SIEM</span>
+                            <span class="bg-accent/20 text-accent px-3 py-1 rounded-full text-sm">Log Analysis</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Experience Card 2: Center for Cyber Security Studies -->
+                <div class="card p-6 md:p-8 rounded-xl hover:shadow-2xl transition-all duration-300">
+                    <div class="flex flex-col md:flex-row md:items-start md:justify-between mb-4">
+                        <div class="flex-1">
+                            <h3 class="text-2xl font-bold text-accent mb-2">Associate Member & Cyber Security Intern
+                            </h3>
+                            <p class="text-lg font-semibold text-gray-200 mb-1">Center for Cyber Security Studies &
+                                Research</p>
+                            <p class="text-sm text-gray-400 mb-2">
+                                <i data-lucide="calendar" class="h-4 w-4 inline mr-1 icon"></i>
+                                Nov 2023 - May 2025 · 1 yr 7 mos
+                            </p>
+                            <p class="text-sm text-gray-400">
+                                <i data-lucide="map-pin" class="h-4 w-4 inline mr-1 icon"></i>
+                                Dhaka, Bangladesh · Remote
+                            </p>
+                        </div>
+                    </div>
+                    <div class="text-gray-300 space-y-3">
+                        <p class="font-medium">Associate Membership ID: AM-2023MMDS146</p>
+                        <p><strong>Internship (Dec 2023 - Apr 2024 · 5 mos):</strong></p>
+                        <p>Completed a 5-month cybersecurity internship focused on SOC operations, specializing in
+                            real-time threat detection, SIEM monitoring, and incident response using open-source tools.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mt-4">
+                            <span class="bg-accent/20 text-accent px-3 py-1 rounded-full text-sm">SOC Operations</span>
+                            <span class="bg-accent/20 text-accent px-3 py-1 rounded-full text-sm">Risk Management</span>
+                            <span class="bg-accent/20 text-accent px-3 py-1 rounded-full text-sm">Collaborative
+                                Leadership</span>
+                            <span class="bg-accent/20 text-accent px-3 py-1 rounded-full text-sm">Community
+                                Outreach</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Experience Card 3: SEO Specialist -->
+                <div class="card p-6 md:p-8 rounded-xl hover:shadow-2xl transition-all duration-300">
+                    <div class="flex flex-col md:flex-row md:items-start md:justify-between mb-4">
+                        <div class="flex-1">
+                            <h3 class="text-2xl font-bold text-accent mb-2">Search Engine Optimization Specialist</h3>
+                            <p class="text-lg font-semibold text-gray-200 mb-1">Grochalski - Strony internetowe ·
+                                Full-time</p>
+                            <p class="text-sm text-gray-400 mb-2">
+                                <i data-lucide="calendar" class="h-4 w-4 inline mr-1 icon"></i>
+                                Feb 2024 - Jan 2025 · 1 yr
+                            </p>
+                            <p class="text-sm text-gray-400">
+                                <i data-lucide="map-pin" class="h-4 w-4 inline mr-1 icon"></i>
+                                Poland · Remote
+                            </p>
+                        </div>
+                    </div>
+                    <div class="text-gray-300 space-y-3">
+                        <p>Working as an SEO Specialist doing organic growth traffic for business websites. Hired
+                            specially for the Full Stack SEO segment.</p>
+                        <ul class="list-disc list-inside space-y-2 ml-4">
+                            <li>Keyword Research</li>
+                            <li>ON Page SEO</li>
+                            <li>OFF Page SEO</li>
+                            <li>Technical SEO</li>
+                            <li>Content Writing</li>
+                        </ul>
+                        <div class="flex flex-wrap gap-2 mt-4">
+                            <span class="bg-accent/20 text-accent px-3 py-1 rounded-full text-sm">SEO</span>
+                            <span class="bg-accent/20 text-accent px-3 py-1 rounded-full text-sm">Keyword
+                                Research</span>
+                            <span class="bg-accent/20 text-accent px-3 py-1 rounded-full text-sm">Technical SEO</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Experience Card 4: Junior SEO Associate -->
+                <div class="card p-6 md:p-8 rounded-xl hover:shadow-2xl transition-all duration-300">
+                    <div class="flex flex-col md:flex-row md:items-start md:justify-between mb-4">
+                        <div class="flex-1">
+                            <h3 class="text-2xl font-bold text-accent mb-2">Junior SEO Associate</h3>
+                            <p class="text-lg font-semibold text-gray-200 mb-1">Small Business Seo Agency · Internship
+                            </p>
+                            <p class="text-sm text-gray-400 mb-2">
+                                <i data-lucide="calendar" class="h-4 w-4 inline mr-1 icon"></i>
+                                Apr 2024 - Dec 2024 · 9 mos
+                            </p>
+                            <p class="text-sm text-gray-400">
+                                <i data-lucide="map-pin" class="h-4 w-4 inline mr-1 icon"></i>
+                                Dhaka, Bangladesh · Remote
+                            </p>
+                        </div>
+                    </div>
+                    <div class="text-gray-300 space-y-3">
+                        <p>Joined as a Junior SEO Associate Intern at a well-regarded marketing agency, taking a
+                            significant step forward in digital marketing career.</p>
+                        <div class="flex flex-wrap gap-2 mt-4">
+                            <span class="bg-accent/20 text-accent px-3 py-1 rounded-full text-sm">SEO</span>
+                            <span class="bg-accent/20 text-accent px-3 py-1 rounded-full text-sm">On-Page
+                                Optimization</span>
+                            <span class="bg-accent/20 text-accent px-3 py-1 rounded-full text-sm">Digital
+                                Marketing</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Experience Card 5: SOC Intern -->
+                <div class="card p-6 md:p-8 rounded-xl hover:shadow-2xl transition-all duration-300">
+                    <div class="flex flex-col md:flex-row md:items-start md:justify-between mb-4">
+                        <div class="flex-1">
+                            <h3 class="text-2xl font-bold text-accent mb-2">Security Operation Center (SOC) Intern</h3>
+                            <p class="text-lg font-semibold text-gray-200 mb-1">Chaitanya Cyber Strix Technologies Pvt
+                                Ltd · Internship</p>
+                            <p class="text-sm text-gray-400 mb-2">
+                                <i data-lucide="calendar" class="h-4 w-4 inline mr-1 icon"></i>
+                                Nov 2023 - Mar 2024 · 5 mos
+                            </p>
+                            <p class="text-sm text-gray-400">
+                                <i data-lucide="map-pin" class="h-4 w-4 inline mr-1 icon"></i>
+                                India · Remote
+                            </p>
+                        </div>
+                    </div>
+                    <div class="text-gray-300 space-y-3">
+                        <p>Gained hands-on experience in Security Operations Center operations and cybersecurity
+                            practices.</p>
+                        <div class="flex flex-wrap gap-2 mt-4">
+                            <span class="bg-accent/20 text-accent px-3 py-1 rounded-full text-sm">Cybersecurity</span>
+                            <span class="bg-accent/20 text-accent px-3 py-1 rounded-full text-sm">SOC</span>
+                            <span class="bg-accent/20 text-accent px-3 py-1 rounded-full text-sm">Threat
+                                Detection</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- 8. Certifications & Education: Responsive Grid -->
+        <section id="certs" class="py-16 md:py-24 reveal">
+            <h2 class="text-3xl font-bold mb-12 text-center text-gray-100">Certifications & Education</h2>
+
+            <!-- Education First -->
+            <div class="max-w-4xl mx-auto mb-16">
+                <div class="card p-8 rounded-xl border-l-4 border-accent">
+                    <h3 class="text-2xl font-bold text-gray-100 mb-4 flex items-center">
+                        <i data-lucide="graduation-cap" class="h-8 w-8 mr-3 text-accent"></i> Education
+                    </h3>
+                    <div class="flex flex-col md:flex-row justify-between items-start md:items-center">
+                        <div>
+                            <h4 class="text-xl font-bold text-white">B.Sc. Computer Science & Engineering</h4>
+                            <p class="text-gray-400 text-lg mt-1">Green University of Bangladesh</p>
+                        </div>
+                        <span
+                            class="mt-2 md:mt-0 px-4 py-2 bg-gray-800 rounded-full text-sm text-accent font-mono border border-gray-700">2021
+                            - 2025</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Certifications Grid -->
+            <h3 class="text-2xl font-bold text-center text-gray-100 mb-8 flex items-center justify-center">
+                <i data-lucide="award" class="h-6 w-6 mr-2 text-accent"></i> Professional Certifications
+            </h3>
+            <div id="certs-container" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto px-4">
+                <!-- Certs injected by JS -->
+            </div>
+        </section>
+
+        <!-- 9. Contact: Responsive Grid -->
+        <section id="contact" class="py-16 md:py-24 reveal">
+            <h2 class="text-3xl font-bold mb-12 text-center text-gray-100">Get In Touch</h2>
+            <div class="max-w-3xl mx-auto card p-6 md:p-10 rounded-xl">
+                <p class="mb-8 text-gray-300 text-lg text-center">
+                    I am actively seeking roles focused on advanced threat detection, automation engineering, and
+                    security research. Let's discuss a project or collaboration.
+                </p>
+                <!-- Contact Details Grid: Responsive Grid -->
+                <div class="grid md:grid-cols-2 gap-8 mb-10">
+                    <div class="flex items-center space-x-3">
+                        <i data-lucide="mail" class="h-6 w-6 text-accent icon"></i>
+                        <p class="font-medium">Email: <a href="mailto:contact.abusaeid@gmail.com"
+                                class="hover:underline">contact.abusaeid@gmail.com</a></p>
+                    </div>
+                    <div class="flex items-center space-x-3">
+                        <i data-lucide="map-pin" class="h-6 w-6 text-accent icon"></i>
+                        <p class="font-medium">Location: Dhaka, Bangladesh</p>
+                    </div>
+                </div>
+
+                <!-- Simple Contact Form Placeholder -->
+                <!-- Formspree Contact Form -->
+                <form action="https://formspree.io/f/mjklqnbw" method="POST" class="space-y-4">
+                    <input type="text" name="name" placeholder="Your Name"
+                        class="w-full p-3 rounded-lg border border-gray-700 bg-gray-900 focus:ring-accent focus:border-accent transition duration-300"
+                        required>
+                    <input type="email" name="email" placeholder="Your Email"
+                        class="w-full p-3 rounded-lg border border-gray-700 bg-gray-900 focus:ring-accent focus:border-accent transition duration-300"
+                        required>
+                    <input type="text" name="role_company" placeholder="Your Role / Company"
+                        class="w-full p-3 rounded-lg border border-gray-700 bg-gray-900 focus:ring-accent focus:border-accent transition duration-300">
+                    <textarea name="message" placeholder="Your Message" rows="4"
+                        class="w-full p-3 rounded-lg border border-gray-700 bg-gray-900 focus:ring-accent focus:border-accent transition duration-300"
+                        required></textarea>
+                    <button type="submit"
+                        class="w-full bg-accent text-white py-3 rounded-xl font-semibold hover:bg-opacity-90 transition duration-300 flex items-center justify-center">
+                        <i data-lucide="send" class="h-5 w-5 mr-2 icon"></i> Send Message
+                    </button>
+                </form>
+
+                <!-- Social Links -->
+                <div class="flex justify-center space-x-6 mt-10">
+                    <a href="https://github.com/SaeidSec" target="_blank" aria-label="GitHub"
+                        class="hover:text-accent transition duration-300">
+                        <i data-lucide="github" class="h-8 w-8 icon"></i>
+                    </a>
+                    <a href="https://www.linkedin.com/in/mdabusaeid/" target="_blank" aria-label="LinkedIn"
+                        class="hover:text-accent transition duration-300">
+                        <i data-lucide="linkedin" class="h-8 w-8 icon"></i>
+                    </a>
+                    <a href="https://www.researchgate.net/profile/Your-ID" target="_blank" aria-label="ResearchGate"
+                        class="hover:text-accent transition duration-300">
+                        <i data-lucide="globe" class="h-8 w-8 icon"></i>
+                    </a>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <!-- Project Detail Modal -->
+    <div id="project-modal" class="modal fixed inset-0 z-[100] bg-black/80 flex items-center justify-center p-4 hidden"
+        role="dialog" aria-modal="true" aria-labelledby="modal-title">
+        <div id="modal-content"
+            class="bg-[#1e1e1e] rounded-xl max-w-4xl w-full max-h-[90vh] overflow-y-auto transform scale-95 transition-transform duration-300 text-gray-100 relative">
+            <button id="close-modal" aria-label="Close Project Details"
+                class="absolute top-4 right-4 p-2 bg-gray-700 rounded-full hover:bg-gray-600 transition duration-300 z-10">
+                <i data-lucide="x" class="h-6 w-6 icon"></i>
+            </button>
+
+            <div id="modal-body" class="p-6 md:p-10">
+                <!-- Content injected by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="border-t border-gray-800 py-10 text-gray-400">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <p class="mb-4">&copy; 2025 Abu Saeid. All rights reserved.</p>
+            <div class="flex justify-center space-x-6 text-sm">
+                <a href="#about" class="hover:text-accent transition duration-300">About</a>
+                <a href="#projects" class="hover:text-accent transition duration-300">Projects</a>
+                <a href="#articles" class="hover:text-accent transition duration-300">Blog/Article</a>
+                <a href="#contact" class="hover:text-accent transition duration-300">Contact</a>
+                <a href="https://drive.google.com/uc?export=download&id=1w0xbniv_xDg1qkcF-r-2CXblbCyUi-ip"
+                    target="_blank" class="hover:text-accent transition duration-300">Resume PDF</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript Logic -->
+    <script>
+        // Set up global constants
+        const RESUME_URL = "https://drive.google.com/uc?export=download&id=1w0xbniv_xDg1qkcF-r-2CXblbCyUi-ip";
+        // STATS constant removed per user request
+
+        // Data for Skills Section
+        const skillData = [
+            {
+                title: "SOC Operations",
+                icon: "shield-check",
+                points: [
+                    "L1/L2 Incident Triage & Case Management.",
+                    "Alert correlation, prioritization, and initial root cause analysis.",
+                    "Metric-driven compliance (MTTD, MTTR, False Positive Rate)."
+                ]
+            },
+            {
+                title: "Threat Hunting",
+                icon: "target",
+                points: [
+                    "Proactive hunting using hypotheses derived from TI (MITRE ATT&CK).",
+                    "OSQuery and Velociraptor for endpoint data collection and analysis.",
+                    "Developing custom SIEM search queries for unknown threats."
+                ]
+            },
+            {
+                title: "Purple Teaming",
+                icon: "swords",
+                points: [
+                    "Simulating TTPs (e.g., Atomic Red Team) to validate detection coverage.",
+                    "Collaborative detection tuning with Red Teams.",
+                    "Creating measurable security improvements and coverage gaps reports."
+                ]
+            },
+            {
+                title: "Automation & Playbooks",
+                icon: "terminal",
+                points: [
+                    "Python scripting for SOAR-lite functions (enrichment, containment).",
+                    "Automating SIEM health checks and log source onboarding.",
+                    "Bash/PowerShell for security tooling deployment via Docker/Ansible."
+                ]
+            },
+            {
+                title: "ML-based Anomaly Detection",
+                icon: "cpu",
+                points: [
+                    "Developing and deploying Scikit-learn models for baseline telemetry.",
+                    "Implementing retraining pipelines (MLeOps for security models).",
+                    "Reducing false positives in high-volume log streams (Kafka/Elastic)."
+                ]
+            },
+            {
+                title: "SIEM Engineering",
+                icon: "database",
+                points: [
+                    "Designing and maintaining Wazuh/Elastic/Splunk architectures (HA).",
+                    "Sigma rule translation and deployment.",
+                    "Log source normalization, parsing, and data retention policies."
+                ]
+            }
+        ];
+
+        // Data for Tools & Stack Section
+        const toolData = [
+            { name: "Wazuh", level: "Expert", icon: "server-cog" },
+            { name: "Elastic Stack", level: "Proficient", icon: "bar-chart-3" },
+            { name: "Suricata/Zeek", level: "Proficient", icon: "network" },
+            { name: "Splunk", level: "Familiar", icon: "layers-3" },
+            { name: "OSQuery", level: "Expert", icon: "list-end" },
+            { name: "Velociraptor", level: "Proficient", icon: "search-code" },
+            { name: "Python", level: "Expert", icon: "python" },
+            { name: "Bash/Shell", level: "Expert", icon: "file-text" },
+            { name: "Docker/Git", level: "Proficient", icon: "box" },
+            { name: "Sigma/YARA", level: "Expert", icon: "file-cog" },
+            { name: "MITRE ATT&CK", level: "Expert", icon: "map" },
+            { name: "Scikit-learn", level: "Proficient", icon: "sparkles" },
+        ];
+
+        // Data for Projects Section
+        const projectData = [
+            {
+                id: 1,
+                title: "Real-Time Anomaly Detection System (AI/ML)",
+                short_desc: "Developed a distributed system for real-time security anomaly alerting using unsupervised learning on network telemetry.",
+                tags: ["Automation", "AI/ML", "SIEM"],
+                details: {
+                    problem: "Over-reliance on static signatures and rules leads to high false positive rates and missed zero-day anomalies.",
+                    approach: "Implemented an unsupervised clustering model (Isolation Forest) via Python/Scikit-learn. Telemetry streamed via Kafka to Elastic, where a custom Python consumer scores the events and alerts with a confidence score.",
+                    tools: ["Python", "Scikit-learn", "Kafka", "Elastic Stack", "Docker"],
+                    outcome: "Achieved a **42% reduction** in false positive alerts compared to baseline rule sets and a **25% improvement** in detecting low-and-slow lateral movement attempts."
+                }
+            },
+            {
+                id: 2,
+                title: "Wazuh+ELK High-Availability SIEM Deployment",
+                short_desc: "Architected and deployed a highly available, multi-node Wazuh/Elastic SIEM cluster with load balancing for enterprise-scale agent onboarding.",
+                tags: ["SIEM", "Automation"],
+                details: {
+                    problem: "Existing SIEM was a single point of failure (SPOF), leading to data loss during maintenance windows and inability to scale past 500 agents.",
+                    approach: "Deployed a 3-node Wazuh cluster behind HAProxy and Keepalived (VRRP) for VIP management. Automated agent enrollment using Python scripts tied to CMDB for initial configuration/grouping.",
+                    tools: ["Wazuh", "Elasticsearch", "Keepalived", "HAProxy", "Ansible", "Linux"],
+                    outcome: "Achieved **100% uptime** during simulated failovers, secured an agent capacity of 5,000+, and reduced new agent onboarding time from 3 hours to **15 minutes** via automation."
+                }
+            },
+            {
+                id: 3,
+                title: "Purple Team Engagement: Web App & Detection Tuning",
+                short_desc: "Led a purple team scenario focusing on OWASP Top 10 web vulnerabilities to test and enhance WAF and SIEM detections.",
+                tags: ["PurpleTeam", "ThreatHunting"],
+                details: {
+                    problem: "Uncertainty regarding SIEM's ability to detect sophisticated web application attacks (e.g., RCE via file upload, SQL injection attempts).",
+                    approach: "Red Team executed controlled exploits (SQLi, XSS, SSRF). Blue Team (me) observed telemetry (WAF logs, web server access logs, OSQuery) and immediately created and tuned **Sigma Rules** based on observed TTPs.",
+                    tools: ["Burp Suite", "Kali Linux", "Sigma Rules", "Wazuh/Elastic", "Web Server Logs"],
+                    outcome: "Created **15 new high-fidelity detection rules**. Reduced the time-to-detect for web shell uploads from 'undetected' to **under 2 minutes**."
+                }
+            },
+            {
+                id: 4,
+                title: "SOAR-Lite Automation Playbook Library",
+                short_desc: "Built a modular library of Python automation playbooks to enhance enrichment, triage, and rapid containment.",
+                tags: ["Automation"],
+                details: {
+                    problem: "L1 analysts spent 70% of their time on manual tasks: indicator lookups, threat scoring, and executing containment steps.",
+                    approach: "Developed three core modules: 1) TI enrichment via API calls; 2) Asset lookup/context gathering; 3) Containment script (via firewall API). Integrated modules via a simple JSON-based workflow engine.",
+                    tools: ["Python", "Requests Library", "JSON", "Firewall API (Mock)"],
+                    outcome: "Reduced the average **MTTR from 6 hours to 45 minutes** for high-risk, low-volume incidents by eliminating manual investigation steps."
+                }
+            },
+            {
+                id: 5,
+                title: "Threat Intelligence Ingestion Pipeline",
+                short_desc: "Constructed an automated pipeline for OSINT indicator ingestion, enrichment, and mapping to MITRE ATT&CK for SIEM integration.",
+                tags: ["ThreatHunting", "SIEM"],
+                details: {
+                    problem: "Threat intelligence was often stale or manually ingested, limiting proactive defense capabilities.",
+                    approach: "Used Python scripts to pull IOCs from multiple open-source feeds (MISP, AlienVault OTX). Performed automatic confidence scoring and mapped TTPs using the MITRE ATT&CK API. Ingested processed data into Elastic for cross-correlation.",
+                    tools: ["Python", "Elastic Logstash Pipeline", "MISP/OTX APIs", "MITRE ATT&CK Framework"],
+                    outcome: "Increased available **actionable IOCs by 300%** and improved the SIEM's ability to detect threats based on known C2 infrastructure by **65%**."
+                }
+            },
+            {
+                id: 6,
+                title: "NeuroCrypt Research Summary (Research Note)",
+                short_desc: "A short abstract detailing research on securing BCI data using Federated Learning and Zero-Trust principles.",
+                tags: ["Research", "AI/ML"],
+                details: {
+                    problem: "Sensitive BCI data is highly vulnerable during centralized model training, violating user privacy.",
+                    approach: "Utilized Federated Learning (FL) to keep raw data decentralized. Applied differential privacy techniques to the model updates to prevent data leakage during aggregation. Focused on secure semantic model deployment.",
+                    tools: ["TensorFlow Federated", "Python", "Cryptography Libraries"],
+                    outcome: "Proposed a framework that achieves **99.5% accuracy** on the classification task while providing mathematical privacy guarantees for individual data points (high DP epsilon used for simulation)."
+                }
+            },
+            {
+                id: 7,
+                title: "Enterprise Wazuh Architecture",
+                short_desc: "A fully interactive, deep-dive case study into a high-availability SIEM architecture with dual-layer load balancing.",
+                tags: ["SIEM", "Automation", "Engineering"],
+                link: "Enterprise-Wazuh.html",
+                details: {
+                    problem: "Demonstrating complex architectural concepts like Active-Active clustering and multi-layer load balancing in a static portfolio is difficult.",
+                    approach: "Built a dedicated, interactive web module featuring a dynamic SVG topology map, tabbed zone details, and a deep-dive modal explaining the 'Master-Worker' architecture myths.",
+                    tools: ["HTML5", "Tailwind CSS", "Vanilla JS", "SVG Animation"],
+                    outcome: "Created a 'perfectly web-page' experience that visually communicates technical depth and engineering rigor to potential employers."
+                }
+            }
+        ];
+
+        // Data: Certifications
+        const certData = [
+            {
+                title: "Official OPNsense Introduction Course",
+                issuer: "OPNsense",
+                date: "Nov 2025",
+                id: "cert_jm714fl3",
+                skills: ["Networking"],
+            },
+            {
+                title: "Introduction to Graylog Dashboards",
+                issuer: "Graylog, Inc.",
+                date: "Nov 2025",
+                id: "691bdd52315b83e0480c2362",
+                skills: ["Security Logging", "Monitoring"],
+            },
+            {
+                title: "Linux Privilege Escalation for Beginners",
+                issuer: "TCM Security",
+                date: "Oct 2025",
+                id: "cert_t8f2ycwg",
+                skills: ["Linux", "Offensive Security"],
+            },
+            {
+                title: "Offensive Hacking Unfolded - The Beginner's Edition",
+                issuer: "Pentest Library",
+                date: "Oct 2025",
+                id: null,
+                skills: ["Offensive Security"],
+            },
+            {
+                title: "Practical Ethical Hacking - The Complete Course",
+                issuer: "TCM Security",
+                date: "Oct 2025",
+                id: "cert_99xyh3mt",
+                skills: ["Networking", "Linux", "Python", "Reconnaissance", "Scanning", "Nessus", "Burp Suite"],
+            },
+            {
+                title: "SQL Injections Unlocked - SQLi Web Attacks",
+                issuer: "Pentest Library",
+                date: "Oct 2025",
+                id: null,
+                skills: ["SQL", "Offensive Security"],
+            },
+            {
+                title: "Windows Privilege Escalation for Beginners",
+                issuer: "TCM Security",
+                date: "Oct 2025",
+                id: "cert_1ywft5tw",
+                skills: ["Offensive Security"],
+            },
+            {
+                title: "BLUE TEAM JUNIOR ANALYST",
+                issuer: "Security Blue Team",
+                date: "Sep 2025",
+                id: "805804751",
+                skills: ["OSINT", "Threat Hunting", "Digital Forensics", "Wireshark", "SOC Fundamentals"],
+            },
+            {
+                title: "3-Day Wireshark Challenge",
+                issuer: "HAX Security",
+                date: "Aug 2025",
+                id: "1347",
+                skills: ["Wireshark", "Packet Analysis", "TCP"],
+            },
+            {
+                title: "Certified Governance Risk and Compliance Analyst (CGRCA)",
+                issuer: "Hack & Fix",
+                date: "Aug 2025",
+                id: "2752-3505-4975-5296",
+                skills: ["GRC", "Risk Management", "Compliance"],
+            },
+            {
+                title: "Certified Phishing Prevention Specialist (CPPS)",
+                issuer: "Hack & Fix",
+                date: "Aug 2025",
+                id: "1988-3849-3942-2141",
+                skills: ["Phishing", "Phishing Analysis"],
+            },
+            {
+                title: "Fundamentals of Dark Web Training",
+                issuer: "SOCRadar",
+                date: "Aug 2025",
+                id: "c45603f5-7cdb...",
+                skills: ["Dark Web", "Monitoring"],
+            },
+            {
+                title: "Mastering Cyber Threat Intelligence for SOC Analysts",
+                issuer: "SOCRadar",
+                date: "Aug 2025",
+                id: "bc5a899b-1ae9...",
+                skills: ["SOC", "CTI", "Incident Response"],
+            },
+            {
+                title: "Purple Teaming Fundaments",
+                issuer: "CyberWarFare Labs",
+                date: "Aug 2025",
+                id: "0f4d6aa6",
+                skills: ["Purple Teaming", "Blue Teaming"],
+            },
+            {
+                title: "3-Days Wazuh SIEM Challenge",
+                issuer: "HAX Security",
+                date: "Jul 2025",
+                id: "1063",
+                skills: ["Wazuh", "SIEM", "Suricata", "BlueTeam"],
+            },
+            {
+                title: "Supply Chain Detection and Response (SCDR)",
+                issuer: "SecurityScorecard",
+                date: "Jul 2025",
+                id: "aZ8SKv-y6w",
+                skills: ["Threat Detection", "Incident Response"],
+            },
+            {
+                title: "Student SOC Program Foundations",
+                issuer: "Microsoft",
+                date: "May 2025",
+                id: null,
+                skills: ["SOC Foundations", "Threat Hunting", "Microsoft Security"],
+            },
+            {
+                title: "SOC Member",
+                issuer: "LetsDefend",
+                date: "Oct 2024",
+                id: null,
+                skills: ["SOC"],
+            },
+            {
+                title: "Mastering Directory Traversal",
+                issuer: "Udemy",
+                date: "Oct 2023",
+                id: "UC-d49e8a93...",
+                skills: ["Web Security", "Burp Suite"],
+            },
+            {
+                title: "Introduction to Cyber Security Learning Path",
+                issuer: "TryHackMe",
+                date: "Feb 2023",
+                id: "THM-UWXMZB4FS3",
+                skills: ["Defensive Security", "Linux"],
+            }
+        ];
+
+        // Data: Articles & Insights
+        const articleData = [
+            {
+                id: 1,
+                title: "Built to Carry Dreams, Not Degrees — The Silent Crisis of Indian Graduates",
+                category: "Society / education",
+                tags: ["Education", "Career", "India"],
+                date: "May 1, 2024",
+                readTime: "4 min read",
+                author: "Abu Saeid",
+                image: "https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&q=80&w=800",
+                highlights: [
+                    "Mindset over degrees",
+                    "Project-first approach"
+                ],
+                summary: "An honest look at why graduates are struggling despite degrees—and how mindset, skills, and exposure can change the game.",
+                link: "https://medium.com/@abusaeid"
+            },
+            {
+                id: 2,
+                title: "GitHub Action Supply Chain Attack — 23,000+ Repositories at Risk!",
+                category: "Cybersecurity / devsecops",
+                tags: ["GitHub", "Security", "Supply Chain"],
+                date: "Mar 18, 2024",
+                readTime: "2 min read",
+                author: "Abu Saeid",
+                image: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&q=80&w=800",
+                highlights: [
+                    "Workflow hardening tips",
+                    "Least-privilege tokens"
+                ],
+                summary: "A breakdown of a real supply chain vulnerability in GitHub Actions affecting thousands of projects and how to stay secure.",
+                link: "https://abusaeid.substack.com"
+            },
+            {
+                id: 3,
+                title: "Debunking the AI Hype: Inside Real Hacker Tactics",
+                category: "Cybersecurity / ai",
+                tags: ["AI", "Cybersecurity", "Hacking"],
+                date: "Feb 19, 2024",
+                readTime: "3 min read",
+                author: "Abu Saeid",
+                image: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=800",
+                highlights: [
+                    "Real attacker workflows",
+                    "What to automate safely"
+                ],
+                summary: "AI is trending, but most attacks are still manual. This blog separates real hacker tactics from AI marketing noise.",
+                link: "https://abusaeid.substack.com"
+            }
+        ];
+
+
+        // ------------------------------------------------------------------
+        // CORE APPLICATION LOGIC
+        // ------------------------------------------------------------------
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // 1. Initial Setup
+            initLucideIcons();
+            initNavToggle();
+            initCyberParticles();
+            initMatrixRain();
+
+            // 2. Dynamic Content Rendering
+            renderSkills();
+            renderTools();
+            renderProjects(projectData);
+            renderArticles();
+            renderCerts();
+
+            // 3. Interactions and Effects
+            initProjectFiltering();
+            initScrollReveal();
+            initModal();
+
+            // Replace resume link placeholders
+            document.querySelectorAll('a[href="RESUME_URL_PLACEHOLDER"]').forEach(el => el.href = RESUME_URL);
+        });
+
+        /**
+         * Creates floating cyber particles with code snippets and threat indicators
+         */
+        function initCyberParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleSymbols = [
+                { text: '0x4A2F', type: 'normal' },
+                { text: '0xFF00', type: 'success' },
+                { text: 'ALERT', type: 'danger' },
+                { text: 'BREACH', type: 'danger' },
+                { text: 'SECURE', type: 'success' },
+                { text: 'SCAN', type: 'warning' },
+                { text: 'THREAT', type: 'danger' },
+                { text: 'BLOCK', type: 'warning' },
+                { text: 'ALLOW', type: 'success' },
+                { text: 'DENY', type: 'danger' },
+                { text: 'SSH:22', type: 'normal' },
+                { text: 'TCP:443', type: 'success' },
+                { text: 'UDP:53', type: 'normal' },
+                { text: 'HTTP', type: 'warning' },
+                { text: 'HTTPS', type: 'success' },
+                { text: 'FTP', type: 'warning' },
+                { text: 'DNS', type: 'normal' },
+                { text: '127.0.0.1', type: 'success' },
+                { text: '192.168', type: 'normal' },
+                { text: '10.0.0', type: 'normal' },
+                { text: 'FIREWALL', type: 'success' },
+                { text: 'IDS', type: 'warning' },
+                { text: 'IPS', type: 'warning' },
+                { text: 'SIEM', type: 'success' },
+                { text: 'SOC', type: 'success' },
+                { text: 'MALWARE', type: 'danger' },
+                { text: 'VIRUS', type: 'danger' },
+                { text: 'EXPLOIT', type: 'danger' },
+                { text: 'PAYLOAD', type: 'danger' },
+                { text: 'ENCRYPTED', type: 'success' },
+                { text: 'HASH', type: 'normal' },
+                { text: 'AUTH', type: 'success' },
+                { text: 'FAIL', type: 'danger' },
+                { text: 'OK', type: 'success' }
+            ];
+
+            // Create 20 particles with different threat levels (reduced for cleaner look)
+            for (let i = 0; i < 20; i++) {
+                const particle = document.createElement('div');
+                const symbol = particleSymbols[Math.floor(Math.random() * particleSymbols.length)];
+                particle.className = `particle ${symbol.type}`;
+                particle.textContent = symbol.text;
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 12 + 's';
+                particle.style.animationDuration = (10 + Math.random() * 8) + 's';
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        /**
+         * Creates Matrix-style falling code rain effect
+         */
+        function initMatrixRain() {
+            const matrixContainer = document.getElementById('matrix-rain');
+            const characters = '01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲンABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*(){}[]<>/\\|';
+            const columns = Math.floor(window.innerWidth / 20);
+
+            for (let i = 0; i < columns; i++) {
+                const column = document.createElement('div');
+                column.className = 'matrix-column';
+                column.style.left = (i * 20) + 'px';
+                column.style.animationDuration = (10 + Math.random() * 10) + 's';
+                column.style.animationDelay = Math.random() * 5 + 's';
+
+                // Create random string of characters
+                let text = '';
+                const length = Math.floor(Math.random() * 20) + 10;
+                for (let j = 0; j < length; j++) {
+                    text += characters.charAt(Math.floor(Math.random() * characters.length)) + '\n';
+                }
+                column.textContent = text;
+
+                matrixContainer.appendChild(column);
+            }
+        }
+
+        /**
+         * Initializes Lucide icons after the DOM is loaded.
+         */
+        function initLucideIcons() {
+            if (typeof lucide !== 'undefined') {
+                lucide.createIcons();
+            }
+        }
+
+        /**
+         * Renders the Core Skills section dynamically.
+         */
+        function renderSkills() {
+            const container = document.querySelector('#skills .grid');
+            if (!container) return;
+
+            container.innerHTML = skillData.map(skill => `
+                <div class="card p-6 rounded-xl shadow-lg card-hover transition duration-300 reveal">
+                    <div class="flex items-center mb-3">
+                        <i data-lucide="${skill.icon}" class="h-6 w-6 text-accent mr-3 icon"></i>
+                        <h3 class="text-xl font-semibold text-gray-50">${skill.title}</h3>
+                    </div>
+                    <ul class="space-y-2 list-none text-gray-300">
+                        ${skill.points.map(p => `
+                            <li class="flex items-start text-sm">
+                                <i data-lucide="check" class="h-4 w-4 text-accent mt-1 mr-2 flex-shrink-0 icon"></i>
+                                <span>${p}</span>
+                            </li>
+                        `).join('')}
+                    </ul>
+                </div>
+            `).join('');
+
+            initLucideIcons();
+        }
+
+        /**
+         * Renders the Tools & Stack section dynamically.
+         */
+        function renderTools() {
+            const container = document.getElementById('tools-container');
+            if (!container) return;
+
+            const levelColors = {
+                "Expert": "bg-green-500/10 text-green-500",
+                "Proficient": "bg-yellow-500/10 text-yellow-500",
+                "Familiar": "bg-blue-500/10 text-blue-500"
+            };
+
+            container.innerHTML = toolData.map(tool => `
+                <div class="card p-4 rounded-xl text-center shadow-md reveal">
+                    <div class="flex justify-center mb-2">
+                        <i data-lucide="${tool.icon}" class="h-8 w-8 text-accent icon"></i>
+                    </div>
+                    <p class="font-semibold text-sm text-gray-50">${tool.name}</p>
+                    <span class="text-xs font-medium px-2 py-0.5 rounded-full ${levelColors[tool.level]}">${tool.level}</span>
+                </div>
+            `).join('');
+
+            initLucideIcons();
+        }
+
+
+        let activeModalProject = null;
+
+        /**
+         * Renders the Project Cards based on the provided data.
+         * @param {Array} projects - The list of project objects.
+         */
+        function renderProjects(projects) {
+            const container = document.getElementById('project-cards-container');
+            if (!container) return;
+            container.innerHTML = projects.map(project => `
+                <div class="project-card card p-6 rounded-xl shadow-lg card-hover transition duration-300 reveal"
+                     data-tags="${project.tags.join(',')}" data-id="${project.id}">
+                    <div class="flex items-start mb-4">
+                         <i data-lucide="${project.tags.includes('AI/ML') ? 'cpu' : project.tags.includes('PurpleTeam') ? 'swords' : project.tags.includes('SIEM') ? 'database' : 'terminal'}" class="h-6 w-6 text-accent flex-shrink-0 mr-3 icon"></i>
+                        <h3 class="text-xl font-bold text-gray-50" id="project-title-${project.id}">${project.title}</h3>
+                    </div>
+                    <p class="text-gray-400 text-sm mb-4">${project.short_desc}</p>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        ${project.tags.map(tag => `<span class="project-tag px-3 py-1 text-xs rounded-full font-medium">${tag}</span>`).join('')}
+                    </div>
+                    <div class="mt-auto flex gap-3">
+                        <button data-id="${project.id}" class="view-details-btn text-accent font-medium text-sm hover:underline flex items-center">
+                            View Details <i data-lucide="arrow-right" class="h-4 w-4 ml-1 icon"></i>
+                        </button>
+                        ${project.link ? `
+                        <a href="${project.link}" target="_blank" class="text-green-400 font-medium text-sm hover:underline flex items-center">
+                            Live Project <i data-lucide="external-link" class="h-4 w-4 ml-1 icon"></i>
+                        </a>
+                        ` : ''}
+                    </div>
+                </div>
+            `).join('');
+
+            initLucideIcons();
+        }
+
+        /**
+         * Renders the Articles section dynamically with filtering.
+         */
+        function renderArticles(filter = 'all') {
+            const container = document.getElementById('articles-container');
+            if (!container) return;
+
+            const filteredData = filter === 'all'
+                ? articleData
+                : articleData.filter(article => article.category === filter);
+
+            if (filteredData.length === 0) {
+                container.innerHTML = `
+                    <div class="col-span-full text-center py-12">
+                        <p class="text-gray-400 text-lg">No articles found in this category yet.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = filteredData.map(article => `
+                <a href="${article.link}" target="_blank" class="block group h-full">
+                    <div class="card rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-800 hover:border-accent/50 h-full flex flex-col relative bg-[#1e1e1e]">
+                        
+                        <!-- Image Container -->
+                        <div class="relative h-48 overflow-hidden">
+                            <img src="${article.image}" alt="${article.title}" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700">
+                            <div class="absolute inset-0 bg-gradient-to-t from-[#1e1e1e] via-transparent to-transparent opacity-80"></div>
+                            
+                            <!-- Badges -->
+                            <div class="absolute top-3 left-3">
+                                <span class="bg-black/60 backdrop-blur-md border border-white/10 text-blue-300 text-[10px] uppercase font-bold px-3 py-1 rounded-full tracking-wider">
+                                    ${article.category}
+                                </span>
+                            </div>
+                            <div class="absolute top-3 right-3">
+                                <span class="bg-green-500/20 backdrop-blur-md border border-green-500/30 text-green-400 text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider shadow-[0_0_10px_rgba(74,222,128,0.2)]">
+                                    Published
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- Content -->
+                        <div class="p-6 flex flex-col flex-grow">
+                            <h3 class="text-xl font-bold text-gray-100 mb-3 leading-snug group-hover:text-accent transition-colors">
+                                ${article.title}
+                            </h3>
+                            <p class="text-gray-400 text-sm mb-4 line-clamp-3 flex-grow">
+                                ${article.summary}
+                            </p>
+
+                            <!-- Tags -->
+                            <div class="flex flex-wrap gap-2 mb-6">
+                                ${article.tags.map(tag => `
+                                    <span class="px-2 py-1 rounded-md bg-[#2d2d2d] border border-gray-700 text-gray-400 text-[11px] font-medium">
+                                        ${tag}
+                                    </span>
+                                `).join('')}
+                            </div>
+
+                            <!-- Author & Time -->
+                            <div class="flex items-center justify-between text-xs text-gray-500 mb-4 pb-4 border-b border-gray-800">
+                                <div class="flex items-center gap-2">
+                                    <i data-lucide="user" class="h-3 w-3 text-accent"></i>
+                                    <span class="font-medium text-gray-400">${article.author}</span>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <i data-lucide="clock" class="h-3 w-3 text-gray-600"></i>
+                                    <span>${article.readTime}</span>
+                                </div>
+                            </div>
+
+                            <!-- Highlights -->
+                            <div class="space-y-2 mb-6">
+                                ${article.highlights.map(highlight => `
+                                    <div class="flex items-start gap-2 text-sm text-gray-300">
+                                        <i data-lucide="star" class="h-3.5 w-3.5 text-accent fill-accent/20 mt-1 flex-shrink-0"></i>
+                                        <span class="text-xs text-gray-400">${highlight}</span>
+                                    </div>
+                                `).join('')}
+                            </div>
+
+                            <!-- Footer -->
+                            <div class="mt-auto flex items-center justify-between pt-2">
+                                <span class="text-xs text-gray-600 font-medium">${article.date}</span>
+                                <span class="text-accent text-xs font-bold uppercase tracking-wider flex items-center gap-1 group-hover:translate-x-1 transition-transform">
+                                    Read More <i data-lucide="arrow-right" class="h-3 w-3"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            `).join('');
+
+            initLucideIcons();
+        }
+
+        /**
+         * Renders the Certifications section dynamically.
+         */
+        function renderCerts() {
+            const container = document.getElementById('certs-container');
+            if (!container) return;
+
+            container.innerHTML = certData.map(cert => `
+                <div class="card p-6 rounded-xl shadow-lg card-hover transition duration-300 reveal">
+                    <h3 class="text-lg font-bold text-gray-50 mb-2">${cert.title}</h3>
+                    <p class="text-gray-400 text-sm mb-2 flex items-center">
+                        <i data-lucide="award" class="h-4 w-4 inline-block mr-2 icon"></i> ${cert.issuer}
+                    </p>
+                    <p class="text-gray-400 text-sm mb-3 flex items-center">
+                        <i data-lucide="calendar" class="h-4 w-4 inline-block mr-2 icon"></i> ${cert.date}
+                    </p>
+                    ${cert.id ? `<p class="text-gray-400 text-xs mb-3 flex items-center">
+                        <i data-lucide="hash" class="h-4 w-4 inline-block mr-2 icon"></i> Credential ID: ${cert.id}
+                    </p>` : ''}
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        ${cert.skills.map(skill => `<span class="project-tag px-3 py-1 text-xs rounded-full font-medium">${skill}</span>`).join('')}
+                    </div>
+                    <a href="https://www.linkedin.com/in/mdabusaeid/details/certifications/" target="_blank"
+                        class="mt-auto inline-flex items-center justify-center px-4 py-2 border border-accent text-accent rounded-md text-sm font-medium hover:bg-accent hover:text-white transition duration-300">
+                        Show Credential <i data-lucide="external-link" class="h-4 w-4 ml-2 icon"></i>
+                    </a>
+                </div>
+            `).join('');
+
+            initLucideIcons();
+        }
+
+        /**
+         * Filters articles based on category.
+         */
+        function filterArticles(category) {
+            // Update active button state
+            const buttons = document.querySelectorAll('.article-filter-btn');
+            buttons.forEach(btn => {
+                // Check if the button text matches the category (handling 'All Posts' vs 'all')
+                const btnText = btn.textContent.trim();
+                const isMatch = (category === 'all' && btnText === 'All Posts') || (btnText === category);
+
+                if (isMatch) {
+                    btn.classList.add('active', 'bg-accent', 'text-white', 'shadow-lg', 'shadow-accent/25');
+                    btn.classList.remove('bg-gray-800', 'text-gray-400', 'border', 'border-gray-700');
+                } else {
+                    btn.classList.remove('active', 'bg-accent', 'text-white', 'shadow-lg', 'shadow-accent/25');
+                    btn.classList.add('bg-gray-800', 'text-gray-400', 'border', 'border-gray-700');
+                }
+            });
+
+            renderArticles(category);
+        }
+
+        /**
+         * Handles the client-side filtering logic for project cards.
+         */
+        function initProjectFiltering() {
+            const filterButtons = document.querySelectorAll('.project-filter-btn');
+            const projectCards = document.getElementById('project-cards-container').children;
+
+            filterButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    // Update active button state
+                    filterButtons.forEach(btn => {
+                        btn.classList.remove('active', 'bg-accent', 'text-white');
+                        btn.classList.add('bg-gray-700');
+                    });
+                    button.classList.add('active', 'bg-accent', 'text-white');
+                    button.classList.remove('bg-gray-700');
+
+
+                    const filterTag = button.getAttribute('data-filter');
+
+                    Array.from(projectCards).forEach(card => {
+                        const tags = card.getAttribute('data-tags');
+                        if (filterTag === 'All' || tags.includes(filterTag)) {
+                            card.style.display = 'block';
+                            setTimeout(() => card.classList.add('visible'), 10); // Re-trigger reveal effect for filtered items
+                        } else {
+                            card.style.display = 'none';
+                            card.classList.remove('visible');
+                        }
+                    });
+                });
+            });
+
+            // Initial active state for 'All'
+            document.querySelector('[data-filter="All"]').click();
+        }
+
+        /**
+         * Handles the Modal opening and content injection.
+         */
+        function initModal() {
+            const modal = document.getElementById('project-modal');
+            const modalBody = document.getElementById('modal-body');
+            const closeModalBtn = document.getElementById('close-modal');
+
+            // Event listener for opening modal
+            document.getElementById('project-cards-container').addEventListener('click', (e) => {
+                const target = e.target.closest('.view-details-btn');
+                if (!target) return;
+
+                const projectId = parseInt(target.getAttribute('data-id'));
+                const project = projectData.find(p => p.id === projectId);
+
+                if (project) {
+                    activeModalProject = project;
+                    modalBody.innerHTML = generateModalContent(project);
+                    initLucideIcons(); // Render icons in the modal
+
+                    modal.classList.remove('hidden');
+                    // Add class for smooth fade-in effect
+                    setTimeout(() => {
+                        modal.style.opacity = '1';
+                        document.getElementById('modal-content').style.transform = 'scale(1)';
+                    }, 10);
+                    document.body.style.overflow = 'hidden'; // Prevent background scroll
+                }
+            });
+
+            // Event listener for closing modal
+            closeModalBtn.addEventListener('click', () => {
+                closeModal();
+            });
+
+            // Close modal on outside click (if applicable) or ESC key
+            modal.addEventListener('click', (e) => {
+                if (e.target.id === 'project-modal') {
+                    closeModal();
+                }
+            });
+
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
+                    closeModal();
+                }
+            });
+
+            function closeModal() {
+                modal.style.opacity = '0';
+                document.getElementById('modal-content').style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    modal.classList.add('hidden');
+                    document.body.style.overflow = 'auto';
+                    activeModalProject = null;
+                }, 300); // Wait for transition
+            }
+        }
+
+        /**
+         * Generates the HTML content for the project modal.
+         * @param {Object} project - The project data.
+         */
+        function generateModalContent(project) {
+            return `
+                <h2 id="modal-title" class="text-3xl font-extrabold text-accent mb-2">${project.title}</h2>
+                <p class="text-gray-400 text-lg mb-6">${project.short_desc}</p>
+
+                <div class="flex flex-wrap gap-2 mb-8">
+                    ${project.tags.map(tag => `<span class="project-tag px-3 py-1 text-sm rounded-full font-medium">${tag}</span>`).join('')}
+                </div>
+
+                <div class="space-y-6">
+                    <div>
+                        <h3 class="text-xl font-semibold mb-2 flex items-center"><i data-lucide="alert-triangle" class="h-5 w-5 mr-2 icon"></i> The Problem</h3>
+                        <p class="text-gray-300">${project.details.problem}</p>
+                    </div>
+
+                    <div>
+                        <h3 class="text-xl font-semibold mb-2 flex items-center"><i data-lucide="zap" class="h-5 w-5 mr-2 icon"></i> Approach & Implementation</h3>
+                        <p class="text-gray-300">${project.details.approach}</p>
+                    </div>
+
+                    <div>
+                        <h3 class="text-xl font-semibold mb-2 flex items-center"><i data-lucide="tool" class="h-5 w-5 mr-2 icon"></i> Core Tools & Stack</h3>
+                        <div class="flex flex-wrap gap-3 mt-3">
+                            ${project.details.tools.map(tool => `<span class="bg-gray-700 p-2 rounded-lg text-sm font-medium">${tool}</span>`).join('')}
+                        </div>
+                    </div>
+
+                    <div>
+                        <h3 class="text-xl font-semibold mb-2 flex items-center"><i data-lucide="trending-up" class="h-5 w-5 mr-2 icon"></i> Outcome & Key Metrics</h3>
+                        <p class="text-gray-300">${project.details.outcome}</p>
+                    </div>
+                </div>
+                <div class="mt-8 pt-6 border-t border-gray-700">
+                    <a href="#contact" onclick="document.getElementById('close-modal').click()" class="text-accent font-medium hover:underline flex items-center">
+                        Discuss this project in detail <i data-lucide="chevron-right" class="h-4 w-4 ml-1 icon"></i>
+                    </a>
+                </div>
+            `;
+        }
+
+        /**
+         * Initializes the Mobile Menu Toggle.
+         */
+        function initNavToggle() {
+            const menuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+
+            if (menuButton && mobileMenu) {
+                menuButton.addEventListener('click', () => {
+                    mobileMenu.classList.toggle('hidden');
+                    const menuIcon = menuButton.querySelector('i');
+                    if (mobileMenu.classList.contains('hidden')) {
+                        menuIcon.setAttribute('data-lucide', 'menu');
+                    } else {
+                        menuIcon.setAttribute('data-lucide', 'x');
+                    }
+                    initLucideIcons(); // Update icon
+                });
+            }
+
+            // Global function to close the menu on link click
+            window.closeMobileMenu = () => {
+                if (!mobileMenu.classList.contains('hidden')) {
+                    mobileMenu.classList.add('hidden');
+                    document.getElementById('mobile-menu-button').querySelector('i').setAttribute('data-lucide', 'menu');
+                    initLucideIcons();
+                }
+            };
+        }
+
+        /**
+         * Filter Experience Section - Toggle between Current Role and Previous Experience
+         */
+        window.filterExperience = (type) => {
+            const currentRoleSection = document.getElementById('current-role-section');
+            const previousExperienceSection = document.getElementById('previous-experience-section');
+            const currentRoleBtn = document.getElementById('current-role-btn');
+            const previousExperienceBtn = document.getElementById('previous-experience-btn');
+
+            if (type === 'current') {
+                // Show Current Role, Hide Previous Experience
+                currentRoleSection.style.display = 'block';
+                previousExperienceSection.style.display = 'none';
+
+                // Update button styles
+                currentRoleBtn.classList.remove('bg-gray-700', 'text-gray-300', 'hover:bg-gray-600');
+                currentRoleBtn.classList.add('bg-accent', 'text-white');
+                previousExperienceBtn.classList.remove('bg-accent', 'text-white');
+                previousExperienceBtn.classList.add('bg-gray-700', 'text-gray-300', 'hover:bg-gray-600');
+            } else {
+                // Show Previous Experience, Hide Current Role
+                currentRoleSection.style.display = 'none';
+                previousExperienceSection.style.display = 'block';
+
+                // Update button styles
+                previousExperienceBtn.classList.remove('bg-gray-700', 'text-gray-300', 'hover:bg-gray-600');
+                previousExperienceBtn.classList.add('bg-accent', 'text-white');
+                currentRoleBtn.classList.remove('bg-accent', 'text-white');
+                currentRoleBtn.classList.add('bg-gray-700', 'text-gray-300', 'hover:bg-gray-600');
+            }
+
+            // Re-initialize Lucide icons if needed
+            if (typeof lucide !== 'undefined') {
+                lucide.createIcons();
+            }
+        };
+
+
+        /**
+         * Implements the Scroll Reveal (fade-up) animation using Intersection Observer.
+         */
+        function initScrollReveal() {
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.1
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.reveal').forEach(el => {
+                observer.observe(el);
+            });
+        }
+    </script>
+</body>
+
+</html>
