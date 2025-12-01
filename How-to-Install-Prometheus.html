@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How to Install and Run Prometheus as a systemd Service on Linux (Mint/Ubuntu) | SecureOps</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap"
+        rel="stylesheet">
+
+    <style>
+        :root {
+            --color-bg: #020617;
+            /* slate-950 */
+            --color-card: #0f172a;
+            /* slate-900 */
+            --color-border: #1e293b;
+            /* slate-800 */
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--color-bg);
+            color: #e2e8f0;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #0f172a;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #475569;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-fade-in {
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+
+        .glass-nav {
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(30, 41, 59, 0.5);
+        }
+
+        /* Code Block Styles */
+        pre {
+            background-color: #1e293b;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            overflow-x: auto;
+            margin-bottom: 1.5rem;
+            border: 1px solid #334155;
+        }
+
+        code {
+            font-family: 'Fira Code', monospace;
+            color: #e2e8f0;
+        }
+    </style>
+</head>
+
+<body class="antialiased selection:bg-orange-500/30 selection:text-orange-200">
+
+    <!-- Navigation -->
+    <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 bg-transparent">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo -->
+                <div class="flex items-center space-x-3">
+                    <div
+                        class="w-10 h-10 bg-gradient-to-br from-orange-500 to-red-600 rounded-xl flex items-center justify-center shadow-lg shadow-orange-900/20">
+                        <i data-lucide="flame" class="w-6 h-6 text-white"></i>
+                    </div>
+                    <div class="flex flex-col leading-none">
+                        <span class="text-lg font-bold text-white">SecureOps</span>
+                        <span class="text-xs text-orange-400 tracking-wider font-mono">BLOG</span>
+                    </div>
+                </div>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex space-x-8 items-center">
+                    <a href="index.html"
+                        class="text-sm font-medium text-slate-300 hover:text-white transition-colors">Home</a>
+                    <a href="#content"
+                        class="text-sm font-medium text-slate-300 hover:text-white transition-colors">Article</a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button class="md:hidden text-slate-300 hover:text-white" onclick="toggleMobileMenu()">
+                    <i data-lucide="menu" class="w-6 h-6"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header id="overview" class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden">
+        <!-- Background Effects -->
+        <div class="absolute inset-0 pointer-events-none">
+            <div class="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-orange-500/10 rounded-full blur-[100px]">
+            </div>
+            <div class="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-red-500/10 rounded-full blur-[100px]">
+            </div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 relative z-10 text-center">
+            <div
+                class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-800/50 border border-slate-700 text-xs font-medium text-orange-400 mb-8 animate-fade-in">
+                <span class="w-2 h-2 rounded-full bg-orange-500 animate-pulse"></span>
+                Updated: December 2025
+            </div>
+
+            <h1 class="text-4xl md:text-6xl font-extrabold text-white mb-6 leading-tight tracking-tight animate-fade-in"
+                style="animation-delay: 0.1s;">
+                How to Install and Run Prometheus as a <br />
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-red-500">systemd
+                    Service</span>
+            </h1>
+
+            <p class="text-lg md:text-xl text-slate-400 max-w-2xl mx-auto mb-10 animate-fade-in"
+                style="animation-delay: 0.2s;">
+                A complete, step-by-step guide to setting up Prometheus on Linux Mint or Ubuntu for production-ready
+                monitoring.
+            </p>
+
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4 animate-fade-in"
+                style="animation-delay: 0.3s;">
+                <a href="#content"
+                    class="px-8 py-4 bg-orange-600 hover:bg-orange-500 text-white rounded-xl font-bold transition-all shadow-lg shadow-orange-500/25 flex items-center gap-2">
+                    Start Installation <i data-lucide="arrow-down" class="w-5 h-5"></i>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <section id="content" class="py-24 bg-slate-950 relative">
+        <div class="max-w-4xl mx-auto px-4">
+
+            <!-- Intro -->
+            <div class="mb-12">
+                <h2 class="text-3xl font-bold text-white mb-6">🚀 What You’ll Achieve</h2>
+                <div class="bg-slate-900/50 border border-slate-800 rounded-xl p-6">
+                    <p class="text-slate-300 mb-4">By the end of this guide, you will have:</p>
+                    <ul class="space-y-2">
+                        <li class="flex items-center gap-3 text-slate-400">
+                            <i data-lucide="check-circle-2" class="w-5 h-5 text-orange-500"></i>
+                            Prometheus installed as a dedicated user
+                        </li>
+                        <li class="flex items-center gap-3 text-slate-400">
+                            <i data-lucide="check-circle-2" class="w-5 h-5 text-orange-500"></i>
+                            A robust systemd service for auto-restart
+                        </li>
+                        <li class="flex items-center gap-3 text-slate-400">
+                            <i data-lucide="check-circle-2" class="w-5 h-5 text-orange-500"></i>
+                            A foundation for monitoring your entire infrastructure
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Prerequisites -->
+            <div class="mb-12">
+                <h2 class="text-2xl font-bold text-white mb-4 flex items-center gap-2">
+                    <span class="text-2xl">🧰</span> Prerequisites
+                </h2>
+                <ul class="list-disc list-inside space-y-2 text-slate-400 ml-4">
+                    <li>A Linux machine (Ubuntu, Mint, Debian, etc.)</li>
+                    <li>Sudo privileges</li>
+                    <li>Internet access to download binaries</li>
+                </ul>
+            </div>
+
+            <!-- Step 1 -->
+            <div class="mb-12">
+                <h2 class="text-2xl font-bold text-white mb-4">1. Create a Dedicated User</h2>
+                <p class="text-slate-400 mb-4">Security first! We'll create a system user named <code>prometheus</code>
+                    with no login access.</p>
+                <pre><code class="language-bash">sudo useradd --no-create-home --shell /bin/false prometheus</code></pre>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="mb-12">
+                <h2 class="text-2xl font-bold text-white mb-4">2. Create Directories</h2>
+                <p class="text-slate-400 mb-4">Set up the standard directory structure for configuration and data.</p>
+                <pre><code class="language-bash">sudo mkdir /etc/prometheus
+sudo mkdir /var/lib/prometheus</code></pre>
+                <p class="text-slate-400 mb-4">Set ownership so the user can access them:</p>
+                <pre><code class="language-bash">sudo chown prometheus:prometheus /etc/prometheus
+sudo chown prometheus:prometheus /var/lib/prometheus</code></pre>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="mb-12">
+                <h2 class="text-2xl font-bold text-white mb-4">3. Download Prometheus</h2>
+                <p class="text-slate-400 mb-4">Download the latest release (check <a
+                        href="https://prometheus.io/download/" target="_blank"
+                        class="text-orange-400 hover:underline">prometheus.io</a> for newer versions):</p>
+                <pre><code class="language-bash">cd /tmp
+wget https://github.com/prometheus/prometheus/releases/download/v2.49.1/prometheus-2.49.1.linux-amd64.tar.gz</code></pre>
+
+                <p class="text-slate-400 mb-4">Extract it:</p>
+                <pre><code class="language-bash">tar -xvf prometheus-2.49.1.linux-amd64.tar.gz
+cd prometheus-2.49.1.linux-amd64</code></pre>
+            </div>
+
+            <!-- Step 4 -->
+            <div class="mb-12">
+                <h2 class="text-2xl font-bold text-white mb-4">4. Move Binaries and Config</h2>
+                <p class="text-slate-400 mb-4">Move the binaries to <code>/usr/local/bin</code>:</p>
+                <pre><code class="language-bash">sudo cp prometheus /usr/local/bin/
+sudo cp promtool /usr/local/bin/</code></pre>
+
+                <p class="text-slate-400 mb-4">Set ownership:</p>
+                <pre><code class="language-bash">sudo chown prometheus:prometheus /usr/local/bin/prometheus
+sudo chown prometheus:prometheus /usr/local/bin/promtool</code></pre>
+
+                <p class="text-slate-400 mb-4">Move the console libraries and default config:</p>
+                <pre><code class="language-bash">sudo cp -r consoles /etc/prometheus
+sudo cp -r console_libraries /etc/prometheus
+sudo cp prometheus.yml /etc/prometheus/</code></pre>
+
+                <p class="text-slate-400 mb-4">Set ownership for config files:</p>
+                <pre><code class="language-bash">sudo chown -R prometheus:prometheus /etc/prometheus/</code></pre>
+            </div>
+
+            <!-- Step 5 -->
+            <div class="mb-12">
+                <h2 class="text-2xl font-bold text-white mb-4">5. Create Systemd Service</h2>
+                <p class="text-slate-400 mb-4">Create the service file at
+                    <code>/etc/systemd/system/prometheus.service</code>:</p>
+                <pre><code class="language-ini">[Unit]
+Description=Prometheus
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+User=prometheus
+Group=prometheus
+Type=simple
+ExecStart=/usr/local/bin/prometheus \
+    --config.file /etc/prometheus/prometheus.yml \
+    --storage.tsdb.path /var/lib/prometheus/ \
+    --web.console.templates=/etc/prometheus/consoles \
+    --web.console.libraries=/etc/prometheus/console_libraries
+
+[Install]
+WantedBy=multi-user.target</code></pre>
+            </div>
+
+            <!-- Step 6 -->
+            <div class="mb-12">
+                <h2 class="text-2xl font-bold text-white mb-4">6. Start and Enable</h2>
+                <p class="text-slate-400 mb-4">Reload systemd to recognize the new service:</p>
+                <pre><code class="language-bash">sudo systemctl daemon-reload</code></pre>
+
+                <p class="text-slate-400 mb-4">Start Prometheus:</p>
+                <pre><code class="language-bash">sudo systemctl start prometheus</code></pre>
+
+                <p class="text-slate-400 mb-4">Enable it to start on boot:</p>
+                <pre><code class="language-bash">sudo systemctl enable prometheus</code></pre>
+            </div>
+
+            <!-- Step 7 -->
+            <div class="mb-12">
+                <h2 class="text-2xl font-bold text-white mb-4">7. Verify Installation</h2>
+                <p class="text-slate-400 mb-4">Check the status:</p>
+                <pre><code class="language-bash">sudo systemctl status prometheus</code></pre>
+                <p class="text-slate-400 mb-4">You should see <code>Active: active (running)</code>.</p>
+
+                <p class="text-slate-400 mb-4">Access the web interface:</p>
+                <div class="bg-slate-900 p-4 rounded-lg border border-slate-800">
+                    <p class="text-orange-400 font-mono">http://localhost:9090</p>
+                </div>
+            </div>
+
+            <!-- Conclusion -->
+            <div class="mb-12 bg-orange-500/10 border border-orange-500/20 rounded-xl p-8">
+                <h2 class="text-2xl font-bold text-white mb-4">🎉 Done!</h2>
+                <p class="text-slate-300 mb-4">You now have a production-ready Prometheus instance running as a systemd
+                    service.</p>
+                <ul class="space-y-2 text-slate-400">
+                    <li class="flex items-center gap-2">
+                        <i data-lucide="check" class="w-4 h-4 text-orange-500"></i>
+                        Auto-starts on boot
+                    </li>
+                    <li class="flex items-center gap-2">
+                        <i data-lucide="check" class="w-4 h-4 text-orange-500"></i>
+                        Runs as a secure, non-root user
+                    </li>
+                    <li class="flex items-center gap-2">
+                        <i data-lucide="check" class="w-4 h-4 text-orange-500"></i>
+                        Ready to scrape metrics
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Cheat Sheet -->
+            <div class="mb-12">
+                <h2 class="text-2xl font-bold text-white mb-4">🔁 TL;DR Cheat-Sheet</h2>
+                <pre><code class="language-bash"># 1. User & Dirs
+sudo useradd --no-create-home --shell /bin/false prometheus
+sudo mkdir /etc/prometheus /var/lib/prometheus
+sudo chown prometheus:prometheus /etc/prometheus /var/lib/prometheus
+
+# 2. Install
+# (Download & Extract first)
+sudo cp prometheus promtool /usr/local/bin/
+sudo cp -r consoles console_libraries prometheus.yml /etc/prometheus/
+sudo chown -R prometheus:prometheus /etc/prometheus /usr/local/bin/prometheus /usr/local/bin/promtool
+
+# 3. Service
+# (Create /etc/systemd/system/prometheus.service)
+sudo systemctl daemon-reload
+sudo systemctl enable --now prometheus</code></pre>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-12 bg-slate-950 border-t border-slate-900">
+        <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-6">
+            <div>
+                <h3 class="font-bold text-white text-lg">Abu Saeid</h3>
+                <p class="text-slate-500 text-sm">Security Engineer & Architect</p>
+            </div>
+            <div class="flex gap-4">
+                <a href="mailto:contact.abusaeid598@gmail.com"
+                    class="p-2 rounded-full bg-slate-900 text-slate-400 hover:text-white hover:bg-slate-800 transition-all">
+                    <i data-lucide="mail" class="w-5 h-5"></i>
+                </a>
+                <a href="#"
+                    class="p-2 rounded-full bg-slate-900 text-slate-400 hover:text-white hover:bg-slate-800 transition-all">
+                    <i data-lucide="linkedin" class="w-5 h-5"></i>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Logic -->
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // Mobile Menu Toggle
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+
+        // Navbar Scroll Effect
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                nav.classList.add('glass-nav');
+            } else {
+                nav.classList.remove('glass-nav');
+            }
+        });
+
+
+    </script>
+</body>
+
+</html>
