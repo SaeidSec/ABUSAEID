@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional Certifications - Abu Saeid</title>
+    <meta name="description" content="Professional cybersecurity certifications and training completed by Abu Saeid">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+
+    <style>
+        :root {
+            --color-bg: #0f0f23;
+            --color-text-main: #f0f0f0;
+            --color-accent: #0588A7;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--color-bg);
+            color: var(--color-text-main);
+            cursor: none;
+        }
+
+        /* Custom cursor */
+        .custom-cursor {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: rgba(5, 136, 167, 0.8);
+            pointer-events: none;
+            z-index: 9999;
+            transition: transform 0.15s ease-out, background 0.2s ease;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 0 20px rgba(5, 136, 167, 0.6);
+        }
+
+        .custom-cursor.hover {
+            transform: translate(-50%, -50%) scale(1.5);
+            background: rgba(5, 136, 167, 1);
+            box-shadow: 0 0 30px rgba(5, 136, 167, 0.9);
+        }
+
+        .cursor-ring {
+            position: fixed;
+            width: 40px;
+            height: 40px;
+            border: 2px solid rgba(5, 136, 167, 0.4);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9997;
+            transition: all 0.3s ease;
+            transform: translate(-50%, -50%);
+        }
+
+        .cursor-ring.hover {
+            width: 60px;
+            height: 60px;
+            border-color: rgba(5, 136, 167, 0.6);
+        }
+
+        @media (hover: none) and (pointer: coarse) {
+            body {
+                cursor: auto;
+            }
+
+            .custom-cursor,
+            .cursor-ring {
+                display: none;
+            }
+        }
+
+        .card {
+            background: linear-gradient(135deg, rgba(15, 15, 35, 0.9) 0%, rgba(20, 20, 40, 0.8) 100%);
+            border: 1px solid rgba(5, 136, 167, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            border-color: rgba(5, 136, 167, 0.5);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(5, 136, 167, 0.2);
+        }
+
+        .project-tag {
+            background: rgba(5, 136, 167, 0.15);
+            color: #0588A7;
+            border: 1px solid rgba(5, 136, 167, 0.3);
+        }
+
+        /* Scroll reveal animation */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+
+<body class="dark min-h-screen">
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 right-0 z-50 backdrop-blur-xl bg-[#0f0f23]/90 border-b border-cyan-500/20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <a href="index.html"
+                    class="text-xl font-bold text-cyan-400 hover:text-cyan-300 transition duration-300">
+                    ← Back to Portfolio
+                </a>
+                <h1 class="text-lg font-semibold text-gray-300">Professional Certifications</h1>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="pt-24 pb-16 px-4">
+        <div class="max-w-7xl mx-auto">
+            <!-- Header -->
+            <div class="text-center mb-12 reveal">
+                <h2 class="text-4xl md:text-5xl font-bold text-gray-100 mb-4">
+                    <i data-lucide="award" class="h-12 w-12 inline-block text-accent mr-3"></i>
+                    Professional Certifications
+                </h2>
+                <p class="text-gray-400 text-lg max-w-3xl mx-auto">
+                    A comprehensive collection of cybersecurity certifications and specialized training programs
+                    demonstrating expertise across SOC operations, threat hunting, offensive security, and security
+                    engineering.
+                </p>
+                <div class="mt-6 flex items-center justify-center gap-4 text-sm text-gray-500">
+                    <span class="flex items-center gap-2">
+                        <i data-lucide="graduation-cap" class="h-4 w-4"></i>
+                        <span id="cert-count">0</span> Certifications
+                    </span>
+                    <span class="flex items-center gap-2">
+                        <i data-lucide="calendar" class="h-4 w-4"></i>
+                        2021 - 2025
+                    </span>
+                </div>
+            </div>
+
+            <!-- Certifications Grid -->
+            <div id="certs-container" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Certs will be injected by JS -->
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="py-8 border-t border-gray-800">
+        <div class="max-w-7xl mx-auto px-4 text-center text-gray-500 text-sm">
+            <p>&copy; 2025 Abu Saeid. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Certification Data
+        const certData = [
+            {
+                title: "Official OPNsense Introduction Course",
+                issuer: "OPNsense",
+                date: "Nov 2025",
+                id: "cert_jm714fl3",
+                skills: ["Networking"],
+            },
+            {
+                title: "Introduction to Graylog Dashboards",
+                issuer: "Graylog, Inc.",
+                date: "Nov 2025",
+                id: "691bdd52315b83e0480c2362",
+                skills: ["Security Logging", "Monitoring"],
+            },
+            {
+                title: "Linux Privilege Escalation for Beginners",
+                issuer: "TCM Security",
+                date: "Oct 2025",
+                id: "cert_t8f2ycwg",
+                skills: ["Linux", "Offensive Security"],
+            },
+            {
+                title: "Offensive Hacking Unfolded - The Beginner's Edition",
+                issuer: "Pentest Library",
+                date: "Oct 2025",
+                id: null,
+                skills: ["Offensive Security"],
+            },
+            {
+                title: "Practical Ethical Hacking - The Complete Course",
+                issuer: "TCM Security",
+                date: "Oct 2025",
+                id: "cert_99xyh3mt",
+                skills: ["Networking", "Linux", "Python", "Reconnaissance", "Scanning", "Nessus", "Burp Suite"],
+            },
+            {
+                title: "SQL Injections Unlocked - SQLi Web Attacks",
+                issuer: "Pentest Library",
+                date: "Oct 2025",
+                id: null,
+                skills: ["SQL", "Offensive Security"],
+            },
+            {
+                title: "Windows Privilege Escalation for Beginners",
+                issuer: "TCM Security",
+                date: "Oct 2025",
+                id: "cert_1ywft5tw",
+                skills: ["Offensive Security"],
+            },
+            {
+                title: "BLUE TEAM JUNIOR ANALYST",
+                issuer: "Security Blue Team",
+                date: "Sep 2025",
+                id: "805804751",
+                skills: ["OSINT", "Threat Hunting", "Digital Forensics", "Wireshark", "SOC Fundamentals"],
+            },
+            {
+                title: "3-Day Wireshark Challenge",
+                issuer: "HAX Security",
+                date: "Aug 2025",
+                id: "1347",
+                skills: ["Wireshark", "Packet Analysis", "TCP"],
+            },
+            {
+                title: "Certified Governance Risk and Compliance Analyst (CGRCA)",
+                issuer: "Hack & Fix",
+                date: "Aug 2025",
+                id: "2752-3505-4975-5296",
+                skills: ["GRC", "Risk Management", "Compliance"],
+            },
+            {
+                title: "Certified Phishing Prevention Specialist (CPPS)",
+                issuer: "Hack & Fix",
+                date: "Aug 2025",
+                id: "1988-3849-3942-2141",
+                skills: ["Phishing", "Phishing Analysis"],
+            },
+            {
+                title: "Fundamentals of Dark Web Training",
+                issuer: "SOCRadar",
+                date: "Aug 2025",
+                id: "c45603f5-7cdb...",
+                skills: ["Dark Web", "Monitoring"],
+            },
+            {
+                title: "Mastering Cyber Threat Intelligence for SOC Analysts",
+                issuer: "SOCRadar",
+                date: "Aug 2025",
+                id: "bc5a899b-1ae9...",
+                skills: ["SOC", "CTI", "Incident Response"],
+            },
+            {
+                title: "Purple Teaming Fundaments",
+                issuer: "CyberWarFare Labs",
+                date: "Aug 2025",
+                id: "0f4d6aa6",
+                skills: ["Purple Teaming", "Blue Teaming"],
+            },
+            {
+                title: "3-Days Wazuh SIEM Challenge",
+                issuer: "HAX Security",
+                date: "Jul 2025",
+                id: "1063",
+                skills: ["Wazuh", "SIEM", "Suricata", "BlueTeam"],
+            },
+            {
+                title: "Supply Chain Detection and Response (SCDR)",
+                issuer: "SecurityScorecard",
+                date: "Jul 2025",
+                id: "aZ8SKv-y6w",
+                skills: ["Threat Detection", "Incident Response"],
+            },
+            {
+                title: "Student SOC Program Foundations",
+                issuer: "Microsoft",
+                date: "May 2025",
+                id: null,
+                skills: ["SOC Foundations", "Threat Hunting", "Microsoft Security"],
+            },
+            {
+                title: "SOC Member",
+                issuer: "LetsDefend",
+                date: "Oct 2024",
+                id: null,
+                skills: ["SOC"],
+            },
+            {
+                title: "Mastering Directory Traversal",
+                issuer: "Udemy",
+                date: "Oct 2023",
+                id: "UC-d49e8a93...",
+                skills: ["Web Security", "Burp Suite"],
+            },
+            {
+                title: "Introduction to Cyber Security Learning Path",
+                issuer: "TryHackMe",
+                date: "Feb 2023",
+                id: "THM-UWXMZB4FS3",
+                skills: ["Defensive Security", "Linux"],
+            }
+        ];
+
+        // Initialize Lucide Icons
+        function initLucideIcons() {
+            if (typeof lucide !== 'undefined') {
+                lucide.createIcons();
+            }
+        }
+
+        // Render Certifications
+        function renderCerts() {
+            const container = document.getElementById('certs-container');
+            if (!container) return;
+
+            container.innerHTML = certData.map(cert => `
+                <div class="card p-6 rounded-xl shadow-lg transition duration-300 reveal">
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-gray-50 mb-2">${cert.title}</h3>
+                    <p class="text-gray-600 dark:text-gray-400 text-sm mb-2 flex items-center">
+                        <i data-lucide="award" class="h-4 w-4 inline-block mr-2 icon"></i> ${cert.issuer}
+                    </p>
+                    <p class="text-gray-600 dark:text-gray-400 text-sm mb-3 flex items-center">
+                        <i data-lucide="calendar" class="h-4 w-4 inline-block mr-2 icon"></i> ${cert.date}
+                    </p>
+                    ${cert.id ? `<p class="text-gray-500 dark:text-gray-400 text-xs mb-3 flex items-center">
+                        <i data-lucide="hash" class="h-4 w-4 inline-block mr-2 icon"></i> Credential ID: ${cert.id}
+                    </p>` : ''}
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        ${cert.skills.map(skill => `<span class="project-tag px-3 py-1 text-xs rounded-full font-medium">${skill}</span>`).join('')}
+                    </div>
+                    <a href="https://www.linkedin.com/in/mdabusaeid/details/certifications/" target="_blank"
+                        class="mt-auto inline-flex items-center justify-center px-4 py-2 border border-accent text-accent rounded-md text-sm font-medium hover:bg-accent hover:text-white transition duration-300">
+                        Show Credential <i data-lucide="external-link" class="h-4 w-4 ml-2 icon"></i>
+                    </a>
+                </div>
+            `).join('');
+
+            // Update count
+            document.getElementById('cert-count').textContent = certData.length;
+
+            initLucideIcons();
+            initScrollReveal();
+        }
+
+        // Scroll Reveal
+        function initScrollReveal() {
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.1
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.reveal').forEach(el => {
+                observer.observe(el);
+            });
+        }
+
+        // Custom Cursor
+        (function () {
+            if (window.matchMedia("(hover: none)").matches) return;
+
+            const cursor = document.createElement('div');
+            cursor.className = 'custom-cursor';
+            document.body.appendChild(cursor);
+
+            const cursorRing = document.createElement('div');
+            cursorRing.className = 'cursor-ring';
+            document.body.appendChild(cursorRing);
+
+            let mouseX = 0, mouseY = 0;
+            let cursorX = 0, cursorY = 0;
+            let ringX = 0, ringY = 0;
+
+            document.addEventListener('mousemove', (e) => {
+                mouseX = e.clientX;
+                mouseY = e.clientY;
+            });
+
+            function animateCursor() {
+                cursorX += (mouseX - cursorX) * 0.2;
+                cursorY += (mouseY - cursorY) * 0.2;
+                ringX += (mouseX - ringX) * 0.15;
+                ringY += (mouseY - ringY) * 0.15;
+
+                cursor.style.left = cursorX + 'px';
+                cursor.style.top = cursorY + 'px';
+                cursorRing.style.left = ringX + 'px';
+                cursorRing.style.top = ringY + 'px';
+
+                requestAnimationFrame(animateCursor);
+            }
+            animateCursor();
+
+            const interactiveElements = 'a, button, .card';
+
+            document.addEventListener('mouseover', (e) => {
+                if (e.target.closest(interactiveElements)) {
+                    cursor.classList.add('hover');
+                    cursorRing.classList.add('hover');
+                }
+            });
+
+            document.addEventListener('mouseout', (e) => {
+                if (e.target.closest(interactiveElements)) {
+                    cursor.classList.remove('hover');
+                    cursorRing.classList.remove('hover');
+                }
+            });
+        })();
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            initLucideIcons();
+            renderCerts();
+        });
+    </script>
+</body>
+
+</html>
