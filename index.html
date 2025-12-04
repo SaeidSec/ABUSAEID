@@ -36,397 +36,289 @@
         -----------------------------------------------------
         */
         :root {
-            --color-accent: #0588A7;
-            /* Primary Blue/Cyan */
-            --color-bg: #121212;
+            /* Light Mode Variables (Default) */
+            --color-bg: #f3f4f6;
+            --color-bg-card: #ffffff;
+            --color-text-main: #1f2937;
+            --color-text-muted: #6b7280;
+            --color-border: #e5e7eb;
+            --color-accent: #0891b2;
+            /* Cyan-600 */
+            --color-accent-hover: #06b6d4;
+            /* Cyan-500 */
+        }
+
+        /* Dark Mode Variables */
+        .dark {
+            --color-bg: #0f0f23;
             --color-bg-card: #1e1e1e;
             --color-text-main: #f0f0f0;
             --color-text-muted: #9ca3af;
             --color-border: #2d2d2d;
+            --color-accent: #0588A7;
+            --color-accent-hover: #06b6d4;
         }
 
         /* Base Styling & Font (Modern Professional Theme) */
         body {
             font-family: 'Inter', sans-serif;
-            background: #0f0f23;
+            background-color: var(--color-bg);
             color: var(--color-text-main);
-            transition: background-color 0.5s, color 0.5s;
+            transition: background-color 0.3s ease, color 0.3s ease;
             position: relative;
             overflow-x: hidden;
         }
 
-        /* Layer 1: Vibrant Gradient Mesh Background */
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -5;
-            background:
-                radial-gradient(circle at 20% 20%, rgba(5, 136, 167, 0.25) 0%, transparent 40%),
-                radial-gradient(circle at 80% 80%, rgba(139, 92, 246, 0.2) 0%, transparent 40%),
-                radial-gradient(circle at 40% 60%, rgba(0, 255, 157, 0.15) 0%, transparent 35%),
-                radial-gradient(circle at 70% 30%, rgba(255, 107, 107, 0.12) 0%, transparent 35%),
-                linear-gradient(135deg, #0f0f23 0%, #1a1a3e 50%, #0f0f23 100%);
-            animation: gradientShift 15s ease-in-out infinite;
-        }
-
-        @keyframes gradientShift {
-
-            0%,
-            100% {
-                opacity: 1;
-                transform: scale(1);
-            }
-
-            50% {
-                opacity: 0.9;
-                transform: scale(1.05);
-            }
-        }
-
-        /* Layer 2: Visible Grid Pattern with Glow */
-        body::after {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -4;
-            background-image:
-                linear-gradient(rgba(5, 136, 167, 0.08) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(5, 136, 167, 0.08) 1px, transparent 1px);
-            background-size: 60px 60px;
-            opacity: 1;
-        }
-
-        /* Animated Geometric Shapes */
-        .geometric-shapes {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -3;
-            pointer-events: none;
+        /* Modern Button Styles with Animations */
+        button,
+        .btn,
+        a.btn,
+        input[type="submit"],
+        input[type="button"] {
+            position: relative;
             overflow: hidden;
+            transition: all 0.3s ease;
         }
 
-        .shape {
+        button:not(.custom-cursor):hover,
+        .btn:hover,
+        a.btn:hover,
+        input[type="submit"]:hover,
+        input[type="button"]:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(5, 136, 167, 0.3);
+        }
+
+        button:not(.custom-cursor):active,
+        .btn:active,
+        a.btn:active,
+        input[type="submit"]:active,
+        input[type="button"]:active {
+            transform: translateY(0);
+        }
+
+        /* Ripple effect */
+        button:not(.custom-cursor)::before,
+        .btn::before,
+        a.btn::before,
+        input[type="submit"]::before,
+        input[type="button"]::before {
+            content: '';
             position: absolute;
-            border: 2px solid rgba(5, 136, 167, 0.2);
-            border-radius: 20% 80% 60% 40% / 70% 30% 70% 30%;
-            animation: floatShape 20s ease-in-out infinite;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
         }
 
-        .shape:nth-child(1) {
+        button:not(.custom-cursor):hover::before,
+        .btn:hover::before,
+        a.btn:hover::before,
+        input[type="submit"]:hover::before,
+        input[type="button"]:hover::before {
             width: 300px;
             height: 300px;
-            top: 10%;
-            left: 5%;
-            background: radial-gradient(circle, rgba(5, 136, 167, 0.1) 0%, transparent 70%);
-            animation-delay: 0s;
         }
 
-        .shape:nth-child(2) {
-            width: 400px;
-            height: 400px;
-            top: 50%;
-            right: 10%;
-            background: radial-gradient(circle, rgba(139, 92, 246, 0.08) 0%, transparent 70%);
-            animation-delay: -5s;
-            border-color: rgba(139, 92, 246, 0.2);
+        /* Accent button glow */
+        .bg-accent,
+        button.bg-accent,
+        a.bg-accent {
+            box-shadow: 0 0 20px rgba(5, 136, 167, 0.4);
         }
 
-        .shape:nth-child(3) {
-            width: 250px;
-            height: 250px;
-            bottom: 15%;
-            left: 40%;
-            background: radial-gradient(circle, rgba(0, 255, 157, 0.08) 0%, transparent 70%);
-            animation-delay: -10s;
-            border-color: rgba(0, 255, 157, 0.2);
+        .bg-accent:hover,
+        button.bg-accent:hover,
+        a.bg-accent:hover {
+            box-shadow: 0 0 30px rgba(5, 136, 167, 0.6), 0 10px 25px rgba(5, 136, 167, 0.3);
         }
 
-        @keyframes floatShape {
-
-            0%,
-            100% {
-                transform: translate(0, 0) rotate(0deg);
-            }
-
-            33% {
-                transform: translate(30px, -30px) rotate(120deg);
-            }
-
-            66% {
-                transform: translate(-20px, 20px) rotate(240deg);
-            }
+        /* Border button animation */
+        .border-accent {
+            background: linear-gradient(90deg, transparent 50%, rgba(5, 136, 167, 0.1) 50%);
+            background-size: 200% 100%;
+            background-position: 0 0;
+            transition: background-position 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
         }
 
-        /* Glowing Orbs */
-        .glow-orbs {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -3;
-            pointer-events: none;
+        .border-accent:hover {
+            background-position: -100% 0;
         }
 
-        .orb {
+        /* Glassmorphism 3D Card Container */
+        .glass-container {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            padding: 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .glass-card {
+            position: relative;
+            width: 180px;
+            height: 200px;
+            background: linear-gradient(rgba(255, 255, 255, 0.1), transparent);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 25px 25px rgba(0, 0, 0, 0.25);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: 0.5s;
+            border-radius: 10px;
+            margin: 0 -45px;
+            backdrop-filter: blur(10px);
+            transform: rotate(calc(var(--r) * 1deg));
+        }
+
+        .glass-container:hover .glass-card {
+            transform: rotate(0deg);
+            margin: 0 10px;
+        }
+
+        .glass-card::before {
+            content: attr(data-text);
             position: absolute;
-            border-radius: 50%;
-            filter: blur(60px);
-            animation: orbFloat 12s ease-in-out infinite;
-        }
-
-        .orb:nth-child(1) {
-            width: 400px;
-            height: 400px;
-            background: rgba(5, 136, 167, 0.15);
-            top: -10%;
-            left: -10%;
-            animation-delay: 0s;
-        }
-
-        .orb:nth-child(2) {
-            width: 500px;
-            height: 500px;
-            background: rgba(139, 92, 246, 0.12);
-            bottom: -15%;
-            right: -15%;
-            animation-delay: -4s;
-        }
-
-        .orb:nth-child(3) {
-            width: 350px;
-            height: 350px;
-            background: rgba(0, 255, 157, 0.1);
-            top: 40%;
-            left: 50%;
-            animation-delay: -8s;
-        }
-
-        @keyframes orbFloat {
-
-            0%,
-            100% {
-                transform: translate(0, 0) scale(1);
-            }
-
-            50% {
-                transform: translate(50px, 50px) scale(1.1);
-            }
-        }
-
-        /* Enhanced Scanning Line - More Visible */
-        .cyber-scan {
-            position: fixed;
-            top: 0;
-            left: 0;
+            bottom: 0;
             width: 100%;
-            height: 3px;
-            background: linear-gradient(90deg,
-                    transparent 0%,
-                    rgba(5, 136, 167, 0) 20%,
-                    rgba(5, 136, 167, 0.9) 50%,
-                    rgba(5, 136, 167, 0) 80%,
-                    transparent 100%);
-            box-shadow:
-                0 0 30px rgba(5, 136, 167, 0.8),
-                0 0 60px rgba(5, 136, 167, 0.5);
-            z-index: 1;
-            animation: scan 8s ease-in-out infinite;
-            pointer-events: none;
-        }
-
-        @keyframes scan {
-            0% {
-                top: -5%;
-                opacity: 0;
-            }
-
-            10% {
-                opacity: 1;
-            }
-
-            90% {
-                opacity: 1;
-            }
-
-            100% {
-                top: 105%;
-                opacity: 0;
-            }
-        }
-
-        /* Removed vertical scan for cleaner look */
-        .cyber-scan-vertical {
-            display: none;
-        }
-
-        /* Removed glitch effect for professionalism */
-        .cyber-glitch {
-            display: none;
-        }
-
-        /* Enhanced Visible Particles */
-        .cyber-particles {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 0;
-            pointer-events: none;
-        }
-
-        .particle {
-            position: absolute;
-            color: rgba(5, 136, 167, 0.6);
-            font-family: 'Courier New', monospace;
-            font-size: 13px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.05);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+            font-size: 12px;
             font-weight: 600;
-            text-shadow: 0 0 15px rgba(5, 136, 167, 0.8);
-            animation: floatClean 16s linear infinite;
+            border-radius: 0 0 10px 10px;
         }
 
-        .particle.warning {
-            color: rgba(255, 193, 7, 0.6);
-            text-shadow: 0 0 15px rgba(255, 193, 7, 0.8);
+        .glass-card svg,
+        .glass-card i {
+            font-size: 2.5em;
+            fill: #fff;
+            color: #0588A7;
         }
 
-        .particle.danger {
-            color: rgba(244, 67, 54, 0.6);
-            text-shadow: 0 0 15px rgba(244, 67, 54, 0.8);
-        }
-
-        .particle.success {
-            color: rgba(0, 255, 157, 0.6);
-            text-shadow: 0 0 15px rgba(0, 255, 157, 0.8);
-        }
-
-        @keyframes floatClean {
-            0% {
-                transform: translateY(100vh) translateX(0);
-                opacity: 0;
-            }
-
-            10% {
-                opacity: 1;
-            }
-
-            90% {
-                opacity: 1;
-            }
-
-            100% {
-                transform: translateY(-10vh) translateX(40px);
-                opacity: 0;
-            }
-        }
-
-        /* Stylish Corner Indicators - More Visible */
-        .threat-indicator {
-            position: fixed;
-            width: 50px;
-            height: 50px;
-            border: 2px solid rgba(5, 136, 167, 0.6);
-            z-index: 1;
-            pointer-events: none;
-            animation: cornerPulse 2.5s ease-in-out infinite;
-        }
-
-        .threat-indicator.top-left {
-            top: 25px;
-            left: 25px;
-            border-right: none;
-            border-bottom: none;
-        }
-
-        .threat-indicator.top-right {
-            top: 25px;
-            right: 25px;
-            border-left: none;
-            border-bottom: none;
-        }
-
-        .threat-indicator.bottom-left {
-            bottom: 25px;
-            left: 25px;
-            border-right: none;
-            border-top: none;
-        }
-
-        .threat-indicator.bottom-right {
-            bottom: 25px;
-            right: 25px;
-            border-left: none;
-            border-top: none;
-        }
-
-        @keyframes cornerPulse {
-
-            0%,
-            100% {
-                opacity: 0.5;
-                box-shadow: 0 0 15px rgba(5, 136, 167, 0.4);
-            }
-
-            50% {
-                opacity: 1;
-                box-shadow: 0 0 30px rgba(5, 136, 167, 0.8);
-            }
-        }
-
-        /* Visible Matrix Rain */
-        .matrix-rain {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 0;
-            pointer-events: none;
-            overflow: hidden;
-            opacity: 0.25;
-        }
-
-        .matrix-column {
+        .glass-card .level-badge {
             position: absolute;
-            top: -100%;
-            font-family: 'Courier New', monospace;
-            font-size: 14px;
-            color: rgba(5, 136, 167, 0.7);
-            text-shadow: 0 0 10px rgba(5, 136, 167, 0.6);
-            white-space: nowrap;
-            animation: matrixFall linear infinite;
+            top: 10px;
+            right: 10px;
+            font-size: 9px;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
-        @keyframes matrixFall {
-            0% {
-                top: -100%;
-                opacity: 0;
+        /* Tablet responsiveness */
+        @media (max-width: 1024px) {
+            .glass-card {
+                width: 160px;
+                height: 180px;
+                margin: 0 -35px;
             }
 
-            10% {
-                opacity: 1;
+            .glass-container:hover .glass-card {
+                margin: 0 8px;
             }
 
-            90% {
-                opacity: 1;
-            }
-
-            100% {
-                top: 100%;
-                opacity: 0;
+            .glass-card svg,
+            .glass-card i {
+                font-size: 2em;
             }
         }
+
+        /* Mobile responsiveness */
+        @media (max-width: 768px) {
+            .glass-container {
+                gap: 10px;
+                padding: 10px;
+            }
+
+            .glass-card {
+                width: 120px;
+                height: 140px;
+                margin: 0 -20px;
+            }
+
+            .glass-container:hover .glass-card {
+                margin: 0 5px;
+            }
+
+            .glass-card svg,
+            .glass-card i {
+                font-size: 1.8em;
+            }
+
+            .glass-card::before {
+                height: 35px;
+                font-size: 10px;
+            }
+
+            .glass-card .level-badge {
+                font-size: 8px;
+                padding: 3px 6px;
+            }
+        }
+
+        /* Small mobile devices */
+        @media (max-width: 480px) {
+            .glass-container {
+                gap: 8px;
+                padding: 5px;
+            }
+
+            .glass-card {
+                width: 100px;
+                height: 120px;
+                margin: 0 -15px;
+            }
+
+            .glass-container:hover .glass-card {
+                margin: 0 3px;
+            }
+
+            .glass-card svg,
+            .glass-card i {
+                font-size: 1.5em;
+            }
+
+            .glass-card::before {
+                height: 30px;
+                font-size: 9px;
+            }
+
+            .glass-card .level-badge {
+                font-size: 7px;
+                padding: 2px 5px;
+                top: 5px;
+                right: 5px;
+            }
+        }
+
+        /* Touch device optimization - disable hover overlap on mobile */
+        @media (hover: none) and (pointer: coarse) {
+            .glass-card {
+                margin: 0 5px !important;
+                transform: rotate(0deg) !important;
+            }
+
+            .glass-container:hover .glass-card {
+                margin: 0 5px !important;
+            }
+        }
+
+        /* Cleaned up background animations */
 
         .card {
             background-color: var(--color-bg-card);
@@ -543,36 +435,221 @@
                 transition: opacity 0.2s ease !important;
             }
         }
+
+        /* Preloader Styles */
+        #preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #0f0f23;
+            /* Matches body background */
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.5s ease-out, visibility 0.5s ease-out;
+        }
+
+        /* From Uiverse.io by alexruix */
+        .loader {
+            width: 80px;
+            height: 50px;
+            position: relative;
+        }
+
+        .loader-text {
+            position: absolute;
+            top: 0;
+            padding: 0;
+            margin: 0;
+            color: #C8B6FF;
+            animation: text_713 3.5s ease both infinite;
+            font-size: .8rem;
+            letter-spacing: 1px;
+        }
+
+        .load {
+            background-color: #9A79FF;
+            border-radius: 50px;
+            display: block;
+            height: 16px;
+            width: 16px;
+            bottom: 0;
+            position: absolute;
+            transform: translateX(64px);
+            animation: loading_713 3.5s ease both infinite;
+        }
+
+        .load::before {
+            position: absolute;
+            content: "";
+            width: 100%;
+            height: 100%;
+            background-color: #D1C2FF;
+            border-radius: inherit;
+            animation: loading2_713 3.5s ease both infinite;
+        }
+
+        @keyframes text_713 {
+            0% {
+                letter-spacing: 1px;
+                transform: translateX(0px);
+            }
+
+            40% {
+                letter-spacing: 2px;
+                transform: translateX(26px);
+            }
+
+            80% {
+                letter-spacing: 1px;
+                transform: translateX(32px);
+            }
+
+            90% {
+                letter-spacing: 2px;
+                transform: translateX(0px);
+            }
+
+            100% {
+                letter-spacing: 1px;
+                transform: translateX(0px);
+            }
+        }
+
+        @keyframes loading_713 {
+            0% {
+                width: 16px;
+                transform: translateX(0px);
+            }
+
+            40% {
+                width: 100%;
+                transform: translateX(0px);
+            }
+
+            80% {
+                width: 16px;
+                transform: translateX(64px);
+            }
+
+            90% {
+                width: 100%;
+                transform: translateX(0px);
+            }
+
+            100% {
+                width: 16px;
+                transform: translateX(0px);
+            }
+        }
+
+        @keyframes loading2_713 {
+            0% {
+                transform: translateX(0px);
+                width: 16px;
+            }
+
+            40% {
+                transform: translateX(0%);
+                width: 80%;
+            }
+
+            80% {
+                width: 100%;
+                transform: translateX(0px);
+            }
+
+            90% {
+                width: 80%;
+                transform: translateX(15px);
+            }
+
+            100% {
+                transform: translateX(0px);
+                width: 16px;
+            }
+        }
+
+        /* Certification Section Loader */
+        .cert-loader-anim {
+            position: relative;
+            width: 120px;
+            height: 90px;
+            margin: 0 auto;
+        }
+
+        .cert-loader-anim:before {
+            content: "";
+            position: absolute;
+            bottom: 30px;
+            left: 50px;
+            height: 30px;
+            width: 30px;
+            border-radius: 50%;
+            background: #2a9d8f;
+            animation: loading-bounce 0.5s ease-in-out infinite alternate;
+        }
+
+        .cert-loader-anim:after {
+            content: "";
+            position: absolute;
+            right: 0;
+            top: 0;
+            height: 7px;
+            width: 45px;
+            border-radius: 4px;
+            box-shadow: 0 5px 0 #f2f2f2, -35px 50px 0 #f2f2f2, -70px 95px 0 #f2f2f2;
+            animation: loading-step 1s ease-in-out infinite;
+        }
+
+        @keyframes loading-bounce {
+            0% {
+                transform: scale(1, 0.7);
+            }
+
+            40% {
+                transform: scale(0.8, 1.2);
+            }
+
+            60% {
+                transform: scale(1, 1);
+            }
+
+            100% {
+                bottom: 140px;
+            }
+        }
+
+        @keyframes loading-step {
+            0% {
+                box-shadow: 0 10px 0 rgba(0, 0, 0, 0),
+                    0 10px 0 #f2f2f2,
+                    -35px 50px 0 #f2f2f2,
+                    -70px 90px 0 #f2f2f2;
+            }
+
+            100% {
+                box-shadow: 0 10px 0 #f2f2f2,
+                    -35px 50px 0 #f2f2f2,
+                    -70px 90px 0 #f2f2f2,
+                    -70px 90px 0 rgba(0, 0, 0, 0);
+            }
+        }
     </style>
 </head>
 
 <body class="dark min-h-screen">
-    <!-- Cybersecurity Background Effects - Multi-Layer -->
-    <div class="cyber-scan"></div>
-    <div class="cyber-scan-vertical"></div>
-    <div class="cyber-glitch"></div>
-    <div class="cyber-particles" id="particles"></div>
-    <div class="matrix-rain" id="matrix-rain"></div>
-
-    <!-- Geometric Shapes -->
-    <div class="geometric-shapes">
-        <div class="shape"></div>
-        <div class="shape"></div>
-        <div class="shape"></div>
+    <!-- Preloader -->
+    <div id="preloader">
+        <div class="loader">
+            <span class="loader-text">loading</span>
+            <span class="load"></span>
+        </div>
     </div>
-
-    <!-- Glowing Orbs -->
-    <div class="glow-orbs">
-        <div class="orb"></div>
-        <div class="orb"></div>
-        <div class="orb"></div>
-    </div>
-
-    <!-- Threat Indicators - Corner Brackets -->
-    <div class="threat-indicator top-left"></div>
-    <div class="threat-indicator top-right"></div>
-    <div class="threat-indicator bottom-left"></div>
-    <div class="threat-indicator bottom-right"></div>
+    <!-- Background animations removed -->
 
     <!-- JSON-LD Structured Data for Person Profile -->
     <script type="application/ld+json">
@@ -627,7 +704,8 @@
                         <span
                             class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-cyan-400 to-blue-500 group-hover:w-full transition-all duration-300"></span>
                     </a>
-                    <a href="#contact" class="text-gray-300 hover:text-cyan-400 transition duration-300 relative group">
+                    <a href="#contact"
+                        class="text-gray-500 dark:text-gray-300 hover:text-cyan-600 dark:hover:text-cyan-400 transition duration-300 relative group">
                         Contact
                         <span
                             class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-cyan-400 to-blue-500 group-hover:w-full transition-all duration-300"></span>
@@ -744,17 +822,18 @@
                         </div>
                     </div><!-- Right Side: Content -->
                     <div class="text-center md:text-left order-2 md:order-2">
-                        <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold mb-4 tracking-tighter">
+                        <h1
+                            class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold mb-4 tracking-tighter text-gray-900 dark:text-white">
                             Abu Saeid
                         </h1>
-                        <p class="text-xl sm:text-2xl md:text-2xl font-light text-gray-300 mb-6">
+                        <p class="text-xl sm:text-2xl md:text-2xl font-light text-gray-600 dark:text-gray-300 mb-6">
                             SOC Analyst | Incident Responder | SIEM Specialist ( Wazuh, Elastic Search , IBM QRadar ,
                             Splunk ) |
                             Threat Hunter | Digital Forensics & Malware Analysis | VAPT & OWASP Top 10 | AI SOC
                             Automation |
                             Writer | Photographer |
                         </p>
-                        <p class="text-base md:text-lg text-gray-400 mb-8">
+                        <p class="text-base md:text-lg text-gray-500 dark:text-gray-400 mb-8">
                             Pioneering **Proactive Defense** through **Threat Hunting**, **Automated Triage**, and
                             **ML-driven
                             Anomaly Detection** in critical SOC environments.
@@ -796,7 +875,7 @@
 
         <!-- 2. About Section -->
         <section id="about" class="py-16 md:py-24 reveal">
-            <h2 class="text-3xl font-bold mb-12 text-center text-gray-100">About Me</h2>
+            <h2 class="text-3xl font-bold mb-12 text-center text-gray-900 dark:text-gray-100">About Me</h2>
             <div class="max-w-6xl mx-auto">
                 <!-- Responsive Grid: Photo on left, content on right -->
                 <div class="grid md:grid-cols-2 gap-12 items-center">
@@ -978,10 +1057,10 @@
             </div>
         </section>
 
-        <!-- 4. Tools & Stack: Responsive Grid -->
+        <!-- 4. Tools & Stack: Glassmorphism 3D Cards -->
         <section id="tools" class="py-16 md:py-24 reveal">
             <h2 class="text-3xl font-bold mb-12 text-center text-gray-100">Tools & Stack Proficiency</h2>
-            <div id="tools-container" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-6">
+            <div id="tools-container" class="glass-container">
                 <!-- Tools will be dynamically rendered here by JS -->
             </div>
         </section>
@@ -1078,7 +1157,7 @@
                     Current Role
                 </button>
                 <button id="previous-experience-btn" onclick="filterExperience('previous')"
-                    class="experience-filter-btn px-6 py-3 rounded-xl font-semibold transition duration-300 bg-gray-700 text-gray-300 hover:bg-gray-600">
+                    class="experience-filter-btn px-6 py-3 rounded-xl font-semibold transition duration-300 bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600">
                     Previous Experience
                 </button>
             </div>
@@ -1272,40 +1351,46 @@
 
         <!-- 8. Certifications & Education: Responsive Grid -->
         <section id="certs" class="py-16 md:py-24 reveal">
-            <h2 class="text-3xl font-bold mb-12 text-center text-gray-100">Certifications & Education</h2>
+            <h2 class="text-3xl font-bold mb-12 text-center text-gray-900 dark:text-gray-100">Certifications & Education
+            </h2>
 
             <!-- Education First -->
             <div class="max-w-4xl mx-auto mb-16">
                 <div class="card p-8 rounded-xl border-l-4 border-accent">
-                    <h3 class="text-2xl font-bold text-gray-100 mb-4 flex items-center">
+                    <h3 class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-4 flex items-center">
                         <i data-lucide="graduation-cap" class="h-8 w-8 mr-3 text-accent"></i> Education
                     </h3>
                     <div class="flex flex-col md:flex-row justify-between items-start md:items-center">
                         <div>
-                            <h4 class="text-xl font-bold text-white">B.Sc. Computer Science & Engineering</h4>
-                            <p class="text-gray-400 text-lg mt-1">Green University of Bangladesh</p>
+                            <h4 class="text-xl font-bold text-gray-800 dark:text-white">B.Sc. Computer Science &
+                                Engineering</h4>
+                            <p class="text-gray-600 dark:text-gray-400 text-lg mt-1">Green University of Bangladesh</p>
                         </div>
                         <span
-                            class="mt-2 md:mt-0 px-4 py-2 bg-gray-800 rounded-full text-sm text-accent font-mono border border-gray-700">2021
+                            class="mt-2 md:mt-0 px-4 py-2 bg-gray-200 dark:bg-gray-800 rounded-full text-sm text-accent font-mono border border-gray-300 dark:border-gray-700">2021
                             - 2025</span>
                     </div>
                 </div>
             </div>
 
             <!-- Certifications Grid -->
-            <h3 class="text-2xl font-bold text-center text-gray-100 mb-8 flex items-center justify-center">
+            <h3
+                class="text-2xl font-bold text-center text-gray-900 dark:text-gray-100 mb-8 flex items-center justify-center">
                 <i data-lucide="award" class="h-6 w-6 mr-2 text-accent"></i> Professional Certifications
             </h3>
-            <div id="certs-container" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto px-4">
+            <div id="cert-loader" class="hidden py-12">
+                <div class="cert-loader-anim"></div>
+            </div>
+            <div id="certs-container" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto px-4 hidden">
                 <!-- Certs injected by JS -->
             </div>
         </section>
 
         <!-- 9. Contact: Responsive Grid -->
         <section id="contact" class="py-16 md:py-24 reveal">
-            <h2 class="text-3xl font-bold mb-12 text-center text-gray-100">Get In Touch</h2>
+            <h2 class="text-3xl font-bold mb-12 text-center text-gray-900 dark:text-gray-100">Get In Touch</h2>
             <div class="max-w-3xl mx-auto card p-6 md:p-10 rounded-xl">
-                <p class="mb-8 text-gray-300 text-lg text-center">
+                <p class="mb-8 text-gray-600 dark:text-gray-300 text-lg text-center">
                     I am actively seeking roles focused on advanced threat detection, automation engineering, and
                     security research. Let's discuss a project or collaboration.
                 </p>
@@ -1326,15 +1411,15 @@
                 <!-- Formspree Contact Form -->
                 <form action="https://formspree.io/f/mjklqnbw" method="POST" class="space-y-4">
                     <input type="text" name="name" placeholder="Your Name"
-                        class="w-full p-3 rounded-lg border border-gray-700 bg-gray-900 focus:ring-accent focus:border-accent transition duration-300"
+                        class="w-full p-3 rounded-lg border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-white focus:ring-accent focus:border-accent transition duration-300"
                         required>
                     <input type="email" name="email" placeholder="Your Email"
-                        class="w-full p-3 rounded-lg border border-gray-700 bg-gray-900 focus:ring-accent focus:border-accent transition duration-300"
+                        class="w-full p-3 rounded-lg border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-white focus:ring-accent focus:border-accent transition duration-300"
                         required>
                     <input type="text" name="role_company" placeholder="Your Role / Company"
-                        class="w-full p-3 rounded-lg border border-gray-700 bg-gray-900 focus:ring-accent focus:border-accent transition duration-300">
+                        class="w-full p-3 rounded-lg border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-white focus:ring-accent focus:border-accent transition duration-300">
                     <textarea name="message" placeholder="Your Message" rows="4"
-                        class="w-full p-3 rounded-lg border border-gray-700 bg-gray-900 focus:ring-accent focus:border-accent transition duration-300"
+                        class="w-full p-3 rounded-lg border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-white focus:ring-accent focus:border-accent transition duration-300"
                         required></textarea>
                     <button type="submit"
                         class="w-full bg-accent text-white py-3 rounded-xl font-semibold hover:bg-opacity-90 transition duration-300 flex items-center justify-center">
@@ -1799,8 +1884,6 @@
             // 1. Initial Setup
             initLucideIcons();
             initNavToggle();
-            initCyberParticles();
-            initMatrixRain();
 
             // 2. Dynamic Content Rendering
             renderSkills();
@@ -1818,89 +1901,7 @@
             document.querySelectorAll('a[href="RESUME_URL_PLACEHOLDER"]').forEach(el => el.href = RESUME_URL);
         });
 
-        /**
-         * Creates floating cyber particles with code snippets and threat indicators
-         */
-        function initCyberParticles() {
-            if (window.innerWidth < 768) return; // Disable on mobile
-            const particlesContainer = document.getElementById('particles');
-            const particleSymbols = [
-                { text: '0x4A2F', type: 'normal' },
-                { text: '0xFF00', type: 'success' },
-                { text: 'ALERT', type: 'danger' },
-                { text: 'BREACH', type: 'danger' },
-                { text: 'SECURE', type: 'success' },
-                { text: 'SCAN', type: 'warning' },
-                { text: 'THREAT', type: 'danger' },
-                { text: 'BLOCK', type: 'warning' },
-                { text: 'ALLOW', type: 'success' },
-                { text: 'DENY', type: 'danger' },
-                { text: 'SSH:22', type: 'normal' },
-                { text: 'TCP:443', type: 'success' },
-                { text: 'UDP:53', type: 'normal' },
-                { text: 'HTTP', type: 'warning' },
-                { text: 'HTTPS', type: 'success' },
-                { text: 'FTP', type: 'warning' },
-                { text: 'DNS', type: 'normal' },
-                { text: '127.0.0.1', type: 'success' },
-                { text: '192.168', type: 'normal' },
-                { text: '10.0.0', type: 'normal' },
-                { text: 'FIREWALL', type: 'success' },
-                { text: 'IDS', type: 'warning' },
-                { text: 'IPS', type: 'warning' },
-                { text: 'SIEM', type: 'success' },
-                { text: 'SOC', type: 'success' },
-                { text: 'MALWARE', type: 'danger' },
-                { text: 'VIRUS', type: 'danger' },
-                { text: 'EXPLOIT', type: 'danger' },
-                { text: 'PAYLOAD', type: 'danger' },
-                { text: 'ENCRYPTED', type: 'success' },
-                { text: 'HASH', type: 'normal' },
-                { text: 'AUTH', type: 'success' },
-                { text: 'FAIL', type: 'danger' },
-                { text: 'OK', type: 'success' }
-            ];
 
-            // Create 20 particles with different threat levels (reduced for cleaner look)
-            for (let i = 0; i < 20; i++) {
-                const particle = document.createElement('div');
-                const symbol = particleSymbols[Math.floor(Math.random() * particleSymbols.length)];
-                particle.className = `particle ${symbol.type}`;
-                particle.textContent = symbol.text;
-                particle.style.left = Math.random() * 100 + '%';
-                particle.style.animationDelay = Math.random() * 12 + 's';
-                particle.style.animationDuration = (10 + Math.random() * 8) + 's';
-                particlesContainer.appendChild(particle);
-            }
-        }
-
-        /**
-         * Creates Matrix-style falling code rain effect
-         */
-        function initMatrixRain() {
-            if (window.innerWidth < 768) return; // Disable on mobile
-            const matrixContainer = document.getElementById('matrix-rain');
-            const characters = '01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲンABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*(){}[]<>/\\|';
-            const columns = Math.floor(window.innerWidth / 20);
-
-            for (let i = 0; i < columns; i++) {
-                const column = document.createElement('div');
-                column.className = 'matrix-column';
-                column.style.left = (i * 20) + 'px';
-                column.style.animationDuration = (10 + Math.random() * 10) + 's';
-                column.style.animationDelay = Math.random() * 5 + 's';
-
-                // Create random string of characters
-                let text = '';
-                const length = Math.floor(Math.random() * 20) + 10;
-                for (let j = 0; j < length; j++) {
-                    text += characters.charAt(Math.floor(Math.random() * characters.length)) + '\n';
-                }
-                column.textContent = text;
-
-                matrixContainer.appendChild(column);
-            }
-        }
 
         /**
          * Initializes Lucide icons after the DOM is loaded.
@@ -1922,9 +1923,9 @@
                 <div class="card p-6 rounded-xl shadow-lg card-hover transition duration-300 reveal">
                     <div class="flex items-center mb-3">
                         <i data-lucide="${skill.icon}" class="h-6 w-6 text-accent mr-3 icon"></i>
-                        <h3 class="text-xl font-semibold text-gray-50">${skill.title}</h3>
+                        <h3 class="text-xl font-semibold text-gray-900 dark:text-gray-50">${skill.title}</h3>
                     </div>
-                    <ul class="space-y-2 list-none text-gray-300">
+                    <ul class="space-y-2 list-none text-gray-600 dark:text-gray-300">
                         ${skill.points.map(p => `
                             <li class="flex items-start text-sm">
                                 <i data-lucide="check" class="h-4 w-4 text-accent mt-1 mr-2 flex-shrink-0 icon"></i>
@@ -1939,25 +1940,25 @@
         }
 
         /**
-         * Renders the Tools & Stack section dynamically.
+         * Renders the Tools & Stack section dynamically with glassmorphism 3D cards.
          */
         function renderTools() {
             const container = document.getElementById('tools-container');
             if (!container) return;
 
             const levelColors = {
-                "Expert": "bg-green-500/10 text-green-500",
-                "Proficient": "bg-yellow-500/10 text-yellow-500",
-                "Familiar": "bg-blue-500/10 text-blue-500"
+                "Expert": "bg-green-500/10 text-green-500 border border-green-500/30",
+                "Proficient": "bg-yellow-500/10 text-yellow-500 border border-yellow-500/30",
+                "Familiar": "bg-blue-500/10 text-blue-500 border border-blue-500/30"
             };
 
-            container.innerHTML = toolData.map(tool => `
-                <div class="card p-4 rounded-xl text-center shadow-md reveal">
-                    <div class="flex justify-center mb-2">
-                        <i data-lucide="${tool.icon}" class="h-8 w-8 text-accent icon"></i>
-                    </div>
-                    <p class="font-semibold text-sm text-gray-50">${tool.name}</p>
-                    <span class="text-xs font-medium px-2 py-0.5 rounded-full ${levelColors[tool.level]}">${tool.level}</span>
+            // Rotation angles for 3D effect
+            const rotations = [-15, -10, -5, 0, 5, 10, 15, -12, -8, -3, 3, 8, 12];
+
+            container.innerHTML = toolData.map((tool, index) => `
+                <div class="glass-card" data-text="${tool.name}" style="--r:${rotations[index % rotations.length]};">
+                    <i data-lucide="${tool.icon}" class="h-12 w-12 icon"></i>
+                    <span class="level-badge ${levelColors[tool.level]}">${tool.level}</span>
                 </div>
             `).join('');
 
@@ -1979,9 +1980,9 @@
                      data-tags="${project.tags.join(',')}" data-id="${project.id}">
                     <div class="flex items-start mb-4">
                          <i data-lucide="${project.tags.includes('AI/ML') ? 'cpu' : project.tags.includes('PurpleTeam') ? 'swords' : project.tags.includes('SIEM') ? 'database' : 'terminal'}" class="h-6 w-6 text-accent flex-shrink-0 mr-3 icon"></i>
-                        <h3 class="text-xl font-bold text-gray-50" id="project-title-${project.id}">${project.title}</h3>
+                        <h3 class="text-xl font-bold text-gray-900 dark:text-gray-50" id="project-title-${project.id}">${project.title}</h3>
                     </div>
-                    <p class="text-gray-400 text-sm mb-4">${project.short_desc}</p>
+                    <p class="text-gray-600 dark:text-gray-400 text-sm mb-4">${project.short_desc}</p>
                     <div class="flex flex-wrap gap-2 mb-4">
                         ${project.tags.map(tag => `<span class="project-tag px-3 py-1 text-xs rounded-full font-medium">${tag}</span>`).join('')}
                     </div>
@@ -1990,7 +1991,7 @@
                             View Details <i data-lucide="arrow-right" class="h-4 w-4 ml-1 icon"></i>
                         </button>
                         ${project.link ? `
-                        <a href="${project.link}" target="_blank" class="text-green-400 font-medium text-sm hover:underline flex items-center">
+                        <a href="${project.link}" target="_blank" class="text-green-600 dark:text-green-400 font-medium text-sm hover:underline flex items-center">
                             Live Project <i data-lucide="external-link" class="h-4 w-4 ml-1 icon"></i>
                         </a>
                         ` : ''}
@@ -2023,12 +2024,12 @@
 
             container.innerHTML = filteredData.map(article => `
                 <a href="${article.link}" target="_blank" class="block group h-full">
-                    <div class="card rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-800 hover:border-accent/50 h-full flex flex-col relative bg-[#1e1e1e]">
+                    <div class="card rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-200 dark:border-gray-800 hover:border-accent/50 h-full flex flex-col relative bg-white dark:bg-[#1e1e1e]">
                         
                         <!-- Image Container -->
                         <div class="relative h-48 overflow-hidden">
                             <img src="${article.image}" alt="${article.title}" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700">
-                            <div class="absolute inset-0 bg-gradient-to-t from-[#1e1e1e] via-transparent to-transparent opacity-80"></div>
+                            <div class="absolute inset-0 bg-gradient-to-t from-white dark:from-[#1e1e1e] via-transparent to-transparent opacity-80"></div>
                             
                             <!-- Badges -->
                             <div class="absolute top-3 left-3">
@@ -2045,27 +2046,27 @@
 
                         <!-- Content -->
                         <div class="p-6 flex flex-col flex-grow">
-                            <h3 class="text-xl font-bold text-gray-100 mb-3 leading-snug group-hover:text-accent transition-colors">
+                            <h3 class="text-xl font-bold text-gray-900 dark:text-gray-100 mb-3 leading-snug group-hover:text-accent transition-colors">
                                 ${article.title}
                             </h3>
-                            <p class="text-gray-400 text-sm mb-4 line-clamp-3 flex-grow">
+                            <p class="text-gray-600 dark:text-gray-400 text-sm mb-4 line-clamp-3 flex-grow">
                                 ${article.summary}
                             </p>
 
                             <!-- Tags -->
                             <div class="flex flex-wrap gap-2 mb-6">
                                 ${article.tags.map(tag => `
-                                    <span class="px-2 py-1 rounded-md bg-[#2d2d2d] border border-gray-700 text-gray-400 text-[11px] font-medium">
+                                    <span class="px-2 py-1 rounded-md bg-gray-100 dark:bg-[#2d2d2d] border border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-400 text-[11px] font-medium">
                                         ${tag}
                                     </span>
                                 `).join('')}
                             </div>
 
                             <!-- Author & Time -->
-                            <div class="flex items-center justify-between text-xs text-gray-500 mb-4 pb-4 border-b border-gray-800">
+                            <div class="flex items-center justify-between text-xs text-gray-500 mb-4 pb-4 border-b border-gray-200 dark:border-gray-800">
                                 <div class="flex items-center gap-2">
                                     <i data-lucide="user" class="h-3 w-3 text-accent"></i>
-                                    <span class="font-medium text-gray-400">${article.author}</span>
+                                    <span class="font-medium text-gray-500 dark:text-gray-400">${article.author}</span>
                                 </div>
                                 <div class="flex items-center gap-2">
                                     <i data-lucide="clock" class="h-3 w-3 text-gray-600"></i>
@@ -2076,9 +2077,9 @@
                             <!-- Highlights -->
                             <div class="space-y-2 mb-6">
                                 ${article.highlights.map(highlight => `
-                                    <div class="flex items-start gap-2 text-sm text-gray-300">
+                                    <div class="flex items-start gap-2 text-sm text-gray-600 dark:text-gray-300">
                                         <i data-lucide="star" class="h-3.5 w-3.5 text-accent fill-accent/20 mt-1 flex-shrink-0"></i>
-                                        <span class="text-xs text-gray-400">${highlight}</span>
+                                        <span class="text-xs text-gray-500 dark:text-gray-400">${highlight}</span>
                                     </div>
                                 `).join('')}
                             </div>
@@ -2107,14 +2108,14 @@
 
             container.innerHTML = certData.map(cert => `
                 <div class="card p-6 rounded-xl shadow-lg card-hover transition duration-300 reveal">
-                    <h3 class="text-lg font-bold text-gray-50 mb-2">${cert.title}</h3>
-                    <p class="text-gray-400 text-sm mb-2 flex items-center">
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-gray-50 mb-2">${cert.title}</h3>
+                    <p class="text-gray-600 dark:text-gray-400 text-sm mb-2 flex items-center">
                         <i data-lucide="award" class="h-4 w-4 inline-block mr-2 icon"></i> ${cert.issuer}
                     </p>
-                    <p class="text-gray-400 text-sm mb-3 flex items-center">
+                    <p class="text-gray-600 dark:text-gray-400 text-sm mb-3 flex items-center">
                         <i data-lucide="calendar" class="h-4 w-4 inline-block mr-2 icon"></i> ${cert.date}
                     </p>
-                    ${cert.id ? `<p class="text-gray-400 text-xs mb-3 flex items-center">
+                    ${cert.id ? `<p class="text-gray-500 dark:text-gray-400 text-xs mb-3 flex items-center">
                         <i data-lucide="hash" class="h-4 w-4 inline-block mr-2 icon"></i> Credential ID: ${cert.id}
                     </p>` : ''}
                     <div class="flex flex-wrap gap-2 mb-4">
@@ -2143,10 +2144,10 @@
 
                 if (isMatch) {
                     btn.classList.add('active', 'bg-accent', 'text-white', 'shadow-lg', 'shadow-accent/25');
-                    btn.classList.remove('bg-gray-800', 'text-gray-400', 'border', 'border-gray-700');
+                    btn.classList.remove('bg-gray-200', 'dark:bg-gray-800', 'text-gray-600', 'dark:text-gray-400', 'border', 'border-gray-300', 'dark:border-gray-700');
                 } else {
                     btn.classList.remove('active', 'bg-accent', 'text-white', 'shadow-lg', 'shadow-accent/25');
-                    btn.classList.add('bg-gray-800', 'text-gray-400', 'border', 'border-gray-700');
+                    btn.classList.add('bg-gray-200', 'dark:bg-gray-800', 'text-gray-600', 'dark:text-gray-400', 'border', 'border-gray-300', 'dark:border-gray-700');
                 }
             });
 
@@ -2339,20 +2340,20 @@
                 previousExperienceSection.style.display = 'none';
 
                 // Update button styles
-                currentRoleBtn.classList.remove('bg-gray-700', 'text-gray-300', 'hover:bg-gray-600');
+                currentRoleBtn.classList.remove('bg-gray-200', 'dark:bg-gray-700', 'text-gray-600', 'dark:text-gray-300', 'hover:bg-gray-300', 'dark:hover:bg-gray-600');
                 currentRoleBtn.classList.add('bg-accent', 'text-white');
                 previousExperienceBtn.classList.remove('bg-accent', 'text-white');
-                previousExperienceBtn.classList.add('bg-gray-700', 'text-gray-300', 'hover:bg-gray-600');
+                previousExperienceBtn.classList.add('bg-gray-200', 'dark:bg-gray-700', 'text-gray-600', 'dark:text-gray-300', 'hover:bg-gray-300', 'dark:hover:bg-gray-600');
             } else {
                 // Show Previous Experience, Hide Current Role
                 currentRoleSection.style.display = 'none';
                 previousExperienceSection.style.display = 'block';
 
                 // Update button styles
-                previousExperienceBtn.classList.remove('bg-gray-700', 'text-gray-300', 'hover:bg-gray-600');
+                previousExperienceBtn.classList.remove('bg-gray-200', 'dark:bg-gray-700', 'text-gray-600', 'dark:text-gray-300', 'hover:bg-gray-300', 'dark:hover:bg-gray-600');
                 previousExperienceBtn.classList.add('bg-accent', 'text-white');
                 currentRoleBtn.classList.remove('bg-accent', 'text-white');
-                currentRoleBtn.classList.add('bg-gray-700', 'text-gray-300', 'hover:bg-gray-600');
+                currentRoleBtn.classList.add('bg-gray-200', 'dark:bg-gray-700', 'text-gray-600', 'dark:text-gray-300', 'hover:bg-gray-300', 'dark:hover:bg-gray-600');
             }
 
             // Re-initialize Lucide icons if needed
@@ -2530,6 +2531,225 @@
                 chatWindow.classList.remove('scale-100', 'opacity-100', 'translate-y-0');
             }
         }
+    </script>
+    <script>
+        // Preloader Logic
+        window.addEventListener('load', () => {
+            const preloader = document.getElementById('preloader');
+            // Keep loader for at least 1.5 seconds to show animation
+            setTimeout(() => {
+                preloader.style.opacity = '0';
+                preloader.style.visibility = 'hidden';
+                // Remove from DOM after transition
+                setTimeout(() => {
+                    preloader.remove();
+                }, 500);
+            }, 1500);
+        });
+    </script>
+    <script>
+        // Certification Section Scroll Trigger
+        document.addEventListener('DOMContentLoaded', () => {
+            const certSection = document.getElementById('certs');
+            const certLoader = document.getElementById('cert-loader');
+            const certContainer = document.getElementById('certs-container');
+            let certsLoaded = false;
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting && !certsLoaded) {
+                        certsLoaded = true;
+                        // Show loader
+                        certLoader.classList.remove('hidden');
+
+                        // Simulate loading delay
+                        setTimeout(() => {
+                            certLoader.classList.add('hidden');
+                            certContainer.classList.remove('hidden');
+                            // Trigger a fade-in effect for the container
+                            certContainer.classList.add('animate-fade-in-up');
+                        }, 1500);
+
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.2 });
+
+            if (certSection) {
+                observer.observe(certSection);
+            }
+        });
+    </script>
+
+    <!-- Custom Cursor Effect -->
+    <style>
+        /* Hide default cursor */
+        body {
+            cursor: none;
+        }
+
+        /* Custom cursor dot */
+        .custom-cursor {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: rgba(5, 136, 167, 0.8);
+            pointer-events: none;
+            z-index: 9999;
+            transition: transform 0.15s ease-out, background 0.2s ease;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 0 20px rgba(5, 136, 167, 0.6);
+        }
+
+        .custom-cursor.hover {
+            transform: translate(-50%, -50%) scale(1.5);
+            background: rgba(5, 136, 167, 1);
+            box-shadow: 0 0 30px rgba(5, 136, 167, 0.9);
+        }
+
+        /* Cursor trail particles */
+        .cursor-trail {
+            position: fixed;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(5, 136, 167, 0.6);
+            pointer-events: none;
+            z-index: 9998;
+            animation: fadeTrail 0.8s ease-out forwards;
+        }
+
+        @keyframes fadeTrail {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+
+            100% {
+                transform: scale(0);
+                opacity: 0;
+            }
+        }
+
+        /* Cursor ring (outer circle) */
+        .cursor-ring {
+            position: fixed;
+            width: 40px;
+            height: 40px;
+            border: 2px solid rgba(5, 136, 167, 0.4);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9997;
+            transition: all 0.3s ease;
+            transform: translate(-50%, -50%);
+        }
+
+        .cursor-ring.hover {
+            width: 60px;
+            height: 60px;
+            border-color: rgba(5, 136, 167, 0.6);
+        }
+
+        /* Disable custom cursor on touch devices */
+        @media (hover: none) and (pointer: coarse) {
+            body {
+                cursor: auto;
+            }
+
+            .custom-cursor,
+            .cursor-ring,
+            .cursor-trail {
+                display: none;
+            }
+        }
+    </style>
+
+    <script>
+        // Custom Cursor Effect
+        (function () {
+            // Check if device supports hover (not touch device)
+            if (window.matchMedia("(hover: none)").matches) {
+                return; // Exit on touch devices
+            }
+
+            // Create cursor elements
+            const cursor = document.createElement('div');
+            cursor.className = 'custom-cursor';
+            document.body.appendChild(cursor);
+
+            const cursorRing = document.createElement('div');
+            cursorRing.className = 'cursor-ring';
+            document.body.appendChild(cursorRing);
+
+            let mouseX = 0, mouseY = 0;
+            let cursorX = 0, cursorY = 0;
+            let ringX = 0, ringY = 0;
+
+            // Track mouse position
+            document.addEventListener('mousemove', (e) => {
+                mouseX = e.clientX;
+                mouseY = e.clientY;
+
+                // Create trail particle
+                if (Math.random() > 0.7) { // 30% chance to create particle
+                    const trail = document.createElement('div');
+                    trail.className = 'cursor-trail';
+                    trail.style.left = e.clientX + 'px';
+                    trail.style.top = e.clientY + 'px';
+                    trail.style.transform = 'translate(-50%, -50%)';
+                    document.body.appendChild(trail);
+
+                    // Remove trail after animation
+                    setTimeout(() => trail.remove(), 800);
+                }
+            });
+
+            // Smooth cursor animation
+            function animateCursor() {
+                // Smooth follow effect
+                cursorX += (mouseX - cursorX) * 0.2;
+                cursorY += (mouseY - cursorY) * 0.2;
+                ringX += (mouseX - ringX) * 0.15;
+                ringY += (mouseY - ringY) * 0.15;
+
+                cursor.style.left = cursorX + 'px';
+                cursor.style.top = cursorY + 'px';
+                cursorRing.style.left = ringX + 'px';
+                cursorRing.style.top = ringY + 'px';
+
+                requestAnimationFrame(animateCursor);
+            }
+            animateCursor();
+
+            // Hover effect on interactive elements
+            const interactiveElements = 'a, button, input, textarea, select, [role="button"], .card, .project-card, .view-details-btn';
+
+            document.addEventListener('mouseover', (e) => {
+                if (e.target.closest(interactiveElements)) {
+                    cursor.classList.add('hover');
+                    cursorRing.classList.add('hover');
+                }
+            });
+
+            document.addEventListener('mouseout', (e) => {
+                if (e.target.closest(interactiveElements)) {
+                    cursor.classList.remove('hover');
+                    cursorRing.classList.remove('hover');
+                }
+            });
+
+            // Hide cursor when leaving window
+            document.addEventListener('mouseleave', () => {
+                cursor.style.opacity = '0';
+                cursorRing.style.opacity = '0';
+            });
+
+            document.addEventListener('mouseenter', () => {
+                cursor.style.opacity = '1';
+                cursorRing.style.opacity = '1';
+            });
+        })();
     </script>
 </body>
 
