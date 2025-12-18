@@ -1,0 +1,160 @@
+How to Monitor HAProxy with Prometheus and Grafana (100% Working Guide)
+Author: You
+Date: December 2025
+Tested on: Ubuntu 22.04 LTS, HAProxy 2.4.29, Prometheus 2.x, Grafana 10.x
+✅ What You’ll Achieve
+A live Grafana dashboard that shows:
+
+    Frontend/backends UP/DOWN
+    Requests/sec, response times, error rates
+    Per-server health & load — all in real-time.
+
+🧰 Prerequisites
+
+    HAProxy already installed & running
+    Prometheus installed (systemd service)
+    Grafana installed (systemd service)
+    Stats page enabled (http://<ip>:8404/haproxy?stats)
+
+1. Enable HAProxy Stats CSV
+Ensure your haproxy.cfg contains:
+cfg
+Copy
+
+listen stats
+    bind *:8404
+    stats enable
+    stats uri /haproxy?stats
+
+Restart HAProxy:
+bash
+Copy
+
+sudo systemctl restart haproxy
+
+Verify:
+bash
+Copy
+
+curl http://localhost:8404/haproxy?stats;csv
+
+You should see comma-separated values.
+2. Install HAProxy Exporter
+bash
+Copy
+
+# download
+wget https://github.com/prometheus/haproxy_exporter/releases/download/v0.15.0/haproxy_exporter-0.15.0.linux-amd64.tar.gz
+tar -xzf haproxy_exporter-0.15.0.linux-amd64.tar.gz
+sudo mv haproxy_exporter-0.15.0.linux-amd64/haproxy_exporter /usr/local/bin/
+sudo chmod +x /usr/local/bin/haproxy_exporter
+
+3. Run Exporter (Manual Test)
+bash
+Copy
+
+haproxy_exporter --haproxy.scrape-uri="http://localhost:8404/haproxy?stats;csv"
+
+Check metrics:
+bash
+Copy
+
+curl http://localhost:9101/metrics | grep haproxy
+
+4. Create systemd Service
+/etc/systemd/system/haproxy_exporter.service
+ini
+Copy
+
+[Unit]
+Description=HAProxy Exporter
+After=network.target
+
+[Service]
+User=prometheus
+ExecStart=/usr/local/bin/haproxy_exporter \
+  --haproxy.scrape-uri="http://localhost:8404/haproxy?stats;csv"
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
+
+Enable & start:
+bash
+Copy
+
+sudo systemctl daemon-reload
+sudo systemctl enable --now haproxy_exporter
+
+5. Tell Prometheus to Scrape It
+Append to /etc/prometheus/prometheus.yml:
+yaml
+Copy
+
+scrape_configs:
+  - job_name: 'haproxy'
+    static_configs:
+      - targets: ['localhost:9101']
+
+Validate:
+bash
+Copy
+
+promtool check config /etc/prometheus/prometheus.yml
+
+Reload:
+bash
+Copy
+
+sudo systemctl restart prometheus
+
+6. Verify Targets
+bash
+Copy
+
+curl -s http://localhost:9090/api/v1/targets | jq '.data.activeTargets[] | {job: .labels.job, health: .health}'
+
+Both prometheus and haproxy should show "health": "up".
+7. Import Grafana Dashboard
+
+    Open Grafana → http://<ip>:3000
+    Left panel → "+" → Import
+    Enter ID 367 (official HAProxy dashboard)
+    Choose your Prometheus data-source → Import
+
+Within seconds you’ll see:
+Table
+Copy
+Panel	What it shows
+Frontend	Sessions, bytes in/out, request errors
+Backend	UP/DOWN servers, response time, queue length
+Server	Per-server health, weight, checks
+8. Optional Alerts (Example)
+Alert if any backend server goes down:
+promql
+Copy
+
+haproxy_server_up == 0
+
+🎉 Done!
+You now have:
+
+    HAProxy → Exporter → Prometheus → Grafana pipeline
+    Live dashboard with zero dropped metrics
+    A foundation to add Node-exporter, Alertmanager, etc.
+
+🔁 TL;DR Cheat-Sheet
+bash
+Copy
+
+# 1. stats on
+sudo systemctl restart haproxy
+
+# 2. exporter
+sudo systemctl enable --now haproxy_exporter
+
+# 3. prometheus
+sudo systemctl restart prometheus
+
+# 4. grafana
+Import ID 367 → Select Prometheus → Enjoy.

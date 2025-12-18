@@ -830,9 +830,11 @@
                         </div>
                     </div><!-- Right Side: Content -->
                     <div class="text-center md:text-left order-2 md:order-2">
-                        <h1
-                            class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold mb-4 tracking-tighter text-gray-900 dark:text-white">
-                            Abu Saeid
+                        <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold mb-4 tracking-tighter">
+                            Hi, I'm <span
+                                class="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">Abu</span>
+                            <span
+                                class="bg-gradient-to-r from-blue-500 to-purple-600 bg-clip-text text-transparent">Saeid</span>
                         </h1>
                         <p class="text-xl sm:text-2xl md:text-2xl font-light text-gray-600 dark:text-gray-300 mb-6">
                             SOC Analyst | Incident Responder | SIEM Specialist ( Wazuh, Elastic Search , IBM QRadar ,
@@ -848,32 +850,33 @@
                         </p>
 
 
-                        <!-- CTAs: Responsive Layout -->
-                        <div class="flex flex-col gap-4">
-                            <!-- First Row: View Projects & Download Resume -->
-                            <div class="flex flex-col sm:flex-row gap-4">
-                                <a href="#projects"
-                                    class="cta-button bg-accent text-white py-3 px-8 rounded-xl font-semibold hover:bg-opacity-90 transition duration-300 shadow-lg shadow-accent/50 flex items-center justify-center">
-                                    <i data-lucide="scan" class="h-5 w-5 mr-2 icon"></i> View Projects
-                                </a>
-                                <a href="https://drive.google.com/uc?export=download&id=1w0xbniv_xDg1qkcF-r-2CXblbCyUi-ip"
-                                    target="_blank"
-                                    class="cta-button bg-gray-700 text-white py-3 px-8 rounded-xl font-semibold hover:bg-gray-600 transition duration-300 flex items-center justify-center">
-                                    <i data-lucide="download" class="h-5 w-5 mr-2 icon"></i> Download Resume
-                                </a>
-                            </div>
-                            <div class="mt-auto">
-                                <a href="https://www.linkedin.com/in/mdabusaeid/" target="_blank"
-                                    class="w-full py-2 px-4 rounded-lg bg-gray-800 hover:bg-accent hover:text-white text-accent text-sm font-medium transition-all duration-300 flex items-center justify-center gap-2 group">
-                                    <i data-lucide="external-link"
-                                        class="h-4 w-4 group-hover:scale-110 transition-transform"></i> Show Credential
-                                </a>
-                            </div>
-                            <!-- Second Row: Contact -->
-                            <a href="#contact"
-                                class="cta-button bg-gray-700 text-white py-3 px-8 rounded-xl font-semibold hover:bg-gray-600 transition duration-300 flex items-center justify-center">
-                                <i data-lucide="mail" class="h-5 w-5 mr-2 icon"></i> Contact
+                        <!-- CTAs: Reordered and Aligned Single Line -->
+                        <div class="flex flex-wrap gap-4 mt-6">
+
+                            <!-- 1. LinkedIn (Filled Accent) -->
+                            <a href="https://www.linkedin.com/in/mdabusaeid/" target="_blank"
+                                class="cta-button bg-accent text-white py-3 px-6 rounded-xl font-semibold hover:bg-cyan-600 transition duration-300 shadow-lg shadow-accent/50 flex items-center justify-center gap-2">
+                                <i data-lucide="linkedin" class="h-5 w-5 icon"></i> LinkedIn
                             </a>
+
+                            <!-- 2. Projects (Outline) -->
+                            <a href="#projects"
+                                class="cta-button border-2 border-gray-700 text-gray-300 py-3 px-6 rounded-xl font-semibold hover:border-accent hover:text-accent transition duration-300 flex items-center justify-center gap-2 bg-transparent">
+                                <i data-lucide="folder" class="h-5 w-5 icon"></i> Projects
+                            </a>
+
+                            <!-- 3. Resume (Outline - Opens Modal) -->
+                            <button onclick="openResumeModal()"
+                                class="cta-button border-2 border-gray-700 text-gray-300 py-3 px-6 rounded-xl font-semibold hover:border-accent hover:text-accent transition duration-300 flex items-center justify-center gap-2 bg-transparent">
+                                <i data-lucide="file-text" class="h-5 w-5 icon"></i> Resume
+                            </button>
+
+                            <!-- 4. Hire Me / Contact (Outline) -->
+                            <a href="#contact"
+                                class="cta-button border-2 border-gray-700 text-gray-300 py-3 px-6 rounded-xl font-semibold hover:border-accent hover:text-accent transition duration-300 flex items-center justify-center gap-2 bg-transparent">
+                                <i data-lucide="briefcase" class="h-5 w-5 icon"></i> Hire Me
+                            </a>
+
                         </div>
                     </div>
 
@@ -1540,11 +1543,11 @@
 
         // Data for Tools & Stack Section
         const toolData = [
-            { name: "Wazuh", level: "Expert", icon: "server-cog" },
-            { name: "Elastic Stack", level: "Proficient", icon: "bar-chart-3" },
+            { name: "Wazuh", level: "Expert", image: "wazuh-logo.png" },
+            { name: "Elastic Stack", level: "Proficient", image: "elastic-logo.png" },
             { name: "Suricata/Zeek", level: "Proficient", icon: "network" },
-            { name: "Splunk", level: "Familiar", icon: "layers-3" },
-            { name: "OSQuery", level: "Expert", icon: "list-end" },
+            { name: "Splunk", level: "Familiar", image: "splunk-logo.png" },
+            { name: "OSQuery", level: "Expert", image: "osquery-logo.png" },
             { name: "Velociraptor", level: "Proficient", icon: "search-code" },
             { name: "Python", level: "Expert", icon: "python" },
             { name: "Bash/Shell", level: "Expert", icon: "file-text" },
@@ -1952,8 +1955,11 @@
             const rotations = [-15, -10, -5, 0, 5, 10, 15, -12, -8, -3, 3, 8, 12];
 
             container.innerHTML = toolData.map((tool, index) => `
-                <div class="glass-card" data-text="${tool.name}" style="--r:${rotations[index % rotations.length]};">
-                    <i data-lucide="${tool.icon}" class="h-12 w-12 icon"></i>
+                <div class="glass-card flex flex-col justify-center items-center" data-text="${tool.name}" style="--r:${rotations[index % rotations.length]}; overflow: hidden;">
+                    ${tool.image ?
+                    `<img src="${tool.image}" alt="${tool.name}" class="h-20 w-20 object-contain transition-all duration-300 transform group-hover:scale-110">` :
+                    `<i data-lucide="${tool.icon}" class="h-16 w-16 icon text-accent"></i>`
+                }
                     <span class="level-badge ${levelColors[tool.level]}">${tool.level}</span>
                 </div>
             `).join('');
@@ -2746,6 +2752,76 @@
                 cursorRing.style.opacity = '1';
             });
         })();
+    </script>
+    <!-- Resume Viewer Modal -->
+    <div id="resumeModal"
+        class="fixed inset-0 z-[9999] hidden flex items-center justify-center bg-black/80 backdrop-blur-sm opacity-0 transition-opacity duration-300">
+        <!-- Overlay Click to Close -->
+        <div class="absolute inset-0" onclick="closeResumeModal()"></div>
+
+        <!-- Modal Content -->
+        <div
+            class="relative w-full h-full md:w-[90%] md:h-[90%] bg-gray-900 rounded-xl overflow-hidden shadow-2xl flex flex-col transform scale-95 transition-transform duration-300">
+            <!-- Header -->
+            <div class="flex justify-between items-center p-4 bg-gray-800 border-b border-gray-700">
+                <h3 class="text-xl font-bold text-white flex items-center gap-2">
+                    <i data-lucide="file-text" class="h-5 w-5 text-accent"></i> Resume Preview
+                </h3>
+                <div class="flex items-center gap-4">
+                    <a href="https://drive.google.com/uc?export=download&id=1w0xbniv_xDg1qkcF-r-2CXblbCyUi-ip"
+                        class="text-sm text-accent hover:text-white transition-colors flex items-center gap-1">
+                        <i data-lucide="download" class="h-4 w-4"></i> Download
+                    </a>
+                    <button onclick="closeResumeModal()"
+                        class="p-2 rounded-full hover:bg-gray-700 text-gray-400 hover:text-white transition-colors">
+                        <i data-lucide="x" class="h-6 w-6"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- PDF Viewer (Iframe) -->
+            <div class="flex-1 bg-gray-900 relative">
+                <iframe src="https://drive.google.com/file/d/1w0xbniv_xDg1qkcF-r-2CXblbCyUi-ip/preview"
+                    class="absolute inset-0 w-full h-full border-0" allow="autoplay">
+                </iframe>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Resume Modal Logic
+        const resumeModal = document.getElementById('resumeModal');
+        const modalContent = resumeModal.querySelector('div.relative');
+
+        function openResumeModal() {
+            resumeModal.classList.remove('hidden');
+            // Small delay to allow display:block to apply before opacity transition
+            setTimeout(() => {
+                resumeModal.classList.remove('opacity-0');
+                modalContent.classList.remove('scale-95');
+                modalContent.classList.add('scale-100');
+            }, 10);
+            document.body.style.overflow = 'hidden'; // Prevent background scrolling
+        }
+
+        function closeResumeModal() {
+            resumeModal.classList.add('opacity-0');
+            modalContent.classList.remove('scale-100');
+            modalContent.classList.add('scale-95');
+
+            // Wait for transition to finish before hiding
+            setTimeout(() => {
+                resumeModal.classList.add('hidden');
+                document.body.style.overflow = ''; // Restore scrolling
+            }, 300);
+        }
+
+        // Close on Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && !resumeModal.classList.contains('hidden')) {
+                closeResumeModal();
+            }
+        });
     </script>
 </body>
 
