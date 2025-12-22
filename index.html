@@ -1543,18 +1543,22 @@
 
         // Data for Tools & Stack Section
         const toolData = [
-            { name: "Wazuh", level: "Expert", image: "wazuh-logo.png" },
-            { name: "Elastic Stack", level: "Proficient", image: "elastic-logo.png" },
-            { name: "Suricata/Zeek", level: "Proficient", icon: "network" },
-            { name: "Splunk", level: "Familiar", image: "splunk-logo.png" },
-            { name: "OSQuery", level: "Expert", image: "osquery-logo.png" },
-            { name: "Velociraptor", level: "Proficient", icon: "search-code" },
-            { name: "Python", level: "Expert", icon: "python" },
-            { name: "Bash/Shell", level: "Expert", icon: "file-text" },
-            { name: "Docker/Git", level: "Proficient", icon: "box" },
-            { name: "Sigma/YARA", level: "Expert", icon: "file-cog" },
-            { name: "MITRE ATT&CK", level: "Expert", icon: "map" },
-            { name: "Scikit-learn", level: "Proficient", icon: "sparkles" },
+            { name: "Ms Sentinel", level: "Proficient", icon: "shield-alert" },
+            { name: "Wazuh", level: "Expert", image: "Tools-Logo/wazuh-logo.png" },
+            { name: "Elastic Stack", level: "Proficient", image: "Tools-Logo/elastic-logo.png" },
+            { name: "Suricata", level: "Proficient", image: "Tools-Logo/Logo-Suricata-vert-whitetype-R.png" },
+            { name: "Zeek", level: "Proficient", image: "Tools-Logo/zeek-logo-blue-black-rgb-horizontal.png", bg: true },
+            { name: "Splunk", level: "Familiar", image: "Tools-Logo/splunk-logo.png" },
+            { name: "OSQuery", level: "Expert", image: "Tools-Logo/osquery-logo.png" },
+            { name: "Velociraptor", level: "Proficient", image: "Tools-Logo/VeloR7_LightMode.svg" },
+            { name: "Python", level: "Expert", image: "Tools-Logo/python-logo.png" },
+            { name: "Bash", level: "Expert", image: "Tools-Logo/Gnu-bash-logo.svg.png" },
+            { name: "Docker", level: "Proficient", image: "Tools-Logo/what-is-docker.png" },
+            { name: "Git", level: "Proficient", image: "Tools-Logo/git-logo.png" },
+            { name: "Sigma", level: "Expert", image: "Tools-Logo/sigma_logo_light.png", bg: true },
+            { name: "YARA", level: "Expert", image: "Tools-Logo/ls-integration-logo_yara.png" },
+            { name: "MITRE ATT&CK", level: "Expert", image: "Tools-Logo/mitre-attack.png" },
+            { name: "Scikit-learn", level: "Proficient", image: "Tools-Logo/Scikit_learn_logo_small.svg.png" },
         ];
 
         // Data for Projects Section
@@ -1957,7 +1961,7 @@
             container.innerHTML = toolData.map((tool, index) => `
                 <div class="glass-card flex flex-col justify-center items-center" data-text="${tool.name}" style="--r:${rotations[index % rotations.length]}; overflow: hidden;">
                     ${tool.image ?
-                    `<img src="${tool.image}" alt="${tool.name}" class="h-20 w-20 object-contain transition-all duration-300 transform group-hover:scale-110">` :
+                    `<img src="${tool.image}" alt="${tool.name}" class="h-20 w-20 object-contain transition-all duration-300 transform group-hover:scale-110 ${tool.bg ? 'bg-white/90 p-2 rounded-lg' : ''}">` :
                     `<i data-lucide="${tool.icon}" class="h-16 w-16 icon text-accent"></i>`
                 }
                     <span class="level-badge ${levelColors[tool.level]}">${tool.level}</span>
