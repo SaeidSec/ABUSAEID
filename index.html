@@ -32,19 +32,19 @@
 
     <style>
         /*
-        Custom Styles for Aesthetics (Light & Dark Modes)
+        Custom Styles for Aesthetics (Permanent Dark Mode)
         -----------------------------------------------------
         */
         :root {
-            /* Light Mode Variables (Default) - Softer Contrast & Visibility */
+            /* Light Mode Variables (Default) - Pure Light & High Contrast */
             --color-bg: #f8fafc;
-            --color-bg-card: #f9fafb;
+            --color-bg-card: #ffffff;
             --color-text-main: #0f172a;
             --color-text-muted: #475569;
             --color-border: #e2e8f0;
             --color-accent: #0ea5e9;
             --color-accent-hover: #0284c7;
-            --color-nav: rgba(248, 250, 252, 0.95);
+            --color-nav: rgba(248, 250, 252, 0.8);
         }
 
         /* Dark Mode Variables - Deep Multi-layered Dark */
@@ -166,8 +166,8 @@
             position: relative;
             width: 180px;
             height: 200px;
-            background: linear-gradient(rgba(255, 255, 255, 0.3), transparent);
-            border: 1px solid rgba(255, 255, 255, 0.3);
+            background: linear-gradient(rgba(255, 255, 255, 0.1), transparent);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             box-shadow: 0 25px 25px rgba(0, 0, 0, 0.15);
             display: flex;
             flex-direction: column;
@@ -191,7 +191,7 @@
             bottom: 0;
             width: 100%;
             height: 40px;
-            background: rgba(0, 0, 0, 0.15);
+            background: rgba(0, 0, 0, 0.05);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -202,12 +202,12 @@
         }
 
         .dark .glass-card {
-            background: linear-gradient(rgba(255, 255, 255, 0.1), transparent);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: linear-gradient(rgba(255, 255, 255, 0.05), transparent);
+            border: 1px solid rgba(255, 255, 255, 0.05);
         }
 
         .dark .glass-card::before {
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.05);
             color: #fff;
         }
 
@@ -335,12 +335,16 @@
             border: 1px solid var(--color-border);
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
         }
+        
+
 
         .project-tag {
             background-color: var(--color-border);
             color: var(--color-text-main);
             border: 1px solid var(--color-border);
         }
+        
+
 
         /* Accent Color for Headings/Links/CTAs */
         .text-accent,
@@ -349,68 +353,30 @@
             color: var(--color-accent);
         }
         
-        /* Enhance button visibility in light mode */
+        /* Enhance visibility in dark mode */
         .dark {
             /* Dark mode - keep existing styles */
         }
         
-        /* Light mode specific enhancements */
-        :not(.dark) .card {
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+        /* Dark mode specific visibility enhancements */
+        .dark .text-gray-700 {
+            color: #cbd5e1 !important; /* Lighter gray for better visibility in dark mode */
         }
         
-        :not(.dark) .project-tag {
-            background-color: var(--color-border);
-            color: var(--color-text-main);
-            border: 1px solid var(--color-border);
+        .dark .text-gray-800 {
+            color: #e2e8f0 !important; /* Even lighter for dark mode */
         }
         
-        :not(.dark) .bg-accent {
-            box-shadow: 0 0 20px rgba(2, 132, 199, 0.3);
+        .dark .text-black {
+            color: #f1f5f9 !important; /* Make black text visible as light gray in dark mode */
         }
         
-        :not(.dark) .bg-accent:hover {
-            box-shadow: 0 0 30px rgba(2, 132, 199, 0.5), 0 10px 25px rgba(2, 132, 199, 0.2);
+        .dark .text-gray-600 {
+            color: #94a3b8 !important; /* Adjust gray-600 for dark mode */
         }
         
-        /* Enhanced visibility for important text in light mode */
-        :not(.dark) .text-black {
-            color: #0f172a !important; /* More visible black in light mode */
-        }
-        
-        :not(.dark) .text-gray-700 {
-            color: #1e293b !important; /* Darker gray for better visibility */
-        }
-        
-        :not(.dark) .text-gray-800 {
-            color: #1e293b !important; /* Use the same dark color */
-        }
-        
-        :not(.dark) .font-extrabold {
-            color: #0f172a !important; /* Ensure bold text is visible */
-        }
-        
-        :not(.dark) .font-bold {
-            color: #0f172a !important; /* Ensure bold text is visible */
-        }
-        
-        /* Ensure contact details are visible */
-        :not(.dark) #contact .text-gray-600 {
-            color: #334155 !important;
-        }
-        
-        /* Specific styling for important text elements in light mode */
-        :not(.dark) .hero-text,
-        :not(.dark) h1.font-extrabold {
-            color: #0f172a !important;
-        }
-        
-        :not(.dark) #contact p.font-medium {
-            color: #0f172a !important; /* Ensure location text is visible */
-        }
-        
-        :not(.dark) .text-black {
-            color: #0f172a !important; /* Ensure black text is visible */
+        .dark #contact .text-gray-600 {
+            color: #cbd5e1 !important; /* Ensure contact text is visible in dark mode */
         }
         
 
@@ -2193,20 +2159,13 @@
          * Theme Management
          */
         function initTheme() {
-            const savedTheme = localStorage.getItem('theme');
-            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-            
-            if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
-                document.documentElement.classList.add('dark');
-            } else {
-                document.documentElement.classList.remove('dark');
-            }
+            // Force dark mode permanently
+            document.documentElement.classList.add('dark');
         }
 
         function toggleTheme() {
-            const isDark = document.documentElement.classList.toggle('dark');
-            localStorage.setItem('theme', isDark ? 'dark' : 'light');
-            initLucideIcons(); // Refresh icons
+            // Dark mode is permanent - do nothing
+            return;
         }
 
         function initThemeToggle() {
