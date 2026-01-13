@@ -32,31 +32,31 @@
 
     <style>
         /*
-        Custom Styles for Aesthetics (PERMANENT DARK MODE)
+        Custom Styles for Aesthetics (Light & Dark Modes)
         -----------------------------------------------------
         */
         :root {
-            /* Light Mode Variables (Default) */
-            --color-bg: #f3f4f6;
-            --color-bg-card: #ffffff;
-            --color-text-main: #1f2937;
-            --color-text-muted: #6b7280;
-            --color-border: #e5e7eb;
-            --color-accent: #0891b2;
-            /* Cyan-600 */
-            --color-accent-hover: #06b6d4;
-            /* Cyan-500 */
+            /* Light Mode Variables (Default) - Softer Contrast & Visibility */
+            --color-bg: #f8fafc;
+            --color-bg-card: #f9fafb;
+            --color-text-main: #0f172a;
+            --color-text-muted: #475569;
+            --color-border: #e2e8f0;
+            --color-accent: #0ea5e9;
+            --color-accent-hover: #0284c7;
+            --color-nav: rgba(248, 250, 252, 0.95);
         }
 
-        /* Dark Mode Variables */
+        /* Dark Mode Variables - Deep Multi-layered Dark */
         .dark {
-            --color-bg: #0f0f23;
-            --color-bg-card: #1e1e1e;
-            --color-text-main: #f0f0f0;
-            --color-text-muted: #9ca3af;
-            --color-border: #2d2d2d;
-            --color-accent: #0588A7;
-            --color-accent-hover: #06b6d4;
+            --color-bg: #030712;
+            --color-bg-card: #111827;
+            --color-text-main: #f1f5f9;
+            --color-text-muted: #94a3b8;
+            --color-border: #1f2937;
+            --color-accent: #0ea5e9;
+            --color-accent-hover: #38bdf8;
+            --color-nav: rgba(3, 7, 18, 0.8);
         }
 
         /* Base Styling & Font (Modern Professional Theme) */
@@ -166,9 +166,9 @@
             position: relative;
             width: 180px;
             height: 200px;
-            background: linear-gradient(rgba(255, 255, 255, 0.1), transparent);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 25px 25px rgba(0, 0, 0, 0.25);
+            background: linear-gradient(rgba(255, 255, 255, 0.3), transparent);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 25px 25px rgba(0, 0, 0, 0.15);
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -191,21 +191,31 @@
             bottom: 0;
             width: 100%;
             height: 40px;
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(0, 0, 0, 0.15);
             display: flex;
             justify-content: center;
             align-items: center;
-            color: #fff;
+            color: var(--color-text-main);
             font-size: 12px;
             font-weight: 600;
             border-radius: 0 0 10px 10px;
         }
 
+        .dark .glass-card {
+            background: linear-gradient(rgba(255, 255, 255, 0.1), transparent);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .dark .glass-card::before {
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+        }
+
         .glass-card svg,
         .glass-card i {
             font-size: 2.5em;
-            fill: #fff;
-            color: #0588A7;
+            fill: var(--color-accent);
+            color: var(--color-accent);
         }
 
         .glass-card .level-badge {
@@ -327,9 +337,9 @@
         }
 
         .project-tag {
-            background-color: #2d2d2d;
-            color: var(--color-text-muted);
-            border: 1px solid #374151;
+            background-color: var(--color-border);
+            color: var(--color-text-main);
+            border: 1px solid var(--color-border);
         }
 
         /* Accent Color for Headings/Links/CTAs */
@@ -338,6 +348,71 @@
         .hover\:bg-accent:hover {
             color: var(--color-accent);
         }
+        
+        /* Enhance button visibility in light mode */
+        .dark {
+            /* Dark mode - keep existing styles */
+        }
+        
+        /* Light mode specific enhancements */
+        :not(.dark) .card {
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+        }
+        
+        :not(.dark) .project-tag {
+            background-color: var(--color-border);
+            color: var(--color-text-main);
+            border: 1px solid var(--color-border);
+        }
+        
+        :not(.dark) .bg-accent {
+            box-shadow: 0 0 20px rgba(2, 132, 199, 0.3);
+        }
+        
+        :not(.dark) .bg-accent:hover {
+            box-shadow: 0 0 30px rgba(2, 132, 199, 0.5), 0 10px 25px rgba(2, 132, 199, 0.2);
+        }
+        
+        /* Enhanced visibility for important text in light mode */
+        :not(.dark) .text-black {
+            color: #0f172a !important; /* More visible black in light mode */
+        }
+        
+        :not(.dark) .text-gray-700 {
+            color: #1e293b !important; /* Darker gray for better visibility */
+        }
+        
+        :not(.dark) .text-gray-800 {
+            color: #1e293b !important; /* Use the same dark color */
+        }
+        
+        :not(.dark) .font-extrabold {
+            color: #0f172a !important; /* Ensure bold text is visible */
+        }
+        
+        :not(.dark) .font-bold {
+            color: #0f172a !important; /* Ensure bold text is visible */
+        }
+        
+        /* Ensure contact details are visible */
+        :not(.dark) #contact .text-gray-600 {
+            color: #334155 !important;
+        }
+        
+        /* Specific styling for important text elements in light mode */
+        :not(.dark) .hero-text,
+        :not(.dark) h1.font-extrabold {
+            color: #0f172a !important;
+        }
+        
+        :not(.dark) #contact p.font-medium {
+            color: #0f172a !important; /* Ensure location text is visible */
+        }
+        
+        :not(.dark) .text-black {
+            color: #0f172a !important; /* Ensure black text is visible */
+        }
+        
 
         .bg-accent {
             background-color: var(--color-accent);
@@ -346,6 +421,10 @@
         /* Custom Hover Effect for Cards (Dark Mode Shadow) */
         .card-hover:hover {
             transform: translateY(-4px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.15), 0 4px 6px -2px rgba(0, 0, 0, 0.1);
+        }
+        
+        .dark .card-hover:hover {
             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5), 0 4px 6px -2px rgba(0, 0, 0, 0.1);
         }
 
@@ -398,12 +477,8 @@
 
             /* Simplify Body Background */
             body::before {
-                background: linear-gradient(135deg, #0f0f23 0%, #1a1a3e 100%);
+                background: var(--color-bg);
                 animation: none;
-            }
-
-            body::after {
-                background-image: none;
             }
 
             /* Disable Backdrop Blur for Performance */
@@ -443,8 +518,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: #0f0f23;
-            /* Matches body background */
+            background-color: var(--color-bg);
             z-index: 9999;
             display: flex;
             justify-content: center;
@@ -630,7 +704,6 @@
                     -35px 50px 0 #f2f2f2,
                     -70px 90px 0 #f2f2f2;
             }
-
             100% {
                 box-shadow: 0 10px 0 #f2f2f2,
                     -35px 50px 0 #f2f2f2,
@@ -638,10 +711,107 @@
                     -70px 90px 0 rgba(0, 0, 0, 0);
             }
         }
+
+        /* Tech Expertise Section Styles */
+        .marquee-container {
+            overflow: hidden;
+            white-space: nowrap;
+            position: relative;
+            padding: 40px 0;
+            mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+            -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+        }
+
+        .marquee-content {
+            display: inline-block;
+            animation: marquee 40s linear infinite;
+        }
+
+        .marquee-content-reverse {
+            display: inline-block;
+            animation: marquee-reverse 40s linear infinite;
+        }
+
+        .marquee-container:hover .marquee-content,
+        .marquee-container:hover .marquee-content-reverse {
+            animation-play-state: paused;
+        }
+
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        @keyframes marquee-reverse {
+            0% { transform: translateX(-50%); }
+            100% { transform: translateX(0); }
+        }
+
+        .tech-card-vibrant {
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 150px;
+            height: 150px;
+            margin: 0 12px;
+            border-radius: 24px;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tech-card-vibrant:hover {
+            transform: translateY(-15px) scale(1.08);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.6);
+            filter: brightness(1.1);
+        }
+
+        .tech-card-vibrant::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, transparent 50%, rgba(0,0,0,0.1) 100%);
+            pointer-events: none;
+        }
+
+        .tech-card-vibrant img {
+            width: 55px;
+            height: 55px;
+            object-fit: contain;
+            margin-bottom: 15px;
+            filter: drop-shadow(0 5px 10px rgba(0,0,0,0.2));
+            transition: transform 0.3s ease;
+        }
+
+        .tech-card-vibrant:hover img {
+            transform: scale(1.15);
+        }
+
+        .tech-card-vibrant span {
+            font-size: 15px;
+            font-weight: 800;
+            color: white;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            letter-spacing: 0.5px;
+        }
+
+        /* Category Heading */
+        .tech-category-heading {
+            background: linear-gradient(to right, #4f46e5, #0ea5e9);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 800;
+        }
     </style>
 </head>
 
-<body class="dark min-h-screen">
+<body class="bg-[var(--color-bg)] text-[var(--color-text-main)] transition-colors duration-300 min-h-screen">
     <!-- Preloader -->
     <div id="preloader">
         <div class="loader">
@@ -673,7 +843,7 @@
     <header class="sticky top-0 z-50 transition duration-500">
         <!-- Glassmorphism Background -->
         <div
-            class="backdrop-blur-xl bg-gradient-to-r from-[#0f0f23]/90 via-[#1a1a3e]/85 to-[#0f0f23]/90 border-b-2 border-cyan-500/20 shadow-lg shadow-cyan-500/10">
+            class="backdrop-blur-xl bg-[var(--color-nav)] border-b border-[var(--color-border)] shadow-sm dark:shadow-cyan-500/10 transition-colors duration-300">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
                 <a href="#hero"
                     class="text-2xl font-extrabold tracking-tight bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent transition duration-300 hover:from-cyan-300 hover:to-blue-400">
@@ -682,68 +852,77 @@
                 <!-- Desktop Navigation -->
                 <nav class="hidden md:flex space-x-8 items-center font-medium">
                     <a href="#projects"
-                        class="text-gray-300 hover:text-cyan-400 transition duration-300 relative group">
+                        class="text-gray-700 dark:text-gray-300 hover:text-cyan-500 dark:hover:text-cyan-400 transition duration-300 relative group">
                         Projects
                         <span
                             class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-cyan-400 to-blue-500 group-hover:w-full transition-all duration-300"></span>
                     </a>
                     <a href="#experience"
-                        class="text-gray-300 hover:text-cyan-400 transition duration-300 relative group">
+                        class="text-gray-700 dark:text-gray-300 hover:text-cyan-500 dark:hover:text-cyan-400 transition duration-300 relative group">
                         Experience
                         <span
                             class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-cyan-400 to-blue-500 group-hover:w-full transition-all duration-300"></span>
                     </a>
-                    <a href="https://socsignal.onrender.com/" target="_blank"
-                        class="text-gray-300 hover:text-cyan-400 transition duration-300 relative group">
+                    <a href="#articles" class="blog-article-nav text-gray-700 dark:text-gray-300 hover:text-cyan-500 dark:hover:text-cyan-400 transition duration-300 relative group">
                         Blog/Article
                         <span
                             class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-cyan-400 to-blue-500 group-hover:w-full transition-all duration-300"></span>
                     </a>
-                    <a href="#skills" class="text-gray-300 hover:text-cyan-400 transition duration-300 relative group">
+
+                    <a href="#skills" class="text-gray-700 dark:text-gray-300 hover:text-cyan-500 dark:hover:text-cyan-400 transition duration-300 relative group">
                         Skills
                         <span
                             class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-cyan-400 to-blue-500 group-hover:w-full transition-all duration-300"></span>
                     </a>
                     <a href="certifications.html"
-                        class="text-gray-300 hover:text-cyan-400 transition duration-300 relative group">
+                        class="text-gray-700 dark:text-gray-300 hover:text-cyan-400 transition duration-300 relative group">
                         Certifications
                         <span
                             class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-cyan-400 to-blue-500 group-hover:w-full transition-all duration-300"></span>
                     </a>
                     <a href="#contact"
-                        class="text-gray-500 dark:text-gray-300 hover:text-cyan-600 dark:hover:text-cyan-400 transition duration-300 relative group">
+                        class="text-gray-700 dark:text-gray-300 hover:text-accent dark:hover:text-cyan-400 transition duration-300 relative group">
                         Contact
                         <span
-                            class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-cyan-400 to-blue-500 group-hover:w-full transition-all duration-300"></span>
+                            class="absolute bottom-0 left-0 w-0 h-0.5 bg-accent group-hover:w-full transition-all duration-300"></span>
                     </a>
+                    <!-- Theme Toggle -->
+                    <button id="theme-toggle" class="p-2.5 rounded-xl bg-gray-200 dark:bg-gray-800 text-gray-800 dark:text-gray-200 hover:scale-110 transition-all duration-300 shadow-sm" aria-label="Toggle Theme">
+                        <i data-lucide="moon" class="h-5 w-5 dark:hidden"></i>
+                        <i data-lucide="sun" class="h-5 w-5 hidden dark:block"></i>
+                    </button>
                 </nav>
                 <!-- Mobile Menu Button -->
-                <div class="flex items-center md:hidden space-x-2">
+                <div class="flex items-center md:hidden space-x-3">
+                    <button id="theme-toggle-mobile" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-800 text-gray-800 dark:text-gray-200" aria-label="Toggle Theme">
+                        <i data-lucide="moon" class="h-5 w-5 dark:hidden"></i>
+                        <i data-lucide="sun" class="h-5 w-5 hidden dark:block"></i>
+                    </button>
                     <button id="mobile-menu-button" aria-label="Open Menu"
                         class="p-2 rounded-lg hover:bg-cyan-500/20 transition duration-300 border border-cyan-500/30">
-                        <i data-lucide="menu" class="h-6 w-6 text-cyan-400 icon"></i>
+                        <i data-lucide="menu" class="h-6 w-6 text-accent icon"></i>
                     </button>
                 </div>
             </div>
             <!-- Mobile Menu Panel (Hidden by default) -->
             <div id="mobile-menu"
-                class="hidden md:hidden absolute w-full backdrop-blur-xl bg-[#0f0f23]/95 border-t border-cyan-500/20 shadow-lg pb-2">
+                class="hidden md:hidden absolute w-full backdrop-blur-xl bg-[var(--color-bg)] opacity-95 border-t border-[var(--color-border)] shadow-lg pb-2 transition-colors duration-300">
                 <a href="#projects"
-                    class="block px-4 py-3 text-gray-300 hover:bg-cyan-500/10 hover:text-cyan-400 transition duration-300"
+                    class="block px-4 py-3 text-gray-700 dark:text-gray-300 hover:bg-cyan-500/10 hover:text-cyan-400 transition duration-300"
                     onclick="closeMobileMenu()">Projects</a>
                 <a href="#experience"
-                    class="block px-4 py-3 text-gray-300 hover:bg-cyan-500/10 hover:text-cyan-400 transition duration-300"
+                    class="block px-4 py-3 text-gray-700 dark:text-gray-300 hover:bg-cyan-500/10 hover:text-cyan-400 transition duration-300"
                     onclick="closeMobileMenu()">Experience</a>
-                <a href="https://socsignal.onrender.com/" target="_blank"
-                    class="block px-4 py-3 text-gray-300 hover:bg-cyan-500/10 hover:text-cyan-400 transition duration-300"
+                <a href="#articles" class="blog-article-nav block px-4 py-3 text-gray-700 dark:text-gray-300 hover:bg-cyan-500/10 hover:text-cyan-400 transition duration-300"
                     onclick="closeMobileMenu()">Blog/Article</a>
+
                 <a href="#skills"
-                    class="block px-4 py-3 text-gray-300 hover:bg-cyan-500/10 hover:text-cyan-400 transition duration-300"
+                    class="block px-4 py-3 text-gray-700 dark:text-gray-300 hover:bg-cyan-500/10 hover:text-cyan-400 transition duration-300"
                     onclick="closeMobileMenu()">Skills</a>
                 <a href="certifications.html"
-                    class="block px-4 py-3 text-gray-300 hover:bg-cyan-500/10 hover:text-cyan-400 transition duration-300">Certifications</a>
+                    class="block px-4 py-3 text-gray-700 dark:text-gray-300 hover:bg-cyan-500/10 hover:text-cyan-400 transition duration-300">Certifications</a>
                 <a href="#contact"
-                    class="block px-4 py-3 text-gray-300 hover:bg-cyan-500/10 hover:text-cyan-400 transition duration-300"
+                    class="block px-4 py-3 text-gray-700 dark:text-gray-300 hover:bg-cyan-500/10 hover:text-cyan-400 transition duration-300"
                     onclick="closeMobileMenu()">Contact</a>
                 <div class="border-t border-cyan-500/20 mt-2 pt-2">
                     <a href="https://drive.google.com/uc?export=download&id=1w0xbniv_xDg1qkcF-r-2CXblbCyUi-ip"
@@ -759,7 +938,7 @@
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20">
 
         <!-- 1. Hero Section with Profile Photo -->
-        <section id="hero" class="py-20 md:py-36 reveal">
+        <section id="hero" class="py-20 md:py-36">
             <div class="max-w-6xl mx-auto">
                 <!-- Responsive Grid: Stacks on mobile, side-by-side on desktop -->
                 <div class="grid md:grid-cols-2 gap-12 items-center">
@@ -836,14 +1015,14 @@
                             <span
                                 class="bg-gradient-to-r from-blue-500 to-purple-600 bg-clip-text text-transparent">Saeid</span>
                         </h1>
-                        <p class="text-xl sm:text-2xl md:text-2xl font-light text-gray-600 dark:text-gray-300 mb-6">
+                        <p class="text-xl sm:text-2xl md:text-2xl font-light text-black dark:text-gray-300 mb-6">
                             SOC Analyst | Incident Responder | SIEM Specialist ( Wazuh, Elastic Search , IBM QRadar ,
                             Splunk ) |
                             Threat Hunter | Digital Forensics & Malware Analysis | VAPT & OWASP Top 10 | AI SOC
                             Automation |
                             Writer | Photographer |
                         </p>
-                        <p class="text-base md:text-lg text-gray-500 dark:text-gray-400 mb-8">
+                        <p class="text-base md:text-lg text-black dark:text-gray-400 mb-8">
                             Pioneering **Proactive Defense** through **Threat Hunting**, **Automated Triage**, and
                             **ML-driven
                             Anomaly Detection** in critical SOC environments.
@@ -861,19 +1040,19 @@
 
                             <!-- 2. Projects (Outline) -->
                             <a href="#projects"
-                                class="cta-button border-2 border-gray-700 text-gray-300 py-3 px-6 rounded-xl font-semibold hover:border-accent hover:text-accent transition duration-300 flex items-center justify-center gap-2 bg-transparent">
+                                class="cta-button border-2 border-gray-700 text-gray-700 dark:text-gray-300 py-3 px-6 rounded-xl font-semibold hover:border-accent hover:text-accent transition duration-300 flex items-center justify-center gap-2 bg-transparent">
                                 <i data-lucide="folder" class="h-5 w-5 icon"></i> Projects
                             </a>
 
                             <!-- 3. Resume (Outline - Opens Modal) -->
                             <button onclick="openResumeModal()"
-                                class="cta-button border-2 border-gray-700 text-gray-300 py-3 px-6 rounded-xl font-semibold hover:border-accent hover:text-accent transition duration-300 flex items-center justify-center gap-2 bg-transparent">
+                                class="cta-button border-2 border-gray-700 text-gray-700 dark:text-gray-300 py-3 px-6 rounded-xl font-semibold hover:border-accent hover:text-accent transition duration-300 flex items-center justify-center gap-2 bg-transparent">
                                 <i data-lucide="file-text" class="h-5 w-5 icon"></i> Resume
                             </button>
 
                             <!-- 4. Hire Me / Contact (Outline) -->
                             <a href="#contact"
-                                class="cta-button border-2 border-gray-700 text-gray-300 py-3 px-6 rounded-xl font-semibold hover:border-accent hover:text-accent transition duration-300 flex items-center justify-center gap-2 bg-transparent">
+                                class="cta-button border-2 border-gray-700 text-gray-700 dark:text-gray-300 py-3 px-6 rounded-xl font-semibold hover:border-accent hover:text-accent transition duration-300 flex items-center justify-center gap-2 bg-transparent">
                                 <i data-lucide="briefcase" class="h-5 w-5 icon"></i> Hire Me
                             </a>
 
@@ -885,8 +1064,8 @@
         </section>
 
         <!-- 2. About Section -->
-        <section id="about" class="py-16 md:py-24 reveal">
-            <h2 class="text-3xl font-bold mb-12 text-center text-gray-900 dark:text-gray-100">About Me</h2>
+        <section id="about" class="py-16 md:py-24">
+            <h2 class="text-3xl font-bold mb-12 text-center text-black dark:text-gray-100">About Me</h2>
             <div class="max-w-6xl mx-auto">
                 <!-- Responsive Grid: Photo on left, content on right -->
                 <div class="grid md:grid-cols-2 gap-12 items-center">
@@ -1017,7 +1196,7 @@
                     </style>
 
                     <!-- Right Side: Text Content -->
-                    <div class="text-gray-300 text-lg space-y-6 order-2 md:order-2">
+                    <div class="text-black dark:text-gray-300 text-lg space-y-6 order-2 md:order-2">
                         <p>
                             I am a dedicated **SOC Analyst and Cybersecurity Researcher** with a strong focus on
                             bridging
@@ -1061,24 +1240,42 @@
         </section>
 
         <!-- 3. Core Skills / Competencies: Responsive Grid -->
-        <section id="skills" class="py-16 md:py-24 reveal">
-            <h2 class="text-3xl font-bold mb-12 text-center text-gray-100">Core Skills & Competencies</h2>
+        <section id="skills" class="py-16 md:py-24">
+            <h2 class="text-3xl font-bold mb-12 text-center text-black dark:text-gray-100">Core Skills & Competencies</h2>
             <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
                 <!-- Skills will be dynamically rendered here by JS -->
             </div>
         </section>
 
-        <!-- 4. Tools & Stack: Glassmorphism 3D Cards -->
-        <section id="tools" class="py-16 md:py-24 reveal">
-            <h2 class="text-3xl font-bold mb-12 text-center text-gray-100">Tools & Stack Proficiency</h2>
-            <div id="tools-container" class="glass-container">
-                <!-- Tools will be dynamically rendered here by JS -->
+        <!-- 4. Tools & Stack: Vibrant Marquee -->
+        <section id="tools" class="py-16 md:py-24">
+            <div class="max-w-7xl mx-auto px-4">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl font-bold mb-6 text-black dark:text-gray-100 uppercase tracking-wider">Tools & Stack Proficiency</h2>
+                    <p class="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+                        A specialized set of cybersecurity tools and technologies leveraged for advanced threat detection and defense.
+                    </p>
+                </div>
+                
+                <!-- Marquee Row 1 -->
+                <div class="marquee-container">
+                    <div id="tools-marquee-1" class="marquee-content">
+                        <!-- Content injected by JS -->
+                    </div>
+                </div>
+
+                <!-- Marquee Row 2 (Reverse) -->
+                <div class="marquee-container mt-4">
+                    <div id="tools-marquee-2" class="marquee-content-reverse">
+                        <!-- Content injected by JS -->
+                    </div>
+                </div>
             </div>
         </section>
 
         <!-- 5. Projects & Case Studies: Responsive Grid -->
-        <section id="projects" class="py-16 md:py-24 reveal">
-            <h2 class="text-3xl font-bold mb-12 text-center text-gray-100">Key Projects & Case Studies</h2>
+        <section id="projects" class="py-16 md:py-24">
+            <h2 class="text-3xl font-bold mb-12 text-center text-black dark:text-gray-100">Key Projects & Case Studies</h2>
 
             <!-- Filter Buttons: Responsive flex-wrap -->
             <div id="project-filters" class="flex flex-wrap justify-center gap-3 mb-10">
@@ -1102,10 +1299,13 @@
             </div>
         </section>
 
+
+
+
         <!-- 6. Blog / Articles (Updated Title): Responsive Grid -->
-        <section id="articles" class="py-16 md:py-24 reveal">
-            <h2 class="text-3xl font-bold mb-4 text-center text-gray-100">Security Insights & Publications</h2>
-            <p class="text-center text-gray-300 text-lg mb-8 max-w-3xl mx-auto">
+        <section id="articles" class="py-16 md:py-24 scroll-mt-20">
+            <h2 class="text-3xl font-bold mb-4 text-center text-black dark:text-gray-100">Security Insights & Publications</h2>
+            <p class="text-center text-gray-700 dark:text-gray-300 text-lg mb-8 max-w-3xl mx-auto">
                 Sharing knowledge and experiences in cybersecurity through research papers, technical articles, and
                 practical insights from the frontlines of digital defense.
             </p>
@@ -1117,38 +1317,12 @@
                     <i data-lucide="external-link" class="ml-2 h-5 w-5 transform group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform"></i>
                 </a>
             </div>
-
-            <!-- Category Filter Buttons -->
-            <div class="flex flex-wrap justify-center gap-3 mb-12">
-                <button onclick="filterArticles('all')"
-                    class="article-filter-btn active px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 bg-accent text-white shadow-lg shadow-accent/25">All
-                    Posts</button>
-                <button onclick="filterArticles('Society / education')"
-                    class="article-filter-btn px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 bg-gray-800 text-gray-400 hover:bg-gray-700 hover:text-white border border-gray-700">Society
-                    / education</button>
-                <button onclick="filterArticles('Cybersecurity / devsecops')"
-                    class="article-filter-btn px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 bg-gray-800 text-gray-400 hover:bg-gray-700 hover:text-white border border-gray-700">Cybersecurity
-                    / devsecops</button>
-                <button onclick="filterArticles('Cybersecurity / ai')"
-                    class="article-filter-btn px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 bg-gray-800 text-gray-400 hover:bg-gray-700 hover:text-white border border-gray-700">Cybersecurity
-                    / ai</button>
-                <button onclick="filterArticles('Cybersecurity / web')"
-                    class="article-filter-btn px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 bg-gray-800 text-gray-400 hover:bg-gray-700 hover:text-white border border-gray-700">Cybersecurity
-                    / web</button>
-                <button onclick="filterArticles('Cybersecurity / telecom')"
-                    class="article-filter-btn px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 bg-gray-800 text-gray-400 hover:bg-gray-700 hover:text-white border border-gray-700">Cybersecurity
-                    / telecom</button>
-            </div>
-
-            <div id="articles-container" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Articles will be dynamically rendered here by JS -->
-            </div>
         </section>
 
         <!-- 7. Professional Experience -->
-        <section id="experience" class="py-16 md:py-24 reveal">
-            <h2 class="text-3xl font-bold mb-8 text-center text-gray-100">Professional Experience</h2>
-            <p class="text-center text-gray-300 text-lg mb-12 max-w-3xl mx-auto">
+        <section id="experience" class="py-16 md:py-24">
+            <h2 class="text-3xl font-bold mb-8 text-center text-black dark:text-gray-100">Professional Experience</h2>
+            <p class="text-center text-black dark:text-gray-300 text-lg mb-12 max-w-3xl mx-auto">
                 My journey in cybersecurity, from offensive security research to defensive SOC operations. Each role has
                 strengthened my expertise in protecting digital assets and responding to threats.
             </p>
@@ -1157,15 +1331,15 @@
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-16 max-w-4xl mx-auto">
                 <div class="card p-6 rounded-xl text-center">
                     <div class="text-4xl font-bold text-accent mb-2">10+</div>
-                    <div class="text-gray-400">Months Experience</div>
+                    <div class="text-gray-600 dark:text-gray-400">Months Experience</div>
                 </div>
                 <div class="card p-6 rounded-xl text-center">
                     <div class="text-4xl font-bold text-accent mb-2">5</div>
-                    <div class="text-gray-400">Critical Incidents</div>
+                    <div class="text-gray-600 dark:text-gray-400">Critical Incidents</div>
                 </div>
                 <div class="card p-6 rounded-xl text-center">
                     <div class="text-4xl font-bold text-accent mb-2">15%</div>
-                    <div class="text-gray-400">Response Time Improvement</div>
+                    <div class="text-gray-600 dark:text-gray-400">Response Time Improvement</div>
                 </div>
             </div>
 
@@ -1176,7 +1350,7 @@
                     Current Role
                 </button>
                 <button id="previous-experience-btn" onclick="filterExperience('previous')"
-                    class="experience-filter-btn px-6 py-3 rounded-xl font-semibold transition duration-300 bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600">
+                    class="experience-filter-btn px-6 py-3 rounded-xl font-semibold transition duration-300 bg-gray-200 dark:bg-gray-700 text-black dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600">
                     Previous Experience
                 </button>
             </div>
@@ -1185,12 +1359,12 @@
             <div id="current-role-section" class="max-w-5xl mx-auto">
                 <div class="card p-12 rounded-xl text-center">
                     <i data-lucide="briefcase" class="h-16 w-16 mx-auto mb-4 text-gray-500 icon"></i>
-                    <h3 class="text-2xl font-bold text-gray-300 mb-3">Currently Focusing on Studies</h3>
-                    <p class="text-gray-400 text-lg">
+                    <h3 class="text-2xl font-bold text-gray-700 dark:text-gray-300 mb-3">Currently Focusing on Studies</h3>
+                    <p class="text-gray-600 dark:text-gray-400 text-lg">
                         I'm currently a full-time student pursuing my B.Sc. in Computer Science & Engineering at Green
                         University of Bangladesh.
                     </p>
-                    <p class="text-gray-400 mt-2">
+                    <p class="text-gray-600 dark:text-gray-400 mt-2">
                         Open to internship and entry-level opportunities in SOC Analysis and Cybersecurity!
                     </p>
                 </div>
@@ -1204,18 +1378,18 @@
                     <div class="flex flex-col md:flex-row md:items-start md:justify-between mb-4">
                         <div class="flex-1">
                             <h3 class="text-2xl font-bold text-accent mb-2">Cyber Security Analyst</h3>
-                            <p class="text-lg font-semibold text-gray-200 mb-1">Cyber Academy · Internship</p>
-                            <p class="text-sm text-gray-400 mb-2">
+                            <p class="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-1">Cyber Academy · Internship</p>
+                            <p class="text-sm text-gray-600 dark:text-gray-400 mb-2">
                                 <i data-lucide="calendar" class="h-4 w-4 inline mr-1 icon"></i>
                                 Aug 2024 - Sep 2024 · 2 mos
                             </p>
-                            <p class="text-sm text-gray-400">
+                            <p class="text-sm text-gray-600 dark:text-gray-400">
                                 <i data-lucide="map-pin" class="h-4 w-4 inline mr-1 icon"></i>
                                 Islāmābād, Pakistan · Remote
                             </p>
                         </div>
                     </div>
-                    <div class="text-gray-300 space-y-3">
+                    <div class="text-gray-700 dark:text-gray-300 space-y-3">
                         <p>Interned at Cyber Academy, focusing on Security Information and Event Management (SIEM)
                             operations using Wazuh.</p>
                         <ul class="list-disc list-inside space-y-2 ml-4">
@@ -1240,19 +1414,19 @@
                         <div class="flex-1">
                             <h3 class="text-2xl font-bold text-accent mb-2">Associate Member & Cyber Security Intern
                             </h3>
-                            <p class="text-lg font-semibold text-gray-200 mb-1">Center for Cyber Security Studies &
+                            <p class="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-1">Center for Cyber Security Studies &
                                 Research</p>
-                            <p class="text-sm text-gray-400 mb-2">
+                            <p class="text-sm text-gray-600 dark:text-gray-400 mb-2">
                                 <i data-lucide="calendar" class="h-4 w-4 inline mr-1 icon"></i>
                                 Nov 2023 - May 2025 · 1 yr 7 mos
                             </p>
-                            <p class="text-sm text-gray-400">
+                            <p class="text-sm text-gray-600 dark:text-gray-400">
                                 <i data-lucide="map-pin" class="h-4 w-4 inline mr-1 icon"></i>
                                 Dhaka, Bangladesh · Remote
                             </p>
                         </div>
                     </div>
-                    <div class="text-gray-300 space-y-3">
+                    <div class="text-gray-700 dark:text-gray-300 space-y-3">
                         <p class="font-medium">Associate Membership ID: AM-2023MMDS146</p>
                         <p><strong>Internship (Dec 2023 - Apr 2024 · 5 mos):</strong></p>
                         <p>Completed a 5-month cybersecurity internship focused on SOC operations, specializing in
@@ -1274,19 +1448,19 @@
                     <div class="flex flex-col md:flex-row md:items-start md:justify-between mb-4">
                         <div class="flex-1">
                             <h3 class="text-2xl font-bold text-accent mb-2">Search Engine Optimization Specialist</h3>
-                            <p class="text-lg font-semibold text-gray-200 mb-1">Grochalski - Strony internetowe ·
+                            <p class="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-1">Grochalski - Strony internetowe ·
                                 Full-time</p>
-                            <p class="text-sm text-gray-400 mb-2">
+                            <p class="text-sm text-gray-600 dark:text-gray-400 mb-2">
                                 <i data-lucide="calendar" class="h-4 w-4 inline mr-1 icon"></i>
                                 Feb 2024 - Jan 2025 · 1 yr
                             </p>
-                            <p class="text-sm text-gray-400">
+                            <p class="text-sm text-gray-600 dark:text-gray-400">
                                 <i data-lucide="map-pin" class="h-4 w-4 inline mr-1 icon"></i>
                                 Poland · Remote
                             </p>
                         </div>
                     </div>
-                    <div class="text-gray-300 space-y-3">
+                    <div class="text-gray-700 dark:text-gray-300 space-y-3">
                         <p>Working as an SEO Specialist doing organic growth traffic for business websites. Hired
                             specially for the Full Stack SEO segment.</p>
                         <ul class="list-disc list-inside space-y-2 ml-4">
@@ -1310,19 +1484,19 @@
                     <div class="flex flex-col md:flex-row md:items-start md:justify-between mb-4">
                         <div class="flex-1">
                             <h3 class="text-2xl font-bold text-accent mb-2">Junior SEO Associate</h3>
-                            <p class="text-lg font-semibold text-gray-200 mb-1">Small Business Seo Agency · Internship
+                            <p class="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-1">Small Business Seo Agency · Internship
                             </p>
-                            <p class="text-sm text-gray-400 mb-2">
+                            <p class="text-sm text-gray-600 dark:text-gray-400 mb-2">
                                 <i data-lucide="calendar" class="h-4 w-4 inline mr-1 icon"></i>
                                 Apr 2024 - Dec 2024 · 9 mos
                             </p>
-                            <p class="text-sm text-gray-400">
+                            <p class="text-sm text-gray-600 dark:text-gray-400">
                                 <i data-lucide="map-pin" class="h-4 w-4 inline mr-1 icon"></i>
                                 Dhaka, Bangladesh · Remote
                             </p>
                         </div>
                     </div>
-                    <div class="text-gray-300 space-y-3">
+                    <div class="text-gray-700 dark:text-gray-300 space-y-3">
                         <p>Joined as a Junior SEO Associate Intern at a well-regarded marketing agency, taking a
                             significant step forward in digital marketing career.</p>
                         <div class="flex flex-wrap gap-2 mt-4">
@@ -1340,19 +1514,19 @@
                     <div class="flex flex-col md:flex-row md:items-start md:justify-between mb-4">
                         <div class="flex-1">
                             <h3 class="text-2xl font-bold text-accent mb-2">Security Operation Center (SOC) Intern</h3>
-                            <p class="text-lg font-semibold text-gray-200 mb-1">Chaitanya Cyber Strix Technologies Pvt
+                            <p class="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-1">Chaitanya Cyber Strix Technologies Pvt
                                 Ltd · Internship</p>
-                            <p class="text-sm text-gray-400 mb-2">
+                            <p class="text-sm text-gray-600 dark:text-gray-400 mb-2">
                                 <i data-lucide="calendar" class="h-4 w-4 inline mr-1 icon"></i>
                                 Nov 2023 - Mar 2024 · 5 mos
                             </p>
-                            <p class="text-sm text-gray-400">
+                            <p class="text-sm text-gray-600 dark:text-gray-400">
                                 <i data-lucide="map-pin" class="h-4 w-4 inline mr-1 icon"></i>
                                 India · Remote
                             </p>
                         </div>
                     </div>
-                    <div class="text-gray-300 space-y-3">
+                    <div class="text-gray-700 dark:text-gray-300 space-y-3">
                         <p>Gained hands-on experience in Security Operations Center operations and cybersecurity
                             practices.</p>
                         <div class="flex flex-wrap gap-2 mt-4">
@@ -1369,14 +1543,14 @@
 
 
         <!-- 8. Certifications & Education: Responsive Grid -->
-        <section id="certs" class="py-16 md:py-24 reveal">
-            <h2 class="text-3xl font-bold mb-12 text-center text-gray-900 dark:text-gray-100">Certifications & Education
+        <section id="certs" class="py-16 md:py-24">
+            <h2 class="text-3xl font-bold mb-12 text-center text-black dark:text-gray-100">Certifications & Education
             </h2>
 
             <!-- Education First -->
             <div class="max-w-4xl mx-auto mb-16">
                 <div class="card p-8 rounded-xl border-l-4 border-accent">
-                    <h3 class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-4 flex items-center">
+                    <h3 class="text-2xl font-bold text-black dark:text-gray-100 mb-4 flex items-center">
                         <i data-lucide="graduation-cap" class="h-8 w-8 mr-3 text-accent"></i> Education
                     </h3>
                     <div class="flex flex-col md:flex-row justify-between items-start md:items-center">
@@ -1394,10 +1568,10 @@
         </section>
 
         <!-- 9. Contact: Responsive Grid -->
-        <section id="contact" class="py-16 md:py-24 reveal">
-            <h2 class="text-3xl font-bold mb-12 text-center text-gray-900 dark:text-gray-100">Get In Touch</h2>
+        <section id="contact" class="py-16 md:py-24">
+            <h2 class="text-3xl font-bold mb-12 text-center text-black dark:text-gray-100">Get In Touch</h2>
             <div class="max-w-3xl mx-auto card p-6 md:p-10 rounded-xl">
-                <p class="mb-8 text-gray-600 dark:text-gray-300 text-lg text-center">
+                <p class="mb-8 text-gray-700 dark:text-gray-300 text-lg text-center">
                     I am actively seeking roles focused on advanced threat detection, automation engineering, and
                     security research. Let's discuss a project or collaboration.
                 </p>
@@ -1418,15 +1592,15 @@
                 <!-- Formspree Contact Form -->
                 <form action="https://formspree.io/f/mjklqnbw" method="POST" class="space-y-4">
                     <input type="text" name="name" placeholder="Your Name"
-                        class="w-full p-3 rounded-lg border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-white focus:ring-accent focus:border-accent transition duration-300"
+                        class="w-full p-3 rounded-lg border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 text-black dark:text-white focus:ring-accent focus:border-accent transition duration-300"
                         required>
                     <input type="email" name="email" placeholder="Your Email"
-                        class="w-full p-3 rounded-lg border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-white focus:ring-accent focus:border-accent transition duration-300"
+                        class="w-full p-3 rounded-lg border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 text-black dark:text-white focus:ring-accent focus:border-accent transition duration-300"
                         required>
                     <input type="text" name="role_company" placeholder="Your Role / Company"
-                        class="w-full p-3 rounded-lg border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-white focus:ring-accent focus:border-accent transition duration-300">
+                        class="w-full p-3 rounded-lg border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 text-black dark:text-white focus:ring-accent focus:border-accent transition duration-300">
                     <textarea name="message" placeholder="Your Message" rows="4"
-                        class="w-full p-3 rounded-lg border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-white focus:ring-accent focus:border-accent transition duration-300"
+                        class="w-full p-3 rounded-lg border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 text-black dark:text-white focus:ring-accent focus:border-accent transition duration-300"
                         required></textarea>
                     <button type="submit"
                         class="w-full bg-accent text-white py-3 rounded-xl font-semibold hover:bg-opacity-90 transition duration-300 flex items-center justify-center">
@@ -1458,9 +1632,9 @@
     <div id="project-modal" class="modal fixed inset-0 z-[100] bg-black/80 flex items-center justify-center p-4 hidden"
         role="dialog" aria-modal="true" aria-labelledby="modal-title">
         <div id="modal-content"
-            class="bg-[#1e1e1e] rounded-xl max-w-4xl w-full max-h-[90vh] overflow-y-auto transform scale-95 transition-transform duration-300 text-gray-100 relative">
+            class="bg-white dark:bg-[#1e1e1e] rounded-xl max-w-4xl w-full max-h-[90vh] overflow-y-auto transform scale-95 transition-transform duration-300 text-black dark:text-gray-100 relative">
             <button id="close-modal" aria-label="Close Project Details"
-                class="absolute top-4 right-4 p-2 bg-gray-700 rounded-full hover:bg-gray-600 transition duration-300 z-10">
+                class="absolute top-4 right-4 p-2 bg-gray-200 dark:bg-gray-700 rounded-full hover:bg-gray-300 dark:hover:bg-gray-600 transition duration-300 z-10 text-gray-700 dark:text-gray-200">
                 <i data-lucide="x" class="h-6 w-6 icon"></i>
             </button>
 
@@ -1471,13 +1645,14 @@
     </div>
 
     <!-- Footer -->
-    <footer class="border-t border-gray-800 py-10 text-gray-400">
+    <footer class="border-t border-gray-200 dark:border-gray-800 py-10 text-gray-600 dark:text-gray-400">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <p class="mb-4">&copy; 2025 Abu Saeid. All rights reserved.</p>
             <div class="flex justify-center space-x-6 text-sm">
                 <a href="#about" class="hover:text-accent transition duration-300">About</a>
                 <a href="#projects" class="hover:text-accent transition duration-300">Projects</a>
-                <a href="https://socsignal.onrender.com/" target="_blank" class="hover:text-accent transition duration-300">Blog/Article</a>
+                <a href="#articles" class="blog-article-nav hover:text-accent transition duration-300">Blog/Article</a>
+
                 <a href="#contact" class="hover:text-accent transition duration-300">Contact</a>
                 <a href="https://drive.google.com/uc?export=download&id=1w0xbniv_xDg1qkcF-r-2CXblbCyUi-ip"
                     target="_blank" class="hover:text-accent transition duration-300">Resume PDF</a>
@@ -1551,22 +1726,22 @@
 
         // Data for Tools & Stack Section
         const toolData = [
-            { name: "Microsoft Sentinel", level: "Proficient", image: "Tools-Logo/SentinelLogo.png" },
-            { name: "Wazuh", level: "Expert", image: "Tools-Logo/wazuh-logo.png" },
-            { name: "Elastic Stack", level: "Proficient", image: "Tools-Logo/elastic-logo.png" },
-            { name: "Suricata", level: "Proficient", image: "Tools-Logo/Logo-Suricata-vert-whitetype-R.png" },
-            { name: "Zeek", level: "Proficient", image: "Tools-Logo/zeek-logo-blue-black-rgb-horizontal.png", bg: true },
-            { name: "Splunk", level: "Familiar", image: "Tools-Logo/splunk-logo.png" },
-            { name: "OSQuery", level: "Expert", image: "Tools-Logo/osquery-logo.png" },
-            { name: "Velociraptor", level: "Proficient", image: "Tools-Logo/VeloR7_LightMode.svg" },
-            { name: "Python", level: "Expert", image: "Tools-Logo/python-logo.png" },
-            { name: "Bash", level: "Expert", image: "Tools-Logo/Gnu-bash-logo.svg.png" },
-            { name: "Docker", level: "Proficient", image: "Tools-Logo/what-is-docker.png" },
-            { name: "Git", level: "Proficient", image: "Tools-Logo/git-logo.png" },
-            { name: "Sigma", level: "Expert", image: "Tools-Logo/sigma_logo_light.png", bg: true },
-            { name: "YARA", level: "Expert", image: "Tools-Logo/ls-integration-logo_yara.png" },
-            { name: "MITRE ATT&CK", level: "Expert", image: "Tools-Logo/mitre-attack.png" },
-            { name: "Scikit-learn", level: "Proficient", image: "Tools-Logo/Scikit_learn_logo_small.svg.png" },
+            { name: "Microsoft Sentinel", level: "Proficient", image: "Tools-Logo/SentinelLogo.png", color: "#0078d4" },
+            { name: "Wazuh", level: "Expert", image: "Tools-Logo/wazuh-logo.png", color: "#00a9e0" },
+            { name: "Elastic Stack", level: "Proficient", image: "Tools-Logo/elastic-logo.png", color: "#005571" },
+            { name: "Suricata", level: "Proficient", image: "Tools-Logo/Logo-Suricata-vert-whitetype-R.png", color: "#ef3b24" },
+            { name: "Zeek", level: "Proficient", image: "Tools-Logo/zeek-logo-blue-black-rgb-horizontal.png", color: "#00a3e0", bg: true },
+            { name: "Splunk", level: "Familiar", image: "Tools-Logo/splunk-logo.png", color: "#000000" },
+            { name: "OSQuery", level: "Expert", image: "Tools-Logo/osquery-logo.png", color: "#73c3d5" },
+            { name: "Velociraptor", level: "Proficient", image: "Tools-Logo/VeloR7_LightMode.svg", color: "#ffc20e" },
+            { name: "Python", level: "Expert", image: "Tools-Logo/python-logo.png", color: "#3776ab" },
+            { name: "Bash", level: "Expert", image: "Tools-Logo/Gnu-bash-logo.svg.png", color: "#2b3539" },
+            { name: "Docker", level: "Proficient", image: "Tools-Logo/what-is-docker.png", color: "#2496ed" },
+            { name: "Git", level: "Proficient", image: "Tools-Logo/git-logo.png", color: "#f05032" },
+            { name: "Sigma", level: "Expert", image: "Tools-Logo/sigma_logo_light.png", color: "#1e1e1e", bg: true },
+            { name: "YARA", level: "Expert", image: "Tools-Logo/ls-integration-logo_yara.png", color: "#6a0dad" },
+            { name: "MITRE ATT&CK", level: "Expert", image: "Tools-Logo/mitre-attack.png", color: "#cf0a2c" },
+            { name: "Scikit-learn", level: "Proficient", image: "Tools-Logo/Scikit_learn_logo_small.svg.png", color: "#f7931e" },
         ];
 
         // Data for Projects Section
@@ -1802,89 +1977,7 @@
             }
         ];
 
-        // Data: Articles & Insights
-        const articleData = [
-            {
-                id: 1,
-                title: "Built to Carry Dreams, Not Degrees — The Silent Crisis of Indian Graduates",
-                category: "Society / education",
-                tags: ["Education", "Career", "India"],
-                date: "May 1, 2024",
-                readTime: "4 min read",
-                author: "Abu Saeid",
-                image: "https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&q=80&w=800",
-                highlights: [
-                    "Mindset over degrees",
-                    "Project-first approach"
-                ],
-                summary: "An honest look at why graduates are struggling despite degrees—and how mindset, skills, and exposure can change the game.",
-                link: "https://medium.com/@abusaeid"
-            },
-            {
-                id: 2,
-                title: "GitHub Action Supply Chain Attack — 23,000+ Repositories at Risk!",
-                category: "Cybersecurity / devsecops",
-                tags: ["GitHub", "Security", "Supply Chain"],
-                date: "Mar 18, 2024",
-                readTime: "2 min read",
-                author: "Abu Saeid",
-                image: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&q=80&w=800",
-                highlights: [
-                    "Workflow hardening tips",
-                    "Least-privilege tokens"
-                ],
-                summary: "A breakdown of a real supply chain vulnerability in GitHub Actions affecting thousands of projects and how to stay secure.",
-                link: "https://abusaeid.substack.com"
-            },
-            {
-                id: 3,
-                title: "Debunking the AI Hype: Inside Real Hacker Tactics",
-                category: "Cybersecurity / ai",
-                tags: ["AI", "Cybersecurity", "Hacking"],
-                date: "Feb 19, 2024",
-                readTime: "3 min read",
-                author: "Abu Saeid",
-                image: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=800",
-                highlights: [
-                    "Real attacker workflows",
-                    "What to automate safely"
-                ],
-                summary: "AI is trending, but most attacks are still manual. This blog separates real hacker tactics from AI marketing noise.",
-                link: "https://abusaeid.substack.com"
-            },
-            {
-                id: 4,
-                title: "How to Monitor HAProxy with Prometheus and Grafana",
-                category: "Cybersecurity / devsecops",
-                tags: ["HAProxy", "Prometheus", "Grafana", "Monitoring"],
-                date: "Dec 2025",
-                readTime: "5 min read",
-                author: "Abu Saeid",
-                image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=800",
-                highlights: [
-                    "Real-time monitoring",
-                    "Grafana Dashboards"
-                ],
-                summary: "A complete guide to setting up real-time monitoring for your HAProxy load balancers using the powerful combination of Prometheus and Grafana.",
-                link: "How-to-Monitor-HAProxy.html"
-            },
-            {
-                id: 5,
-                title: "How to Install and Run Prometheus as a systemd Service",
-                category: "DevOps / monitoring",
-                tags: ["Prometheus", "Linux", "Systemd", "DevOps"],
-                date: "Dec 2025",
-                readTime: "4 min read",
-                author: "Abu Saeid",
-                image: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&q=80&w=800",
-                highlights: [
-                    "Production-ready setup",
-                    "Systemd integration"
-                ],
-                summary: "Step-by-step guide to installing Prometheus on Linux Mint/Ubuntu as a secure systemd service for reliable monitoring.",
-                link: "How-to-Install-Prometheus.html"
-            }
-        ];
+
 
 
         // ------------------------------------------------------------------
@@ -1892,15 +1985,20 @@
         // ------------------------------------------------------------------
 
         document.addEventListener('DOMContentLoaded', () => {
+            // Restore theme as early as possible
+            initTheme();
+            
             // 1. Initial Setup
             initLucideIcons();
             initNavToggle();
+            initThemeToggle();
+            initBlogArticleNavigation();
 
             // 2. Dynamic Content Rendering
             renderSkills();
             renderTools();
             renderProjects(projectData);
-            renderArticles();
+
             renderCerts();
 
             // 3. Interactions and Effects
@@ -1931,10 +2029,10 @@
             if (!container) return;
 
             container.innerHTML = skillData.map(skill => `
-                <div class="card p-6 rounded-xl shadow-lg card-hover transition duration-300 reveal">
+                <div class="card p-6 rounded-xl shadow-lg card-hover transition duration-300">
                     <div class="flex items-center mb-3">
                         <i data-lucide="${skill.icon}" class="h-6 w-6 text-accent mr-3 icon"></i>
-                        <h3 class="text-xl font-semibold text-gray-900 dark:text-gray-50">${skill.title}</h3>
+                        <h3 class="text-xl font-semibold text-black dark:text-gray-50">${skill.title}</h3>
                     </div>
                     <ul class="space-y-2 list-none text-gray-600 dark:text-gray-300">
                         ${skill.points.map(p => `
@@ -1951,32 +2049,35 @@
         }
 
         /**
-         * Renders the Tools & Stack section dynamically with glassmorphism 3D cards.
+         * Renders the Tools & Stack section with vibrant marquee.
          */
         function renderTools() {
-            const container = document.getElementById('tools-container');
-            if (!container) return;
+            const row1 = document.getElementById('tools-marquee-1');
+            const row2 = document.getElementById('tools-marquee-2');
+            if (!row1 || !row2) return;
 
-            const levelColors = {
-                "Expert": "bg-green-500/10 text-green-500 border border-green-500/30",
-                "Proficient": "bg-yellow-500/10 text-yellow-500 border border-yellow-500/30",
-                "Familiar": "bg-blue-500/10 text-blue-500 border border-blue-500/30"
-            };
+            // Split toolData into two rows
+            const mid = Math.ceil(toolData.length / 2);
+            const techDataRow1 = toolData.slice(0, mid);
+            const techDataRow2 = toolData.slice(mid);
 
-            // Rotation angles for 3D effect
-            const rotations = [-15, -10, -5, 0, 5, 10, 15, -12, -8, -3, 3, 8, 12];
-
-            container.innerHTML = toolData.map((tool, index) => `
-                <div class="glass-card flex flex-col justify-center items-center" data-text="${tool.name}" style="--r:${rotations[index % rotations.length]}; overflow: hidden;">
-                    ${tool.image ?
-                    `<img src="${tool.image}" alt="${tool.name}" class="h-20 w-20 object-contain transition-all duration-300 transform group-hover:scale-110 ${tool.bg ? 'bg-white/90 p-2 rounded-lg' : ''}">` :
-                    `<i data-lucide="${tool.icon}" class="h-16 w-16 icon text-accent"></i>`
-                }
-                    <span class="level-badge ${levelColors[tool.level]}">${tool.level}</span>
+            // Double the arrays for seamless scrolling
+            const row1Content = [...techDataRow1, ...techDataRow1].map(tech => `
+                <div class="tech-card-vibrant" style="background-color: ${tech.color}">
+                    <img src="${tech.image}" alt="${tech.name}" class="${tech.bg ? 'bg-white/90 p-1 rounded' : ''}">
+                    <span>${tech.name}</span>
                 </div>
             `).join('');
 
-            initLucideIcons();
+            const row2Content = [...techDataRow2, ...techDataRow2].map(tech => `
+                <div class="tech-card-vibrant" style="background-color: ${tech.color}">
+                    <img src="${tech.image}" alt="${tech.name}" class="${tech.bg ? 'bg-white/90 p-1 rounded' : ''}">
+                    <span>${tech.name}</span>
+                </div>
+            `).join('');
+
+            row1.innerHTML = row1Content;
+            row2.innerHTML = row2Content;
         }
 
 
@@ -1990,11 +2091,11 @@
             const container = document.getElementById('project-cards-container');
             if (!container) return;
             container.innerHTML = projects.map(project => `
-                <div class="project-card card p-6 rounded-xl shadow-lg card-hover transition duration-300 reveal"
+                <div class="project-card card p-6 rounded-xl shadow-lg card-hover transition duration-300"
                      data-tags="${project.tags.join(',')}" data-id="${project.id}">
                     <div class="flex items-start mb-4">
                          <i data-lucide="${project.tags.includes('AI/ML') ? 'cpu' : project.tags.includes('PurpleTeam') ? 'swords' : project.tags.includes('SIEM') ? 'database' : 'terminal'}" class="h-6 w-6 text-accent flex-shrink-0 mr-3 icon"></i>
-                        <h3 class="text-xl font-bold text-gray-900 dark:text-gray-50" id="project-title-${project.id}">${project.title}</h3>
+                        <h3 class="text-xl font-bold text-black dark:text-gray-50" id="project-title-${project.id}">${project.title}</h3>
                     </div>
                     <p class="text-gray-600 dark:text-gray-400 text-sm mb-4">${project.short_desc}</p>
                     <div class="flex flex-wrap gap-2 mb-4">
@@ -2017,103 +2118,6 @@
         }
 
         /**
-         * Renders the Articles section dynamically with filtering.
-         */
-        function renderArticles(filter = 'all') {
-            const container = document.getElementById('articles-container');
-            if (!container) return;
-
-            const filteredData = filter === 'all'
-                ? articleData
-                : articleData.filter(article => article.category === filter);
-
-            if (filteredData.length === 0) {
-                container.innerHTML = `
-                    <div class="col-span-full text-center py-12">
-                        <p class="text-gray-400 text-lg">No articles found in this category yet.</p>
-                    </div>
-                `;
-                return;
-            }
-
-            container.innerHTML = filteredData.map(article => `
-                <a href="${article.link}" target="_blank" class="block group h-full">
-                    <div class="card rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-200 dark:border-gray-800 hover:border-accent/50 h-full flex flex-col relative bg-white dark:bg-[#1e1e1e]">
-                        
-                        <!-- Image Container -->
-                        <div class="relative h-48 overflow-hidden">
-                            <img src="${article.image}" alt="${article.title}" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700">
-                            <div class="absolute inset-0 bg-gradient-to-t from-white dark:from-[#1e1e1e] via-transparent to-transparent opacity-80"></div>
-                            
-                            <!-- Badges -->
-                            <div class="absolute top-3 left-3">
-                                <span class="bg-black/60 backdrop-blur-md border border-white/10 text-blue-300 text-[10px] uppercase font-bold px-3 py-1 rounded-full tracking-wider">
-                                    ${article.category}
-                                </span>
-                            </div>
-                            <div class="absolute top-3 right-3">
-                                <span class="bg-green-500/20 backdrop-blur-md border border-green-500/30 text-green-400 text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider shadow-[0_0_10px_rgba(74,222,128,0.2)]">
-                                    Published
-                                </span>
-                            </div>
-                        </div>
-
-                        <!-- Content -->
-                        <div class="p-6 flex flex-col flex-grow">
-                            <h3 class="text-xl font-bold text-gray-900 dark:text-gray-100 mb-3 leading-snug group-hover:text-accent transition-colors">
-                                ${article.title}
-                            </h3>
-                            <p class="text-gray-600 dark:text-gray-400 text-sm mb-4 line-clamp-3 flex-grow">
-                                ${article.summary}
-                            </p>
-
-                            <!-- Tags -->
-                            <div class="flex flex-wrap gap-2 mb-6">
-                                ${article.tags.map(tag => `
-                                    <span class="px-2 py-1 rounded-md bg-gray-100 dark:bg-[#2d2d2d] border border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-400 text-[11px] font-medium">
-                                        ${tag}
-                                    </span>
-                                `).join('')}
-                            </div>
-
-                            <!-- Author & Time -->
-                            <div class="flex items-center justify-between text-xs text-gray-500 mb-4 pb-4 border-b border-gray-200 dark:border-gray-800">
-                                <div class="flex items-center gap-2">
-                                    <i data-lucide="user" class="h-3 w-3 text-accent"></i>
-                                    <span class="font-medium text-gray-500 dark:text-gray-400">${article.author}</span>
-                                </div>
-                                <div class="flex items-center gap-2">
-                                    <i data-lucide="clock" class="h-3 w-3 text-gray-600"></i>
-                                    <span>${article.readTime}</span>
-                                </div>
-                            </div>
-
-                            <!-- Highlights -->
-                            <div class="space-y-2 mb-6">
-                                ${article.highlights.map(highlight => `
-                                    <div class="flex items-start gap-2 text-sm text-gray-600 dark:text-gray-300">
-                                        <i data-lucide="star" class="h-3.5 w-3.5 text-accent fill-accent/20 mt-1 flex-shrink-0"></i>
-                                        <span class="text-xs text-gray-500 dark:text-gray-400">${highlight}</span>
-                                    </div>
-                                `).join('')}
-                            </div>
-
-                            <!-- Footer -->
-                            <div class="mt-auto flex items-center justify-between pt-2">
-                                <span class="text-xs text-gray-600 font-medium">${article.date}</span>
-                                <span class="text-accent text-xs font-bold uppercase tracking-wider flex items-center gap-1 group-hover:translate-x-1 transition-transform">
-                                    Read More <i data-lucide="arrow-right" class="h-3 w-3"></i>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            `).join('');
-
-            initLucideIcons();
-        }
-
-        /**
          * Renders the Certifications section dynamically.
          */
         function renderCerts() {
@@ -2121,8 +2125,8 @@
             if (!container) return;
 
             container.innerHTML = certData.map(cert => `
-                <div class="card p-6 rounded-xl shadow-lg card-hover transition duration-300 reveal">
-                    <h3 class="text-lg font-bold text-gray-900 dark:text-gray-50 mb-2">${cert.title}</h3>
+                <div class="card p-6 rounded-xl shadow-lg card-hover transition duration-300">
+                    <h3 class="text-lg font-bold text-black dark:text-gray-50 mb-2">${cert.title}</h3>
                     <p class="text-gray-600 dark:text-gray-400 text-sm mb-2 flex items-center">
                         <i data-lucide="award" class="h-4 w-4 inline-block mr-2 icon"></i> ${cert.issuer}
                     </p>
@@ -2145,28 +2149,8 @@
             initLucideIcons();
         }
 
-        /**
-         * Filters articles based on category.
-         */
-        function filterArticles(category) {
-            // Update active button state
-            const buttons = document.querySelectorAll('.article-filter-btn');
-            buttons.forEach(btn => {
-                // Check if the button text matches the category (handling 'All Posts' vs 'all')
-                const btnText = btn.textContent.trim();
-                const isMatch = (category === 'all' && btnText === 'All Posts') || (btnText === category);
 
-                if (isMatch) {
-                    btn.classList.add('active', 'bg-accent', 'text-white', 'shadow-lg', 'shadow-accent/25');
-                    btn.classList.remove('bg-gray-200', 'dark:bg-gray-800', 'text-gray-600', 'dark:text-gray-400', 'border', 'border-gray-300', 'dark:border-gray-700');
-                } else {
-                    btn.classList.remove('active', 'bg-accent', 'text-white', 'shadow-lg', 'shadow-accent/25');
-                    btn.classList.add('bg-gray-200', 'dark:bg-gray-800', 'text-gray-600', 'dark:text-gray-400', 'border', 'border-gray-300', 'dark:border-gray-700');
-                }
-            });
 
-            renderArticles(category);
-        }
 
         /**
          * Handles the client-side filtering logic for project cards.
@@ -2203,6 +2187,34 @@
 
             // Initial active state for 'All'
             document.querySelector('[data-filter="All"]').click();
+        }
+
+        /**
+         * Theme Management
+         */
+        function initTheme() {
+            const savedTheme = localStorage.getItem('theme');
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            
+            if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+                document.documentElement.classList.add('dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+            }
+        }
+
+        function toggleTheme() {
+            const isDark = document.documentElement.classList.toggle('dark');
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+            initLucideIcons(); // Refresh icons
+        }
+
+        function initThemeToggle() {
+            const btns = ['theme-toggle', 'theme-toggle-mobile'];
+            btns.forEach(id => {
+                const btn = document.getElementById(id);
+                if (btn) btn.addEventListener('click', toggleTheme);
+            });
         }
 
         /**
@@ -2272,7 +2284,7 @@
         function generateModalContent(project) {
             return `
                 <h2 id="modal-title" class="text-3xl font-extrabold text-accent mb-2">${project.title}</h2>
-                <p class="text-gray-400 text-lg mb-6">${project.short_desc}</p>
+                <p class="text-gray-600 dark:text-gray-400 text-lg mb-6">${project.short_desc}</p>
 
                 <div class="flex flex-wrap gap-2 mb-8">
                     ${project.tags.map(tag => `<span class="project-tag px-3 py-1 text-sm rounded-full font-medium">${tag}</span>`).join('')}
@@ -2280,28 +2292,28 @@
 
                 <div class="space-y-6">
                     <div>
-                        <h3 class="text-xl font-semibold mb-2 flex items-center"><i data-lucide="alert-triangle" class="h-5 w-5 mr-2 icon"></i> The Problem</h3>
-                        <p class="text-gray-300">${project.details.problem}</p>
+                        <h3 class="text-xl font-semibold mb-2 flex items-center text-black dark:text-white"><i data-lucide="alert-triangle" class="h-5 w-5 mr-2 icon"></i> The Problem</h3>
+                        <p class="text-gray-700 dark:text-gray-300">${project.details.problem}</p>
                     </div>
 
                     <div>
-                        <h3 class="text-xl font-semibold mb-2 flex items-center"><i data-lucide="zap" class="h-5 w-5 mr-2 icon"></i> Approach & Implementation</h3>
-                        <p class="text-gray-300">${project.details.approach}</p>
+                        <h3 class="text-xl font-semibold mb-2 flex items-center text-black dark:text-white"><i data-lucide="zap" class="h-5 w-5 mr-2 icon"></i> Approach & Implementation</h3>
+                        <p class="text-gray-700 dark:text-gray-300">${project.details.approach}</p>
                     </div>
 
                     <div>
-                        <h3 class="text-xl font-semibold mb-2 flex items-center"><i data-lucide="tool" class="h-5 w-5 mr-2 icon"></i> Core Tools & Stack</h3>
+                        <h3 class="text-xl font-semibold mb-2 flex items-center text-black dark:text-white"><i data-lucide="tool" class="h-5 w-5 mr-2 icon"></i> Core Tools & Stack</h3>
                         <div class="flex flex-wrap gap-3 mt-3">
-                            ${project.details.tools.map(tool => `<span class="bg-gray-700 p-2 rounded-lg text-sm font-medium">${tool}</span>`).join('')}
+                            ${project.details.tools.map(tool => `<span class="bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 p-2 rounded-lg text-sm font-medium border border-gray-300 dark:border-gray-600">${tool}</span>`).join('')}
                         </div>
                     </div>
 
                     <div>
-                        <h3 class="text-xl font-semibold mb-2 flex items-center"><i data-lucide="trending-up" class="h-5 w-5 mr-2 icon"></i> Outcome & Key Metrics</h3>
-                        <p class="text-gray-300">${project.details.outcome}</p>
+                        <h3 class="text-xl font-semibold mb-2 flex items-center text-black dark:text-white"><i data-lucide="trending-up" class="h-5 w-5 mr-2 icon"></i> Outcome & Key Metrics</h3>
+                        <p class="text-gray-700 dark:text-gray-300">${project.details.outcome}</p>
                     </div>
                 </div>
-                <div class="mt-8 pt-6 border-t border-gray-700">
+                <div class="mt-8 pt-6 border-t border-gray-200 dark:border-gray-700">
                     <a href="#contact" onclick="document.getElementById('close-modal').click()" class="text-accent font-medium hover:underline flex items-center">
                         Discuss this project in detail <i data-lucide="chevron-right" class="h-4 w-4 ml-1 icon"></i>
                     </a>
@@ -2312,6 +2324,37 @@
         /**
          * Initializes the Mobile Menu Toggle.
          */
+        function initBlogArticleNavigation() {
+            // Add event listeners to all blog/article navigation links
+            const blogArticleLinks = document.querySelectorAll('.blog-article-nav');
+            
+            blogArticleLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    // Only prevent default if it's an internal anchor link
+                    if (this.getAttribute('href').startsWith('#')) {
+                        e.preventDefault();
+                        
+                        const targetId = this.getAttribute('href').substring(1);
+                        const targetElement = document.getElementById(targetId);
+                        
+                        if (targetElement) {
+                            // Close mobile menu if open
+                            closeMobileMenu();
+                            
+                            // Scroll to the target element with smooth behavior
+                            targetElement.scrollIntoView({
+                                behavior: 'smooth',
+                                block: 'start'
+                            });
+                            
+                            // Update URL hash without causing default scroll
+                            history.pushState(null, null, '#' + targetId);
+                        }
+                    }
+                });
+            });
+        }
+        
         function initNavToggle() {
             const menuButton = document.getElementById('mobile-menu-button');
             const mobileMenu = document.getElementById('mobile-menu');
@@ -2354,20 +2397,20 @@
                 previousExperienceSection.style.display = 'none';
 
                 // Update button styles
-                currentRoleBtn.classList.remove('bg-gray-200', 'dark:bg-gray-700', 'text-gray-600', 'dark:text-gray-300', 'hover:bg-gray-300', 'dark:hover:bg-gray-600');
+                currentRoleBtn.classList.remove('bg-gray-200', 'dark:bg-gray-700', 'text-black', 'dark:text-gray-300', 'hover:bg-gray-300', 'dark:hover:bg-gray-600');
                 currentRoleBtn.classList.add('bg-accent', 'text-white');
                 previousExperienceBtn.classList.remove('bg-accent', 'text-white');
-                previousExperienceBtn.classList.add('bg-gray-200', 'dark:bg-gray-700', 'text-gray-600', 'dark:text-gray-300', 'hover:bg-gray-300', 'dark:hover:bg-gray-600');
+                previousExperienceBtn.classList.add('bg-gray-200', 'dark:bg-gray-700', 'text-black', 'dark:text-gray-300', 'hover:bg-gray-300', 'dark:hover:bg-gray-600');
             } else {
                 // Show Previous Experience, Hide Current Role
                 currentRoleSection.style.display = 'none';
                 previousExperienceSection.style.display = 'block';
 
                 // Update button styles
-                previousExperienceBtn.classList.remove('bg-gray-200', 'dark:bg-gray-700', 'text-gray-600', 'dark:text-gray-300', 'hover:bg-gray-300', 'dark:hover:bg-gray-600');
+                previousExperienceBtn.classList.remove('bg-gray-200', 'dark:bg-gray-700', 'text-black', 'dark:text-gray-300', 'hover:bg-gray-300', 'dark:hover:bg-gray-600');
                 previousExperienceBtn.classList.add('bg-accent', 'text-white');
                 currentRoleBtn.classList.remove('bg-accent', 'text-white');
-                currentRoleBtn.classList.add('bg-gray-200', 'dark:bg-gray-700', 'text-gray-600', 'dark:text-gray-300', 'hover:bg-gray-300', 'dark:hover:bg-gray-600');
+                currentRoleBtn.classList.add('bg-gray-200', 'dark:bg-gray-700', 'text-black', 'dark:text-gray-300', 'hover:bg-gray-300', 'dark:hover:bg-gray-600');
             }
 
             // Re-initialize Lucide icons if needed
@@ -2773,10 +2816,10 @@
 
         <!-- Modal Content -->
         <div
-            class="relative w-full h-full md:w-[90%] md:h-[90%] bg-gray-900 rounded-xl overflow-hidden shadow-2xl flex flex-col transform scale-95 transition-transform duration-300">
+            class="relative w-full h-full md:w-[90%] md:h-[90%] bg-white dark:bg-gray-900 rounded-xl overflow-hidden shadow-2xl flex flex-col transform scale-95 transition-transform duration-300">
             <!-- Header -->
-            <div class="flex justify-between items-center p-4 bg-gray-800 border-b border-gray-700">
-                <h3 class="text-xl font-bold text-white flex items-center gap-2">
+            <div class="flex justify-between items-center p-4 bg-gray-50 dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
+                <h3 class="text-xl font-bold text-black dark:text-white flex items-center gap-2">
                     <i data-lucide="file-text" class="h-5 w-5 text-accent"></i> Resume Preview
                 </h3>
                 <div class="flex items-center gap-4">
@@ -2792,7 +2835,7 @@
             </div>
 
             <!-- PDF Viewer (Iframe) -->
-            <div class="flex-1 bg-gray-900 relative">
+            <div class="flex-1 bg-white dark:bg-gray-900 relative">
                 <iframe src="https://drive.google.com/file/d/1w0xbniv_xDg1qkcF-r-2CXblbCyUi-ip/preview"
                     class="absolute inset-0 w-full h-full border-0" allow="autoplay">
                 </iframe>
