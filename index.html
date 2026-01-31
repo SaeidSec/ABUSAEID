@@ -187,181 +187,183 @@
         }
 
         /* Glassmorphism 3D Card Container */
-        .glass-container {
+        /* Infinite Scroll Animation Classes */
+        .tools-wrapper {
             position: relative;
+            width: 100%;
+            overflow: hidden;
             display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 20px;
-            padding: 20px;
-            max-width: 1400px;
-            margin: 0 auto;
+            flex-direction: column;
+            gap: 2rem;
+            padding: 2rem 0;
+        }
+
+        .glass-container {
+            display: flex;
+            width: max-content;
+            gap: 2rem;
+            padding: 10px;
+        }
+
+        #row1 {
+            animation: scroll-rtl 40s linear infinite;
+        }
+
+        #row2 {
+            animation: scroll-ltr 40s linear infinite;
+        }
+
+        .tools-wrapper:hover .glass-container {
+            animation-play-state: paused;
+        }
+
+        @keyframes scroll-rtl {
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+        @keyframes scroll-ltr {
+            0% {
+                transform: translateX(-50%);
+            }
+
+            100% {
+                transform: translateX(0);
+            }
+        }
+
+        .card-wrapper {
+            flex: 0 0 auto;
         }
 
         .glass-card {
             position: relative;
-            width: 180px;
-            height: 200px;
-            background: linear-gradient(rgba(255, 255, 255, 0.1), transparent);
+            width: 130px;
+            height: 165px;
+            background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 25px 25px rgba(0, 0, 0, 0.15);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 16px;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            transition: 0.5s;
-            border-radius: 10px;
-            margin: 0 -45px;
-            backdrop-filter: blur(10px);
-            transform: rotate(calc(var(--r) * 1deg));
+            cursor: pointer;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
         }
 
-        .glass-container:hover .glass-card {
-            transform: rotate(0deg);
-            margin: 0 10px;
+        .glass-card:hover {
+            transform: scale(1.1) translateY(-10px);
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(5, 136, 167, 0.5);
+            box-shadow: 0 15px 45px rgba(5, 136, 167, 0.3);
+            z-index: 10;
         }
 
-        .glass-card::before {
-            content: attr(data-text);
+        /* Bottom Label Style (Dark Pill) */
+        .tool-name {
             position: absolute;
-            bottom: 0;
+            bottom: 0px;
             width: 100%;
-            height: 40px;
-            background: rgba(0, 0, 0, 0.05);
+            height: 35px;
             display: flex;
             justify-content: center;
             align-items: center;
-            color: var(--color-text-main);
-            font-size: 12px;
-            font-weight: 600;
-            border-radius: 0 0 10px 10px;
+            background: rgba(15, 23, 42, 0.82);
+            color: #fff;
+            font-size: 10px;
+            font-weight: 700;
+            border-radius: 0 0 16px 16px;
+            letter-spacing: 0.5px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            transition: background 0.3s ease;
         }
 
-        .dark .glass-card {
-            background: linear-gradient(rgba(255, 255, 255, 0.05), transparent);
-            border: 1px solid rgba(255, 255, 255, 0.05);
+        .glass-card:hover .tool-name {
+            background: #0f172a;
         }
 
-        .dark .glass-card::before {
-            background: rgba(255, 255, 255, 0.05);
+        .tool-logo-wrapper {
+            width: 60px;
+            height: 60px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 25px;
+            transition: transform 0.3s ease;
+        }
+
+        .tool-logo-wrapper.has-bg {
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .glass-card:hover .tool-logo-wrapper {
+            transform: scale(1.1);
+        }
+
+        .tool-logo {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        /* Level Badge */
+        .level-badge {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            font-size: 8px;
+            font-weight: 800;
+            padding: 3px 8px;
+            border-radius: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            z-index: 5;
+        }
+
+        .level-expert {
+            background: #059669;
             color: #fff;
         }
 
-        .glass-card svg,
-        .glass-card i {
-            font-size: 2.5em;
-            fill: var(--color-accent);
-            color: var(--color-accent);
+        .level-proficient {
+            background: #0891b2;
+            color: #fff;
         }
 
-        .glass-card .level-badge {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            font-size: 9px;
-            padding: 4px 8px;
-            border-radius: 12px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
+        .level-familiar {
+            background: #d97706;
+            color: #fff;
         }
 
-        /* Tablet responsiveness */
-        @media (max-width: 1024px) {
-            .glass-card {
-                width: 160px;
-                height: 180px;
-                margin: 0 -35px;
-            }
-
-            .glass-container:hover .glass-card {
-                margin: 0 8px;
-            }
-
-            .glass-card svg,
-            .glass-card i {
-                font-size: 2em;
-            }
-        }
-
-        /* Mobile responsiveness */
+        /* Responsive */
         @media (max-width: 768px) {
-            .glass-container {
-                gap: 10px;
-                padding: 10px;
-            }
-
             .glass-card {
-                width: 120px;
+                width: 110px;
                 height: 140px;
-                margin: 0 -20px;
             }
 
-            .glass-container:hover .glass-card {
-                margin: 0 5px;
+            .tool-logo-wrapper {
+                width: 45px;
+                height: 45px;
+                margin-bottom: 20px;
             }
 
-            .glass-card svg,
-            .glass-card i {
-                font-size: 1.8em;
-            }
-
-            .glass-card::before {
-                height: 35px;
-                font-size: 10px;
-            }
-
-            .glass-card .level-badge {
-                font-size: 8px;
-                padding: 3px 6px;
-            }
-        }
-
-        /* Small mobile devices */
-        @media (max-width: 480px) {
-            .glass-container {
-                gap: 8px;
-                padding: 5px;
-            }
-
-            .glass-card {
-                width: 100px;
-                height: 120px;
-                margin: 0 -15px;
-            }
-
-            .glass-container:hover .glass-card {
-                margin: 0 3px;
-            }
-
-            .glass-card svg,
-            .glass-card i {
-                font-size: 1.5em;
-            }
-
-            .glass-card::before {
+            .tool-name {
                 height: 30px;
                 font-size: 9px;
-            }
-
-            .glass-card .level-badge {
-                font-size: 7px;
-                padding: 2px 5px;
-                top: 5px;
-                right: 5px;
-            }
-        }
-
-        /* Touch device optimization - disable hover overlap on mobile */
-        @media (hover: none) and (pointer: coarse) {
-            .glass-card {
-                margin: 0 5px !important;
-                transform: rotate(0deg) !important;
-            }
-
-            .glass-container:hover .glass-card {
-                margin: 0 5px !important;
             }
         }
 
@@ -390,10 +392,7 @@
             color: var(--color-accent);
         }
 
-        /* Enhance visibility in dark mode */
-        .dark {
-            /* Dark mode - keep existing styles */
-        }
+
 
         /* Dark mode specific visibility enhancements */
         .dark .text-gray-700 {
@@ -1281,30 +1280,26 @@
             </div>
         </section>
 
-        <!-- 4. Tools & Stack: Vibrant Marquee -->
-        <section id="tools" class="py-16 md:py-24">
+        <!-- Tools & Stack Section -->
+        <section id="tools-stack" class="py-16 md:py-24 bg-slate-50 dark:bg-[#000319] overflow-hidden">
             <div class="max-w-7xl mx-auto px-4">
-                <div class="text-center mb-16">
-                    <h2 class="text-3xl font-bold mb-6 text-black dark:text-gray-100 uppercase tracking-wider">Tools &
-                        Stack Proficiency</h2>
-                    <p class="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-                        A specialized set of cybersecurity tools and technologies leveraged for advanced threat
-                        detection and defense.
+                <!-- Header -->
+                <div class="mb-16 text-center" data-aos="fade-up">
+                    <h2
+                        class="text-3xl md:text-4xl font-bold bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent inline-block uppercase tracking-wider">
+                        Tools & Stack Proficiency</h2>
+                    <p class="text-lg md:text-xl font-semibold text-gray-600 dark:text-gray-400 mt-2">
+                        A curated arsenal of specialized security tools and technologies leveraged to build resilient
+                        defenses.
                     </p>
                 </div>
 
-                <!-- Marquee Row 1 -->
-                <div class="marquee-container">
-                    <div id="tools-marquee-1" class="marquee-content">
-                        <!-- Content injected by JS -->
-                    </div>
-                </div>
-
-                <!-- Marquee Row 2 (Reverse) -->
-                <div class="marquee-container mt-4">
-                    <div id="tools-marquee-2" class="marquee-content-reverse">
-                        <!-- Content injected by JS -->
-                    </div>
+                <!-- Tools Wrapper -->
+                <div class="tools-wrapper">
+                    <!-- First Row -->
+                    <div class="glass-container" id="row1"></div>
+                    <!-- Second Row -->
+                    <div class="glass-container" id="row2"></div>
                 </div>
             </div>
         </section>
@@ -2869,75 +2864,187 @@
             });
         })();
     </script>
-    <!-- Resume Viewer Modal -->
-    <div id="resumeModal"
-        class="fixed inset-0 z-[9999] hidden flex items-center justify-center bg-black/80 backdrop-blur-sm opacity-0 transition-opacity duration-300">
-        <!-- Overlay Click to Close -->
-        <div class="absolute inset-0" onclick="closeResumeModal()"></div>
+    <!-- CV Modal (Resume Preview) -->
+    <div id="cv-modal"
+        class="fixed inset-0 z-[9999] hidden flex-col items-center justify-start overflow-y-auto p-4 sm:p-8 opacity-0 transition-opacity duration-300">
+        <!-- Backdrop -->
+        <div class="absolute inset-0 bg-slate-900/60 dark:bg-[#020617]/80 backdrop-blur-md" onclick="closeCVModal()">
+        </div>
 
-        <!-- Modal Content -->
-        <div
-            class="relative w-full h-full md:w-[90%] md:h-[90%] bg-white dark:bg-gray-900 rounded-xl overflow-hidden shadow-2xl flex flex-col transform scale-95 transition-transform duration-300">
+        <div id="cv-modal-content"
+            class="relative z-10 w-full max-w-6xl h-[90vh] my-auto bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-white/10 flex flex-col overflow-hidden shadow-2xl transform scale-95 transition-all duration-300">
+
             <!-- Header -->
             <div
-                class="flex justify-between items-center p-4 bg-gray-50 dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
-                <h3 class="text-xl font-bold text-black dark:text-white flex items-center gap-2">
-                    <i data-lucide="file-text" class="h-5 w-5 text-accent"></i> Resume Preview
-                </h3>
-                <div class="flex items-center gap-4">
-                    <a href="https://drive.google.com/uc?export=download&id=1w0xbniv_xDg1qkcF-r-2CXblbCyUi-ip"
-                        class="text-sm text-accent hover:text-white transition-colors flex items-center gap-1">
-                        <i data-lucide="download" class="h-4 w-4"></i> Download
+                class="flex items-center justify-between p-4 border-b border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/50 shrink-0">
+                <div class="flex items-center gap-3">
+                    <div class="p-2 rounded-lg bg-blue-500/10 text-blue-600 dark:text-blue-500">
+                        <i data-lucide="file-text" class="w-5 h-5"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-slate-900 dark:text-white">Resume Preview</h3>
+                        <p
+                            class="text-[10px] md:text-xs text-slate-600 dark:text-slate-300 uppercase tracking-widest font-semibold">
+                            Professional Portfolio & CV</p>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-2">
+                    <!-- Expand Button -->
+                    <a href="https://drive.google.com/file/d/1w0xbniv_xDg1qkcF-r-2CXblbCyUi-ip/view" target="_blank"
+                        class="p-2 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-400 transition-colors"
+                        title="Open in Full Page">
+                        <i data-lucide="external-link" class="w-5 h-5"></i>
                     </a>
-                    <button onclick="closeResumeModal()"
-                        class="p-2 rounded-full hover:bg-gray-700 text-gray-400 hover:text-white transition-colors">
-                        <i data-lucide="x" class="h-6 w-6"></i>
+                    <!-- Direct Link Button -->
+                    <a id="resume-direct-link"
+                        href="https://drive.google.com/uc?export=download&id=1w0xbniv_xDg1qkcF-r-2CXblbCyUi-ip"
+                        target="_blank"
+                        class="p-2 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-700 text-blue-600 dark:text-blue-500 transition-colors"
+                        title="View PDF Directly">
+                        <i data-lucide="file-down" class="w-5 h-5"></i>
+                    </a>
+                    <!-- Close Button -->
+                    <button onclick="closeCVModal()"
+                        class="p-2 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 transition-colors">
+                        <i data-lucide="x" class="w-5 h-5"></i>
                     </button>
                 </div>
             </div>
 
-            <!-- PDF Viewer (Iframe) -->
-            <div class="flex-1 bg-white dark:bg-gray-900 relative">
-                <iframe src="https://drive.google.com/file/d/1w0xbniv_xDg1qkcF-r-2CXblbCyUi-ip/preview"
-                    class="absolute inset-0 w-full h-full border-0" allow="autoplay">
+            <!-- PDF Content -->
+            <div class="flex-1 overflow-hidden bg-slate-100 dark:bg-slate-950 relative">
+                <!-- Loading State -->
+                <div id="cv-loading"
+                    class="absolute inset-0 flex items-center justify-center bg-slate-100/90 dark:bg-slate-950/90 backdrop-blur-sm z-50">
+                    <div class="flex flex-col items-center gap-3">
+                        <div class="w-8 h-8 border-4 border-blue-500/20 border-t-blue-500 rounded-full animate-spin">
+                        </div>
+                        <p class="text-xs text-slate-500 font-bold tracking-widest uppercase">Loading Resume...</p>
+                    </div>
+                </div>
+
+                <!-- Direct View Iframe -->
+                <iframe id="resume-frame" src="about:blank" class="w-full h-full border-0 relative z-10" title="Resume"
+                    onload="document.getElementById('cv-loading').style.display='none'">
                 </iframe>
             </div>
         </div>
     </div>
 
     <script>
-        // Resume Modal Logic
-        const resumeModal = document.getElementById('resumeModal');
-        const modalContent = resumeModal.querySelector('div.relative');
+        // CV Modal Logic
+        const cvModal = document.getElementById('cv-modal');
+        const cvModalContent = document.getElementById('cv-modal-content');
+        const resumeFrame = document.getElementById('resume-frame');
+        const cvLoading = document.getElementById('cv-loading');
 
-        function openResumeModal() {
-            resumeModal.classList.remove('hidden');
-            // Small delay to allow display:block to apply before opacity transition
+        function openCVModal() {
+            cvModal.classList.remove('hidden');
+            cvModal.classList.add('flex');
+
+            // Small delay for transitions
             setTimeout(() => {
-                resumeModal.classList.remove('opacity-0');
-                modalContent.classList.remove('scale-95');
-                modalContent.classList.add('scale-100');
+                cvModal.classList.remove('opacity-0');
+                cvModalContent.classList.remove('scale-95');
+                cvModalContent.classList.add('scale-100');
             }, 10);
-            document.body.style.overflow = 'hidden'; // Prevent background scrolling
+
+            // Set iframe source if it's currently blank
+            if (resumeFrame.src === 'about:blank' || resumeFrame.src === window.location.href) {
+                cvLoading.style.display = 'flex';
+                resumeFrame.src = 'https://drive.google.com/file/d/1w0xbniv_xDg1qkcF-r-2CXblbCyUi-ip/preview';
+            }
+
+            document.body.style.overflow = 'hidden';
+            lucide.createIcons();
         }
 
-        function closeResumeModal() {
-            resumeModal.classList.add('opacity-0');
-            modalContent.classList.remove('scale-100');
-            modalContent.classList.add('scale-95');
+        function closeCVModal() {
+            cvModal.classList.add('opacity-0');
+            cvModalContent.classList.remove('scale-100');
+            cvModalContent.classList.add('scale-95');
 
-            // Wait for transition to finish before hiding
             setTimeout(() => {
-                resumeModal.classList.add('hidden');
-                document.body.style.overflow = ''; // Restore scrolling
+                cvModal.classList.add('hidden');
+                cvModal.classList.remove('flex');
+                document.body.style.overflow = '';
             }, 300);
         }
 
-        // Close on Escape key
+        // Backward compatibility
+        function openResumeModal() { openCVModal(); }
+        function closeResumeModal() { closeCVModal(); }
+
         document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && !resumeModal.classList.contains('hidden')) {
-                closeResumeModal();
+            if (e.key === 'Escape' && !cvModal.classList.contains('hidden')) {
+                closeCVModal();
             }
+        });
+    </script>
+    <script>
+        // Tools & Stack Proficiency Data
+        const row1Data = [
+            { name: "Snort", level: "Proficient", logo: "https://cdn.simpleicons.org/snort/000000" },
+            { name: "Wireshark", level: "Expert", logo: "https://cdn.simpleicons.org/wireshark/1679A7" },
+            { name: "Nmap", level: "Expert", logo: "https://www.nmap.org/images/nmap-logo-64.png" },
+            { name: "Burp Suite", level: "Proficient", logo: "https://cdn.simpleicons.org/burpsuite/FF6633" },
+            { name: "Yara", level: "Expert", logo: "Tools-Logo/ls-integration-logo_yara.png" },
+            { name: "Sysmon", level: "Expert", logo: "https://raw.githubusercontent.com/OTRF/detection-hackathon-apt29/master/images/sysmon.png" },
+            { name: "Wazuh", level: "Expert", logo: "Tools-Logo/wazuh-logo.png" },
+            { name: "Suricata", level: "Proficient", logo: "Tools-Logo/Logo-Suricata-vert-whitetype-R.png" },
+        ];
+
+        const row2Data = [
+            { name: "Splunk", level: "Familiar", logo: "Tools-Logo/splunk-logo.png" },
+            { name: "Python", level: "Expert", logo: "Tools-Logo/python-logo.png" },
+            { name: "VirusTotal", level: "Proficient", logo: "https://cdn.simpleicons.org/virustotal/3949AB" },
+            { name: "Docker", level: "Proficient", logo: "Tools-Logo/what-is-docker.png" },
+            { name: "Git", level: "Proficient", logo: "Tools-Logo/git-logo.png" },
+            { name: "Bash", level: "Expert", logo: "Tools-Logo/Gnu-bash-logo.svg.png" },
+            { name: "MITRE ATT&CK", level: "Expert", logo: "Tools-Logo/mitre-attack.png" },
+            { name: "Elasticsearch", level: "Proficient", logo: "Tools-Logo/elastic-logo.png" },
+        ];
+
+        function getLevelClass(level) {
+            switch (level) {
+                case "Expert": return "level-expert";
+                case "Proficient": return "level-proficient";
+                case "Familiar": return "level-familiar";
+                default: return "";
+            }
+        }
+
+        function renderRow(containerId, data) {
+            const container = document.getElementById(containerId);
+            if (!container) return;
+
+            // Duplicate data to create seamless infinite scroll
+            const displayData = [...data, ...data];
+
+            displayData.forEach((tool) => {
+                const card = document.createElement("div");
+                card.className = "card-wrapper";
+                card.innerHTML = `
+                    <div class="glass-card">
+                        <span class="level-badge ${getLevelClass(tool.level)}">${tool.level}</span>
+                        <div class="tool-logo-wrapper has-bg">
+                            <img src="${tool.logo}" alt="${tool.name}" class="tool-logo" onerror="this.onerror=null; this.src='https://cdn-icons-png.flaticon.com/512/1055/1055683.png';">
+                        </div>
+                        <div class="tool-name">${tool.name}</div>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function renderTools() {
+            renderRow("row1", row1Data);
+            renderRow("row2", row2Data);
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            renderTools();
         });
     </script>
 </body>
