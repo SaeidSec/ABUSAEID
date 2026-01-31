@@ -15,15 +15,30 @@
     <meta charset="UTF-8">
     <!-- MANDATORY: Viewport meta tag ensures responsiveness on mobile devices -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Abu Saeid | SOC Analyst | Incident Responder | SIEM Specialist ( Wazuh, Elastic Search , IBM QRadar , Splunk
-        , Microsoft Sentinel ) | Threat Hunter | Digital Forensics & Malware Analysis | VAPT & OWASP Top 10 | AI SOC
-        Automation | Writer |
-        Photographer |</title>
+    <title>Abu Saeid | SOC Analyst & Cybersecurity Specialist | Incident Response & Threat Hunting</title>
     <!-- SEO & Metadata -->
     <meta name="description"
-        content="Professional portfolio of a SOC Analyst specializing in threat hunting, incident response, AI/ML automations, and purple teaming operations.">
+        content="Portfolio of Abu Saeid, a SOC Analyst specializing in threat hunting, incident response, SIEM engineering (Wazuh, Elastic), and AI-driven security automation.">
     <meta name="keywords"
-        content="SOC, Cybersecurity, AI/ML, Automation, Purple Teaming, Threat Hunting, Incident Response, SIEM, Wazuh, Elastic, Abu Saeid">
+        content="SOC Analyst, Cybersecurity, Abu Saeid, Threat Hunting, Incident Response, SIEM, Wazuh, Elastic, Purple Teaming, Security Automation, AI in Security">
+    <meta name="author" content="Abu Saeid">
+    <link rel="canonical" href="https://your-portfolio-url.com/" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://your-portfolio-url.com/">
+    <meta property="og:title" content="Abu Saeid | SOC Analyst & Cybersecurity Specialist">
+    <meta property="og:description"
+        content="Portfolio of Abu Saeid - Specializing in Threat Hunting, Incident Response, and AI-driven Security Automation.">
+    <meta property="og:image" content="coverphoto.jpeg">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://your-portfolio-url.com/">
+    <meta property="twitter:title" content="Abu Saeid | SOC Analyst & Cybersecurity Specialist">
+    <meta property="twitter:description"
+        content="Portfolio of Abu Saeid - Specializing in Threat Hunting, Incident Response, and AI-driven Security Automation.">
+    <meta property="twitter:image" content="coverphoto.jpeg">
 
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -704,9 +719,12 @@
             animation: marquee-reverse 40s linear infinite;
         }
 
-        .marquee-container:hover .marquee-content,
-        .marquee-container:hover .marquee-content-reverse {
-            animation-play-state: paused;
+        @media (hover: hover) and (pointer: fine) {
+
+            .marquee-container:hover .marquee-content,
+            .marquee-container:hover .marquee-content-reverse {
+                animation-play-state: paused;
+            }
         }
 
         @keyframes marquee {
