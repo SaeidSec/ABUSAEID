@@ -1792,6 +1792,19 @@
         // Data for Projects Section
         const projectData = [
             {
+                id: 8,
+                title: "eBPF-Sentry: Kernel-Level IDS/IPS",
+                short_desc: "Engineered a high-performance, tamper-proof IDS/IPS system using eBPF and BCC to trace system calls with negligible overhead.",
+                tags: ["eBPF", "KernelSecurity", "IDS/IPS", "Python", "C"],
+                link: "https://github.com/SaeidSec/eBPF-Sentry-Linux-Kernel-Security-System",
+                details: {
+                    problem: "Traditional IDS/IPS solutions rely on user-space hooking (e.g., LD_PRELOAD), which can be easily bypassed by sophisticated malware and incurs significant performance overhead.",
+                    approach: "Leveraged eBPF (Extended Berkeley Packet Filter) to attach directly to kernel tracepoints (execve, connect, open) for tamper-proof monitoring. Implemented a Python user-space controller for rule management and a C-based eBPF probe for high-performance filtering.",
+                    tools: ["eBPF", "BCC", "Python", "C", "Linux Kernel", "YAML"],
+                    outcome: "Achieved real-time visibility into system calls with minimal performance impact. Successfully detected complex attack chains (e.g., sensitive file access followed by outbound connections) and implemented active defense (process termination) for high-severity threats."
+                }
+            },
+            {
                 id: 1,
                 title: "Real-Time Anomaly Detection System (AI/ML)",
                 short_desc: "Developed a distributed system for real-time security anomaly alerting using unsupervised learning on network telemetry.",
