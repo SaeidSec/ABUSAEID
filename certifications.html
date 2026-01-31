@@ -9,6 +9,18 @@
 
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        darkbg: '#000319',
+                    }
+                }
+            }
+        }
+    </script>
 
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -21,14 +33,35 @@
 
     <style>
         :root {
-            --color-bg: #0f0f23;
-            --color-text-main: #f0f0f0;
-            --color-accent: #0588A7;
+            /* Light Mode Variables (Default) - Pure Light & High Contrast */
+            --color-bg: #f8fafc;
+            --color-text-main: #1e1b4b;
+            /* Deep Indigo for text */
+            --color-accent: #7c3aed;
+            /* Violet-600 */
+            --color-grid: rgba(0, 0, 0, 0.05);
+            /* Light mode grid */
+            --color-bg-card: #ffffff;
+            --color-border: #e2e8f0;
+        }
+
+        .dark {
+            /* Keep existing light variables or update them if needed, but the main focus is Dark Theme */
+            --color-bg: #000319;
+            --color-text-main: #E4ECFF;
+            --color-accent: #CBACF9;
+            --color-grid: rgba(255, 255, 255, 0.03);
+            /* Dark mode grid */
+            --color-bg-card: #10132E;
+            --color-border: #2E3A59;
         }
 
         body {
             font-family: 'Inter', sans-serif;
             background-color: var(--color-bg);
+            background-image: linear-gradient(var(--color-grid) 1px, transparent 1px),
+                linear-gradient(90deg, var(--color-grid) 1px, transparent 1px);
+            background-size: 50px 50px;
             color: var(--color-text-main);
             cursor: none;
         }
@@ -83,21 +116,22 @@
         }
 
         .card {
-            background: linear-gradient(135deg, rgba(15, 15, 35, 0.9) 0%, rgba(20, 20, 40, 0.8) 100%);
-            border: 1px solid rgba(5, 136, 167, 0.2);
+            background-color: var(--color-bg-card);
+            border: 1px solid var(--color-border);
             transition: all 0.3s ease;
         }
 
         .card:hover {
-            border-color: rgba(5, 136, 167, 0.5);
+            border-color: var(--color-accent);
             transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(5, 136, 167, 0.2);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
         }
 
         .project-tag {
-            background: rgba(5, 136, 167, 0.15);
-            color: #0588A7;
-            border: 1px solid rgba(5, 136, 167, 0.3);
+            background: rgba(124, 58, 237, 0.1);
+            /* Violet tint */
+            color: var(--color-accent);
+            border: 1px solid var(--color-accent);
         }
 
         /* Scroll reveal animation */
@@ -114,16 +148,16 @@
     </style>
 </head>
 
-<body class="dark min-h-screen">
+<body class="dark min-h-screen transition-colors duration-300">
     <!-- Navigation -->
-    <nav class="fixed top-0 left-0 right-0 z-50 backdrop-blur-xl bg-[#0f0f23]/90 border-b border-cyan-500/20">
+    <nav class="fixed top-0 left-0 right-0 z-50 backdrop-blur-xl bg-[#000319]/90 border-b border-indigo-500/20">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
                 <a href="index.html"
-                    class="text-xl font-bold text-cyan-400 hover:text-cyan-300 transition duration-300">
+                    class="text-xl font-bold text-indigo-400 hover:text-indigo-300 transition duration-300">
                     ← Back to Portfolio
                 </a>
-                <h1 class="text-lg font-semibold text-gray-300">Professional Certifications</h1>
+                <h1 class="text-lg font-semibold text-gray-700 dark:text-gray-300">Professional Certifications</h1>
             </div>
         </div>
     </nav>
@@ -133,11 +167,11 @@
         <div class="max-w-7xl mx-auto">
             <!-- Header -->
             <div class="text-center mb-12 reveal">
-                <h2 class="text-4xl md:text-5xl font-bold text-gray-100 mb-4">
+                <h2 class="text-4xl md:text-5xl font-bold mb-4" style="color: var(--color-text-main)">
                     <i data-lucide="award" class="h-12 w-12 inline-block text-accent mr-3"></i>
                     Professional Certifications
                 </h2>
-                <p class="text-gray-400 text-lg max-w-3xl mx-auto">
+                <p class="text-lg max-w-3xl mx-auto" style="color: var(--color-text-muted, #94a3b8)">
                     A comprehensive collection of cybersecurity certifications and specialized training programs
                     demonstrating expertise across SOC operations, threat hunting, offensive security, and security
                     engineering.
@@ -327,7 +361,7 @@
 
             container.innerHTML = certData.map(cert => `
                 <div class="card p-6 rounded-xl shadow-lg transition duration-300 reveal">
-                    <h3 class="text-lg font-bold text-white mb-2">${cert.title}</h3>
+                    <h3 class="text-lg font-bold mb-2" style="color: var(--color-text-main)">${cert.title}</h3>
                     <p class="text-gray-600 dark:text-gray-400 text-sm mb-2 flex items-center">
                         <i data-lucide="award" class="h-4 w-4 inline-block mr-2 icon"></i> ${cert.issuer}
                     </p>
@@ -430,7 +464,17 @@
         })();
 
         // Initialize on page load
+        // Initialize on page load
         document.addEventListener('DOMContentLoaded', () => {
+            // Check for saved preference or system preference
+            if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.classList.add('dark');
+                document.body.classList.add('dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+                document.body.classList.remove('dark');
+            }
+
             initLucideIcons();
             renderCerts();
         });

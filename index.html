@@ -42,6 +42,18 @@
 
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        darkbg: '#000319',
+                    }
+                }
+            }
+        }
+    </script>
     <!-- Lucide Icons CDN -->
     <script src="https://unpkg.com/lucide@latest"></script>
 
@@ -54,30 +66,40 @@
             /* Light Mode Variables (Default) - Pure Light & High Contrast */
             --color-bg: #f8fafc;
             --color-bg-card: #ffffff;
-            --color-text-main: #0f172a;
+            --color-text-main: #1e1b4b;
+            /* Deep Indigo for text */
             --color-text-muted: #475569;
             --color-border: #e2e8f0;
-            --color-accent: #0ea5e9;
-            --color-accent-hover: #0284c7;
-            --color-nav: rgba(248, 250, 252, 0.8);
+            --color-accent: #7c3aed;
+            /* Violet-600 */
+            --color-accent-hover: #6d28d9;
+            /* Violet-700 */
+            --color-nav: rgba(248, 250, 252, 0.9);
+            --color-grid: rgba(0, 0, 0, 0.05);
+            /* Light mode grid */
         }
 
         /* Dark Mode Variables - Deep Multi-layered Dark */
         .dark {
-            --color-bg: #030712;
-            --color-bg-card: #111827;
-            --color-text-main: #f1f5f9;
-            --color-text-muted: #94a3b8;
-            --color-border: #1f2937;
-            --color-accent: #0ea5e9;
-            --color-accent-hover: #38bdf8;
-            --color-nav: rgba(3, 7, 18, 0.8);
+            --color-bg: #000319;
+            --color-bg-card: #10132E;
+            --color-text-main: #E4ECFF;
+            --color-text-muted: #C1C2D3;
+            --color-border: #2E3A59;
+            --color-accent: #CBACF9;
+            --color-accent-hover: #A881DF;
+            --color-nav: rgba(0, 3, 25, 0.9);
+            --color-grid: rgba(255, 255, 255, 0.03);
+            /* Dark mode grid */
         }
 
         /* Base Styling & Font (Modern Professional Theme) */
         body {
             font-family: 'Inter', sans-serif;
             background-color: var(--color-bg);
+            background-image: linear-gradient(var(--color-grid) 1px, transparent 1px),
+                linear-gradient(90deg, var(--color-grid) 1px, transparent 1px);
+            background-size: 50px 50px;
             color: var(--color-text-main);
             transition: background-color 0.3s ease, color 0.3s ease;
             position: relative;
@@ -890,19 +912,23 @@
                     </a>
                     <!-- Theme Toggle -->
                     <button id="theme-toggle"
-                        class="p-2.5 rounded-xl bg-gray-200 dark:bg-gray-800 text-gray-800 dark:text-gray-200 hover:scale-110 transition-all duration-300 shadow-sm"
+                        class="relative w-10 h-10 rounded-xl bg-gray-200 dark:bg-gray-800 text-gray-800 dark:text-gray-200 hover:scale-110 transition-all duration-300 shadow-sm flex items-center justify-center overflow-hidden"
                         aria-label="Toggle Theme">
-                        <i data-lucide="moon" class="h-5 w-5 dark:hidden"></i>
-                        <i data-lucide="sun" class="h-5 w-5 hidden dark:block"></i>
+                        <i data-lucide="sun"
+                            class="h-5 w-5 absolute transition-all duration-500 rotate-90 scale-0 dark:rotate-0 dark:scale-100 text-yellow-500"></i>
+                        <i data-lucide="moon"
+                            class="h-5 w-5 absolute transition-all duration-500 rotate-0 scale-100 dark:-rotate-90 dark:scale-0 text-gray-700"></i>
                     </button>
                 </nav>
                 <!-- Mobile Menu Button -->
                 <div class="flex items-center md:hidden space-x-3">
                     <button id="theme-toggle-mobile"
-                        class="p-2 rounded-lg bg-gray-200 dark:bg-gray-800 text-gray-800 dark:text-gray-200"
+                        class="relative w-9 h-9 rounded-lg bg-gray-200 dark:bg-gray-800 text-gray-800 dark:text-gray-200 flex items-center justify-center overflow-hidden"
                         aria-label="Toggle Theme">
-                        <i data-lucide="moon" class="h-5 w-5 dark:hidden"></i>
-                        <i data-lucide="sun" class="h-5 w-5 hidden dark:block"></i>
+                        <i data-lucide="sun"
+                            class="h-5 w-5 absolute transition-all duration-500 rotate-90 scale-0 dark:rotate-0 dark:scale-100 text-yellow-500"></i>
+                        <i data-lucide="moon"
+                            class="h-5 w-5 absolute transition-all duration-500 rotate-0 scale-100 dark:-rotate-90 dark:scale-0 text-gray-700"></i>
                     </button>
                     <button id="mobile-menu-button" aria-label="Open Menu"
                         class="p-2 rounded-lg hover:bg-cyan-500/20 transition duration-300 border border-cyan-500/30">
@@ -2212,13 +2238,23 @@
          * Theme Management
          */
         function initTheme() {
-            // Force dark mode permanently
-            document.documentElement.classList.add('dark');
+            // Check for saved preference or system preference
+            if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.classList.add('dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+            }
         }
 
         function toggleTheme() {
-            // Dark mode is permanent - do nothing
-            return;
+            const html = document.documentElement;
+            if (html.classList.contains('dark')) {
+                html.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+            } else {
+                html.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+            }
         }
 
         function initThemeToggle() {
