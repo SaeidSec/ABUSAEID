@@ -1,4 +1,4 @@
-<!--
+﻿<!--
     SOC Analyst Portfolio: Abu Saeid (DARK MODE ONLY)
 
     This portfolio is optimized for a permanent dark theme, removing all light mode logic
@@ -335,7 +335,7 @@
             border: 1px solid var(--color-border);
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
         }
-        
+
 
 
         .project-tag {
@@ -343,7 +343,7 @@
             color: var(--color-text-main);
             border: 1px solid var(--color-border);
         }
-        
+
 
 
         /* Accent Color for Headings/Links/CTAs */
@@ -352,33 +352,38 @@
         .hover\:bg-accent:hover {
             color: var(--color-accent);
         }
-        
+
         /* Enhance visibility in dark mode */
         .dark {
             /* Dark mode - keep existing styles */
         }
-        
+
         /* Dark mode specific visibility enhancements */
         .dark .text-gray-700 {
-            color: #cbd5e1 !important; /* Lighter gray for better visibility in dark mode */
+            color: #cbd5e1 !important;
+            /* Lighter gray for better visibility in dark mode */
         }
-        
+
         .dark .text-gray-800 {
-            color: #e2e8f0 !important; /* Even lighter for dark mode */
+            color: #e2e8f0 !important;
+            /* Even lighter for dark mode */
         }
-        
+
         .dark .text-black {
-            color: #f1f5f9 !important; /* Make black text visible as light gray in dark mode */
+            color: #f1f5f9 !important;
+            /* Make black text visible as light gray in dark mode */
         }
-        
+
         .dark .text-gray-600 {
-            color: #94a3b8 !important; /* Adjust gray-600 for dark mode */
+            color: #94a3b8 !important;
+            /* Adjust gray-600 for dark mode */
         }
-        
+
         .dark #contact .text-gray-600 {
-            color: #cbd5e1 !important; /* Ensure contact text is visible in dark mode */
+            color: #cbd5e1 !important;
+            /* Ensure contact text is visible in dark mode */
         }
-        
+
 
         .bg-accent {
             background-color: var(--color-accent);
@@ -389,7 +394,7 @@
             transform: translateY(-4px);
             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.15), 0 4px 6px -2px rgba(0, 0, 0, 0.1);
         }
-        
+
         .dark .card-hover:hover {
             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5), 0 4px 6px -2px rgba(0, 0, 0, 0.1);
         }
@@ -670,6 +675,7 @@
                     -35px 50px 0 #f2f2f2,
                     -70px 90px 0 #f2f2f2;
             }
+
             100% {
                 box-shadow: 0 10px 0 #f2f2f2,
                     -35px 50px 0 #f2f2f2,
@@ -704,13 +710,23 @@
         }
 
         @keyframes marquee {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(-50%);
+            }
         }
 
         @keyframes marquee-reverse {
-            0% { transform: translateX(-50%); }
-            100% { transform: translateX(0); }
+            0% {
+                transform: translateX(-50%);
+            }
+
+            100% {
+                transform: translateX(0);
+            }
         }
 
         .tech-card-vibrant {
@@ -741,7 +757,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, transparent 50%, rgba(0,0,0,0.1) 100%);
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, transparent 50%, rgba(0, 0, 0, 0.1) 100%);
             pointer-events: none;
         }
 
@@ -750,7 +766,7 @@
             height: 55px;
             object-fit: contain;
             margin-bottom: 15px;
-            filter: drop-shadow(0 5px 10px rgba(0,0,0,0.2));
+            filter: drop-shadow(0 5px 10px rgba(0, 0, 0, 0.2));
             transition: transform 0.3s ease;
         }
 
@@ -762,7 +778,7 @@
             font-size: 15px;
             font-weight: 800;
             color: white;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
             letter-spacing: 0.5px;
         }
 
@@ -829,13 +845,15 @@
                         <span
                             class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-cyan-400 to-blue-500 group-hover:w-full transition-all duration-300"></span>
                     </a>
-                    <a href="#articles" class="blog-article-nav text-gray-700 dark:text-gray-300 hover:text-cyan-500 dark:hover:text-cyan-400 transition duration-300 relative group">
+                    <a href="#articles"
+                        class="blog-article-nav text-gray-700 dark:text-gray-300 hover:text-cyan-500 dark:hover:text-cyan-400 transition duration-300 relative group">
                         Blog/Article
                         <span
                             class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-cyan-400 to-blue-500 group-hover:w-full transition-all duration-300"></span>
                     </a>
 
-                    <a href="#skills" class="text-gray-700 dark:text-gray-300 hover:text-cyan-500 dark:hover:text-cyan-400 transition duration-300 relative group">
+                    <a href="#skills"
+                        class="text-gray-700 dark:text-gray-300 hover:text-cyan-500 dark:hover:text-cyan-400 transition duration-300 relative group">
                         Skills
                         <span
                             class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-cyan-400 to-blue-500 group-hover:w-full transition-all duration-300"></span>
@@ -853,14 +871,18 @@
                             class="absolute bottom-0 left-0 w-0 h-0.5 bg-accent group-hover:w-full transition-all duration-300"></span>
                     </a>
                     <!-- Theme Toggle -->
-                    <button id="theme-toggle" class="p-2.5 rounded-xl bg-gray-200 dark:bg-gray-800 text-gray-800 dark:text-gray-200 hover:scale-110 transition-all duration-300 shadow-sm" aria-label="Toggle Theme">
+                    <button id="theme-toggle"
+                        class="p-2.5 rounded-xl bg-gray-200 dark:bg-gray-800 text-gray-800 dark:text-gray-200 hover:scale-110 transition-all duration-300 shadow-sm"
+                        aria-label="Toggle Theme">
                         <i data-lucide="moon" class="h-5 w-5 dark:hidden"></i>
                         <i data-lucide="sun" class="h-5 w-5 hidden dark:block"></i>
                     </button>
                 </nav>
                 <!-- Mobile Menu Button -->
                 <div class="flex items-center md:hidden space-x-3">
-                    <button id="theme-toggle-mobile" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-800 text-gray-800 dark:text-gray-200" aria-label="Toggle Theme">
+                    <button id="theme-toggle-mobile"
+                        class="p-2 rounded-lg bg-gray-200 dark:bg-gray-800 text-gray-800 dark:text-gray-200"
+                        aria-label="Toggle Theme">
                         <i data-lucide="moon" class="h-5 w-5 dark:hidden"></i>
                         <i data-lucide="sun" class="h-5 w-5 hidden dark:block"></i>
                     </button>
@@ -879,7 +901,8 @@
                 <a href="#experience"
                     class="block px-4 py-3 text-gray-700 dark:text-gray-300 hover:bg-cyan-500/10 hover:text-cyan-400 transition duration-300"
                     onclick="closeMobileMenu()">Experience</a>
-                <a href="#articles" class="blog-article-nav block px-4 py-3 text-gray-700 dark:text-gray-300 hover:bg-cyan-500/10 hover:text-cyan-400 transition duration-300"
+                <a href="#articles"
+                    class="blog-article-nav block px-4 py-3 text-gray-700 dark:text-gray-300 hover:bg-cyan-500/10 hover:text-cyan-400 transition duration-300"
                     onclick="closeMobileMenu()">Blog/Article</a>
 
                 <a href="#skills"
@@ -1207,7 +1230,8 @@
 
         <!-- 3. Core Skills / Competencies: Responsive Grid -->
         <section id="skills" class="py-16 md:py-24">
-            <h2 class="text-3xl font-bold mb-12 text-center text-black dark:text-gray-100">Core Skills & Competencies</h2>
+            <h2 class="text-3xl font-bold mb-12 text-center text-black dark:text-gray-100">Core Skills & Competencies
+            </h2>
             <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
                 <!-- Skills will be dynamically rendered here by JS -->
             </div>
@@ -1217,12 +1241,14 @@
         <section id="tools" class="py-16 md:py-24">
             <div class="max-w-7xl mx-auto px-4">
                 <div class="text-center mb-16">
-                    <h2 class="text-3xl font-bold mb-6 text-black dark:text-gray-100 uppercase tracking-wider">Tools & Stack Proficiency</h2>
+                    <h2 class="text-3xl font-bold mb-6 text-black dark:text-gray-100 uppercase tracking-wider">Tools &
+                        Stack Proficiency</h2>
                     <p class="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-                        A specialized set of cybersecurity tools and technologies leveraged for advanced threat detection and defense.
+                        A specialized set of cybersecurity tools and technologies leveraged for advanced threat
+                        detection and defense.
                     </p>
                 </div>
-                
+
                 <!-- Marquee Row 1 -->
                 <div class="marquee-container">
                     <div id="tools-marquee-1" class="marquee-content">
@@ -1241,7 +1267,8 @@
 
         <!-- 5. Projects & Case Studies: Responsive Grid -->
         <section id="projects" class="py-16 md:py-24">
-            <h2 class="text-3xl font-bold mb-12 text-center text-black dark:text-gray-100">Key Projects & Case Studies</h2>
+            <h2 class="text-3xl font-bold mb-12 text-center text-black dark:text-gray-100">Key Projects & Case Studies
+            </h2>
 
             <!-- Filter Buttons: Responsive flex-wrap -->
             <div id="project-filters" class="flex flex-wrap justify-center gap-3 mb-10">
@@ -1270,7 +1297,8 @@
 
         <!-- 6. Blog / Articles (Updated Title): Responsive Grid -->
         <section id="articles" class="py-16 md:py-24 scroll-mt-20">
-            <h2 class="text-3xl font-bold mb-4 text-center text-black dark:text-gray-100">Security Insights & Publications</h2>
+            <h2 class="text-3xl font-bold mb-4 text-center text-black dark:text-gray-100">Security Insights &
+                Publications</h2>
             <p class="text-center text-gray-700 dark:text-gray-300 text-lg mb-8 max-w-3xl mx-auto">
                 Sharing knowledge and experiences in cybersecurity through research papers, technical articles, and
                 practical insights from the frontlines of digital defense.
@@ -1280,7 +1308,8 @@
                 <a href="https://socsignal.onrender.com/" target="_blank"
                     class="bg-gradient-to-r from-cyan-600 to-blue-700 hover:from-cyan-500 hover:to-blue-600 text-white font-bold py-3 px-8 rounded-full shadow-lg transition-all duration-300 flex items-center group">
                     Visit My Full Blog: SOC Signal
-                    <i data-lucide="external-link" class="ml-2 h-5 w-5 transform group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform"></i>
+                    <i data-lucide="external-link"
+                        class="ml-2 h-5 w-5 transform group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform"></i>
                 </a>
             </div>
         </section>
@@ -1325,7 +1354,8 @@
             <div id="current-role-section" class="max-w-5xl mx-auto">
                 <div class="card p-12 rounded-xl text-center">
                     <i data-lucide="briefcase" class="h-16 w-16 mx-auto mb-4 text-gray-500 icon"></i>
-                    <h3 class="text-2xl font-bold text-gray-700 dark:text-gray-300 mb-3">Currently Focusing on Studies</h3>
+                    <h3 class="text-2xl font-bold text-gray-700 dark:text-gray-300 mb-3">Currently Focusing on Studies
+                    </h3>
                     <p class="text-gray-600 dark:text-gray-400 text-lg">
                         I'm currently a full-time student pursuing my B.Sc. in Computer Science & Engineering at Green
                         University of Bangladesh.
@@ -1344,7 +1374,8 @@
                     <div class="flex flex-col md:flex-row md:items-start md:justify-between mb-4">
                         <div class="flex-1">
                             <h3 class="text-2xl font-bold text-accent mb-2">Cyber Security Analyst</h3>
-                            <p class="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-1">Cyber Academy · Internship</p>
+                            <p class="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-1">Cyber Academy ·
+                                Internship</p>
                             <p class="text-sm text-gray-600 dark:text-gray-400 mb-2">
                                 <i data-lucide="calendar" class="h-4 w-4 inline mr-1 icon"></i>
                                 Aug 2024 - Sep 2024 · 2 mos
@@ -1380,7 +1411,8 @@
                         <div class="flex-1">
                             <h3 class="text-2xl font-bold text-accent mb-2">Associate Member & Cyber Security Intern
                             </h3>
-                            <p class="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-1">Center for Cyber Security Studies &
+                            <p class="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-1">Center for Cyber
+                                Security Studies &
                                 Research</p>
                             <p class="text-sm text-gray-600 dark:text-gray-400 mb-2">
                                 <i data-lucide="calendar" class="h-4 w-4 inline mr-1 icon"></i>
@@ -1414,7 +1446,8 @@
                     <div class="flex flex-col md:flex-row md:items-start md:justify-between mb-4">
                         <div class="flex-1">
                             <h3 class="text-2xl font-bold text-accent mb-2">Search Engine Optimization Specialist</h3>
-                            <p class="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-1">Grochalski - Strony internetowe ·
+                            <p class="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-1">Grochalski - Strony
+                                internetowe ·
                                 Full-time</p>
                             <p class="text-sm text-gray-600 dark:text-gray-400 mb-2">
                                 <i data-lucide="calendar" class="h-4 w-4 inline mr-1 icon"></i>
@@ -1450,7 +1483,8 @@
                     <div class="flex flex-col md:flex-row md:items-start md:justify-between mb-4">
                         <div class="flex-1">
                             <h3 class="text-2xl font-bold text-accent mb-2">Junior SEO Associate</h3>
-                            <p class="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-1">Small Business Seo Agency · Internship
+                            <p class="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-1">Small Business Seo
+                                Agency · Internship
                             </p>
                             <p class="text-sm text-gray-600 dark:text-gray-400 mb-2">
                                 <i data-lucide="calendar" class="h-4 w-4 inline mr-1 icon"></i>
@@ -1480,7 +1514,8 @@
                     <div class="flex flex-col md:flex-row md:items-start md:justify-between mb-4">
                         <div class="flex-1">
                             <h3 class="text-2xl font-bold text-accent mb-2">Security Operation Center (SOC) Intern</h3>
-                            <p class="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-1">Chaitanya Cyber Strix Technologies Pvt
+                            <p class="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-1">Chaitanya Cyber Strix
+                                Technologies Pvt
                                 Ltd · Internship</p>
                             <p class="text-sm text-gray-600 dark:text-gray-400 mb-2">
                                 <i data-lucide="calendar" class="h-4 w-4 inline mr-1 icon"></i>
@@ -1953,7 +1988,7 @@
         document.addEventListener('DOMContentLoaded', () => {
             // Restore theme as early as possible
             initTheme();
-            
+
             // 1. Initial Setup
             initLucideIcons();
             initNavToggle();
@@ -2286,26 +2321,26 @@
         function initBlogArticleNavigation() {
             // Add event listeners to all blog/article navigation links
             const blogArticleLinks = document.querySelectorAll('.blog-article-nav');
-            
+
             blogArticleLinks.forEach(link => {
-                link.addEventListener('click', function(e) {
+                link.addEventListener('click', function (e) {
                     // Only prevent default if it's an internal anchor link
                     if (this.getAttribute('href').startsWith('#')) {
                         e.preventDefault();
-                        
+
                         const targetId = this.getAttribute('href').substring(1);
                         const targetElement = document.getElementById(targetId);
-                        
+
                         if (targetElement) {
                             // Close mobile menu if open
                             closeMobileMenu();
-                            
+
                             // Scroll to the target element with smooth behavior
                             targetElement.scrollIntoView({
                                 behavior: 'smooth',
                                 block: 'start'
                             });
-                            
+
                             // Update URL hash without causing default scroll
                             history.pushState(null, null, '#' + targetId);
                         }
@@ -2313,7 +2348,7 @@
                 });
             });
         }
-        
+
         function initNavToggle() {
             const menuButton = document.getElementById('mobile-menu-button');
             const mobileMenu = document.getElementById('mobile-menu');
@@ -2777,7 +2812,8 @@
         <div
             class="relative w-full h-full md:w-[90%] md:h-[90%] bg-white dark:bg-gray-900 rounded-xl overflow-hidden shadow-2xl flex flex-col transform scale-95 transition-transform duration-300">
             <!-- Header -->
-            <div class="flex justify-between items-center p-4 bg-gray-50 dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
+            <div
+                class="flex justify-between items-center p-4 bg-gray-50 dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
                 <h3 class="text-xl font-bold text-black dark:text-white flex items-center gap-2">
                     <i data-lucide="file-text" class="h-5 w-5 text-accent"></i> Resume Preview
                 </h3>
