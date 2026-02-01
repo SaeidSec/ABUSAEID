@@ -291,14 +291,49 @@
             background: #0f172a;
         }
 
-        .tool-logo-wrapper {
-            width: 60px;
-            height: 60px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-bottom: 25px;
-            transition: transform 0.3s ease;
+        /* Responsive */
+        @media (max-width: 768px) {
+            .tools-wrapper {
+                gap: 1rem;
+                padding: 1rem 0;
+            }
+
+            .glass-container {
+                gap: 1.5rem;
+            }
+
+            .glass-card {
+                width: 100px;
+                height: 135px;
+                border-radius: 12px;
+            }
+
+            .tool-logo-wrapper {
+                width: 45px;
+                height: 45px;
+                margin-bottom: 20px;
+            }
+
+            .tool-name {
+                height: 30px;
+                font-size: 8px;
+                border-radius: 0 0 12px 12px;
+            }
+
+            .level-badge {
+                top: 8px;
+                right: 8px;
+                font-size: 7px;
+                padding: 2px 6px;
+            }
+
+            /* Explicitly re-enable animations for the tools section */
+            #row1,
+            #row2 {
+                animation-duration: 30s !important;
+                /* Slightly faster on mobile for better feel */
+                will-change: transform;
+            }
         }
 
         .tool-logo-wrapper.has-bg {
