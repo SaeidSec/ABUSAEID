@@ -1349,16 +1349,12 @@
             <div id="project-filters" class="flex flex-wrap justify-center gap-3 mb-10">
                 <button data-filter="All"
                     class="project-filter-btn active py-2 px-4 rounded-full text-sm font-medium transition duration-300 bg-accent text-white">All</button>
-                <button data-filter="Automation"
-                    class="project-filter-btn py-2 px-4 rounded-full text-sm font-medium transition duration-300 bg-gray-700 hover:bg-accent hover:text-white">Automation</button>
                 <button data-filter="SIEM"
                     class="project-filter-btn py-2 px-4 rounded-full text-sm font-medium transition duration-300 bg-gray-700 hover:bg-accent hover:text-white">SIEM
                     Engineering</button>
-                <button data-filter="PurpleTeam"
-                    class="project-filter-btn py-2 px-4 rounded-full text-sm font-medium transition duration-300 bg-gray-700 hover:bg-accent hover:text-white">Purple
-                    Teaming</button>
-                <button data-filter="Research"
-                    class="project-filter-btn py-2 px-4 rounded-full text-sm font-medium transition duration-300 bg-gray-700 hover:bg-accent hover:text-white">Research</button>
+                <button data-filter="IDS/IPS"
+                    class="project-filter-btn py-2 px-4 rounded-full text-sm font-medium transition duration-300 bg-gray-700 hover:bg-accent hover:text-white">Network
+                    Security</button>
             </div>
 
             <!-- Project Cards Grid: Responsive Grid -->
@@ -1824,7 +1820,7 @@
         const projectData = [
             {
                 id: 8,
-                title: "eBPF-Sentry: Kernel-Level IDS/IPS",
+                title: "eBPF-Security: Kernel-Level IDS/IPS",
                 short_desc: "Engineered a high-performance, tamper-proof IDS/IPS system using eBPF and BCC to trace system calls with negligible overhead.",
                 tags: ["eBPF", "KernelSecurity", "IDS/IPS", "Python", "C"],
                 link: "https://github.com/SaeidSec/eBPF-Sentry-Linux-Kernel-Security-System",
@@ -1833,78 +1829,6 @@
                     approach: "Leveraged eBPF (Extended Berkeley Packet Filter) to attach directly to kernel tracepoints (execve, connect, open) for tamper-proof monitoring. Implemented a Python user-space controller for rule management and a C-based eBPF probe for high-performance filtering.",
                     tools: ["eBPF", "BCC", "Python", "C", "Linux Kernel", "YAML"],
                     outcome: "Achieved real-time visibility into system calls with minimal performance impact. Successfully detected complex attack chains (e.g., sensitive file access followed by outbound connections) and implemented active defense (process termination) for high-severity threats."
-                }
-            },
-            {
-                id: 1,
-                title: "Real-Time Anomaly Detection System (AI/ML)",
-                short_desc: "Developed a distributed system for real-time security anomaly alerting using unsupervised learning on network telemetry.",
-                tags: ["Automation", "AI/ML", "SIEM"],
-                details: {
-                    problem: "Over-reliance on static signatures and rules leads to high false positive rates and missed zero-day anomalies.",
-                    approach: "Implemented an unsupervised clustering model (Isolation Forest) via Python/Scikit-learn. Telemetry streamed via Kafka to Elastic, where a custom Python consumer scores the events and alerts with a confidence score.",
-                    tools: ["Python", "Scikit-learn", "Kafka", "Elastic Stack", "Docker"],
-                    outcome: "Achieved a **42% reduction** in false positive alerts compared to baseline rule sets and a **25% improvement** in detecting low-and-slow lateral movement attempts."
-                }
-            },
-            {
-                id: 2,
-                title: "Wazuh+ELK High-Availability SIEM Deployment",
-                short_desc: "Architected and deployed a highly available, multi-node Wazuh/Elastic SIEM cluster with load balancing for enterprise-scale agent onboarding.",
-                tags: ["SIEM", "Automation"],
-                details: {
-                    problem: "Existing SIEM was a single point of failure (SPOF), leading to data loss during maintenance windows and inability to scale past 500 agents.",
-                    approach: "Deployed a 3-node Wazuh cluster behind HAProxy and Keepalived (VRRP) for VIP management. Automated agent enrollment using Python scripts tied to CMDB for initial configuration/grouping.",
-                    tools: ["Wazuh", "Elasticsearch", "Keepalived", "HAProxy", "Ansible", "Linux"],
-                    outcome: "Achieved **100% uptime** during simulated failovers, secured an agent capacity of 5,000+, and reduced new agent onboarding time from 3 hours to **15 minutes** via automation."
-                }
-            },
-            {
-                id: 3,
-                title: "Purple Team Engagement: Web App & Detection Tuning",
-                short_desc: "Led a purple team scenario focusing on OWASP Top 10 web vulnerabilities to test and enhance WAF and SIEM detections.",
-                tags: ["PurpleTeam", "ThreatHunting"],
-                details: {
-                    problem: "Uncertainty regarding SIEM's ability to detect sophisticated web application attacks (e.g., RCE via file upload, SQL injection attempts).",
-                    approach: "Red Team executed controlled exploits (SQLi, XSS, SSRF). Blue Team (me) observed telemetry (WAF logs, web server access logs, OSQuery) and immediately created and tuned **Sigma Rules** based on observed TTPs.",
-                    tools: ["Burp Suite", "Kali Linux", "Sigma Rules", "Wazuh/Elastic", "Web Server Logs"],
-                    outcome: "Created **15 new high-fidelity detection rules**. Reduced the time-to-detect for web shell uploads from 'undetected' to **under 2 minutes**."
-                }
-            },
-            {
-                id: 4,
-                title: "SOAR-Lite Automation Playbook Library",
-                short_desc: "Built a modular library of Python automation playbooks to enhance enrichment, triage, and rapid containment.",
-                tags: ["Automation"],
-                details: {
-                    problem: "L1 analysts spent 70% of their time on manual tasks: indicator lookups, threat scoring, and executing containment steps.",
-                    approach: "Developed three core modules: 1) TI enrichment via API calls; 2) Asset lookup/context gathering; 3) Containment script (via firewall API). Integrated modules via a simple JSON-based workflow engine.",
-                    tools: ["Python", "Requests Library", "JSON", "Firewall API (Mock)"],
-                    outcome: "Reduced the average **MTTR from 6 hours to 45 minutes** for high-risk, low-volume incidents by eliminating manual investigation steps."
-                }
-            },
-            {
-                id: 5,
-                title: "Threat Intelligence Ingestion Pipeline",
-                short_desc: "Constructed an automated pipeline for OSINT indicator ingestion, enrichment, and mapping to MITRE ATT&CK for SIEM integration.",
-                tags: ["ThreatHunting", "SIEM"],
-                details: {
-                    problem: "Threat intelligence was often stale or manually ingested, limiting proactive defense capabilities.",
-                    approach: "Used Python scripts to pull IOCs from multiple open-source feeds (MISP, AlienVault OTX). Performed automatic confidence scoring and mapped TTPs using the MITRE ATT&CK API. Ingested processed data into Elastic for cross-correlation.",
-                    tools: ["Python", "Elastic Logstash Pipeline", "MISP/OTX APIs", "MITRE ATT&CK Framework"],
-                    outcome: "Increased available **actionable IOCs by 300%** and improved the SIEM's ability to detect threats based on known C2 infrastructure by **65%**."
-                }
-            },
-            {
-                id: 6,
-                title: "NeuroCrypt Research Summary (Research Note)",
-                short_desc: "A short abstract detailing research on securing BCI data using Federated Learning and Zero-Trust principles.",
-                tags: ["Research", "AI/ML"],
-                details: {
-                    problem: "Sensitive BCI data is highly vulnerable during centralized model training, violating user privacy.",
-                    approach: "Utilized Federated Learning (FL) to keep raw data decentralized. Applied differential privacy techniques to the model updates to prevent data leakage during aggregation. Focused on secure semantic model deployment.",
-                    tools: ["TensorFlow Federated", "Python", "Cryptography Libraries"],
-                    outcome: "Proposed a framework that achieves **99.5% accuracy** on the classification task while providing mathematical privacy guarantees for individual data points (high DP epsilon used for simulation)."
                 }
             },
             {
