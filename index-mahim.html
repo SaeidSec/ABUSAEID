@@ -365,8 +365,9 @@
         }
 
         .glass-container:hover,
-        #row2:hover {
-            animation-play-state: paused;
+        #row2:hover,
+        .glass-container.is-paused {
+            animation-play-state: paused !important;
         }
 
         #row2 {
@@ -3779,6 +3780,35 @@ END:VCARD`;
             renderRow(row1Data, 'row1');
             renderRow(row2Data, 'row2');
             if (typeof lucide !== 'undefined') lucide.createIcons();
+
+            // Click-to-Pause Functionality
+            const rows = [document.querySelector('#row1'), document.querySelector('#row2')];
+            const wrapper = document.querySelector('.tools-wrapper');
+
+            if (wrapper) {
+                wrapper.addEventListener('click', (e) => {
+                    const card = e.target.closest('.glass-card');
+                    if (card) {
+                        rows.forEach(row => {
+                            if (row) row.classList.toggle('is-paused');
+                        });
+                    } else {
+                        // Resume if clicking outside cards but inside wrapper
+                        rows.forEach(row => {
+                            if (row) row.classList.remove('is-paused');
+                        });
+                    }
+                });
+
+                // Also resume on scroll or clicking elsewhere
+                document.addEventListener('click', (e) => {
+                    if (!wrapper.contains(e.target)) {
+                        rows.forEach(row => {
+                            if (row) row.classList.remove('is-paused');
+                        });
+                    }
+                });
+            }
         }
 
         // Project Modal Functions

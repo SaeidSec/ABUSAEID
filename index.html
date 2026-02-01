@@ -213,8 +213,9 @@
             animation: scroll-ltr 40s linear infinite;
         }
 
-        .tools-wrapper:hover .glass-container {
-            animation-play-state: paused;
+        .tools-wrapper:hover .glass-container,
+        .glass-container.is-paused {
+            animation-play-state: paused !important;
         }
 
         @keyframes scroll-rtl {
@@ -3080,6 +3081,29 @@
 
         document.addEventListener("DOMContentLoaded", () => {
             renderTools();
+
+            // Click-to-Pause Functionality
+            const rows = document.querySelectorAll('.glass-container');
+            const wrapper = document.querySelector('.tools-wrapper');
+
+            if (wrapper) {
+                wrapper.addEventListener('click', (e) => {
+                    const card = e.target.closest('.glass-card');
+                    if (card) {
+                        rows.forEach(row => row.classList.toggle('is-paused'));
+                    } else {
+                        // Resume if clicking outside cards but inside wrapper
+                        rows.forEach(row => row.classList.remove('is-paused'));
+                    }
+                });
+
+                // Also resume on scroll or clicking elsewhere
+                document.addEventListener('click', (e) => {
+                    if (!wrapper.contains(e.target)) {
+                        rows.forEach(row => row.classList.remove('is-paused'));
+                    }
+                });
+            }
         });
     </script>
 </body>
