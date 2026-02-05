@@ -304,7 +304,7 @@
     <header>
         <div class="container reveal">
             <span class="section-badge">Project Showcase</span>
-            <h1 class="hero-title">Enterprise<br>Wazuh SIEM</h1>
+            <h1 class="hero-title">Enterprise Grade Cloud-Native Wazuh SIEM<br>Advanced Load Balancing & High Availability</h1>
             <p class="hero-subtitle">A high-availability, multi-node cloud-native security ecosystem featuring AI-powered threat intelligence and automated scalability.</p>
             
             <div class="hero-stats">
@@ -339,44 +339,66 @@
             <div class="diagram-section reveal">
                 <div class="mermaid">
                     graph TD
-                        subgraph External["External Layer"]
-                            VIP["Virtual IP: 172.25.0.222"]
+                        subgraph "External Security Perimeter"
+                            VIP["🛡️ VIP: 172.25.0.222 (wazuh.vip)"]
+                            KA1["Keepalived-1 (Active)"]
+                            KA2["Keepalived-2 (Passive)"]
+                            VIP --- KA1
+                            KA1 -.->|"Unicast Peering"| KA2
                         end
 
-                        subgraph HA["High Availability Layer"]
-                            K1["Keepalived Master"] <--> K2["Keepalived Backup"]
-                            N1["Nginx LB 1"] --- K1
-                            N2["Nginx LB 2"] --- K2
+                        subgraph "Layer 1: Persistence Anchors"
+                            LB_ANCHOR1[("⚓ lb-node-1 (Pause)")]
+                            LB_ANCHOR2[("⚓ lb-node-2 (Pause)")]
+                            NGINX1["🌐 Nginx Load Balancer 1"]
+                            NGINX2["🌐 Nginx Load Balancer 2"]
+                            
+                            LB_ANCHOR1 --- NGINX1
+                            LB_ANCHOR2 --- NGINX2
                         end
 
-                        subgraph App["Application Tier"]
-                            M1["Wazuh Master Manager"]
-                            W1["Wazuh Worker Manager"]
-                            D1["Wazuh Dashboard"]
+                        subgraph "Layer 2: Wazuh SIEM Cluster"
+                            WM["👑 Wazuh Master"]
+                            WW["👷 Wazuh Worker"]
+                            WD["📊 Wazuh Dashboard"]
+                            
+                            subgraph "Indexer Data Tier"
+                                IDX1[("Indexer-1")]
+                                IDX2[("Indexer-2")]
+                                IDX3[("Indexer-3")]
+                                IDX1 --- IDX2 --- IDX3
+                            end
                         end
 
-                        subgraph Data["Data Persistence Tier"]
-                            I1["Indexer 1"]
-                            I2["Indexer 2"]
-                            I3["Indexer 3"]
+                        subgraph "Layer 3: Monitoring & Observability"
+                            ZABBIX["🔍 Zabbix 7.0 Server"]
+                            GRAFANA["📈 Grafana Master"]
+                            PROM["🔥 Prometheus TSDB"]
+                            GRAYLOG["📝 Graylog 7.0 (Data Lake)"]
                         end
 
-                        VIP --> K1
-                        K1 -.-> K2
-                        K1 --> N1
-                        K2 --> N2
-                        N1 --> D1
-                        N1 --> M1
-                        M1 --- W1
-                        M1 --> I1
-                        W1 --> I1
-                        I1 <--> I2 <--> I3
+                        subgraph "Layer 4: Active Defense"
+                            BEELZEBUB["😈 Beelzebub AI HP"]
+                            COWRIE["🐚 Cowrie SSH HP"]
+                        end
 
-                        style VIP fill:#3b82f6,stroke:#fff,color:#fff
-                        style K1 fill:#1e3a8a,stroke:#3b82f6,color:#fff
-                        style K2 fill:#1e3a8a,stroke:#3b82f6,color:#fff
-                        style M1 fill:#064e3b,stroke:#10b981,color:#fff
-                        style I1 fill:#431407,stroke:#f59e0b,color:#fff
+                        %% Interactions
+                        VIP --> NGINX1
+                        NGINX1 --> WM
+                        NGINX1 --> WW
+                        NGINX1 --> WD
+                        
+                        WM --> IDX1
+                        WW --> IDX1
+                        WD --> IDX1
+                        
+                        BEELZEBUB -.->|"JSON Alerts"| WM
+                        COWRIE -.->|"JSON Alerts"| WM
+                        
+                        WM --> GRAYLOG
+                        ZABBIX --> GRAFANA
+                        PROM --> GRAFANA
+                        IDX1 --> GRAFANA
                 </div>
                 <p class="diagram-caption">System Architecture: Logical multi-layer separation</p>
             </div>
@@ -445,6 +467,14 @@
                         <h4>High Availability</h4>
                         <p>Virtual IP (VIP) backed by Keepalived VRRP and dual Nginx Load Balancers with SSL termination.</p>
                     </div>
+                    <div class="arch-item" style="border-left-color: #ef4444;">
+                        <h4>Pause Container Pattern</h4>
+                        <p>The `lb-node` (Alpine) holds the network namespace, preventing network drops during Nginx reloads or crashes. Even if the Nginx container dies, the VIP and TCP sessions remain locked in the kernel-level namespace.</p>
+                    </div>
+                    <div class="arch-item" style="border-left-color: #f97316;">
+                        <h4>Unicast VRRP Configuration</h4>
+                        <p>Optimized for cloud environments where multicast is blocked. Keepalived nodes communicate directly via explicit IP peering rather than broadcasting.</p>
+                    </div>
                 </div>
                 <div class="grid" style="flex: 1;">
                     <div class="card reveal">
@@ -460,6 +490,13 @@
                         </div>
                         <h3>Master Manager</h3>
                         <p>Orchestrates API access, agent enrollment, and global cluster synchronization across worker nodes.</p>
+                    </div>
+                    <div class="card reveal">
+                        <div class="card-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                        </div>
+                        <h3>Fast Startup (105s)</h3>
+                        <p>SSL SAN injection reduces startup time from 9 minutes to 105 seconds by enabling instant SSL handshakes between components.</p>
                     </div>
                 </div>
             </div>
@@ -498,6 +535,54 @@
                 </div>
             </div>
 
+            <div class="section-header reveal">
+                <span class="section-badge">SSL Certificate Innovation</span>
+                <h2 class="section-title">Certificate Architecture & VIP SAN Patching</h2>
+                <p>Revolutionary approach to eliminate SSL handshake delays and reduce startup time.</p>
+            </div>
+
+            <div class="diagram-section reveal" style="margin-bottom: 3rem;">
+                <div class="mermaid">
+                    sequenceDiagram
+                        participant OS as Opensearch Config
+                        participant Tool as Patched Cert Tool
+                        participant OpenSSL as OpenSSL Engine
+                        participant Cert as Final .PEM Certificate
+
+                        Tool->>OS: Generate internal .conf
+                        Tool->>Tool: Inject DNS.2 = wazuh.vip
+                        Tool->>Tool: Inject IP.2 = 172.25.0.222
+                        Tool->>OpenSSL: Execute CSR Signing
+                        OpenSSL->>Cert: Produce VIP-Enabled Certificate
+                        Note right of Cert: Now valid for both Node IP & VIP
+                </div>
+                <p class="diagram-caption">SSL SAN Injection Process</p>
+            </div>
+
+            <div class="grid">
+                <div class="card reveal">
+                    <div class="card-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+                    </div>
+                    <h3>Problem Solved</h3>
+                    <p>Initial startup took ~9 minutes due to SSL handshake timeouts between components. The Indexer's certificates didn't trust the VIP name (wazuh.vip).</p>
+                </div>
+                <div class="card reveal">
+                    <div class="card-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M20 14v4a2 2 0 0 1-2 2h-4"/><path d="M20 2v4a2 2 0 0 1-2 2h-4"/><path d="M2 20h4a2 2 0 0 1 2-2v-4a2 2 0 0 1 2 2h4a2 2 0 0 1 2-2v-4a2 2 0 0 1 2 2"/></svg>
+                    </div>
+                    <h3>VIP SAN Injection</h3>
+                    <p>Custom patch for wazuh-certs-tool.sh (v4.14) forces injection of Subject Alternative Names (SANs) to include both the node IP and VIP.</p>
+                </div>
+                <div class="card reveal">
+                    <div class="card-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+                    </div>
+                    <h3>Performance Impact</h3>
+                    <p>Startup time reduced from 9 minutes to 105 seconds. SSL handshakes now instantaneous between all components.</p>
+                </div>
+            </div>
+
             <div class="highlight-box reveal">
                 <span class="section-badge">Engineering Masterpiece</span>
                 <h3>Filebeat 9.3.0 Compatibility Layer</h3>
@@ -509,6 +594,56 @@
                     <span class="tag">Reverse Proxy</span>
                     <span class="tag">License Mocker</span>
                     <span class="tag">Argument Translation</span>
+                </div>
+            </div>
+
+            <div class="section-header reveal" style="margin-top: 4rem;">
+                <span class="section-badge">Monitoring & Defense</span>
+                <h2 class="section-title">Full-Stack Observability Tier</h2>
+                <p>Complete infrastructure health monitoring with Zabbix, Grafana, and Prometheus integration.</p>
+            </div>
+
+            <div class="diagram-section reveal" style="margin-bottom: 3rem;">
+                <div class="mermaid">
+                    graph LR
+                        subgraph "Data Sources"
+                            OS[("Indexer/OpenSearch")]
+                            ZB[("Zabbix Server")]
+                            PR[("Prometheus")]
+                        end
+
+                        subgraph "Visualization"
+                            GR["📊 Grafana Unified Dashboard"]
+                        end
+
+                        OS -->|Security Alerts| GR
+                        ZB -->|Infrastructure Health| GR
+                        PR -->|Network Metrics| GR
+                </div>
+                <p class="diagram-caption">Observability Data Flow</p>
+            </div>
+
+            <div class="grid">
+                <div class="card reveal">
+                    <div class="card-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                    </div>
+                    <h3>Watcher Framework</h3>
+                    <p>Every component runs a Zabbix Agent sidecar. The SIEM monitors itself with comprehensive infrastructure health checks.</p>
+                </div>
+                <div class="card reveal">
+                    <div class="card-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l2 2"/></svg>
+                    </div>
+                    <h3>Unified Dashboard</h3>
+                    <p>Grafana pulls data from multiple sources: OpenSearch (security incidents), Zabbix (component health), and Prometheus (real-time metrics).</p>
+                </div>
+                <div class="card reveal">
+                    <div class="card-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 20v-2a2 2 0 0 1 2-2h0a2 2 0 0 1 2 2v2"/><path d="M5 13H3a2 2 0 0 0-2 2v2a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2v-2a2 2 0 0 0-2-2z"/><path d="M7 17H5"/><path d="M15 13h-2a2 2 0 0 0-2 2v2a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2v-2a2 2 0 0 0-2-2z"/><path d="M17 17h-2"/><path d="M22 13h-2a2 2 0 0 0-2 2v2a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2v-2a2 2 0 0 0-2-2z"/><path d="M22 17h-2"/></svg>
+                    </div>
+                    <h3>Active Defense</h3>
+                    <p>AI Honeypots (Beelzebub & Cowrie) capture attack vectors and feed real-time threat intelligence directly to Wazuh for immediate alerting.</p>
                 </div>
             </div>
         </div>
@@ -530,6 +665,51 @@
                 <div class="card reveal">
                     <h3>Production Ready</h3>
                     <p>Hardened JVM heap settings, Graylog journal persistence, and PostgreSQL optimization for Zabbix metrics.</p>
+                </div>
+            </div>
+
+            <div class="section-header reveal" style="margin-top: 4rem;">
+                <span class="section-badge">Operational Excellence</span>
+                <h2 class="section-title">Bootstrap & Maintenance</h2>
+                <p>Streamlined deployment and lifecycle management processes.</p>
+            </div>
+
+            <div class="grid">
+                <div class="card reveal">
+                    <div class="card-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M12 8v8"/><path d="M8 12h8"/></svg>
+                    </div>
+                    <h3>Master Bootstrap Sequence</h3>
+                    <p>1. Kernel Tuning (vm.max_map_count=262144), 2. Cert Generation with patched tool, 3. Network Setup, 4. Sequential Startup (Indexers -> Managers -> UI -> HA Tier).</p>
+                </div>
+                <div class="card reveal">
+                    <div class="card-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                    </div>
+                    <h3>Certificate Lifecycle</h3>
+                    <p>Certificates valid for 3650 days. For renewal: rm -rf config/wazuh_indexer_ssl_certs/* && docker compose -f generate-indexer-certs.yml run --rm generator.</p>
+                </div>
+                <div class="card reveal">
+                    <div class="card-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4"/><path d="M12 16h.01"/></svg>
+                    </div>
+                    <h3>Trivy Vulnerability Integration</h3>
+                    <p>Custom script integrates Trivy into Wazuh dashboard: 1. Scans Docker socket for image vulnerabilities, 2. Parses to JSON, 3. Displays critical CVEs alongside SIEM alerts.</p>
+                </div>
+            </div>
+
+            <div class="highlight-box reveal" style="margin-top: 4rem;">
+                <span class="section-badge">Strategic Conclusion</span>
+                <h3>Enterprise-Grade Cyber Fortress</h3>
+                <p style="max-width: 800px; margin: 0 auto 2rem; color: var(--text-dim);">
+                    This Enterprise-Grade Wazuh SIEM architecture is more than a logging server; it is a Cyber Fortress. By solving the fundamental weaknesses of container networking and SSL management, we have built a platform that is: 1. Resilient: Zero-downtime failover. 2. Optimized: Sub-2-minute initialization. 3. Comprehensive: Integrating SIEM, Log Management, Monitoring, and Active Defense.
+                </p>
+                <div class="tech-tags">
+                    <span class="tag">High Availability</span>
+                    <span class="tag">Self-Healing</span>
+                    <span class="tag">Production Ready</span>
+                    <span class="tag">Cyber Fortress</span>
+                    <span class="tag">Enterprise Grade</span>
                 </div>
             </div>
         </div>
