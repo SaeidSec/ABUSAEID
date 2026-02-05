@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Enterprise Wazuh SIEM | Portfolio Showcase</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -59,8 +59,8 @@
         }
 
         .hero-title {
-            font-size: clamp(3rem, 10vw, 6rem);
-            line-height: 0.9;
+            font-size: clamp(2rem, 6vw, 3.5rem);
+            line-height: 1.1;
             margin-bottom: 1.5rem;
             background: linear-gradient(135deg, #fff 0%, #3b82f6 100%);
             -webkit-background-clip: text;
@@ -133,8 +133,15 @@
         /* Grid Cards */
         .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        @media (max-width: 480px) {
+            .grid {
+                grid-template-columns: 1fr;
+                gap: 1.25rem;
+            }
         }
 
         .card {
@@ -180,8 +187,17 @@
         .arch-container {
             display: flex;
             flex-wrap: wrap;
-            gap: 2rem;
+            gap: 1.5rem;
             align-items: center;
+        }
+        
+        @media (max-width: 768px) {
+            .arch-container {
+                flex-direction: column;
+            }
+            .arch-visual {
+                width: 100%;
+            }
         }
 
         .arch-visual {
@@ -255,8 +271,43 @@
 
         /* Responsive */
         @media (max-width: 768px) {
-            .hero-title { font-size: 3.5rem; }
+            .hero-title { 
+                font-size: clamp(1.8rem, 8vw, 2.8rem);
+                line-height: 1.2;
+            }
+            .hero-subtitle {
+                font-size: clamp(0.9rem, 4vw, 1.2rem);
+                padding: 0 1rem;
+            }
+            .container {
+                padding: 0 1.5rem;
+            }
             section { padding: 60px 0; }
+            .diagram-section {
+                padding: 1.5rem;
+                margin-bottom: 2rem;
+            }
+            .grid {
+                gap: 1.5rem;
+            }
+            .card {
+                padding: 1.5rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .hero-title {
+                font-size: clamp(1.5rem, 10vw, 2.2rem);
+            }
+            .hero-stats {
+                gap: 1rem;
+            }
+            .stat-item {
+                padding: 0.8rem 1.2rem;
+            }
+            .stat-value {
+                font-size: 1.5rem;
+            }
         }
     </style>
     <script type="module">
@@ -278,15 +329,17 @@
         /* Diagram Styling */
         .diagram-section {
             background: rgba(0, 0, 0, 0.2);
-            padding: 2rem;
-            border-radius: 20px;
+            padding: 1.5rem;
+            border-radius: 16px;
             border: 1px solid var(--border);
-            margin-bottom: 3rem;
+            margin-bottom: 2.5rem;
         }
         .mermaid {
             background: transparent !important;
             display: flex;
             justify-content: center;
+            min-width: 100%;
+            overflow-x: auto;
         }
         .diagram-caption {
             text-align: center;
@@ -296,6 +349,24 @@
             text-transform: uppercase;
             font-size: 0.8rem;
             letter-spacing: 2px;
+        }
+        
+        @media (max-width: 768px) {
+            .mermaid {
+                transform: scale(0.8);
+                transform-origin: 0 0;
+            }
+            .diagram-section {
+                padding: 1rem;
+                border-radius: 12px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .mermaid {
+                transform: scale(0.6);
+                transform-origin: 0 0;
+            }
         }
     </style>
 </head>
