@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <title>Project Aegis-OCSF: Building a Scalable Security Pipeline (Wazuh to ClickHouse)</title>
+    <meta name="description" content="A high-performance security data pipeline using Rust, ClickHouse, and OCSF to scale Wazuh SIEM telemetry.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Outfit:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #09090b;
+            --card-bg: rgba(24, 24, 27, 0.6);
+            --border: rgba(63, 63, 70, 0.4);
+            --primary: #3b82f6;
+            --primary-glow: rgba(59, 130, 246, 0.3);
+            --secondary: #10b981;
+            --text: #fafafa;
+            --text-dim: #a1a1aa;
+            --accent: #f59e0b;
+            --danger: #ef4444;
+            --purple: #8b5cf6;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 800;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            padding: 1rem 0;
+            backdrop-filter: blur(20px);
+            background: rgba(9, 9, 11, 0.8);
+            border-bottom: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
+
+        nav .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 900;
+            font-size: 1.3rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-dim);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        /* Hero Section */
+        header {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: radial-gradient(circle at 50% 50%, rgba(59, 130, 246, 0.1) 0%, transparent 50%);
+            position: relative;
+            padding-top: 80px;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1.2rem;
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.15), rgba(139, 92, 246, 0.15));
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            border-radius: 99px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 2rem;
+            animation: pulse-border 3s ease-in-out infinite;
+        }
+
+        @keyframes pulse-border {
+            0%, 100% { border-color: rgba(59, 130, 246, 0.3); }
+            50% { border-color: rgba(59, 130, 246, 0.8); }
+        }
+
+        .hero-title {
+            font-size: clamp(2rem, 6vw, 3.5rem);
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #fff 0%, #3b82f6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-transform: uppercase;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1.1rem, 3vw, 1.4rem);
+            color: var(--text-dim);
+            max-width: 750px;
+            margin-bottom: 3rem;
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .stat-item {
+            background: var(--card-bg);
+            padding: 1.2rem 2rem;
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .stat-item:hover {
+            border-color: var(--primary);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px -5px var(--primary-glow);
+        }
+
+        .stat-value {
+            display: block;
+            font-size: 2rem;
+            font-weight: 800;
+            font-family: 'Outfit', sans-serif;
+            color: var(--primary);
+        }
+
+        .stat-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--text-dim);
+        }
+
+        /* Section Styling */
+        section {
+            padding: 100px 0;
+        }
+
+        .section-header {
+            margin-bottom: 4rem;
+            text-align: center;
+        }
+
+        .section-title {
+            font-size: 2.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .section-badge {
+            display: inline-block;
+            padding: 0.4rem 1rem;
+            background: rgba(59, 130, 246, 0.1);
+            color: var(--primary);
+            border-radius: 99px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .section-desc {
+            color: var(--text-dim);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Grid Cards */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .grid-4 {
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            padding: 2rem;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            border-color: var(--primary);
+            box-shadow: 0 15px 40px -10px var(--primary-glow);
+        }
+
+        .card:hover::before {
+            opacity: 1;
+        }
+
+        .card-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+        }
+
+        .card-icon.blue { background: rgba(59, 130, 246, 0.15); color: var(--primary); }
+        .card-icon.green { background: rgba(16, 185, 129, 0.15); color: var(--secondary); }
+        .card-icon.amber { background: rgba(245, 158, 11, 0.15); color: var(--accent); }
+        .card-icon.red { background: rgba(239, 68, 68, 0.15); color: var(--danger); }
+        .card-icon.purple { background: rgba(139, 92, 246, 0.15); color: var(--purple); }
+
+        .card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.8rem;
+            color: #fff;
+        }
+
+        .card p {
+            color: var(--text-dim);
+            font-size: 0.9rem;
+            line-height: 1.7;
+        }
+
+        .card .tag-row {
+            margin-top: 1rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+        }
+
+        /* Architecture Section */
+        .arch-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            align-items: stretch;
+        }
+
+        .arch-visual {
+            flex: 1;
+            min-width: 300px;
+            background: rgba(255, 255, 255, 0.02);
+            padding: 2rem;
+            border-radius: 24px;
+            border: 1px solid var(--border);
+        }
+
+        .arch-item {
+            margin-bottom: 1.5rem;
+            padding-left: 1rem;
+            border-left: 4px solid var(--primary);
+        }
+
+        .arch-item h4 {
+            color: var(--primary);
+            margin-bottom: 0.3rem;
+            font-size: 1rem;
+        }
+
+        .arch-item p {
+            color: var(--text-dim);
+            font-size: 0.9rem;
+        }
+
+        /* Highlight Box */
+        .highlight-box {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.08) 0%, rgba(139, 92, 246, 0.08) 100%);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            padding: 3rem;
+            border-radius: 30px;
+            margin-top: 4rem;
+            text-align: center;
+        }
+
+        .highlight-box h3 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Service count indicator */
+        .service-count {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+
+        .count-item {
+            text-align: center;
+            padding: 1.5rem;
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            background: var(--card-bg);
+        }
+
+        .count-item .count-num {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 900;
+            font-size: 2.5rem;
+            display: block;
+            margin-bottom: 0.3rem;
+        }
+
+        .count-item .count-label {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--text-dim);
+        }
+
+        /* Tech Tags */
+        .tech-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            justify-content: center;
+            margin-top: 1rem;
+        }
+
+        .tag {
+            font-size: 0.72rem;
+            padding: 0.25rem 0.7rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 6px;
+            border: 1px solid var(--border);
+            transition: all 0.2s;
+        }
+
+        .tag:hover {
+            border-color: var(--primary);
+            background: rgba(59, 130, 246, 0.1);
+        }
+
+        /* Diagram Section */
+        .diagram-section {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 2rem;
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            margin-bottom: 3rem;
+        }
+
+        .mermaid {
+            background: transparent !important;
+            display: flex;
+            justify-content: center;
+        }
+
+        .diagram-caption {
+            text-align: center;
+            color: var(--primary);
+            font-weight: 600;
+            margin-top: 1rem;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 2px;
+        }
+
+        /* Timeline  */
+        .timeline {
+            position: relative;
+            padding-left: 2rem;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, var(--primary), var(--secondary), var(--purple));
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 2.5rem;
+            padding-left: 2rem;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -2.35rem;
+            top: 0.5rem;
+            width: 12px;
+            height: 12px;
+            background: var(--primary);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--primary-glow);
+        }
+
+        .timeline-item h4 {
+            color: var(--primary);
+            font-size: 1.1rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .timeline-item p {
+            color: var(--text-dim);
+            font-size: 0.9rem;
+        }
+
+        /* Footer */
+        footer {
+            padding: 4rem 0;
+            border-top: 1px solid var(--border);
+            text-align: center;
+            color: var(--text-dim);
+        }
+
+        footer .footer-links {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            margin: 1rem 0;
+            flex-wrap: wrap;
+        }
+
+        footer .footer-links a {
+            color: var(--text-dim);
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: color 0.3s;
+        }
+
+        footer .footer-links a:hover {
+            color: var(--primary);
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .reveal {
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+
+        .arch-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        /* Enhanced Mobile Optimization */
+        @media (max-width: 768px) {
+            html { font-size: 14px; }
+            body { font-size: 16px; line-height: 1.6; }
+            .container { padding: 0 1rem; }
+            nav { padding: 0.75rem 0; }
+            .nav-logo { font-size: 1.1rem; }
+            header { padding-top: 70px; padding-bottom: 3rem; min-height: auto; }
+            .hero-title { font-size: clamp(1.8rem, 8vw, 2.8rem); }
+            .hero-stats { gap: 1rem; }
+            .stat-item { padding: 1rem 1.5rem; min-width: 120px; }
+            section { padding: 4rem 0; }
+            .grid { grid-template-columns: 1fr; }
+            .nav-links { display: none; }
+        }
+    </style>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ 
+            startOnLoad: true, 
+            theme: 'dark',
+            themeVariables: {
+                primaryColor: '#3b82f6',
+                primaryTextColor: '#fff',
+                primaryBorderColor: '#3b82f6',
+                lineColor: '#3b82f6',
+                secondaryColor: '#10b981',
+                tertiaryColor: '#09090b'
+            }
+        });
+    </script>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="container">
+            <span class="nav-logo">SaeidSec • Aegis</span>
+            <ul class="nav-links">
+                <li><a href="#overview">Overview</a></li>
+                <li><a href="#visuals">Pipeline</a></li>
+                <li><a href="#architecture">Architecture</a></li>
+                <li><a href="#dashboards">Dashboards</a></li>
+                <li><a href="#comparison">Deep Dive</a></li>
+                <li><a href="#stack">Stack</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <header>
+        <div class="container reveal">
+            <span class="hero-badge">🚀 High-Performance Security Pipeline</span>
+            <h1 class="hero-title">Project Aegis-OCSF<br>Wazuh to ClickHouse ETL</h1>
+            <p class="hero-subtitle">Engineering a scalable, Rust-powered data pipeline that standardizes Wazuh telemetry into OCSF and offloads storage to ClickHouse for 30x better compression and sub-second analytics.</p>
+            
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <span class="stat-value">30X</span>
+                    <span class="stat-label">Compression</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-value">Rust</span>
+                    <span class="stat-label">ETL Engine</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-value">OCSF</span>
+                    <span class="stat-label">1.7.0 Schema</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-value">< 1s</span>
+                    <span class="stat-label">Query Latency</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-value">SQL</span>
+                    <span class="stat-label">Native Analytics</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Overview -->
+    <section id="overview" style="padding-bottom: 0;">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="section-badge">The Problem & Solution</span>
+                <h2 class="section-title">Scaling SIEM Storage</h2>
+                <p class="section-desc">Traditional OpenSearch storage for Wazuh logs is resource-intensive and expensive. Project Aegis bridges this gap with a modern, high-speed pipeline.</p>
+            </div>
+
+            <div class="service-count reveal">
+                <div class="count-item">
+                    <span class="count-num" style="color: var(--primary);">10-30x</span>
+                    <span class="count-label">Storage Savings</span>
+                </div>
+                <div class="count-item">
+                    <span class="count-num" style="color: var(--secondary);">Rust</span>
+                    <span class="count-label">Performance ETL</span>
+                </div>
+                <div class="count-item">
+                    <span class="count-num" style="color: var(--accent);">OCSF</span>
+                    <span class="count-label">Standardization</span>
+                </div>
+                <div class="count-item">
+                    <span class="count-num" style="color: var(--purple);">100k+</span>
+                    <span class="count-label">Events / Second</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pipeline Blueprint -->
+    <section id="visuals">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="section-badge">Data Flow</span>
+                <h2 class="section-title">Technical Blueprint</h2>
+                <p class="section-desc">Visualizing the transition from unstructured Wazuh JSON to standardized OCSF SQL storage.</p>
+            </div>
+
+            <div class="diagram-section reveal">
+                <div class="mermaid">
+flowchart TD
+    subgraph Source ["Telemetry Source Layer"]
+        WM["Wazuh Master Manager"]
+        WW1["Wazuh Worker 01"]
+        WW2["Wazuh Worker 02"]
+    end
+
+    subgraph Pipeline ["Aegis ETL Pipeline"]
+        subgraph Processing ["Parallel Processing Unit"]
+            R1["Rust ETL Worker A"]
+            R2["Rust ETL Worker B"]
+            R3["Rust ETL Worker C"]
+        end
+        subgraph Norm ["Normalization & Schema Engine"]
+            OM["OCSF 1.7.0 Mapper"]
+            HR["Hot-Reload Mapping Registry"]
+        end
+        Processing --> OM
+        OM --> HR
+    end
+
+    subgraph Storage ["ClickHouse Columnar Storage Tier"]
+        CH1[(ClickHouse Shard 01)]
+        CH2[(ClickHouse Shard 02)]
+        subgraph Engine ["MergeTree Engine Configuration"]
+            MT["MergeTree Family"]
+            Z["ZSTD / Delta Compression"]
+        end
+        CH1 --- MT
+        CH2 --- MT
+    end
+
+    subgraph Analytics ["SOC Analytics & Visualization"]
+        G["Grafana Unified SOC Dashboard"]
+        SQL["SQL Threat Hunting Lab"]
+    end
+
+    %% Node to Node Connections
+    WM -- "Unstructured JSON" --> R1
+    WW1 -- "Unstructured JSON" --> R2
+    WW2 -- "Unstructured JSON" --> R3
+    
+    HR -- "Normalized OCSF Batches" --> CH1
+    HR -- "Normalized OCSF Batches" --> CH2
+    
+    CH1 -- "Sub-second SQL" --> G
+    CH2 -- "Sub-second SQL" --> SQL
+
+    %% Advanced Styling
+    classDef src fill:#1e293b,stroke:#3b82f6,color:#fff,stroke-width:2px;
+    classDef pipe fill:#1e1b4b,stroke:#818cf8,color:#fff,stroke-width:2px;
+    classDef store fill:#064e3b,stroke:#10b981,color:#fff,stroke-width:2px;
+    classDef anal fill:#450a0a,stroke:#ef4444,color:#fff,stroke-width:2px;
+
+    class WM,WW1,WW2 src;
+    class R1,R2,R3,OM,HR pipe;
+    class CH1,CH2,MT,Z store;
+    class G,SQL anal;
+                </div>
+                <p class="diagram-caption">Whole Project Architecture Flow: From Wazuh Raw Alerts to OCSF Standardized Analytics</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Architecture Details -->
+    <section id="architecture" style="background: rgba(255, 255, 255, 0.015);">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="section-badge">Engineering Deep Dive</span>
+                <h2 class="section-title">Core Architecture</h2>
+                <p class="section-desc">A modular, multi-threaded engine built for extreme efficiency and low-latency security analytics.</p>
+            </div>
+
+            <div class="arch-container">
+                <div class="arch-visual reveal">
+                    <div class="arch-item">
+                        <h4>🦀 Rust ETL Engine</h4>
+                        <p>Leveraging Rust's zero-cost abstractions and memory safety to process 100k+ events/sec with minimal CPU overhead.</p>
+                    </div>
+                    <div class="arch-item" style="border-left-color: var(--secondary);">
+                        <h4>🏛️ ClickHouse MergeTree</h4>
+                        <p>Utilizing columnar storage and specialized codecs (ZSTD/Delta) to achieve massive compression and sub-second SQL performance.</p>
+                    </div>
+                    <div class="arch-item" style="border-left-color: var(--accent);">
+                        <h4>🛡️ OCSF 1.7.0 Mapping</h4>
+                        <p>Automatically mapping Wazuh's <code>data.win.eventdata</code> and <code>rule.description</code> fields to standardized OCSF Security Control classes.</p>
+                    </div>
+                    <div class="arch-item" style="border-left-color: var(--purple);">
+                        <h4>📊 SQL-Native Grafana</h4>
+                        <p>Direct SQL integration allowing for complex threat hunting queries (JOINs, Window Functions) that are impossible in OpenSearch.</p>
+                    </div>
+                </div>
+                <div class="grid" style="flex: 1;">
+                    <div class="card reveal">
+                        <div class="card-icon blue">⚡</div>
+                        <h3>Parallel Processing</h3>
+                        <p>Multi-threaded ingestion using Rayon and Tokio to ensure the pipeline never bottlenecks, even during massive log bursts.</p>
+                    </div>
+                    <div class="card reveal">
+                        <div class="card-icon green">📦</div>
+                        <h3>Batch Ingestion</h3>
+                        <p>Optimized ClickHouse batching (100k rows/block) to maximize disk I/O throughput and minimize table fragmentation.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Operational Intelligence -->
+    <section id="dashboards" style="padding-top: 0;">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="section-badge">Visual Intelligence</span>
+                <h2 class="section-title">Operational Dashboards</h2>
+                <p class="section-desc">Real-world telemetry and performance monitoring dashboards providing deep visibility into the Aegis-OCSF pipeline.</p>
+            </div>
+
+            <div class="grid reveal" style="grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));">
+                <div class="card" style="padding: 0; overflow: hidden; border-radius: 24px;">
+                    <img src="Project Aegis-OCSF photo/WhatsApp Image 2026-04-23 at 1.19.29 AM.jpeg" alt="Ingestion & Storage Metrics" style="width: 100%; height: 250px; object-fit: cover; border-bottom: 1px solid var(--border);">
+                    <div style="padding: 1.5rem;">
+                        <h3 style="font-size: 1.1rem; margin-bottom: 0.5rem;">Ingestion & Storage Efficiency</h3>
+                        <p style="font-size: 0.85rem;">Monitoring real-time ingestion rates and storage compression ratios (10-30x) across ClickHouse shards.</p>
+                    </div>
+                </div>
+                <div class="card" style="padding: 0; overflow: hidden; border-radius: 24px;">
+                    <img src="Project Aegis-OCSF photo/WhatsApp Image 2026-04-23 at 1.19.46 AM.jpeg" alt="Security Event Lifecycle" style="width: 100%; height: 250px; object-fit: cover; border-bottom: 1px solid var(--border);">
+                    <div style="padding: 1.5rem;">
+                        <h3 style="font-size: 1.1rem; margin-bottom: 0.5rem;">Security Event Lifecycle</h3>
+                        <p style="font-size: 0.85rem;">Tracking events from initial Wazuh capture through Rust normalization to final OCSF storage.</p>
+                    </div>
+                </div>
+                <div class="card" style="padding: 0; overflow: hidden; border-radius: 24px;">
+                    <img src="Project Aegis-OCSF photo/WhatsApp Image 2026-04-23 at 1.27.00 AM.jpeg" alt="ClickHouse Performance" style="width: 100%; height: 250px; object-fit: cover; border-bottom: 1px solid var(--border);">
+                    <div style="padding: 1.5rem;">
+                        <h3 style="font-size: 1.1rem; margin-bottom: 0.5rem;">Performance Analytics</h3>
+                        <p style="font-size: 0.85rem;">Detailed query latency metrics and sub-second SQL performance monitoring on billions of rows.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Deep Dive Comparison -->
+    <section id="comparison">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="section-badge">Benchmarks</span>
+                <h2 class="section-title">ClickHouse vs OpenSearch</h2>
+                <p class="section-desc">Why we moved from row-based indexing to columnar analytical storage.</p>
+            </div>
+
+            <div class="grid reveal">
+                <div class="card">
+                    <div class="card-icon amber">📉</div>
+                    <h3>OpenSearch (Traditional)</h3>
+                    <p>High RAM usage (JVM), 1:1 storage footprint, expensive for long-term data retention (30+ days).</p>
+                    <div class="tag-row">
+                        <span class="tag">JVM Heavy</span>
+                        <span class="tag">Row-Based</span>
+                        <span class="tag">Expensive</span>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-icon green">📈</div>
+                    <h3>ClickHouse (Aegis)</h3>
+                    <p>Extreme compression (30x), low RAM footprint, sub-second aggregations on billions of rows.</p>
+                    <div class="tag-row">
+                        <span class="tag">Columnar</span>
+                        <span class="tag">C++ Native</span>
+                        <span class="tag">30x Save</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tech Stack -->
+    <section id="stack" style="background: rgba(255, 255, 255, 0.015);">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="section-badge">The Toolkit</span>
+                <h2 class="section-title">Technology Inventory</h2>
+                <p class="section-desc">Every technology powering this scalable pipeline.</p>
+            </div>
+
+            <div class="grid grid-4 reveal">
+                <div class="card" style="text-align: center;">
+                    <div class="card-icon blue" style="margin: 0 auto 1rem;">🦀</div>
+                    <h3 style="font-size: 1.1rem;">Rust</h3>
+                    <p style="font-size: 0.8rem;">ETL Logic</p>
+                </div>
+                <div class="card" style="text-align: center;">
+                    <div class="card-icon green" style="margin: 0 auto 1rem;">🏛️</div>
+                    <h3 style="font-size: 1.1rem;">ClickHouse</h3>
+                    <p style="font-size: 0.8rem;">Data Lake</p>
+                </div>
+                <div class="card" style="text-align: center;">
+                    <div class="card-icon amber" style="margin: 0 auto 1rem;">🛡️</div>
+                    <h3 style="font-size: 1.1rem;">OCSF</h3>
+                    <p style="font-size: 0.8rem;">Schema</p>
+                </div>
+                <div class="card" style="text-align: center;">
+                    <div class="card-icon red" style="margin: 0 auto 1rem;">🌊</div>
+                    <h3 style="font-size: 1.1rem;">Wazuh</h3>
+                    <p style="font-size: 0.8rem;">Log Source</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p style="font-size: 1.1rem; color: var(--text); margin-bottom: 0.5rem; font-weight: 600;">Project Aegis-OCSF Pipeline</p>
+            <p>&copy; 2026 Architected by <strong style="color: var(--primary);">SaeidSec</strong></p>
+            <div class="tech-tags" style="margin-top: 1.5rem;">
+                <span class="tag">Rust</span>
+                <span class="tag">ClickHouse</span>
+                <span class="tag">OCSF</span>
+                <span class="tag">Wazuh</span>
+                <span class="tag">Grafana</span>
+                <span class="tag">Docker</span>
+                <span class="tag">SQL</span>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const observerOptions = { threshold: 0.1 };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('reveal');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal').forEach(el => {
+            el.style.opacity = '0';
+            observer.observe(el);
+        });
+
+        document.addEventListener('mousemove', (e) => {
+            const header = document.querySelector('header');
+            const x = (e.clientX / window.innerWidth) * 100;
+            const y = (e.clientY / window.innerHeight) * 100;
+            header.style.background = `radial-gradient(circle at ${x}% ${y}%, rgba(59, 130, 246, 0.12) 0%, rgba(139, 92, 246, 0.05) 30%, transparent 60%)`;
+        });
+    </script>
+</body>
+</html>

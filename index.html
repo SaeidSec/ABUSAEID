@@ -1,4 +1,4 @@
-﻿<!--
+<!--
     SOC Analyst Portfolio: Abu Saeid (DARK MODE ONLY)
 
     This portfolio is optimized for a permanent dark theme, removing all light mode logic
@@ -57,6 +57,7 @@
     <!-- Lucide Icons CDN -->
     <script src="https://unpkg.com/lucide@latest"></script>
 
+
     <style>
         /*
         Custom Styles for Aesthetics (Permanent Dark Mode)
@@ -93,7 +94,6 @@
             /* Dark mode grid */
         }
 
-        /* Base Styling & Font (Modern Professional Theme) */
         body {
             font-family: 'Inter', sans-serif;
             background-color: var(--color-bg);
@@ -104,6 +104,50 @@
             transition: background-color 0.3s ease, color 0.3s ease;
             position: relative;
             overflow-x: hidden;
+        }
+
+        /* Smooth Scroll & Scroll Margin Top */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        section {
+            scroll-margin-top: 80px;
+        }
+
+        /* Custom Premium Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #000319;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #2E3A59;
+            border-radius: 10px;
+            border: 2px solid #000319;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #CBACF9;
+        }
+
+        /* Active Navigation Link Style */
+        .nav-link-active {
+            color: var(--color-accent) !important;
+        }
+
+        .nav-link-active span {
+            width: 100% !important;
+        }
+
+        /* Mobile Active Style */
+        .mobile-nav-link-active {
+            background-color: rgba(5, 136, 167, 0.15) !important;
+            color: var(--color-accent) !important;
+            border-left: 3px solid var(--color-accent);
         }
 
         /* Modern Button Styles with Animations */
@@ -842,113 +886,221 @@
         }
                 
         /* Mobile Performance Optimizations */
+        /* 
+        =====================================================
+        MOBILE & PERFORMANCE OPTIMIZATIONS (JOSS LEVEL)
+        =====================================================
+        Specifically designed for 60fps scrolling and perfect 
+        tap interactions on mobile devices.
+        */
         @media (max-width: 768px) {
-            /* Disable heavy background effects */
-            .geometric-shapes,
-            .glow-orbs,
-            .cyber-scan,
-            .matrix-rain,
-            .cyber-particles,
-            .threat-indicator {
-                display: none !important;
-            }
-
-            /* Simplify Body Background */
-            body::before {
-                background: var(--color-bg);
-                animation: none;
-            }
-
-            /* Disable Backdrop Blur for Performance */
-            .backdrop-blur-xl {
+            /* 1. Simplify Backdrop Filters & Blurs (Massive Perf Gain) */
+            .backdrop-blur-xl, 
+            .backdrop-blur-md,
+            .modal-overlay {
                 backdrop-filter: none !important;
                 -webkit-backdrop-filter: none !important;
                 background: rgba(15, 15, 35, 0.98) !important;
             }
 
-            /* Simplify Shadows */
-            .card {
-                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2) !important;
+            /* 2. Disable Hardware-Intensive Background Effects */
+            .geometric-shapes,
+            .glow-orbs {
+                display: none !important;
             }
 
+            /* 3. Tap Target Optimization (Clickability) */
+            nav.hidden.md\:flex,
+            .desktop-nav-link {
+                display: none !important; /* Ensure desktop nav is hidden */
+            }
+
+            /* Mobile Navigation Links Tap Area */
+            #mobile-menu a {
+                min-height: 52px;
+                display: flex;
+                align-items: center;
+                padding: 0.5rem 1.5rem;
+                font-size: 1.1rem;
+                border-radius: 12px;
+                margin: 0.25rem 0;
+            }
+
+            /* Button Spacing & Sizing */
+            .cta-button, 
+            button, 
+            .btn {
+                min-height: 48px;
+                padding: 0.8rem 1.5rem !important;
+            }
+
+            .flex.wrap.gap-4 {
+                gap: 1rem !important;
+            }
+
+            /* 4. Layout Stacking Improvements */
+            .grid.md\:grid-cols-2,
+            .grid.lg\:grid-cols-4,
+            .grid.lg\:grid-cols-3 {
+                grid-template-columns: 1fr !important;
+                gap: 1.5rem !important;
+            }
+
+            section {
+                padding: 4rem 1rem !important;
+                scroll-margin-top: 70px;
+            }
+
+            /* 5. Responsive Typography */
+            h1 { font-size: 2.5rem !important; line-height: 1.1 !important; }
+            h2 { font-size: 1.8rem !important; }
+            .text-xl, .text-2xl { font-size: 1.1rem !important; }
+
+            /* 6. WhatsApp Widget Optimization */
+            #whatsapp-widget {
+                bottom: 1.5rem !important;
+                right: 1rem !important;
+            }
+
+            #whatsapp-chat-window {
+                width: 90vw !important;
+                max-width: 350px !important;
+                height: 400px !important;
+                bottom: 5rem !important;
+                right: 0 !important;
+            }
+
+            /* 7. Immediate Touch Feedback */
+            a:active, button:active {
+                transform: scale(0.96) !important;
+                opacity: 0.8 !important;
+            }
+
+            /* 8. Skills/Cards Simplification */
             .card-hover:hover {
-                transform: none !important;
-                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2) !important;
+                transform: none !important; /* No hover on touch */
             }
-
-            /* Reduce Animation Overhead */
-            * {
-                animation-duration: 0s !important;
-                transition: none !important;
-            }
-
-            /* Keep essential transitions for UI feedback if needed, but generally disable for perf */
-            a,
-            button {
-                transition: opacity 0.2s ease !important;
+            
+            .card {
+                box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3) !important;
             }
         }
 
-        /* Modern Preloader Styles */
+        /* Responsive spacing for Tools section (keep cute animations) */
+        @media (max-width: 768px) {
+            .tools-wrapper {
+                padding: 1rem 0 !important;
+                gap: 1.5rem !important;
+            }
+            .glass-card {
+                width: 100px !important;
+                height: 130px !important;
+            }
+            .tool-logo-wrapper {
+                width: 45px !important;
+                height: 45px !important;
+                margin-bottom: 15px !important;
+            }
+            .tool-name {
+                font-size: 8px !important;
+                height: 28px !important;
+            }
+        }
+
+        /* Creative Minimalist Hourglass Preloader */
         #preloader {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: var(--color-bg);
+            background-color: #000319;
             z-index: 9999;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
-            transition: opacity 0.3s ease-out, visibility 0.3s ease-out;
+            transition: transform 0.8s cubic-bezier(0.77, 0, 0.175, 1);
         }
 
-        /* Modern spinner loader */
-        .loader {
+        #preloader.loaded {
+            transform: translateY(-100%);
+        }
+
+        .loader-content {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        /* SVG Hourglass Animation */
+        .hourglass-svg {
+            width: 60px;
+            height: 60px;
+            animation: hourglassFlip 4s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
+        }
+
+        .hourglass-path {
+            fill: none;
+            stroke: #22d3ee;
+            stroke-width: 1.5;
+            stroke-linecap: round;
+        }
+
+        .sand {
+            fill: #22d3ee;
+            animation: sandFlow 4s linear infinite;
+        }
+
+        @keyframes hourglassFlip {
+            0%, 40% { transform: rotate(0); }
+            50%, 90% { transform: rotate(180deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Branding Text: Fix Visibility */
+        .loader-branding {
+            font-size: 2.2rem;
+            font-weight: 900;
+            letter-spacing: 0.3em;
+            color: white;
+            text-transform: uppercase;
             position: relative;
-            width: 70px;
-            height: 70px;
+            opacity: 0;
+            filter: blur(10px);
+            animation: brandReveal 1s ease-out 0.4s forwards;
         }
 
-        .loader::before,
-        .loader::after {
+        @keyframes brandReveal {
+            to {
+                opacity: 1;
+                filter: blur(0);
+                letter-spacing: 0.4em;
+            }
+        }
+
+        .loader-branding::after {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            background: linear-gradient(45deg, transparent, var(--color-accent), transparent);
-            animation: spin 1.5s linear infinite;
+            bottom: -8px;
+            left: 10%;
+            width: 80%;
+            height: 1px;
+            background: linear-gradient(to right, transparent, #22d3ee, transparent);
+            transform: scaleX(0);
+            animation: lineExpand 1s ease-out 0.8s forwards;
         }
 
-        .loader::after {
-            animation-delay: -0.75s;
-            transform: scale(0.75);
+        @keyframes lineExpand {
+            to { transform: scaleX(1); }
         }
 
-        @keyframes spin {
-            0% {
-                transform: rotate(0deg);
-            }
-            100% {
-                transform: rotate(360deg);
-            }
-        }
-
-        /* Minimalist loading text */
-        .loader-text {
-            position: absolute;
-            top: calc(100% + 15px);
-            left: 50%;
-            transform: translateX(-50%);
-            color: var(--color-accent);
-            font-size: 0.9rem;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            font-weight: 600;
+        /* Mobile Optimization */
+        @media (max-width: 768px) {
+            .loader-branding { font-size: 1.4rem; letter-spacing: 0.2em; }
+            .hourglass-svg { width: 50px; height: 50px; }
         }
 
         /* Certification Section Loader */
@@ -1126,14 +1278,39 @@
             -webkit-text-fill-color: transparent;
             font-weight: 800;
         }
+
+        /* fullPage.js overrides to ensure content is visible and scrollable */
+        .fp-watermark { display: none !important; }
+        .section {
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        .fp-overflow {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            height: 100%;
+        }
+        /* Custom navigation dots color */
+        #fp-nav ul li a span, .fp-slidesNav ul li a span { 
+            background: var(--color-accent) !important; 
+        }
     </style>
 </head>
 
 <body class="bg-[var(--color-bg)] text-[var(--color-text-main)] transition-colors duration-300 min-h-screen">
-    <!-- Preloader -->
+    <!-- Creative Hourglass Preloader -->
     <div id="preloader">
-        <div class="loader">
-            <span class="loader-text">Loading</span>
+        <div class="loader-content">
+            <!-- Minimalist SVG Hourglass -->
+            <svg class="hourglass-svg" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path class="hourglass-path" d="M5 21H19M5 3H19M7 21C7 18 12 16 12 12C12 8 7 6 7 3M17 21C17 18 12 16 12 12C12 8 17 6 17 3" />
+                <path class="sand" d="M12 12C12 15 9 16.5 9 19H15C15 16.5 12 15 12 12Z" />
+            </svg>
+            <div class="loader-branding">
+                ABU SAEID
+            </div>
         </div>
     </div>
     <!-- Background animations removed -->
@@ -1169,26 +1346,26 @@
                 <!-- Desktop Navigation -->
                 <nav class="hidden md:flex space-x-8 items-center font-medium">
                     <a href="#projects"
-                        class="text-gray-700 dark:text-gray-300 hover:text-cyan-500 dark:hover:text-cyan-400 transition duration-300 relative group">
+                        class="desktop-nav-link text-gray-700 dark:text-gray-300 hover:text-cyan-500 dark:hover:text-cyan-400 transition duration-300 relative group">
                         Projects
                         <span
                             class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-cyan-400 to-blue-500 group-hover:w-full transition-all duration-300"></span>
                     </a>
                     <a href="#experience"
-                        class="text-gray-700 dark:text-gray-300 hover:text-cyan-500 dark:hover:text-cyan-400 transition duration-300 relative group">
+                        class="desktop-nav-link text-gray-700 dark:text-gray-300 hover:text-cyan-500 dark:hover:text-cyan-400 transition duration-300 relative group">
                         Experience
                         <span
                             class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-cyan-400 to-blue-500 group-hover:w-full transition-all duration-300"></span>
                     </a>
                     <a href="#articles"
-                        class="blog-article-nav text-gray-700 dark:text-gray-300 hover:text-cyan-500 dark:hover:text-cyan-400 transition duration-300 relative group">
+                        class="desktop-nav-link blog-article-nav text-gray-700 dark:text-gray-300 hover:text-cyan-500 dark:hover:text-cyan-400 transition duration-300 relative group">
                         Blog/Article
                         <span
                             class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-cyan-400 to-blue-500 group-hover:w-full transition-all duration-300"></span>
                     </a>
 
                     <a href="#skills"
-                        class="text-gray-700 dark:text-gray-300 hover:text-cyan-500 dark:hover:text-cyan-400 transition duration-300 relative group">
+                        class="desktop-nav-link text-gray-700 dark:text-gray-300 hover:text-cyan-500 dark:hover:text-cyan-400 transition duration-300 relative group">
                         Skills
                         <span
                             class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-cyan-400 to-blue-500 group-hover:w-full transition-all duration-300"></span>
@@ -1200,7 +1377,7 @@
                             class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-cyan-400 to-blue-500 group-hover:w-full transition-all duration-300"></span>
                     </a>
                     <a href="#contact"
-                        class="text-gray-700 dark:text-gray-300 hover:text-accent dark:hover:text-cyan-400 transition duration-300 relative group">
+                        class="desktop-nav-link text-gray-700 dark:text-gray-300 hover:text-accent dark:hover:text-cyan-400 transition duration-300 relative group">
                         Contact
                         <span
                             class="absolute bottom-0 left-0 w-0 h-0.5 bg-accent group-hover:w-full transition-all duration-300"></span>
@@ -1238,19 +1415,19 @@
                     class="block px-4 py-3 text-gray-700 dark:text-gray-300 hover:bg-cyan-500/10 hover:text-cyan-400 transition duration-300"
                     onclick="closeMobileMenu()">Projects</a>
                 <a href="#experience"
-                    class="block px-4 py-3 text-gray-700 dark:text-gray-300 hover:bg-cyan-500/10 hover:text-cyan-400 transition duration-300"
+                    class="mobile-nav-link block px-4 py-3 text-gray-700 dark:text-gray-300 hover:bg-cyan-500/10 hover:text-cyan-400 transition duration-300"
                     onclick="closeMobileMenu()">Experience</a>
                 <a href="#articles"
-                    class="blog-article-nav block px-4 py-3 text-gray-700 dark:text-gray-300 hover:bg-cyan-500/10 hover:text-cyan-400 transition duration-300"
+                    class="mobile-nav-link blog-article-nav block px-4 py-3 text-gray-700 dark:text-gray-300 hover:bg-cyan-500/10 hover:text-cyan-400 transition duration-300"
                     onclick="closeMobileMenu()">Blog/Article</a>
 
                 <a href="#skills"
-                    class="block px-4 py-3 text-gray-700 dark:text-gray-300 hover:bg-cyan-500/10 hover:text-cyan-400 transition duration-300"
+                    class="mobile-nav-link block px-4 py-3 text-gray-700 dark:text-gray-300 hover:bg-cyan-500/10 hover:text-cyan-400 transition duration-300"
                     onclick="closeMobileMenu()">Skills</a>
                 <a href="certifications.html"
                     class="block px-4 py-3 text-gray-700 dark:text-gray-300 hover:bg-cyan-500/10 hover:text-cyan-400 transition duration-300">Certifications</a>
                 <a href="#contact"
-                    class="block px-4 py-3 text-gray-700 dark:text-gray-300 hover:bg-cyan-500/10 hover:text-cyan-400 transition duration-300"
+                    class="mobile-nav-link block px-4 py-3 text-gray-700 dark:text-gray-300 hover:bg-cyan-500/10 hover:text-cyan-400 transition duration-300"
                     onclick="closeMobileMenu()">Contact</a>
                 <div class="border-t border-cyan-500/20 mt-2 pt-2">
                     <a href="Abu Saeid.pdf"
@@ -1263,8 +1440,7 @@
     </header>
 
     <!-- Main Content Area -->
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20">
-
+    <div>
         <!-- 1. Hero Section with Profile Photo -->
         <section id="hero" class="py-20 md:py-36">
             <div class="max-w-6xl mx-auto">
@@ -1625,7 +1801,7 @@
 
 
         <!-- 6. Blog / Articles (Updated Title): Responsive Grid -->
-        <section id="articles" class="py-16 md:py-24 scroll-mt-20">
+        <section id="articles" class="py-16 md:py-24">
             <h2 class="text-3xl font-bold mb-4 text-center text-black dark:text-gray-100">Security Insights &
                 Publications</h2>
             <p class="text-center text-gray-700 dark:text-gray-300 text-lg mb-8 max-w-3xl mx-auto">
@@ -1956,7 +2132,22 @@
 
             </div>
         </section>
-    </main>
+        <!-- Footer -->
+        <footer class="border-t border-gray-200 dark:border-gray-800 py-10 text-gray-600 dark:text-gray-400">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <p class="mb-4">&copy; 2025 Abu Saeid. All rights reserved.</p>
+                <div class="flex justify-center space-x-6 text-sm">
+                    <a href="#hero" class="hover:text-accent transition duration-300">About</a>
+                    <a href="#projects" class="hover:text-accent transition duration-300">Projects</a>
+                    <a href="#articles" class="blog-article-nav hover:text-accent transition duration-300">Blog/Article</a>
+                    <a href="https://socsignal-production-f46c.up.railway.app/" target="_blank" class="hover:text-accent transition duration-300">My Blog</a>
+                    <a href="#contact" class="hover:text-accent transition duration-300">Contact</a>
+                    <a href="Abu Saeid.pdf"
+                        target="_blank" class="hover:text-accent transition duration-300">Resume PDF</a>
+                </div>
+            </div>
+        </footer>
+    </div>
 
     <!-- Project Detail Modal -->
     <div id="project-modal" class="modal fixed inset-0 z-[100] bg-black/80 flex items-center justify-center p-4 hidden"
@@ -1973,22 +2164,6 @@
             </div>
         </div>
     </div>
-
-    <!-- Footer -->
-    <footer class="border-t border-gray-200 dark:border-gray-800 py-10 text-gray-600 dark:text-gray-400">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <p class="mb-4">&copy; 2025 Abu Saeid. All rights reserved.</p>
-            <div class="flex justify-center space-x-6 text-sm">
-                <a href="#about" class="hover:text-accent transition duration-300">About</a>
-                <a href="#projects" class="hover:text-accent transition duration-300">Projects</a>
-                <a href="#articles" class="blog-article-nav hover:text-accent transition duration-300">Blog/Article</a>
-                <a href="https://socsignal-production-f46c.up.railway.app/" target="_blank" class="hover:text-accent transition duration-300">My Blog</a>
-                <a href="#contact" class="hover:text-accent transition duration-300">Contact</a>
-                <a href="Abu Saeid.pdf"
-                    target="_blank" class="hover:text-accent transition duration-300">Resume PDF</a>
-            </div>
-        </div>
-    </footer>
 
     <!-- JavaScript Logic -->
     <script>
@@ -2076,6 +2251,19 @@
 
         // Data for Projects Section
         const projectData = [
+            {
+                id: 10,
+                title: "Project Aegis-OCSF: Scalable Security Pipeline",
+                short_desc: "A high-performance Rust ETL pipeline that standardizes Wazuh telemetry into OCSF and offloads storage to ClickHouse for 30x better compression.",
+                tags: ["SIEM", "Rust", "ClickHouse", "OCSF", "ETL"],
+                link: "Project-Aegis-OCSF.html",
+                details: {
+                    problem: "Scaling security data storage in OpenSearch is expensive and resource-heavy, often leading to performance degradation in high-volume environments.",
+                    approach: "Engineered a custom Rust-based ETL engine to normalize Wazuh logs into the OCSF schema and ingest them into ClickHouse's columnar storage.",
+                    tools: ["Rust", "ClickHouse", "OCSF 1.7.0", "Wazuh", "Filebeat", "Grafana", "Docker"],
+                    outcome: "Achieved sub-second query performance on billions of rows with 30x better storage efficiency compared to traditional row-based SIEM storage."
+                }
+            },
             {
                 id: 9,
                 title: "Enterprise Wazuh Cloud-Native SIEM",
@@ -2890,18 +3078,25 @@
         }
     </script>
     <script>
-        // Modern Preloader Logic
+        // Creative Preloader Logic (Hourglass Fix)
         window.addEventListener('load', () => {
             const preloader = document.getElementById('preloader');
-            // Keep loader for only 0.8 seconds for faster loading
+            
+            // Increased display time for better branding register (1.8s)
             setTimeout(() => {
-                preloader.style.opacity = '0';
-                preloader.style.visibility = 'hidden';
-                // Remove from DOM after transition
+                preloader.classList.add('loaded');
+                
+                // Refresh Icons and AOS after reveal
                 setTimeout(() => {
-                    preloader.remove();
-                }, 300);
-            }, 800);
+                    if (typeof lucide !== 'undefined') lucide.createIcons();
+                    if (typeof AOS !== 'undefined') AOS.refresh();
+                }, 400);
+
+                // Fully remove from DOM after slide animation
+                setTimeout(() => {
+                    if (preloader) preloader.remove();
+                }, 1000);
+            }, 1800);
         });
     </script>
     <script>
@@ -2916,16 +3111,13 @@
                 entries.forEach(entry => {
                     if (entry.isIntersecting && !certsLoaded) {
                         certsLoaded = true;
-                        // Show loader
-                        certLoader.classList.remove('hidden');
-
-                        // Simulate loading delay
-                        setTimeout(() => {
-                            certLoader.classList.add('hidden');
+                        
+                        // Load immediately without heavy delays
+                        if (certLoader) certLoader.classList.add('hidden');
+                        if (certContainer) {
                             certContainer.classList.remove('hidden');
-                            // Trigger a fade-in effect for the container
                             certContainer.classList.add('animate-fade-in-up');
-                        }, 1500);
+                        }
 
                         observer.unobserve(entry.target);
                     }
@@ -3313,6 +3505,76 @@
                 });
             }
         });
+    </script>
+    <script type="text/javascript">
+        // Active Navigation Scroll Spy
+        document.addEventListener('DOMContentLoaded', () => {
+            const sections = document.querySelectorAll('section, footer');
+            const navLinks = document.querySelectorAll('.desktop-nav-link');
+            const mobileLinks = document.querySelectorAll('.mobile-nav-link');
+
+            function activeLinkHandler() {
+                let current = '';
+                const scrollPos = window.pageYOffset || document.documentElement.scrollTop;
+
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.offsetHeight;
+                    
+                    // Offset for better detection
+                    if (scrollPos >= (sectionTop - 150)) {
+                        current = section.getAttribute('id');
+                    }
+                });
+
+                // Special case for footer/bottom of page
+                if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 50) {
+                    current = 'contact'; // Or whatever your last nav section is
+                }
+                
+                // Special case for top of page
+                if (scrollPos < 100) {
+                    current = 'hero';
+                }
+
+                // Update Desktop Links
+                navLinks.forEach(link => {
+                    link.classList.remove('nav-link-active');
+                    const href = link.getAttribute('href');
+                    if (href === `#${current}` || (current === 'hero' && href === '#hero')) {
+                        link.classList.add('nav-link-active');
+                    }
+                });
+
+                // Update Mobile Links
+                mobileLinks.forEach(link => {
+                    link.classList.remove('mobile-nav-link-active');
+                    const href = link.getAttribute('href');
+                    if (href === `#${current}`) {
+                        link.classList.add('mobile-nav-link-active');
+                    }
+                });
+            }
+
+            window.addEventListener('scroll', activeLinkHandler);
+            // Run once on load
+            activeLinkHandler();
+        });
+
+        // Smooth scroll to sections with custom offset if needed
+        function scrollToSection(id) {
+            const element = document.getElementById(id);
+            if (element) {
+                const headerOffset = 80;
+                const elementPosition = element.getBoundingClientRect().top;
+                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: "smooth"
+                });
+            }
+        }
     </script>
 </body>
 
