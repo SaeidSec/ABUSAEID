@@ -1469,71 +1469,53 @@
                 <!-- Responsive Grid: Stacks on mobile, side-by-side on desktop -->
                 <div class="grid md:grid-cols-2 gap-12 items-center">
 
-                    <!-- Left Side: Professional Hero Photo Design (Circular) -->
-                    <div class="flex justify-center md:justify-end order-1 md:order-1 w-full">
-                        <div
-                            class="relative group w-full max-w-md md:max-w-full aspect-square flex justify-center items-center">
-
-                            <!-- Outer Glow Ring - Animated -->
-                            <div
-                                class="absolute inset-0 bg-gradient-to-r from-cyan-500 via-blue-500 to-purple-600 rounded-full opacity-20 blur-2xl group-hover:opacity-40 transition-all duration-700 animate-pulse">
-                            </div>
-
-                            <!-- Rotating Gradient Border -->
-                            <div class="absolute inset-2 bg-gradient-to-r from-accent via-blue-500 to-purple-600 rounded-full opacity-75 group-hover:opacity-100 transition-opacity duration-500"
-                                style="animation: rotate 8s linear infinite;">
-                            </div>
-
-                            <!-- Inner Container with Geometric Pattern -->
-                            <div
-                                class="relative w-[90%] h-[90%] bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 rounded-full p-1 overflow-hidden flex justify-center items-center">
-
-                                <!-- Geometric Pattern Overlay -->
-                                <div class="absolute inset-0 opacity-10 rounded-full">
-                                    <div class="absolute top-0 left-0 w-full h-full"
-                                        style="background-image: repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(5, 136, 167, 0.1) 10px, rgba(5, 136, 167, 0.1) 20px);">
-                                    </div>
-                                </div>
-
+                    <!-- Left Side: Unique Morphing Hero Photo Design -->
+                    <div class="flex justify-center md:justify-end order-1 md:order-1 w-full p-4">
+                        <div class="relative group" data-tilt data-tilt-max="10" data-tilt-speed="400" data-tilt-perspective="1000">
+                            
+                            <!-- Large Outer Glow -->
+                            <div class="absolute -inset-10 bg-gradient-to-r from-cyan-500/20 via-blue-500/20 to-purple-600/20 rounded-full blur-3xl group-hover:opacity-100 transition-opacity duration-1000 opacity-50 animate-pulse"></div>
+                            
+                            <!-- Morphing Container -->
+                            <div class="about-image-frame relative w-72 h-72 md:w-96 md:h-96 overflow-hidden border-4 border-accent/30 bg-darkbg p-2 shadow-2xl transition-all duration-700 group-hover:border-accent group-hover:shadow-accent/20">
+                                <img src="coverphoto.jpeg" alt="Abu Saeid" class="w-full h-full object-cover rounded-[inherit]">
+                                
                                 <!-- Scan Line Effect -->
-                                <div class="absolute inset-0 overflow-hidden rounded-full pointer-events-none">
+                                <div class="absolute inset-0 overflow-hidden rounded-[inherit] pointer-events-none">
                                     <div class="absolute w-full h-1 bg-gradient-to-r from-transparent via-accent to-transparent opacity-50"
                                         style="animation: scan 3s ease-in-out infinite;">
                                     </div>
                                 </div>
 
-                                <!-- Profile Photo with Clip Path -->
-                                <div class="relative w-full h-full overflow-hidden rounded-full">
-                                    <img src="coverphoto.jpeg" alt="Abu Saeid - SOC Analyst"
-                                        class="relative w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700 ease-out">
+                                <!-- Glass Overlay -->
+                                <div class="absolute inset-0 bg-gradient-to-tr from-accent/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                            </div>
 
-                                    <!-- Gradient Overlay on Hover -->
-                                    <div
-                                        class="absolute inset-0 bg-gradient-to-t from-accent/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                                    </div>
-                                </div>
-
-                                <!-- Floating Particles -->
-                                <div
-                                    class="absolute top-1/4 left-1/4 w-2 h-2 bg-accent rounded-full opacity-60 animate-ping">
-                                </div>
-                                <div class="absolute top-3/4 right-1/4 w-1.5 h-1.5 bg-blue-400 rounded-full opacity-40"
-                                    style="animation: float 4s ease-in-out infinite;">
-                                </div>
-                                <div class="absolute top-1/2 right-1/3 w-1 h-1 bg-purple-400 rounded-full opacity-50"
-                                    style="animation: float 5s ease-in-out infinite 1s;">
-                                </div>
+                            <!-- Floating Decorative Elements -->
+                            <div class="absolute -top-4 -left-4 w-14 h-14 bg-darkbg/80 border border-accent/50 rounded-2xl flex items-center justify-center animate-float-slow shadow-xl backdrop-blur-xl z-20">
+                                <i data-lucide="radar" class="w-7 h-7 text-accent"></i>
+                            </div>
+                            <div class="absolute top-1/4 -right-6 w-12 h-12 bg-darkbg/80 border border-blue-500/50 rounded-full flex items-center justify-center animate-float-slow shadow-xl backdrop-blur-xl z-20" style="animation-delay: -3s;">
+                                <i data-lucide="terminal" class="w-6 h-6 text-blue-400"></i>
+                            </div>
+                            <div class="absolute -bottom-6 right-1/4 w-10 h-10 bg-darkbg/80 border border-purple-500/50 rotate-12 flex items-center justify-center animate-float-slow shadow-xl backdrop-blur-xl z-20" style="animation-delay: -1.5s;">
+                                <i data-lucide="cpu" class="w-5 h-5 text-purple-400"></i>
                             </div>
 
                             <!-- Status Badge -->
-                            <div
-                                class="absolute -bottom-2 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-accent to-blue-500 text-white px-6 py-2 rounded-full shadow-lg shadow-accent/50 font-semibold text-sm flex items-center gap-2 group-hover:scale-110 transition-transform duration-300 whitespace-nowrap z-10">
-                                <span class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
+                            <div class="absolute -bottom-2 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-accent to-blue-600 text-white px-6 py-2 rounded-full shadow-2xl shadow-accent/40 font-bold text-sm flex items-center gap-2 group-hover:scale-110 transition-transform duration-500 whitespace-nowrap z-30 border border-white/10">
+                                <span class="relative flex h-3 w-3">
+                                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                                    <span class="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
+                                </span>
                                 SOC Analyst & Researcher
                             </div>
 
+                            <!-- Geometric Accents -->
+                            <div class="absolute -inset-4 border border-accent/10 rounded-[inherit] animate-[spin_30s_linear_infinite] pointer-events-none"></div>
                         </div>
-                    </div><!-- Right Side: Content -->
+                    </div>
+<!-- Right Side: Content -->
                     <div class="text-center md:text-left order-2 md:order-2">
                         <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold mb-4 tracking-tighter">
                             Hi, I'm <span
