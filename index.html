@@ -1343,7 +1343,7 @@
       "@context": "https://schema.org",
       "@type": "Person",
       "name": "Abu Saeid",
-      "jobTitle": "SOC Analyst | Cybersecurity Researcher | AI/ML Automations",
+      "jobTitle": "Founder & Chief of Research | SOC Analyst | Cybersecurity Researcher",
       "url": "https://saeidsec.netlify.app/",
       "email": "mailto:contact.abusaeid@gmail.com",
       "alumniOf": "Green University of Bangladesh",
@@ -1508,7 +1508,7 @@
                                     <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
                                     <span class="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
                                 </span>
-                                SOC Analyst & Researcher
+                                Founder & Chief of Research
                             </div>
 
                             <!-- Geometric Accents -->
@@ -1811,20 +1811,106 @@
                 </button>
             </div>
 
-            <!-- Current Role Section (Empty State) -->
-            <div id="current-role-section" class="max-w-5xl mx-auto">
-                <div class="card p-12 rounded-xl text-center">
-                    <i data-lucide="briefcase" class="h-16 w-16 mx-auto mb-4 text-gray-500 icon"></i>
-                    <h3 class="text-2xl font-bold text-gray-700 dark:text-gray-300 mb-3">Currently Focusing on Studies
-                    </h3>
+            <!-- Current Role Section -->
+            <div id="current-role-section" class="max-w-5xl mx-auto space-y-8">
+
+                <!-- Aegisryx Labs Role Card -->
+                <div class="card p-6 md:p-8 rounded-xl hover:shadow-2xl transition-all duration-300 border-l-4 border-accent">
+                    <div class="flex flex-col md:flex-row md:items-start md:justify-between mb-4">
+                        <div class="flex-1">
+                            <h3 class="text-2xl font-bold text-accent mb-2">Founder & Chief of Research</h3>
+                            <p class="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-1">Aegisryx Labs · Full-time</p>
+                            <p class="text-sm text-gray-600 dark:text-gray-400 mb-2">
+                                <i data-lucide="calendar" class="h-4 w-4 inline mr-1 icon"></i>
+                                Jan 2026 - Present · 4 mos
+                            </p>
+                            <p class="text-sm text-gray-600 dark:text-gray-400">
+                                <i data-lucide="map-pin" class="h-4 w-4 inline mr-1 icon"></i>
+                                Dhaka, Bangladesh · On-site
+                            </p>
+                        </div>
+                        <span class="mt-3 md:mt-0 inline-flex items-center gap-2 px-4 py-2 bg-green-500/10 border border-green-500/30 text-green-400 rounded-full text-sm font-semibold">
+                            <span class="relative flex h-2.5 w-2.5">
+                                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                                <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-green-500"></span>
+                            </span>
+                            Current
+                        </span>
+                    </div>
+                    <div class="text-gray-700 dark:text-gray-300 space-y-4">
+                        <p>At Aegisryx Labs, I designed and engineered an enterprise-grade cybersecurity SIEM architecture focused on resilience, protocol governance, and automated response.</p>
+                        <p>This initiative transformed a standard Wazuh deployment into a production-ready security mesh capable of zero-downtime failover, ingestion compatibility control, and full-stack operational observability.</p>
+
+                        <div>
+                            <h4 class="text-lg font-bold text-accent mb-2 flex items-center gap-2">
+                                <i data-lucide="settings" class="h-5 w-5 icon"></i> What We Engineered
+                            </h4>
+                            <ul class="list-disc list-inside space-y-2 ml-4">
+                                <li>High-Availability ingress using Virtual IP (Keepalived) + Nginx L4/L7</li>
+                                <li>Pause-container network persistence ensuring VIP stability during crashes</li>
+                                <li>Distributed Wazuh Master/Worker cluster architecture</li>
+                                <li>3-node OpenSearch indexer cluster with resilient quorum design</li>
+                                <li>Custom FastAPI "Wazuh-Proxy" compatibility gateway providing:
+                                    <ul class="list-none ml-6 mt-1 space-y-1 text-gray-500 dark:text-gray-400">
+                                        <li>— NDJSON sanitization</li>
+                                        <li>— OpenSearch 2.x schema enforcement</li>
+                                        <li>— mTLS-secured ingestion</li>
+                                        <li>— Rate limiting & method control</li>
+                                    </ul>
+                                </li>
+                                <li>Full-stack observability ecosystem (Zabbix + Prometheus + Grafana)</li>
+                                <li>Forensic-grade log instrumentation for SIEM health monitoring</li>
+                                <li>Active deception telemetry (Cowrie / Beelzebub honeypots)</li>
+                                <li>Automated vulnerability scanning via Trivy integration</li>
+                                <li>SOAR automation using DFIR-IRIS for real-time incident case lifecycle</li>
+                            </ul>
+                        </div>
+
+                        <div>
+                            <h4 class="text-lg font-bold text-accent mb-2 flex items-center gap-2">
+                                <i data-lucide="target" class="h-5 w-5 icon"></i> Strategic Focus
+                            </h4>
+                            <p>At Aegisryx Labs, our mission is to engineer resilient, open, and scalable cybersecurity infrastructures that remove single points of failure and reduce SOC response time through intelligent automation.</p>
+                            <p class="mt-2 font-medium">This architecture demonstrates:</p>
+                            <ul class="list-disc list-inside space-y-1 ml-4 mt-1">
+                                <li>Distributed systems engineering</li>
+                                <li>High availability network design</li>
+                                <li>Secure protocol mediation</li>
+                                <li>Observability-driven security operations</li>
+                                <li>Automated incident response pipelines</li>
+                            </ul>
+                        </div>
+
+                        <div class="flex flex-wrap gap-2 mt-4">
+                            <span class="bg-accent/20 text-accent px-3 py-1 rounded-full text-sm">Wazuh</span>
+                            <span class="bg-accent/20 text-accent px-3 py-1 rounded-full text-sm">OpenSearch</span>
+                            <span class="bg-accent/20 text-accent px-3 py-1 rounded-full text-sm">Keepalived</span>
+                            <span class="bg-accent/20 text-accent px-3 py-1 rounded-full text-sm">Nginx</span>
+                            <span class="bg-accent/20 text-accent px-3 py-1 rounded-full text-sm">FastAPI</span>
+                            <span class="bg-accent/20 text-accent px-3 py-1 rounded-full text-sm">Docker</span>
+                            <span class="bg-accent/20 text-accent px-3 py-1 rounded-full text-sm">Prometheus</span>
+                            <span class="bg-accent/20 text-accent px-3 py-1 rounded-full text-sm">Grafana</span>
+                            <span class="bg-accent/20 text-accent px-3 py-1 rounded-full text-sm">DFIR-IRIS</span>
+                            <span class="bg-accent/20 text-accent px-3 py-1 rounded-full text-sm">Trivy</span>
+                            <span class="bg-accent/20 text-accent px-3 py-1 rounded-full text-sm">Cowrie</span>
+                            <span class="bg-accent/20 text-accent px-3 py-1 rounded-full text-sm">Zabbix</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Currently Focusing on Studies Card (preserved) -->
+                <div class="card p-8 rounded-xl text-center border border-dashed border-accent/30">
+                    <i data-lucide="graduation-cap" class="h-12 w-12 mx-auto mb-3 text-accent icon"></i>
+                    <h3 class="text-xl font-bold text-gray-700 dark:text-gray-300 mb-2">Currently Focusing on Studies</h3>
                     <p class="text-gray-600 dark:text-gray-400 text-lg">
-                        I'm currently a full-time student pursuing my B.Sc. in Computer Science & Engineering at Green
+                        I'm currently a full-time student pursuing my B.Sc. in Computer Science &amp; Engineering at Green
                         University of Bangladesh.
                     </p>
                     <p class="text-gray-600 dark:text-gray-400 mt-2">
                         Open to internship and entry-level opportunities in SOC Analysis and Cybersecurity!
                     </p>
                 </div>
+
             </div>
 
             <!-- Previous Experience Timeline -->
