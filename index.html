@@ -2294,6 +2294,19 @@
         // Data for Projects Section
         const projectData = [
             {
+                id: 11,
+                title: "Unified Cyber Defense SOAR Stack",
+                short_desc: "A comprehensive case study on deploying a fully integrated, open-source SOC/SOAR pipeline with Cortex, TheHive, OpenCTI, and MISP.",
+                tags: ["SOAR", "Cortex", "TheHive", "CTI"],
+                link: "projects/Unified-Cyber-Defense-SOAR.html",
+                details: {
+                    problem: "Integrating multiple open-source security tools into a cohesive SOAR stack often leads to undocumented configuration, caching, and SSL errors that block deployment.",
+                    approach: "Systematically deployed and debugged an architecture featuring Suricata, Wazuh, TheHive, Cortex, MISP, and OpenCTI. Documented all encountered errors (like missing job runners, stale Elasticsearch caches, and SSL failures) along with their root causes and verified solutions.",
+                    tools: ["Cortex 4.0.0", "TheHive 5.6.0", "OpenCTI", "MISP", "Docker", "Wazuh", "Suricata"],
+                    outcome: "Built a fully operational, zero-cost SOC/SOAR platform capable of automated threat detection, enrichment, and response, and created a definitive troubleshooting guide for the community."
+                }
+            },
+            {
                 id: 10,
                 title: "Project Aegis-OCSF: Scalable Security Pipeline",
                 short_desc: "A high-performance Rust ETL pipeline that standardizes Wazuh telemetry into OCSF and offloads storage to ClickHouse for 30x better compression.",

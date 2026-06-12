@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unified Cyber Defense SOAR Stack | SecureOps</title>
+    <meta name="description" content="Deep dive analysis of building a Unified Cyber Defense SOAR Stack: errors, root causes, and solutions.">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap"
+        rel="stylesheet">
+
+    <style>
+        :root {
+            --color-bg: #020617; /* slate-950 */
+            --color-card: #0f172a; /* slate-900 */
+            --color-border: #1e293b; /* slate-800 */
+            --color-primary: #3b82f6; /* blue-500 */
+            --color-secondary: #10b981; /* emerald-500 */
+            --color-danger: #ef4444; /* red-500 */
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--color-bg);
+            color: #e2e8f0;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #0f172a;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #475569;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .animate-fade-in {
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+
+        .glass-nav {
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(30, 41, 59, 0.5);
+        }
+
+        .code-block {
+            font-family: 'Fira Code', monospace;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--color-border);
+            border-radius: 0.5rem;
+            padding: 1rem;
+            overflow-x: auto;
+            color: #a78bfa; /* purple-400 for code */
+        }
+
+        .section-card {
+            background: var(--color-card);
+            border: 1px solid var(--color-border);
+            border-radius: 1rem;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .section-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px -10px rgba(59, 130, 246, 0.2);
+        }
+
+        .hero-gradient {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(16, 185, 129, 0.1) 100%);
+            border-bottom: 1px solid rgba(59, 130, 246, 0.2);
+        }
+
+        h1, h2, h3, h4 {
+            color: white;
+            font-weight: 700;
+            letter-spacing: -0.025em;
+        }
+
+        .problem-badge {
+            background: rgba(239, 68, 68, 0.1);
+            color: #ef4444;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 1rem;
+        }
+
+        .solution-badge {
+            background: rgba(16, 185, 129, 0.1);
+            color: #10b981;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 1rem;
+        }
+
+        img {
+            border-radius: 0.5rem;
+            border: 1px solid var(--color-border);
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+
+<body class="antialiased">
+    <!-- Navigation -->
+    <nav class="glass-nav fixed w-full z-50 top-0 transition-all duration-300 py-4">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
+            <a href="../index.html" class="flex items-center space-x-2 group">
+                <div class="w-8 h-8 rounded-lg bg-blue-600 flex items-center justify-center text-white font-bold group-hover:bg-blue-500 transition-colors">
+                    AS
+                </div>
+                <span class="font-bold text-white tracking-tight">Abu Saeid</span>
+            </a>
+            <div class="flex items-center space-x-6">
+                <a href="../index.html" class="text-gray-300 hover:text-white transition-colors text-sm font-medium flex items-center">
+                    <i data-lucide="arrow-left" class="w-4 h-4 mr-1 icon"></i> Back to Portfolio
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="pt-32 pb-20 hero-gradient relative overflow-hidden">
+        <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Ik0zNiAzNHYtNGgtMnY0aC00djJoNGY0aDJ2LTRoNHYtMmgtNHptMC0zMFYwaC0ydjRoLTR2Mmg0djRoMnYtNGg0VjRoLTR6bS0yMCAxMnYtNGgtMnY0aC00djJoNGY0aDJ2LTRoNHYtMmgtNHptMCAzMFYzNmgtMnY0aC00djJoNHY0aDJ2LTRoNHYtMmgtNHoiIGZpbGw9IiMzMzQxNTUiIGZpbGwtb3BhY2l0eT0iMC4xIi8+PC9nPjwvc3ZnPg==')] opacity-30"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="inline-flex items-center space-x-2 bg-blue-500/10 border border-blue-500/20 rounded-full px-4 py-1.5 mb-6 animate-fade-in">
+                <span class="w-2 h-2 rounded-full bg-blue-500 animate-pulse"></span>
+                <span class="text-sm font-medium text-blue-400">Deep Dive Analysis</span>
+            </div>
+            <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white mb-6 leading-tight animate-fade-in" style="animation-delay: 0.1s;">
+                Building a Unified Cyber Defense <br/><span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-emerald-400">SOAR Stack</span>
+            </h1>
+            <p class="text-xl text-gray-400 max-w-3xl mb-8 animate-fade-in" style="animation-delay: 0.2s;">
+                A comprehensive case study on deploying Cortex 4.0.0, TheHive 5.6.0, OpenCTI, and MISP. This document details the architecture, common integration errors, root causes, and field-tested solutions.
+            </p>
+            <div class="flex flex-wrap gap-4 animate-fade-in" style="animation-delay: 0.3s;">
+                <div class="flex items-center space-x-2 text-sm text-gray-400 bg-slate-900/50 px-4 py-2 rounded-lg border border-slate-800">
+                    <i data-lucide="server" class="w-4 h-4 icon"></i>
+                    <span>Ubuntu 26.04 LTS</span>
+                </div>
+                <div class="flex items-center space-x-2 text-sm text-gray-400 bg-slate-900/50 px-4 py-2 rounded-lg border border-slate-800">
+                    <i data-lucide="box" class="w-4 h-4 icon"></i>
+                    <span>Docker 29.1.3</span>
+                </div>
+                <div class="flex items-center space-x-2 text-sm text-gray-400 bg-slate-900/50 px-4 py-2 rounded-lg border border-slate-800">
+                    <i data-lucide="shield-alert" class="w-4 h-4 icon"></i>
+                    <span>SOAR & CTI</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        
+        <!-- Architecture Overview -->
+        <section class="mb-16 animate-fade-in" style="animation-delay: 0.4s;">
+            <div class="flex items-center space-x-3 mb-8">
+                <div class="w-10 h-10 rounded-lg bg-blue-500/10 flex items-center justify-center border border-blue-500/20">
+                    <i data-lucide="network" class="w-5 h-5 text-blue-400 icon"></i>
+                </div>
+                <h2 class="text-3xl font-bold">1. Architecture Overview</h2>
+            </div>
+            <div class="section-card">
+                <p class="text-gray-300 mb-6">The goal was to build a fully integrated, open-source SOC/SOAR pipeline capable of handling complex threat detection, automated enrichment, and incident management.</p>
+                
+                <img src="assets/Unified-Cyber-Defense/architecture-diagram.gif" alt="Unified Cyber Defense Architecture" class="w-full mb-8 shadow-xl">
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="bg-slate-800/50 p-4 rounded-lg border border-slate-700">
+                        <h4 class="text-emerald-400 font-semibold mb-2">Detection</h4>
+                        <p class="text-sm text-gray-400">Suricata IDS for network-level threat detection.</p>
+                    </div>
+                    <div class="bg-slate-800/50 p-4 rounded-lg border border-slate-700">
+                        <h4 class="text-blue-400 font-semibold mb-2">Correlation & Alerting</h4>
+                        <p class="text-sm text-gray-400">Wazuh SIEM for endpoint security and log correlation.</p>
+                    </div>
+                    <div class="bg-slate-800/50 p-4 rounded-lg border border-slate-700">
+                        <h4 class="text-purple-400 font-semibold mb-2">Incident Management</h4>
+                        <p class="text-sm text-gray-400">TheHive for case management and orchestration.</p>
+                    </div>
+                    <div class="bg-slate-800/50 p-4 rounded-lg border border-slate-700">
+                        <h4 class="text-amber-400 font-semibold mb-2">Automated Enrichment</h4>
+                        <p class="text-sm text-gray-400">Cortex + multiple analyzers (VirusTotal, AbuseIPDB).</p>
+                    </div>
+                    <div class="bg-slate-800/50 p-4 rounded-lg border border-slate-700">
+                        <h4 class="text-pink-400 font-semibold mb-2">Threat Intelligence</h4>
+                        <p class="text-sm text-gray-400">OpenCTI + MISP + external feeds for comprehensive CTI.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Problems & Solutions -->
+        <section class="mb-16">
+            <div class="flex items-center space-x-3 mb-8">
+                <div class="w-10 h-10 rounded-lg bg-red-500/10 flex items-center justify-center border border-red-500/20">
+                    <i data-lucide="wrench" class="w-5 h-5 text-red-400 icon"></i>
+                </div>
+                <h2 class="text-3xl font-bold">2. Field Errors & Troubleshooting</h2>
+            </div>
+
+            <!-- Problem 1 -->
+            <div class="section-card">
+                <div class="problem-badge">Problem 1: Cortex Analyzer Fails</div>
+                <h3 class="text-xl font-bold mb-4">Error: <code>python3: No such file or directory</code></h3>
+                <p class="text-gray-300 mb-4">Every time an OpenCTI or MISP analyzer was run from the Cortex UI, it failed immediately. This affected all locally deployed analyzers.</p>
+                
+                <div class="grid md:grid-cols-2 gap-6 mb-6">
+                    <img src="assets/Unified-Cyber-Defense/error-python3-missing.png" alt="Python3 Error" class="shadow-lg">
+                    <img src="assets/Unified-Cyber-Defense/error-process-runner.png" alt="Process Runner Error" class="shadow-lg">
+                </div>
+
+                <div class="bg-red-500/5 border-l-4 border-red-500 p-4 mb-6 rounded-r-lg">
+                    <h4 class="text-red-400 font-semibold mb-2">Root Cause</h4>
+                    <p class="text-gray-400 text-sm">Cortex 4.0.0 supports multiple job runner modes. The <code>application.conf</code> had <strong>no job.runner configuration</strong>, so Cortex defaulted to the <strong>process runner</strong>, attempting to execute <code>python3</code> directly inside the Cortex JVM container where Python is not installed.</p>
+                </div>
+
+                <div class="solution-badge">Solution</div>
+                <p class="text-gray-300 mb-3">Add job runner configuration to <code>application.conf</code> to instruct Cortex to use Docker.</p>
+                <div class="code-block mb-4">
+# Job runner configuration - use Docker to run analyzers
+job {
+  runner = [docker, process]
+}
+
+docker {
+  pullImage = false
+}
+                </div>
+            </div>
+
+            <!-- Problem 2 -->
+            <div class="section-card">
+                <div class="problem-badge">Problem 2: Missing Docker Images</div>
+                <h3 class="text-xl font-bold mb-4">Analyzers Fail to Run via Docker</h3>
+                <p class="text-gray-300 mb-4">Even after adding <code>job.runner</code>, analyzers still failed because Cortex did not know which Docker image to use for each analyzer. The logs showed: <code>worker xxx can't be run with docker (doesn't have image)</code>.</p>
+                
+                <div class="mb-6">
+                    <img src="assets/Unified-Cyber-Defense/error-no-image.png" alt="No Docker Image Error" class="shadow-lg max-w-2xl">
+                </div>
+
+                <div class="bg-red-500/5 border-l-4 border-red-500 p-4 mb-6 rounded-r-lg">
+                    <h4 class="text-red-400 font-semibold mb-2">Root Cause</h4>
+                    <p class="text-gray-400 text-sm">The analyzer JSON definition files lacked the <code>dockerImage</code> field. Cortex Docker runner requires this field to instantiate the correct container per job.</p>
+                </div>
+
+                <div class="solution-badge">Solution</div>
+                <p class="text-gray-300 mb-3">1. Build Docker images for the analyzers (e.g., OpenCTI). <br> 2. Add the <code>dockerImage</code> field to all JSON configs.</p>
+                <div class="code-block mb-4">
+{
+  "name": "OpenCTI_v6_SearchExactObservable",
+  "version": "2.0",
+  "command": "OpenCTI/opencti.py",
+  "dockerImage": "cortexneurons/opencti:latest",
+  ...
+}
+                </div>
+            </div>
+
+            <!-- Problem 3 -->
+            <div class="section-card">
+                <div class="problem-badge">Problem 3: Cached Analyzer Configs</div>
+                <h3 class="text-xl font-bold mb-4">Cortex Uses Stale Configurations</h3>
+                <p class="text-gray-300 mb-4">After updating the JSON files on disk, analyzers still failed with the same error. Cortex relies on an internal cache in Elasticsearch.</p>
+
+                <div class="bg-red-500/5 border-l-4 border-red-500 p-4 mb-6 rounded-r-lg">
+                    <h4 class="text-red-400 font-semibold mb-2">Root Cause</h4>
+                    <p class="text-gray-400 text-sm">Cortex 4.0.0 stores analyzer worker configurations in <strong>Elasticsearch</strong> when an analyzer is first enabled. Subsequent restarts read from this cached DB record, not from the updated JSON files on disk.</p>
+                </div>
+
+                <div class="solution-badge">Solution</div>
+                <p class="text-gray-300 mb-4"><strong>Force Re-read from Disk:</strong> Disable and re-enable the analyzer in the Cortex UI. This deletes the stale Elasticsearch record and creates a fresh one.</p>
+                <div class="mb-4">
+                    <img src="assets/Unified-Cyber-Defense/fix-stale-cache.png" alt="Re-enable Analyzers in UI" class="shadow-lg max-w-2xl">
+                </div>
+            </div>
+
+            <!-- Problem 4 -->
+            <div class="section-card">
+                <div class="problem-badge">Problem 4: SSL Verification Failure</div>
+                <h3 class="text-xl font-bold mb-4">MISP Analyzer SSL Certificate Verification Failure</h3>
+                <p class="text-gray-300 mb-4">MISP analyzer jobs failed with: <code>certificate verify failed: self-signed certificate</code>.</p>
+
+                <div class="bg-red-500/5 border-l-4 border-red-500 p-4 mb-6 rounded-r-lg">
+                    <h4 class="text-red-400 font-semibold mb-2">Root Cause</h4>
+                    <p class="text-gray-400 text-sm">MISP was deployed using a self-signed certificate. The analyzer Docker container failed to verify this certificate against known CAs. The <code>mispclient.py</code> script didn't correctly handle the <code>cert_check = false</code> parameter passed from Cortex.</p>
+                </div>
+
+                <div class="solution-badge">Solution</div>
+                <p class="text-gray-300 mb-3">Force SSL verification off in <code>mispclient.py</code> and rebuild the image.</p>
+                <div class="code-block mb-4">
+# Force disable SSL verification
+sed -i 's/ssl=verify/ssl=False/g' \
+  /home/saeidsec/SOAR_LABS/docker/testing/cortex/neurons/analyzers/MISP/mispclient.py
+
+# Rebuild Docker image
+docker build -t cortexneurons/misp:latest .
+                </div>
+            </div>
+        </section>
+
+        <!-- Final Status -->
+        <section class="mb-16 animate-fade-in" style="animation-delay: 0.6s;">
+            <div class="flex items-center space-x-3 mb-8">
+                <div class="w-10 h-10 rounded-lg bg-emerald-500/10 flex items-center justify-center border border-emerald-500/20">
+                    <i data-lucide="check-circle" class="w-5 h-5 text-emerald-400 icon"></i>
+                </div>
+                <h2 class="text-3xl font-bold">3. Final Integration Success</h2>
+            </div>
+            
+            <div class="section-card">
+                <p class="text-gray-300 mb-6">After resolving the configuration, caching, and SSL issues, the entire SOAR pipeline operated seamlessly. Cortex successfully executed Docker-based analyzers to enrich threat intelligence data from MISP and OpenCTI.</p>
+                
+                <img src="assets/Unified-Cyber-Defense/final-success.png" alt="Final Success Jobs" class="w-full mb-8 shadow-xl">
+
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div class="flex items-center space-x-3 bg-slate-800/30 p-3 rounded-lg border border-slate-700/50">
+                        <i data-lucide="check" class="w-5 h-5 text-emerald-400 icon"></i>
+                        <span class="text-gray-300 text-sm">Suricata IDS (Network Detection)</span>
+                    </div>
+                    <div class="flex items-center space-x-3 bg-slate-800/30 p-3 rounded-lg border border-slate-700/50">
+                        <i data-lucide="check" class="w-5 h-5 text-emerald-400 icon"></i>
+                        <span class="text-gray-300 text-sm">Wazuh SIEM (Log Correlation)</span>
+                    </div>
+                    <div class="flex items-center space-x-3 bg-slate-800/30 p-3 rounded-lg border border-slate-700/50">
+                        <i data-lucide="check" class="w-5 h-5 text-emerald-400 icon"></i>
+                        <span class="text-gray-300 text-sm">TheHive 5.6.0 (Case Management)</span>
+                    </div>
+                    <div class="flex items-center space-x-3 bg-slate-800/30 p-3 rounded-lg border border-slate-700/50">
+                        <i data-lucide="check" class="w-5 h-5 text-emerald-400 icon"></i>
+                        <span class="text-gray-300 text-sm">Cortex 4.0.0 (Automated Analysis)</span>
+                    </div>
+                    <div class="flex items-center space-x-3 bg-slate-800/30 p-3 rounded-lg border border-slate-700/50">
+                        <i data-lucide="check" class="w-5 h-5 text-emerald-400 icon"></i>
+                        <span class="text-gray-300 text-sm">MISP & OpenCTI (Threat Intelligence)</span>
+                    </div>
+                    <div class="flex items-center space-x-3 bg-slate-800/30 p-3 rounded-lg border border-slate-700/50">
+                        <i data-lucide="check" class="w-5 h-5 text-emerald-400 icon"></i>
+                        <span class="text-gray-300 text-sm">VirusTotal & AbuseIPDB</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-slate-800 bg-slate-900/50 mt-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <p class="text-center text-gray-500 text-sm">
+                &copy; 2026 Abu Saeid. All rights reserved. Document prepared by AegisryxLabs.
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+    </script>
+</body>
+</html>
