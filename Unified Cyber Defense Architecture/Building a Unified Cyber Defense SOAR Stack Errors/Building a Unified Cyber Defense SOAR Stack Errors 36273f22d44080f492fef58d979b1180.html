@@ -1,0 +1,743 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Building a Unified Cyber Defense SOAR Stack Errors, Root Causes &amp; Solutions</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+
+	table.collection-content {
+		width: 100%;
+		table-layout: fixed;
+	}
+
+	table.collection-content th,
+	table.collection-content td {
+		overflow-wrap: anywhere;
+	}
+
+	table.collection-content td > .user,
+	table.collection-content td > time {
+		white-space: pre-wrap;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content-wrapper {
+	overflow-x: auto;
+}
+
+@media only print {
+	.collection-content-wrapper {
+		overflow-x: visible;
+	}
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	gap: 46px;
+}
+
+.column {
+	min-width: 0;
+	overflow: hidden;
+}
+
+.column > *:first-child {
+	margin-top: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+table {
+	border-collapse: collapse;
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol.numbered-list.numbered-list-digits-2 {
+	padding-inline-start: 2em;
+}
+
+ol.numbered-list.numbered-list-digits-3plus {
+	padding-inline-start: 2.4em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="36273f22-d440-80f4-92fe-f58d979b1180" class="page sans"><header><h1 class="page-title" dir="auto">Building a Unified Cyber Defense SOAR Stack Errors, Root Causes &amp; Solutions</h1><p class="page-description" dir="auto"></p></header><div class="page-body"><div style="display:contents" dir="auto"><p id="36273f22-d440-8001-9e03-f57eddfccd41" class="">AegisryxLabs<br/><strong>Author: Abu Saeid<br/>Platform:</strong> Ubuntu 26.04 LTS</p></div><div style="display:contents" dir="auto"><p id="36273f22-d440-805e-a256-fcf190f955fa" class=""><strong>Date:</strong> May 2026</p></div><div style="display:contents" dir="auto"><p id="36273f22-d440-8085-93c4-d386ca794ab7" class=""><strong>Stack Version:</strong> Cortex 4.0.0 | TheHive 5.6.0 | OpenCTI | MISP</p></div><div style="display:contents" dir="auto"><hr id="36273f22-d440-804d-bf5b-f33e6c2cf176"/></div><div style="display:contents" dir="auto"><h2 id="36273f22-d440-8023-ac4a-faec641824ae" class="">Table of Contents</h2></div><div style="display:contents" dir="auto"><ol type="1" id="36273f22-d440-8073-b096-c571eca5a339" class="numbered-list" start="1"><li><a href="https://www.notion.so/OpenCTI-Labs-Journry-35b73f22d440807691bce7ea1dae8591?p=36273f22d44080f492fef58d979b1180&amp;showMoveTo=true#1-architecture-overview">Architecture Overview</a></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="36273f22-d440-8030-87ca-cd25f8e2405f" class="numbered-list" start="2"><li><a href="https://www.notion.so/OpenCTI-Labs-Journry-35b73f22d440807691bce7ea1dae8591?p=36273f22d44080f492fef58d979b1180&amp;showMoveTo=true#2-stack-components--versions">Stack Components &amp; Versions</a></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="36273f22-d440-8000-9e1b-ce1000c55f92" class="numbered-list" start="3"><li><a href="https://www.notion.so/OpenCTI-Labs-Journry-35b73f22d440807691bce7ea1dae8591?p=36273f22d44080f492fef58d979b1180&amp;showMoveTo=true#3-problem-1-cortex-analyzer-fails--python3-no-such-file-or-directory">Problem 1: Cortex Analyzer Fails — </a><code><a href="https://www.notion.so/OpenCTI-Labs-Journry-35b73f22d440807691bce7ea1dae8591?p=36273f22d44080f492fef58d979b1180&amp;showMoveTo=true#3-problem-1-cortex-analyzer-fails--python3-no-such-file-or-directory">python3: No such file or directory</a></code></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="36273f22-d440-8009-a34e-f8ce7a25934c" class="numbered-list" start="4"><li><a href="https://www.notion.so/OpenCTI-Labs-Journry-35b73f22d440807691bce7ea1dae8591?p=36273f22d44080f492fef58d979b1180&amp;showMoveTo=true#4-problem-2-missing-job-runner-configuration">Problem 2: Missing Job Runner Configuration</a></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="36273f22-d440-80f2-8d4d-e0d12d343049" class="numbered-list" start="5"><li><a href="https://www.notion.so/OpenCTI-Labs-Journry-35b73f22d440807691bce7ea1dae8591?p=36273f22d44080f492fef58d979b1180&amp;showMoveTo=true#5-problem-3-responder-path-malformedurlexception">Problem 3: Responder Path MalformedURLException</a></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="36273f22-d440-80a0-a4bf-c51933945f5f" class="numbered-list" start="6"><li><a href="https://www.notion.so/OpenCTI-Labs-Journry-35b73f22d440807691bce7ea1dae8591?p=36273f22d44080f492fef58d979b1180&amp;showMoveTo=true#6-problem-4-misp-analyzer-has-no-dockerfile">Problem 4: MISP Analyzer Has No Dockerfile</a></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="36273f22-d440-80cf-a682-dc49b2a208e7" class="numbered-list" start="7"><li><a href="https://www.notion.so/OpenCTI-Labs-Journry-35b73f22d440807691bce7ea1dae8591?p=36273f22d44080f492fef58d979b1180&amp;showMoveTo=true#7-problem-5-dockerimage-field-missing-in-analyzer-json">Problem 5: </a><code><a href="https://www.notion.so/OpenCTI-Labs-Journry-35b73f22d440807691bce7ea1dae8591?p=36273f22d44080f492fef58d979b1180&amp;showMoveTo=true#7-problem-5-dockerimage-field-missing-in-analyzer-json">dockerImage</a></code><a href="https://www.notion.so/OpenCTI-Labs-Journry-35b73f22d440807691bce7ea1dae8591?p=36273f22d44080f492fef58d979b1180&amp;showMoveTo=true#7-problem-5-dockerimage-field-missing-in-analyzer-json"> Field Missing in Analyzer JSON</a></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="36273f22-d440-807d-a440-c6d026d050c0" class="numbered-list" start="8"><li><a href="https://www.notion.so/OpenCTI-Labs-Journry-35b73f22d440807691bce7ea1dae8591?p=36273f22d44080f492fef58d979b1180&amp;showMoveTo=true#8-problem-6-cortex-uses-stale-cached-analyzer-configs">Problem 6: Cortex Uses Stale Cached Analyzer Configs</a></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="36273f22-d440-8045-9cfc-e44632af0529" class="numbered-list" start="9"><li><a href="https://www.notion.so/OpenCTI-Labs-Journry-35b73f22d440807691bce7ea1dae8591?p=36273f22d44080f492fef58d979b1180&amp;showMoveTo=true#9-problem-7-misp-ssl-certificate-verification-failure">Problem 7: MISP SSL Certificate Verification Failure</a></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="36273f22-d440-807d-8b18-fa3d824722fb" class="numbered-list numbered-list-digits-2" start="10"><li><a href="https://www.notion.so/OpenCTI-Labs-Journry-35b73f22d440807691bce7ea1dae8591?p=36273f22d44080f492fef58d979b1180&amp;showMoveTo=true#10-final-working-configuration">Final Working Configuration</a></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="36273f22-d440-8028-b36d-dcfb52ed718e" class="numbered-list numbered-list-digits-2" start="11"><li><a href="https://www.notion.so/OpenCTI-Labs-Journry-35b73f22d440807691bce7ea1dae8591?p=36273f22d44080f492fef58d979b1180&amp;showMoveTo=true#11-complete-file-reference">Complete File Reference</a></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="36273f22-d440-80b2-b8a3-ecde79249497" class="numbered-list numbered-list-digits-2" start="12"><li><a href="https://www.notion.so/OpenCTI-Labs-Journry-35b73f22d440807691bce7ea1dae8591?p=36273f22d44080f492fef58d979b1180&amp;showMoveTo=true#12-lessons-learned">Lessons Learned</a></li></ol></div><div style="display:contents" dir="auto"><hr id="36273f22-d440-80e9-8b7a-f0302c94e047"/></div><div style="display:contents" dir="auto"><h2 id="36273f22-d440-8048-b6ee-f557b0e7f7bb" class="">1. Architecture Overview</h2></div><div style="display:contents" dir="auto"><p id="36273f22-d440-8072-92ea-cd7f51beeae5" class="">The goal was to build a fully integrated, open-source SOC/SOAR pipeline:<br/></p></div><div style="display:contents" dir="ltr"><figure id="36373f22-d440-8026-9b03-dea42569dcff" class="image"><a href="Building%20a%20Unified%20Cyber%20Defense%20SOAR%20Stack%20Errors/Final_Project_Diagram.gif"><img style="width:703.984375px" src="Building%20a%20Unified%20Cyber%20Defense%20SOAR%20Stack%20Errors/Final_Project_Diagram.gif"/></a></figure></div><div style="display:contents" dir="auto"><p id="36273f22-d440-8051-85c3-ce2528a883a8" class="">This architecture provides:</p></div><div style="display:contents" dir="auto"><ul id="36273f22-d440-8060-820b-dc5aff22ddf1" class="bulleted-list"><li style="list-style-type:disc"><strong>Detection</strong> via Suricata IDS</li></ul></div><div style="display:contents" dir="auto"><ul id="36273f22-d440-80c9-adab-f9c9cf5c717f" class="bulleted-list"><li style="list-style-type:disc"><strong>Correlation &amp; Alerting</strong> via Wazuh SIEM</li></ul></div><div style="display:contents" dir="auto"><ul id="36273f22-d440-807d-8e7e-d7ec6b0976c7" class="bulleted-list"><li style="list-style-type:disc"><strong>Incident Management</strong> via TheHive</li></ul></div><div style="display:contents" dir="auto"><ul id="36273f22-d440-80a9-bb5d-d52206f52ed0" class="bulleted-list"><li style="list-style-type:disc"><strong>Automated Enrichment</strong> via Cortex + multiple analyzers</li></ul></div><div style="display:contents" dir="auto"><ul id="36273f22-d440-802e-95e0-e79cb7dd1ccd" class="bulleted-list"><li style="list-style-type:disc"><strong>Threat Intelligence</strong> via OpenCTI + MISP + external feeds</li></ul></div><div style="display:contents" dir="auto"><hr id="36273f22-d440-8053-9b45-cd580ff1cb07"/></div><div style="display:contents" dir="auto"><h2 id="36273f22-d440-80f7-8b50-d8f79d04e482" class="">2. Stack Components &amp; Versions</h2></div><div style="display:contents" dir="ltr"><table id="36273f22-d440-8050-95cb-c23c39087985" class="simple-table"><thead class="simple-table-header"><div style="display:contents" dir="ltr"><tr id="36273f22-d440-8024-bdda-f929827db790"><th id="j@y|" class="simple-table-header-color simple-table-header">Component</th><th id="~M:]" class="simple-table-header-color simple-table-header">Version</th><th id="NNK=" class="simple-table-header-color simple-table-header">Role</th></tr></div></thead><tbody><div style="display:contents" dir="ltr"><tr id="36273f22-d440-802d-a405-e440bfb047eb"><td id="j@y|" class="">Ubuntu</td><td id="~M:]" class="">26.04 LTS</td><td id="NNK=" class="">Host OS</td></tr></div><div style="display:contents" dir="ltr"><tr id="36273f22-d440-806c-817d-e67f4e5edd01"><td id="j@y|" class="">Docker</td><td id="~M:]" class="">29.1.3</td><td id="NNK=" class="">Container runtime</td></tr></div><div style="display:contents" dir="ltr"><tr id="36273f22-d440-806d-85ff-e6c82ff3426d"><td id="j@y|" class="">Docker Compose</td><td id="~M:]" class="">2.40.3</td><td id="NNK=" class="">Orchestration</td></tr></div><div style="display:contents" dir="ltr"><tr id="36273f22-d440-80e6-b259-cb850b98ed5c"><td id="j@y|" class="">TheHive</td><td id="~M:]" class="">5.6.0</td><td id="NNK=" class="">Case management</td></tr></div><div style="display:contents" dir="ltr"><tr id="36273f22-d440-80a5-8e0b-f7e7ba3cc75a"><td id="j@y|" class="">Cortex</td><td id="~M:]" class="">4.0.0</td><td id="NNK=" class="">Analysis engine</td></tr></div><div style="display:contents" dir="ltr"><tr id="36273f22-d440-80a0-8920-f8aa0384d96a"><td id="j@y|" class="">Elasticsearch</td><td id="~M:]" class="">8.19.11</td><td id="NNK=" class="">Index/search backend</td></tr></div><div style="display:contents" dir="ltr"><tr id="36273f22-d440-803b-99a9-e9a202cf8c9d"><td id="j@y|" class="">Cassandra</td><td id="~M:]" class="">4.1.10</td><td id="NNK=" class="">TheHive database</td></tr></div><div style="display:contents" dir="ltr"><tr id="36273f22-d440-80be-bac0-e97289da028d"><td id="j@y|" class="">Nginx</td><td id="~M:]" class="">1.29.5</td><td id="NNK=" class="">Reverse proxy</td></tr></div><div style="display:contents" dir="ltr"><tr id="36273f22-d440-803c-98d4-e88d9d2f537b"><td id="j@y|" class="">OpenCTI</td><td id="~M:]" class="">Latest</td><td id="NNK=" class="">Threat intelligence platform</td></tr></div><div style="display:contents" dir="ltr"><tr id="36273f22-d440-8086-aca8-ebfed487cb6a"><td id="j@y|" class="">MISP</td><td id="~M:]" class="">Latest</td><td id="NNK=" class="">Threat sharing platform</td></tr></div></tbody></table></div><div style="display:contents" dir="auto"><p id="36273f22-d440-803f-b400-c981884b6b6f" class=""><strong>Deployment Path:</strong></p></div><div style="display:contents" dir="auto"><p id="36273f22-d440-808e-9937-c6bcd9a9a74b" class=""><code>/home/saeidsec/SOAR_LABS/docker/testing/<br/>├── docker-compose.yml<br/>├── .env<br/>├── cortex/<br/>│   ├── config/<br/>│   │   └── application.conf<br/>│   ├── neurons/<br/>│   │   ├── analyzers/<br/>│   │   │   ├── OpenCTI/<br/>│   │   │   └── MISP/<br/>│   │   └── responders/<br/>│   ├── cortex-jobs/<br/>│   └── logs/<br/>├── thehive/<br/>├── cassandra/<br/>├── elasticsearch/<br/>└── nginx/</code></p></div><div style="display:contents" dir="auto"><p id="36273f22-d440-8025-9f24-ec3d6d4ef609" class="">3. Problem 1: Cortex Analyzer Fails — <code>python3: No such file or directory</code></p></div><div style="display:contents" dir="ltr"><figure id="36273f22-d440-804b-b21b-d5273d650e19" class="image"><a href="Building%20a%20Unified%20Cyber%20Defense%20SOAR%20Stack%20Errors/Screenshot_From_2026-05-16_00-59-00.png"><img style="width:703.96875px" src="Building%20a%20Unified%20Cyber%20Defense%20SOAR%20Stack%20Errors/Screenshot_From_2026-05-16_00-59-00.png"/></a></figure></div><div style="display:contents" dir="ltr"><figure id="36273f22-d440-80a1-9734-ce7d107d6ea9" class="image"><a href="Building%20a%20Unified%20Cyber%20Defense%20SOAR%20Stack%20Errors/Screenshot_From_2026-05-16_00-59-15.png"><img style="width:703.96875px" src="Building%20a%20Unified%20Cyber%20Defense%20SOAR%20Stack%20Errors/Screenshot_From_2026-05-16_00-59-15.png"/></a></figure></div><div style="display:contents" dir="ltr"><figure id="36273f22-d440-8018-9ff6-ddc3c5d418ed" class="image"><a href="Building%20a%20Unified%20Cyber%20Defense%20SOAR%20Stack%20Errors/Screenshot_From_2026-05-16_01-57-26.png"><img style="width:704px" src="Building%20a%20Unified%20Cyber%20Defense%20SOAR%20Stack%20Errors/Screenshot_From_2026-05-16_01-57-26.png"/></a></figure></div><div style="display:contents" dir="ltr"><figure id="36273f22-d440-801d-8465-ddd70a545aa6" class="image"><a href="Building%20a%20Unified%20Cyber%20Defense%20SOAR%20Stack%20Errors/Screenshot_From_2026-05-16_01-57-48.png"><img style="width:703.96875px" src="Building%20a%20Unified%20Cyber%20Defense%20SOAR%20Stack%20Errors/Screenshot_From_2026-05-16_01-57-48.png"/></a></figure></div><div style="display:contents" dir="ltr"><figure id="36273f22-d440-8061-8072-fdefd7db262f" class="image"><a href="Building%20a%20Unified%20Cyber%20Defense%20SOAR%20Stack%20Errors/Screenshot_From_2026-05-16_01-58-02.png"><img style="width:703.96875px" src="Building%20a%20Unified%20Cyber%20Defense%20SOAR%20Stack%20Errors/Screenshot_From_2026-05-16_01-58-02.png"/></a></figure></div><div style="display:contents" dir="auto"><h3 id="36273f22-d440-8029-aabc-d937a34553c8" class="">Symptom</h3></div><div style="display:contents" dir="auto"><p id="36273f22-d440-80ea-bb76-eb4279ec42ea" class="">Every time an OpenCTI or MISP analyzer was run from the Cortex UI, it returned:</p></div><div style="display:contents" dir="auto"><p id="36273f22-d440-809d-9c33-fb68bdfeea42" class="">json</p></div><div style="display:contents" dir="auto"><p id="36273f22-d440-80d8-8070-d10b6342114c" class=""><code>{<br/>  &quot;errorMessage&quot;: &quot;env: &#x27;python3&#x27;: No such file or directory&quot;,<br/>  &quot;input&quot;: null,<br/>  &quot;success&quot;: false<br/>}</code></p></div><div style="display:contents" dir="auto"><p id="36273f22-d440-8057-a929-dd43d64c9fab" class="">This affected all locally deployed analyzers:</p></div><div style="display:contents" dir="auto"><ul id="36273f22-d440-8030-9b42-e3614f62dcf7" class="bulleted-list"><li style="list-style-type:disc"><code>OpenCTI_v6_SearchExactObservable_2_0</code></li></ul></div><div style="display:contents" dir="auto"><ul id="36273f22-d440-801f-98bb-d5b8b916aa96" class="bulleted-list"><li style="list-style-type:disc"><code>OpenCTI_v6_SearchObservables_2_0</code></li></ul></div><div style="display:contents" dir="auto"><ul id="36273f22-d440-808a-9cfe-f950fce50f9c" class="bulleted-list"><li style="list-style-type:disc"><code>OpenCTI_SearchExactObservable_2_0</code></li></ul></div><div style="display:contents" dir="auto"><ul id="36273f22-d440-803f-9e93-d66d318a3fa7" class="bulleted-list"><li style="list-style-type:disc"><code>OpenCTI_SearchObservables_2_0</code></li></ul></div><div style="display:contents" dir="auto"><ul id="36273f22-d440-8067-8c1c-cf3093180508" class="bulleted-list"><li style="list-style-type:disc"><code>MISP_2_1</code></li></ul></div><div style="display:contents" dir="auto"><h3 id="36273f22-d440-80b5-b028-e5d2dd1bc860" class="">Root Cause</h3></div><div style="display:contents" dir="auto"><p id="36273f22-d440-8020-91e2-d425795881f8" class="">Cortex 4.0.0 supports three job runner modes:</p></div><div style="display:contents" dir="auto"><ol type="1" id="36273f22-d440-8069-a416-fa25376a0f02" class="numbered-list" start="1"><li><strong>Docker runner</strong> — spawns a dedicated Docker container per analyzer job</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="36273f22-d440-806d-911a-e3edf5d81bf1" class="numbered-list" start="2"><li><strong>Process runner</strong> — runs the analyzer script directly using local Python</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="36273f22-d440-8070-925d-df0f5e4a30c6" class="numbered-list" start="3"><li><strong>Kubernetes runner</strong> — for K8s environments</li></ol></div><div style="display:contents" dir="auto"><p id="36273f22-d440-80ff-b4f7-ecbde482b811" class="">The <code>application.conf</code> had <strong>no </strong><code><strong>job.runner</strong></code><strong> configuration</strong>, so Cortex defaulted to <strong>process runner</strong>, which tried to execute <code>python3</code> directly inside the Cortex JVM container — where Python is not installed.</p></div><div style="display:contents" dir="auto"><h3 id="36273f22-d440-80d5-8004-d54c65efb8de" class="">Evidence</h3></div><div style="display:contents" dir="auto"><p id="36273f22-d440-802e-bdfc-f75d332e2e0a" class="">From Cortex container logs:</p></div><div style="display:contents" dir="auto"><p id="36273f22-d440-8009-b01e-e648adad2ae4" class=""><code>[warn] o.t.c.s.JobRunnerSrv - The package cortexutils for python hasn&#x27;t been found<br/>[warn] o.t.c.s.JobRunnerSrv - The package cortexutils for python2 hasn&#x27;t been found<br/>[warn] o.t.c.s.JobRunnerSrv - The package cortexutils for python3 hasn&#x27;t been found<br/>[info] o.t.c.s.ProcessJobRunnerSrv - Execute /opt/cortexneurons/analyzers/OpenCTI/opencti.py<br/>[info] o.t.c.s.ProcessJobRunnerSrv - Job xxx: env: &#x27;python3&#x27;: No such file or directory</code></p></div><div style="display:contents" dir="auto"><h3 id="36273f22-d440-8017-abaa-cd07be21004e" class="">Investigation Steps</h3></div><div style="display:contents" dir="auto"><p id="36273f22-d440-8056-beca-c4b066b173b0" class="">bash</p></div><div style="display:contents" dir="auto"><p id="36273f22-d440-8072-bf58-c5dc59130683" class=""><code># Step 1: Confirm Python3 doesn&#x27;t exist inside Cortex container<br/>docker exec -it cortex which python3<br/># Returns nothing — confirmed missing<br/><br/># Step 2: Confirm Docker socket IS accessible<br/>docker exec -it cortex docker ps<br/># Returns container list — Docker IS available<br/><br/># Step 3: Check existing application.conf for runner config<br/>grep -i &quot;job\|docker\|runner&quot; /home/saeidsec/SOAR_LABS/docker/testing/cortex/config/application.conf<br/># Returns only: cache.job = 10 minutes<br/># No runner config found — ROOT CAUSE CONFIRMED</code></p></div><div style="display:contents" dir="auto"><h3 id="36273f22-d440-80c4-8510-e4a1f8cce20d" class="">Solution</h3></div><div style="display:contents" dir="auto"><p id="36273f22-d440-80b4-a564-e29f54d9e6fc" class="">Add job runner configuration to <code>application.conf</code>:</p></div><div style="display:contents" dir="auto"><p id="36273f22-d440-80da-bd41-f4a3f3604373" class="">bash</p></div><div style="display:contents" dir="auto"><p id="36273f22-d440-80d8-bbf5-ccddc7314c22" class=""><code>nano /home/saeidsec/SOAR_LABS/docker/testing/cortex/config/application.conf</code></p></div><div style="display:contents" dir="auto"><p id="36273f22-d440-8095-b845-e2a4b57b0781" class="">Add at the bottom:</p></div><div style="display:contents" dir="auto"><p id="36273f22-d440-8077-94d0-fcde4c64ac61" class="">hocon</p></div><div style="display:contents" dir="auto"><p id="36273f22-d440-80a1-adb1-d88345b16a00" class=""><code># Job runner configuration - use Docker to run analyzers<br/>job {<br/>  runner = [docker, process]<br/>}<br/><br/>docker {<br/>  pullImage = false<br/>}</code></p></div><div style="display:contents" dir="auto"><p id="36273f22-d440-8052-9598-cfbff357154c" class=""><strong>Key points:</strong></p></div><div style="display:contents" dir="auto"><ul id="36273f22-d440-8078-b159-d2e4b773aa44" class="bulleted-list"><li style="list-style-type:disc"><code>runner = [docker, process]</code> — try Docker first, fall back to process</li></ul></div><div style="display:contents" dir="auto"><ul id="36273f22-d440-809f-bd46-fe8881e6f4ce" class="bulleted-list"><li style="list-style-type:disc"><code>pullImage = false</code> — use locally built images, don&#x27;t attempt Docker Hub pull</li></ul></div><div style="display:contents" dir="ltr"><figure id="36273f22-d440-80b0-8029-f0895f482955" class="image"><a href="Building%20a%20Unified%20Cyber%20Defense%20SOAR%20Stack%20Errors/Screenshot_From_2026-05-16_12-57-40.png"><img style="width:703.984375px" src="Building%20a%20Unified%20Cyber%20Defense%20SOAR%20Stack%20Errors/Screenshot_From_2026-05-16_12-57-40.png"/></a></figure></div><div style="display:contents" dir="auto"><h2 id="36273f22-d440-80b3-8e0f-d319b3bc5434" class="">4. Problem 2: Missing Job Runner Configuration<br/></h2></div><div style="display:contents" dir="ltr"><figure id="36273f22-d440-80c2-85bd-cd3b52ab9ab7" class="image"><a href="Building%20a%20Unified%20Cyber%20Defense%20SOAR%20Stack%20Errors/Screenshot_From_2026-05-16_12-58-49.png"><img style="width:704px" src="Building%20a%20Unified%20Cyber%20Defense%20SOAR%20Stack%20Errors/Screenshot_From_2026-05-16_12-58-49.png"/></a></figure></div><div style="display:contents" dir="auto"><h3 id="36273f22-d440-80d5-8376-cff4e2acbbce" class=""><br/><br/>Symptom</h3></div><div style="display:contents" dir="ltr"><figure id="36273f22-d440-806d-9d4e-c40c1df33b6c" class="image"><a href="Building%20a%20Unified%20Cyber%20Defense%20SOAR%20Stack%20Errors/Screenshot_From_2026-05-16_13-02-49.png"><img style="width:703.96875px" src="Building%20a%20Unified%20Cyber%20Defense%20SOAR%20Stack%20Errors/Screenshot_From_2026-05-16_13-02-49.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="36273f22-d440-8069-9cd6-e40290b549f6" class=""><br/>Even after adding <code>job.runner</code>, analyzers still failed because Cortex did not know which Docker image to use for each analyzer.</p></div><div style="display:contents" dir="auto"><p id="36273f22-d440-8048-8243-e462dee60b04" class="">Log evidence:</p></div><div style="display:contents" dir="auto"><p id="36273f22-d440-801c-a5aa-d286375d1b85" class=""><code>[warn] o.t.c.s.JobRunnerSrv - worker xxx can&#x27;t be run with docker (doesn&#x27;t have image)<br/>[info] o.t.c.s.ProcessJobRunnerSrv - Execute /opt/cortexneurons/analyzers/OpenCTI/opencti.py</code></p></div><div style="display:contents" dir="auto"><h3 id="36273f22-d440-80f0-af5d-f1f93d1cfce9" class="">Root Cause</h3></div><div style="display:contents" dir="auto"><p id="36273f22-d440-80b8-add8-ddb6e0e40ca4" class="">The analyzer JSON definition files lacked the <code>dockerImage</code> field. Cortex Docker runner requires this field to know which image to instantiate per job.</p></div><div style="display:contents" dir="auto"><p id="36273f22-d440-804c-96dd-fb80fa779365" class=""><strong>Before (missing field):</strong></p></div><div style="display:contents" dir="auto"><p id="36273f22-d440-8022-bbe1-ea04f5b70110" class="">json</p></div><div style="display:contents" dir="auto"><p id="36273f22-d440-801f-8e82-e587c7fe4ae1" class=""><code>{<br/>  &quot;name&quot;: &quot;OpenCTI_v6_SearchExactObservable&quot;,<br/>  &quot;version&quot;: &quot;2.0&quot;,<br/>  &quot;command&quot;: &quot;OpenCTI/opencti.py&quot;,<br/>  ...<br/>}</code></p></div><div style="display:contents" dir="auto"><p id="36273f22-d440-8066-afb8-f60f5ccf0fee" class=""><strong>After (correct):</strong></p></div><div style="display:contents" dir="auto"><p id="36273f22-d440-8016-9067-ef1f77e1e33b" class="">json</p></div><div style="display:contents" dir="auto"><p id="36273f22-d440-80db-a782-feadcd2a1f22" class=""><code>{<br/>  &quot;name&quot;: &quot;OpenCTI_v6_SearchExactObservable&quot;,<br/>  &quot;version&quot;: &quot;2.0&quot;,<br/>  &quot;command&quot;: &quot;OpenCTI/opencti.py&quot;,<br/>  &quot;dockerImage&quot;: &quot;cortexneurons/opencti:latest&quot;,<br/>  ...<br/>}</code></p></div><div style="display:contents" dir="auto"><h3 id="36273f22-d440-80d3-a00c-e96af6a57eb4" class="">Solution — Step 1: Build Docker Images for Analyzers</h3></div><div style="display:contents" dir="auto"><p id="36273f22-d440-8013-9d8a-e0f13d5abf84" class="">The OpenCTI analyzer already had a Dockerfile. Build it:</p></div><div style="display:contents" dir="auto"><p id="36273f22-d440-804f-ad5e-df9f9b8ca661" class="">bash</p></div><div style="display:contents" dir="auto"><p id="36273f22-d440-80e9-ad20-f9b984139ec5" class=""><code>cd /home/saeidsec/SOAR_LABS/docker/testing/cortex/neurons/analyzers/OpenCTI<br/>docker build -t cortexneurons/opencti:latest .</code></p></div><div style="display:contents" dir="auto"><p id="36273f22-d440-80bc-9035-de48386932ac" class=""><strong>OpenCTI Dockerfile (existing):</strong></p></div><div style="display:contents" dir="auto"><p id="36273f22-d440-80fe-8240-c96b0a7cf64c" class="">dockerfile</p></div><div style="display:contents" dir="auto"><p id="36273f22-d440-8002-b010-e7cd940d6646" class=""><code>FROM python:3-alpine<br/>WORKDIR /worker<br/><br/>ARG REQUIREMENTS=requirements.txt<br/><br/>RUN apk add --no-cache file-dev<br/><br/>COPY requirements*.txt OpenCTI/<br/>RUN test ! -e OpenCTI/${REQUIREMENTS} || pip install --no-cache-dir -r OpenCTI/${REQUIREMENTS}<br/>COPY . OpenCTI/<br/><br/>ENTRYPOINT [&quot;python&quot;, &quot;OpenCTI/opencti.py&quot;]</code></p></div><div style="display:contents" dir="auto"><h3 id="36273f22-d440-80ec-aa64-db995c3e5618" class="">Solution — Step 2: Add <code>dockerImage</code> to All JSON Configs</h3></div><div style="display:contents" dir="auto"><p id="36273f22-d440-806a-89a2-d1fc2bc4e7b6" class="">bash</p></div><div style="display:contents" dir="auto"><p id="36273f22-d440-805a-8824-ec0988dadd4f" class=""><code>cd /home/saeidsec/SOAR_LABS/docker/testing/cortex/neurons/analyzers/OpenCTI<br/><br/>python3 -c &quot;<br/>import json<br/>files = [<br/>    &#x27;OpenCTI_SearchExactObservable.json&#x27;,<br/>    &#x27;OpenCTI_SearchObservables.json&#x27;,<br/>    &#x27;OpenCTI_v6_SearchExactObservable.json&#x27;,<br/>    &#x27;OpenCTI_v6_SearchObservables.json&#x27;<br/>]<br/>for f in files:<br/>    with open(f) as fp:<br/>        data = json.load(fp)<br/>    data[&#x27;dockerImage&#x27;] = &#x27;cortexneurons/opencti:latest&#x27;<br/>    with open(f, &#x27;w&#x27;) as fp:<br/>        json.dump(data, fp, indent=2)<br/>    print(f&#x27;Updated {f}&#x27;)<br/>&quot;</code></p></div><div style="display:contents" dir="auto"><p id="36273f22-d440-8062-a920-fb9a3dda6543" class="">Verify:</p></div><div style="display:contents" dir="auto"><p id="36273f22-d440-80f7-9538-e4f2c67d1686" class="">bash</p></div><div style="display:contents" dir="auto"><p id="36273f22-d440-807d-9b0e-eebafbd33e16" class=""><code>grep &quot;dockerImage&quot; OpenCTI_v6_SearchExactObservable.json<br/># Output: &quot;dockerImage&quot;: &quot;cortexneurons/opencti:latest&quot;</code></p></div><div style="display:contents" dir="auto"><hr id="36273f22-d440-8011-9496-c18c442ca8e6"/></div><div style="display:contents" dir="auto"><h2 id="36273f22-d440-80fe-a972-cc3195130a89" class="">5. Problem 3: Responder Path MalformedURLException</h2></div><div style="display:contents" dir="auto"><h3 id="36273f22-d440-8008-b412-dada37f0ffcc" class="">Symptom</h3></div><div style="display:contents" dir="auto"><p id="36273f22-d440-8068-a4ca-f6f6908d30ef" class="">Cortex logs showed on every startup:</p></div><div style="display:contents" dir="auto"><p id="36273f22-d440-8092-a9a2-d004c3084c15" class=""><code>[warn] o.t.c.s.WorkerSrv - Worker path (/opt/cortexneurons/responders) is not found<br/>java.net.MalformedURLException: no protocol: /opt/cortexneurons/responders</code></p></div><div style="display:contents" dir="auto"><h3 id="36273f22-d440-80b9-bc52-d74c5d4f15e4" class="">Root Cause</h3></div><div style="display:contents" dir="auto"><p id="36273f22-d440-803e-8452-dba01e65be6f" class="">Two issues combined:</p></div><div style="display:contents" dir="auto"><ol type="1" id="36273f22-d440-80ae-97c7-d33def4851e8" class="numbered-list" start="1"><li>The responders directory did not exist on disk</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="36273f22-d440-8096-83b1-df76ce1f340e" class="numbered-list" start="2"><li>The <code>application.conf</code> was passing a bare filesystem path <code>/opt/cortexneurons/responders</code> in the <code>urls</code> array, which expects either a full URL (<code>https://...</code>) or a <code>file://</code> URI — not a raw path</li></ol></div><div style="display:contents" dir="auto"><h3 id="36273f22-d440-8020-b757-ca0702921e71" class="">Solution — Step 1: Create Responders Directory</h3></div><div style="display:contents" dir="auto"><p id="36273f22-d440-80b5-8db1-d16ce87bc265" class="">bash</p></div><div style="display:contents" dir="auto"><p id="36273f22-d440-8077-9963-c3688e3fcdbe" class=""><code>mkdir -p /home/saeidsec/SOAR_LABS/docker/testing/cortex/neurons/responders<br/>touch /home/saeidsec/SOAR_LABS/docker/testing/cortex/neurons/responders/.gitkeep</code></p></div><div style="display:contents" dir="auto"><h3 id="36273f22-d440-803e-ad1a-c59b7a5229d0" class="">Solution — Step 2: Fix URL Format in application.conf</h3></div><div style="display:contents" dir="auto"><p id="36273f22-d440-8067-bb03-c0e2cad58e9a" class=""><strong>Before (broken):</strong></p></div><div style="display:contents" dir="auto"><p id="36273f22-d440-806c-891e-e4510a2714ff" class="">hocon</p></div><div style="display:contents" dir="auto"><p id="36273f22-d440-80aa-bcac-ccf32f9eb367" class=""><code>responder {<br/>  urls = [<br/>    &quot;https://download.thehive-project.org/responders.json&quot;<br/>    &quot;/opt/cortexneurons/responders&quot;<br/>  ]<br/>}</code></p></div><div style="display:contents" dir="auto"><p id="36273f22-d440-802c-9756-de52d8fd6864" class=""><strong>After (fixed):</strong></p></div><div style="display:contents" dir="auto"><p id="36273f22-d440-80a1-8fa2-d7695541dd0f" class="">hocon</p></div><div style="display:contents" dir="auto"><p id="36273f22-d440-80fc-9df4-cf8336f23baf" class=""><code>responder {<br/>  urls = [<br/>    &quot;https://download.thehive-project.org/responders.json&quot;<br/>    &quot;file:///opt/cortexneurons/responders&quot;<br/>  ]<br/>}</code></p></div><div style="display:contents" dir="auto"><p id="36273f22-d440-80c8-98b5-d22f22dc9ac4" class="">Same fix applied to the <code>analyzer</code> section:</p></div><div style="display:contents" dir="auto"><p id="36273f22-d440-8010-a90b-efa58fb99039" class="">hocon</p></div><div style="display:contents" dir="auto"><p id="36273f22-d440-8013-9d5d-ed7bebf144c1" class=""><code>analyzer {<br/>  urls = [<br/>    &quot;https://download.thehive-project.org/analyzers.json&quot;<br/>    &quot;file:///opt/cortexneurons/analyzers&quot;<br/>  ]<br/>}</code></p></div><div style="display:contents" dir="auto"><hr id="36273f22-d440-80e3-ba04-c08d3f944001"/></div><div style="display:contents" dir="auto"><h2 id="36273f22-d440-803a-b3fe-ffdc78649b42" class="">6. Problem 4: MISP Analyzer Has No Dockerfile</h2></div><div style="display:contents" dir="auto"><h3 id="36273f22-d440-80a6-981e-f5db2eb70c72" class="">Symptom</h3></div><div style="display:contents" dir="auto"><p id="36273f22-d440-807b-b3ea-eacf41ba69d3" class="">When attempting to build the MISP analyzer Docker image:</p></div><div style="display:contents" dir="auto"><p id="36273f22-d440-80f1-bb1a-df16cd97248e" class="">bash</p></div><div style="display:contents" dir="auto"><p id="36273f22-d440-803d-8ee9-ec65c174dc48" class=""><code>docker build -t cortexneurons/misp:latest .<br/># Error: unable to prepare context: unable to evaluate symlinks in Dockerfile path:<br/># lstat /home/.../analyzers/MISP/Dockerfile: no such file or directory</code></p></div><div style="display:contents" dir="auto"><h3 id="36273f22-d440-8065-bc2b-e2db633ccaca" class="">Root Cause</h3></div><div style="display:contents" dir="auto"><p id="36273f22-d440-8058-be01-ffc035567255" class="">Unlike the OpenCTI analyzer, the MISP analyzer directory from the Cortex-Analyzers repository did not ship with a <code>Dockerfile</code>. The directory contained only:</p></div><div style="display:contents" dir="auto"><p id="36273f22-d440-8005-85dc-c0c0f1e776ef" class=""><code>MISP/<br/>├── MISP.json<br/>├── README.md<br/>├── assets/<br/>├── misp.py<br/>├── mispclient.py<br/>└── requirements.txt</code></p></div><div style="display:contents" dir="auto"><h3 id="36273f22-d440-80a9-b72f-d5967b850958" class="">Solution — Create MISP Dockerfile</h3></div><div style="display:contents" dir="auto"><p id="36273f22-d440-800b-9aad-ce41525af0ee" class="">bash</p></div><div style="display:contents" dir="auto"><p id="36273f22-d440-80e1-9a04-cadd5f0dd462" class=""><code>cat &gt; /home/saeidsec/SOAR_LABS/docker/testing/cortex/neurons/analyzers/MISP/Dockerfile &lt;&lt; &#x27;EOF&#x27;<br/>FROM python:3-alpine<br/>WORKDIR /worker<br/><br/>RUN apk add --no-cache file-dev<br/><br/>COPY requirements.txt MISP/<br/>RUN pip install --no-cache-dir -r MISP/requirements.txt<br/><br/>COPY . MISP/<br/><br/>ENTRYPOINT [&quot;python&quot;, &quot;MISP/misp.py&quot;]<br/>EOF</code></p></div><div style="display:contents" dir="auto"><p id="36273f22-d440-8019-b3e2-f2ed6c41a0db" class="">Build the image:</p></div><div style="display:contents" dir="auto"><p id="36273f22-d440-8068-a0e5-c001002af0a3" class="">bash</p></div><div style="display:contents" dir="auto"><p id="36273f22-d440-8090-aad4-cc26046dcd32" class=""><code>cd /home/saeidsec/SOAR_LABS/docker/testing/cortex/neurons/analyzers/MISP<br/>docker build -t cortexneurons/misp:latest .</code></p></div><div style="display:contents" dir="auto"><p id="36273f22-d440-805c-9482-ff610a5b3b32" class="">Add <code>dockerImage</code> to MISP JSON:</p></div><div style="display:contents" dir="auto"><p id="36273f22-d440-809c-9700-df591c64690b" class="">bash</p></div><div style="display:contents" dir="auto"><p id="36273f22-d440-80a7-ae8b-eb4a146095bb" class=""><code>python3 -c &quot;<br/>import json<br/>with open(&#x27;MISP.json&#x27;) as f:<br/>    data = json.load(f)<br/>data[&#x27;dockerImage&#x27;] = &#x27;cortexneurons/misp:latest&#x27;<br/>with open(&#x27;MISP.json&#x27;, &#x27;w&#x27;) as f:<br/>    json.dump(data, f, indent=2)<br/>print(&#x27;Updated MISP.json&#x27;)<br/>&quot;</code></p></div><div style="display:contents" dir="auto"><p id="36273f22-d440-807e-bd82-ffc50df7bd8a" class="">Verify both images exist:</p></div><div style="display:contents" dir="auto"><p id="36273f22-d440-803f-9352-dcb271caf898" class="">bash</p></div><div style="display:contents" dir="auto"><p id="36273f22-d440-800c-932b-d53073640314" class=""><code>docker images | grep cortexneurons<br/># cortexneurons/opencti   latest   aff1746c6ac2   ...<br/># cortexneurons/misp      latest   e0f9309e4486   ...</code></p></div><div style="display:contents" dir="auto"><hr id="36273f22-d440-8029-abde-c39cfa453951"/></div><div style="display:contents" dir="auto"><h2 id="36273f22-d440-8029-b78e-c44e9c927272" class="">7. Problem 5: <code>dockerImage</code> Field Missing in Analyzer JSON</h2></div><div style="display:contents" dir="auto"><h3 id="36273f22-d440-8006-86cc-defa9a271937" class="">Symptom (Recurring)</h3></div><div style="display:contents" dir="auto"><p id="36273f22-d440-8091-ab8c-c96d33f05785" class="">Even after adding <code>dockerImage</code> to JSON files and building images, analyzers still logged:</p></div><div style="display:contents" dir="auto"><p id="36273f22-d440-80d1-9ecc-eec3de6e5548" class=""><code>[warn] o.t.c.s.JobRunnerSrv - worker xxx can&#x27;t be run with docker (doesn&#x27;t have image)</code></p></div><div style="display:contents" dir="auto"><h3 id="36273f22-d440-80ef-9062-de19eef47680" class="">Root Cause — Deep Analysis</h3></div><div style="display:contents" dir="auto"><p id="36273f22-d440-80b0-b785-fa1b8af8e6b8" class="">This was the most subtle issue. Cortex 4.0.0 stores analyzer worker configurations in <strong>Elasticsearch</strong> when an analyzer is first enabled via the UI. Subsequent restarts read from this cached DB record — <strong>not from the JSON files on disk</strong>.</p></div><div style="display:contents" dir="auto"><p id="36273f22-d440-80cb-ab72-f6e3ac1176c8" class="">This means:</p></div><div style="display:contents" dir="auto"><ol type="1" id="36273f22-d440-8045-ab11-c464e839a8e8" class="numbered-list" start="1"><li>You add <code>dockerImage</code> to JSON on disk ✓</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="36273f22-d440-8011-99c8-d9dcd2b0e5cd" class="numbered-list" start="2"><li>You restart Cortex ✓</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="36273f22-d440-8056-9f5f-f5a0582be97c" class="numbered-list" start="3"><li>Cortex reads analyzers from disk into memory for display ✓</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="36273f22-d440-80eb-b924-d2b8a9c80d9e" class="numbered-list" start="4"><li>But when a job runs, it reads the <strong>worker config from Elasticsearch</strong> — which was cached <strong>before</strong> you added <code>dockerImage</code> ✗</li></ol></div><div style="display:contents" dir="auto"><p id="36273f22-d440-8062-b3d2-c09d45c94c7a" class=""><strong>Proof from logs:</strong></p></div><div style="display:contents" dir="auto"><p id="36273f22-d440-807f-8df6-dd0b7b50d649" class=""><code># When job runs — reads stale ES record, no dockerImage found:<br/>[warn] worker xxx can&#x27;t be run with docker (doesn&#x27;t have image)<br/>[info] ProcessJobRunnerSrv - Execute /opt/cortexneurons/analyzers/OpenCTI/opencti.py<br/># Falls back to process runner → python3 not found → failure<br/><br/># But VirusTotal (enabled AFTER dockerImage standard was set) worked fine:<br/>[info] DockerClient - about to start container 95d5bf49...<br/>[info] Job LDXzLJ4BJ_Ze71K-KUWk has finished with status Success</code></p></div><div style="display:contents" dir="auto"><h3 id="36273f22-d440-80d8-92d3-fee5070a366d" class="">Solution — Force Re-read from Disk</h3></div><div style="display:contents" dir="auto"><p id="36273f22-d440-809e-8ae6-c935bc418f00" class="">The fix is to <strong>disable and re-enable</strong> the analyzer in the Cortex UI. This deletes the stale Elasticsearch record and creates a fresh one from the current JSON file on disk.</p></div><div style="display:contents" dir="auto"><p id="36273f22-d440-8036-8941-ee5a37dd61e2" class=""><strong>Steps:</strong></p></div><div style="display:contents" dir="auto"><ol type="1" id="36273f22-d440-8066-8bf3-cb4eec58e976" class="numbered-list" start="1"><li>Go to <strong>Cortex UI → Organization → Analyzers</strong></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="36273f22-d440-807d-82f6-ebd2d686407e" class="numbered-list" start="2"><li>Find <strong>OpenCTI_v6_SearchExactObservable</strong> → click toggle to <strong>DISABLE</strong></li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="36273f22-d440-8063-bacf-ffd0a00ee9e8" class="numbered-list" start="3"><li>Wait 5 seconds</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="36273f22-d440-8030-96f1-fdb5529f7ca3" class="numbered-list" start="4"><li>Click toggle to <strong>ENABLE</strong> → fill credentials → Save</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="36273f22-d440-80ff-8cdf-fddda144aa36" class="numbered-list" start="5"><li>Repeat for every OpenCTI and MISP analyzer variant</li></ol></div><div style="display:contents" dir="auto"><p id="36273f22-d440-80ff-87f0-c6832bb60e0c" class=""><strong>Analyzers to cycle:</strong></p></div><div style="display:contents" dir="auto"><ul id="36273f22-d440-801c-9cbd-ce0af23e550b" class="bulleted-list"><li style="list-style-type:disc"><code>OpenCTI_SearchExactObservable</code></li></ul></div><div style="display:contents" dir="auto"><ul id="36273f22-d440-803d-bc0d-feb3f09c608c" class="bulleted-list"><li style="list-style-type:disc"><code>OpenCTI_SearchObservables</code></li></ul></div><div style="display:contents" dir="auto"><ul id="36273f22-d440-80fd-b280-cc65639b5d91" class="bulleted-list"><li style="list-style-type:disc"><code>OpenCTI_v6_SearchExactObservable</code></li></ul></div><div style="display:contents" dir="auto"><ul id="36273f22-d440-8066-afc1-f01c6f42f8b5" class="bulleted-list"><li style="list-style-type:disc"><code>OpenCTI_v6_SearchObservables</code></li></ul></div><div style="display:contents" dir="auto"><ul id="36273f22-d440-80ae-87e5-c3f9ff8539a8" class="bulleted-list"><li style="list-style-type:disc"><code>MISP</code></li></ul></div><div style="display:contents" dir="auto"><p id="36273f22-d440-8066-b84c-feec6f88ec20" class="">After re-enabling, the Docker runner correctly picks up the image:</p></div><div style="display:contents" dir="auto"><p id="36273f22-d440-8009-9858-c627990761da" class=""><code>[info] DockerClient - about to start container c667d8491c17...<br/>  volumes: /tmp/cortex-jobs/cortex-job-xxx<br/>[info] DockerClient - container started and awaited with code: 0<br/>[info] Job xxx has finished with status Success</code></p></div><div style="display:contents" dir="auto"><hr id="36273f22-d440-8018-91cd-cfb82f59dbc7"/></div><div style="display:contents" dir="auto"><h2 id="36273f22-d440-801c-8b4d-c4906d5b5bc4" class="">8. Problem 6: Cortex Uses Stale Cached Analyzer Configs</h2></div><div style="display:contents" dir="auto"><p id="36273f22-d440-80bb-9ab6-c47852764eae" class=""><em>(This was the same root cause as Problem 5 but manifested in a different way — Cortex reporting 404 on analyzer endpoints.)</em></p></div><div style="display:contents" dir="auto"><h3 id="36273f22-d440-80b2-b0fe-da27f57fc10c" class="">Additional Symptom</h3></div><div style="display:contents" dir="auto"><p id="36273f22-d440-8019-bfc9-ee6549a7a81f" class=""><code>[warn] o.t.c.s.ErrorHandler - GET /cortex/api/analyzer/MISP_2_1 returned 404<br/>[warn] o.t.c.s.ErrorHandler - GET /cortex/api/analyzer/OpenCTI_v6_SearchExactObservable_2_0 returned 404</code></p></div><div style="display:contents" dir="auto"><h3 id="36273f22-d440-808b-ae08-e6fca2fb827f" class="">Root Cause</h3></div><div style="display:contents" dir="auto"><p id="36273f22-d440-80fc-b470-cad7c7c41590" class="">TheHive was calling Cortex API endpoints using the analyzer IDs it had previously cached. After Cortex restarts with config changes, the internal analyzer registration IDs can shift, causing 404s.</p></div><div style="display:contents" dir="auto"><h3 id="36273f22-d440-805e-a285-ce51dafd9290" class="">Solution</h3></div><div style="display:contents" dir="auto"><p id="36273f22-d440-80f6-aa56-cf1988f53e6b" class="">Same as Problem 5 — disable/re-enable analyzers in Cortex UI forces fresh registration. Also ensure TheHive&#x27;s Cortex connector is properly configured with the correct API key:</p></div><div style="display:contents" dir="auto"><p id="36273f22-d440-80a5-94b2-cf72fc91e2ee" class="">In TheHive <code>application.conf</code>:</p></div><div style="display:contents" dir="auto"><p id="36273f22-d440-8092-8db0-c72d9ab5d486" class="">hocon</p></div><div style="display:contents" dir="auto"><p id="36273f22-d440-8071-9a34-e82ac3ec93fa" class=""><code>cortex {<br/>  servers = [<br/>    {<br/>      name = &quot;Cortex&quot;<br/>      url = &quot;http://cortex:9001&quot;<br/>      auth {<br/>        type = &quot;bearer&quot;<br/>        key = &quot;YOUR_CORTEX_API_KEY&quot;<br/>      }<br/>    }<br/>  ]<br/>}</code></p></div><div style="display:contents" dir="ltr"><figure id="36273f22-d440-8066-a0b5-f88d12edafcb" class="image"><a href="Building%20a%20Unified%20Cyber%20Defense%20SOAR%20Stack%20Errors/Screenshot_From_2026-05-16_13-07-51.png"><img style="width:703.96875px" src="Building%20a%20Unified%20Cyber%20Defense%20SOAR%20Stack%20Errors/Screenshot_From_2026-05-16_13-07-51.png"/></a></figure></div><div style="display:contents" dir="auto"><h2 id="36273f22-d440-8051-8a57-fd1494c77336" class="">9. Problem 7: MISP SSL Certificate Verification Failure</h2></div><div style="display:contents" dir="auto"><h3 id="36273f22-d440-8098-be45-f2bc4b61a523" class="">Symptom</h3></div><div style="display:contents" dir="auto"><p id="36273f22-d440-800d-99a7-e64f121fe7dc" class="">After Docker runner was working, MISP analyzer jobs ran but failed with:</p></div><div style="display:contents" dir="auto"><p id="36273f22-d440-807b-9e68-ff3c5eafbb41" class=""><code>ssl.SSLCertVerificationError: [SSL: CERTIFICATE_VERIFY_FAILED] <br/>certificate verify failed: self-signed certificate (_ssl.c:1081)<br/><br/>pymisp.exceptions.PyMISPError: Unable to connect to MISP <br/>(https://192.168.0.101:8443/). <br/>HTTPSConnectionPool: Max retries exceeded with url: /servers/getVersion<br/>(Caused by SSLError)</code></p></div><div style="display:contents" dir="auto"><h3 id="36273f22-d440-8085-8879-c636a92c6c6b" class="">Root Cause</h3></div><div style="display:contents" dir="auto"><p id="36273f22-d440-802a-bfba-ee0c1ff7615a" class="">MISP was deployed with HTTPS using a <strong>self-signed certificate</strong>. The MISP analyzer Docker container tried to verify this certificate against known CAs — which fails for self-signed certs.</p></div><div style="display:contents" dir="auto"><p id="36273f22-d440-8019-a2ab-d2bb8abf5394" class="">The <code>cert_check = false</code> config option in Cortex UI was set, but the <code>mispclient.py</code> code was using the older <code>ExpandedPyMISP</code> class (now deprecated) which had different SSL handling behavior in newer PyMISP versions.</p></div><div style="display:contents" dir="auto"><h3 id="36273f22-d440-8079-b17c-fe52b04d85de" class="">Solution — Two-Part Fix</h3></div><div style="display:contents" dir="auto"><p id="36273f22-d440-8025-8280-d9a57095ffd9" class=""><strong>Part 1: Fix in Cortex UI (MISP Analyzer Config)</strong></p></div><div style="display:contents" dir="auto"><p id="36273f22-d440-80ad-92f7-f48a6f139c86" class="">In <strong>Cortex UI → Organization → Analyzers → MISP → Edit:</strong></p></div><div style="display:contents" dir="auto"><p id="36273f22-d440-80f0-8132-f66abe937c13" class=""><code>cert_check  →  false<br/>url         →  [&quot;https://192.168.0.101:8443&quot;]<br/>key         →  [&quot;YOUR_MISP_API_KEY&quot;]</code></p></div><div style="display:contents" dir="auto"><p id="36273f22-d440-807d-9fe0-c6654af8bc62" class="">Disable and re-enable the analyzer after saving.</p></div><div style="display:contents" dir="auto"><p id="36273f22-d440-80e7-9488-c33d5546f66f" class=""><strong>Part 2: Fix in TheHive MISP Connector</strong></p></div><div style="display:contents" dir="auto"><p id="36273f22-d440-803c-ae86-eefdd4dce6e2" class="">In <strong>TheHive UI → Administration → Platform → Connectors → MISP → Edit:</strong></p></div><div style="display:contents" dir="auto"><ul id="36273f22-d440-8072-9a6f-eba73c3f3c4f" class="bulleted-list"><li style="list-style-type:disc"><strong>Check Certificate Authority</strong> → Toggle <strong>OFF</strong></li></ul></div><div style="display:contents" dir="auto"><ul id="36273f22-d440-804f-bcdc-d334a59d5de0" class="bulleted-list"><li style="list-style-type:disc"><strong>Disable hostname Verification</strong> → Toggle <strong>ON</strong></li></ul></div><div style="display:contents" dir="auto"><ul id="36273f22-d440-80bf-93ef-c8140f7b85ae" class="bulleted-list"><li style="list-style-type:disc">Click <strong>Update</strong></li></ul></div><div style="display:contents" dir="auto"><p id="36273f22-d440-8095-987e-e75242c8f91d" class=""><strong>Part 3: Force SSL=False in mispclient.py (if above insufficient)</strong></p></div><div style="display:contents" dir="auto"><p id="36273f22-d440-80a9-baef-ce8202f85caf" class="">bash</p></div><div style="display:contents" dir="auto"><p id="36273f22-d440-8088-b478-dbe873f6038a" class=""><code># Inspect current SSL handling<br/>grep -n &quot;ssl\|verify\|cert&quot; \<br/>  /home/saeidsec/SOAR_LABS/docker/testing/cortex/neurons/analyzers/MISP/mispclient.py<br/><br/># Force disable SSL verification<br/>sed -i &#x27;s/ssl=verify/ssl=False/g&#x27; \<br/>  /home/saeidsec/SOAR_LABS/docker/testing/cortex/neurons/analyzers/MISP/mispclient.py<br/><br/># Rebuild Docker image<br/>cd /home/saeidsec/SOAR_LABS/docker/testing/cortex/neurons/analyzers/MISP<br/>docker build -t cortexneurons/misp:latest .<br/><br/># Disable/re-enable MISP in Cortex UI to load new image</code></p></div><div style="display:contents" dir="auto"><p id="36273f22-d440-80d2-a2de-f510dd34cc45" class=""><strong>Result:</strong> MISP analyzer jobs now succeed:</p></div><div style="display:contents" dir="auto"><p id="36273f22-d440-8075-983d-ce6112453e20" class=""><code>[hash] 6a9bc3a1eb4f... → MISP_2_1 → Success ✅<br/>[other] KRYPTON        → MISP_2_1 → Success ✅</code></p></div><div style="display:contents" dir="auto"><hr id="36273f22-d440-80fe-be45-f65c0ad66f5e"/></div><div style="display:contents" dir="auto"><h2 id="36273f22-d440-80a5-8f4b-c34366187688" class="">10. Final Working Configuration</h2></div><div style="display:contents" dir="auto"><h3 id="36273f22-d440-80fb-b323-c049d7d93a7a" class="">application.conf (Complete)</h3></div><div style="display:contents" dir="auto"><p id="36273f22-d440-8090-bf18-d021768856f2" class="">hocon</p></div><div style="display:contents" dir="auto"><p id="36273f22-d440-80c3-b0be-f7d7c8593479" class=""><code># SECRET CONFIGURATION<br/>include &quot;/etc/cortex/secret.conf&quot;<br/><br/># INDEX DATABASE CONFIGURATION<br/>include &quot;/etc/cortex/index.conf&quot;<br/><br/>play.http.context=&quot;/cortex&quot;<br/>play.http.parser.maxMemoryBuffer=1M<br/>play.http.parser.maxDiskBuffer=1G<br/>play.http.session.secure = false<br/>play.filters.csrf.cookie.secure = false<br/>play.filters.csrf.cookie.httpOnly = false<br/>play.http.forwarded.trustedProxies=[&quot;0.0.0.0/0&quot;, &quot;::/0&quot;]<br/>cache.job = 10 minutes<br/><br/>auth {<br/>  provider = [local]<br/>  ad {}<br/>  ldap {}<br/>}<br/><br/>analyzer {<br/>  urls = [<br/>    &quot;https://download.thehive-project.org/analyzers.json&quot;<br/>    &quot;file:///opt/cortexneurons/analyzers&quot;<br/>  ]<br/>  fork-join-executor {<br/>    parallelism-min = 2<br/>    parallelism-factor = 2.0<br/>    parallelism-max = 4<br/>  }<br/>}<br/><br/>responder {<br/>  urls = [<br/>    &quot;https://download.thehive-project.org/responders.json&quot;<br/>    &quot;file:///opt/cortexneurons/responders&quot;<br/>  ]<br/>  fork-join-executor {<br/>    parallelism-min = 2<br/>    parallelism-factor = 2.0<br/>    parallelism-max = 4<br/>  }<br/>}<br/><br/># Job runner - Docker first, process fallback<br/>job {<br/>  runner = [docker, process]<br/>}<br/><br/>docker {<br/>  pullImage = false<br/>}</code></p></div><div style="display:contents" dir="auto"><h3 id="36273f22-d440-803a-95af-ed4431d01e7a" class="">docker-compose.yml — Cortex Service (Key Parts)</h3></div><div style="display:contents" dir="auto"><p id="36273f22-d440-808a-a8c0-d5275e4ebcd2" class="">yaml</p></div><div style="display:contents" dir="auto"><p id="36273f22-d440-80fb-9659-e3d2effdcaa1" class=""><code>cortex:<br/>  image: &quot;thehiveproject/cortex:4.0.0&quot;<br/>  container_name: cortex<br/>  environment:<br/>    - job_directory=/tmp/cortex-jobs<br/>    - docker_job_directory=${cortex_docker_job_directory}<br/>  volumes:<br/>    - /var/run/docker.sock:/var/run/docker.sock   # CRITICAL<br/>    - ./cortex/cortex-jobs:/tmp/cortex-jobs<br/>    - ./cortex/config:/etc/cortex:ro<br/>    - ./cortex/logs:/var/log/cortex<br/>    - ./cortex/neurons:/opt/cortexneurons</code></p></div><div style="display:contents" dir="auto"><h3 id="36273f22-d440-80f2-8f84-c2fde2d5e26a" class="">Final Analyzer Status</h3></div><div style="display:contents" dir="ltr"><table id="36273f22-d440-8011-b2e6-fa81b3aab096" class="simple-table"><thead class="simple-table-header"><div style="display:contents" dir="ltr"><tr id="36273f22-d440-8093-ad5c-f594bd0edf91"><th id="P_hM" class="simple-table-header-color simple-table-header">Analyzer</th><th id="FrrX" class="simple-table-header-color simple-table-header">Docker Image</th><th id="[Ww~" class="simple-table-header-color simple-table-header">Status</th></tr></div></thead><tbody><div style="display:contents" dir="ltr"><tr id="36273f22-d440-8093-9af2-f14eb8c6012d"><td id="P_hM" class="">VirusTotal_GetReport</td><td id="FrrX" class="">Official (pulled)</td><td id="[Ww~" class="">✅ Success</td></tr></div><div style="display:contents" dir="ltr"><tr id="36273f22-d440-808c-ac4f-f5a239ce1d85"><td id="P_hM" class="">AbuseIPDB</td><td id="FrrX" class="">Official (pulled)</td><td id="[Ww~" class="">✅ Success</td></tr></div><div style="display:contents" dir="ltr"><tr id="36273f22-d440-80ff-b45a-db078b54894b"><td id="P_hM" class="">OpenCTI_SearchExactObservable</td><td id="FrrX" class="">cortexneurons/opencti:latest</td><td id="[Ww~" class="">✅ Success</td></tr></div><div style="display:contents" dir="ltr"><tr id="36273f22-d440-8027-b9c4-e18feb405e06"><td id="P_hM" class="">OpenCTI_SearchObservables</td><td id="FrrX" class="">cortexneurons/opencti:latest</td><td id="[Ww~" class="">✅ Success</td></tr></div><div style="display:contents" dir="ltr"><tr id="36273f22-d440-809d-81f8-ec6ccae192c4"><td id="P_hM" class="">OpenCTI_v6_SearchExactObservable</td><td id="FrrX" class="">cortexneurons/opencti:latest</td><td id="[Ww~" class="">✅ Success</td></tr></div><div style="display:contents" dir="ltr"><tr id="36273f22-d440-8093-8b87-ee1a102aa148"><td id="P_hM" class="">OpenCTI_v6_SearchObservables</td><td id="FrrX" class="">cortexneurons/opencti:latest</td><td id="[Ww~" class="">✅ Success</td></tr></div><div style="display:contents" dir="ltr"><tr id="36273f22-d440-8063-b025-ed2dc7d9ccbe"><td id="P_hM" class="">MISP</td><td id="FrrX" class="">cortexneurons/misp:latest</td><td id="[Ww~" class="">✅ Success</td></tr></div></tbody></table></div><div style="display:contents" dir="auto"><hr id="36273f22-d440-8056-835d-c93a45e57a30"/></div><div style="display:contents" dir="auto"><h2 id="36273f22-d440-803b-99c6-e75ca80ab17f" class="">11. Complete File Reference</h2></div><div style="display:contents" dir="auto"><h3 id="36273f22-d440-80a7-86de-fac6b7561bd0" class="">Directory Structure (Final)</h3></div><div style="display:contents" dir="auto"><p id="36273f22-d440-801b-a53c-e4ad3ce5794f" class=""><code>SOAR_LABS/docker/testing/<br/>├── .env<br/>├── docker-compose.yml<br/>├── cortex/<br/>│   ├── config/<br/>│   │   ├── application.conf      ← Modified<br/>│   │   ├── index.conf<br/>│   │   ├── secret.conf<br/>│   │   └── logback.xml<br/>│   ├── cortex-jobs/              ← Job working directory<br/>│   ├── logs/<br/>│   └── neurons/<br/>│       ├── analyzers/<br/>│       │   ├── OpenCTI/<br/>│       │   │   ├── Dockerfile    ← Existing, used for build<br/>│       │   │   ├── opencti.py<br/>│       │   │   ├── requirements.txt<br/>│       │   │   ├── requirements_v6.txt<br/>│       │   │   ├── OpenCTI_SearchExactObservable.json      ← Added dockerImage<br/>│       │   │   ├── OpenCTI_SearchObservables.json          ← Added dockerImage<br/>│       │   │   ├── OpenCTI_v6_SearchExactObservable.json   ← Added dockerImage<br/>│       │   │   └── OpenCTI_v6_SearchObservables.json       ← Added dockerImage<br/>│       │   └── MISP/<br/>│       │       ├── Dockerfile    ← Created from scratch<br/>│       │       ├── misp.py<br/>│       │       ├── mispclient.py ← Modified ssl=False<br/>│       │       ├── requirements.txt<br/>│       │       └── MISP.json     ← Added dockerImage<br/>│       └── responders/           ← Created (was missing)<br/>│           └── .gitkeep</code></p></div><div style="display:contents" dir="auto"><h3 id="36273f22-d440-8060-892d-db1b844761bc" class="">Commands Reference — Quick Rebuild</h3></div><div style="display:contents" dir="auto"><p id="36273f22-d440-8002-b0ad-daec0c620235" class="">bash</p></div><div style="display:contents" dir="auto"><p id="36273f22-d440-807e-a4c3-e79e2569bc71" class=""><code># Build OpenCTI analyzer image<br/>cd /home/saeidsec/SOAR_LABS/docker/testing/cortex/neurons/analyzers/OpenCTI<br/>docker build -t cortexneurons/opencti:latest .<br/><br/># Build MISP analyzer image<br/>cd /home/saeidsec/SOAR_LABS/docker/testing/cortex/neurons/analyzers/MISP<br/>docker build -t cortexneurons/misp:latest .<br/><br/># Verify images<br/>docker images | grep cortexneurons<br/><br/># Fix log directory permissions<br/>chmod 777 /home/saeidsec/SOAR_LABS/docker/testing/cortex/logs<br/><br/># Restart Cortex<br/>cd /home/saeidsec/SOAR_LABS/docker/testing<br/>docker compose restart cortex<br/><br/># Watch Cortex logs<br/>docker compose logs -f cortex | grep -i &quot;docker\|runner\|opencti\|misp\|error&quot;<br/><br/># Verify Docker runner is working (run after triggering a job)<br/>docker events | grep -i &quot;container create\|cortexneurons&quot;</code></p></div><div style="display:contents" dir="auto"><hr id="36273f22-d440-8006-919b-c0a4be97db98"/></div><div style="display:contents" dir="auto"><h2 id="36273f22-d440-805b-af51-f963fdae65db" class="">12. Lessons Learned</h2></div><div style="display:contents" dir="auto"><h3 id="36273f22-d440-804b-828a-eb0fdfe82e31" class="">1. Cortex Job Runner Must Be Explicitly Configured</h3></div><div style="display:contents" dir="auto"><p id="36273f22-d440-8004-943e-dbc762abb92c" class="">Cortex 4.0.0 does not default to Docker runner even when the Docker socket is mounted. Always add <code>job { runner = [docker, process] }</code> to <code>application.conf</code>.</p></div><div style="display:contents" dir="auto"><h3 id="36273f22-d440-8087-b85b-ed0245e8bcad" class="">2. <code>dockerImage</code> Field is Mandatory for Docker Runner</h3></div><div style="display:contents" dir="auto"><p id="36273f22-d440-804b-a8bb-d1f980ddbd46" class="">Every analyzer JSON definition must include <code>&quot;dockerImage&quot;: &quot;imagename:tag&quot;</code> for Cortex to use the Docker runner for that analyzer.</p></div><div style="display:contents" dir="auto"><h3 id="36273f22-d440-809a-a4b4-caa1a1cea5b0" class="">3. Elasticsearch Caches Analyzer Configs</h3></div><div style="display:contents" dir="auto"><p id="36273f22-d440-8031-89c9-f26731e2fd98" class="">Editing JSON files on disk is not enough. The UI registration (enable/disable cycle) is required to push changes to Elasticsearch where job execution reads from.</p></div><div style="display:contents" dir="auto"><h3 id="36273f22-d440-80a2-b0a1-d5f47cb6899d" class="">4. File URL Protocol Required for Local Paths</h3></div><div style="display:contents" dir="auto"><p id="36273f22-d440-80e1-a502-d721cc2c8833" class="">Cortex URL arrays expect proper URIs. Local paths must use <code>file:///path</code> format — bare paths cause <code>MalformedURLException</code>.</p></div><div style="display:contents" dir="auto"><h3 id="36273f22-d440-8046-ae42-f5ea79afca15" class="">5. Missing Directories Cause Silent Failures</h3></div><div style="display:contents" dir="auto"><p id="36273f22-d440-80fd-9dee-d2966fb42213" class="">The responders directory must exist even if empty. Cortex will log warnings and potentially degrade if referenced directories are missing.</p></div><div style="display:contents" dir="auto"><h3 id="36273f22-d440-8056-9d10-da9952f2e10a" class="">6. Self-Signed SSL Requires Explicit Bypass</h3></div><div style="display:contents" dir="auto"><p id="36273f22-d440-80ea-9290-fa6289fdd738" class="">Both the Cortex analyzer config (<code>cert_check = false</code>) and the PyMISP client code (<code>ssl=False</code>) must have SSL verification disabled when connecting to services with self-signed certificates.</p></div><div style="display:contents" dir="auto"><h3 id="36273f22-d440-80f6-a301-dd0e19c1b8ee" class="">7. Docker Runner Confirmation</h3></div><div style="display:contents" dir="auto"><p id="36273f22-d440-809a-81a8-fa84eeff2e1d" class="">To confirm Docker runner is being used (vs process runner), watch <code>docker events</code> while triggering jobs. You should see container create/start events. If you see <code>ProcessJobRunnerSrv</code> in logs, Docker runner is NOT being used.</p></div><div style="display:contents" dir="auto"><h3 id="36273f22-d440-805f-833f-cace7e781147" class="">8. Disable/Re-enable Cycle is the Universal Fix</h3></div><div style="display:contents" dir="auto"><p id="36273f22-d440-80dc-acdf-ca83b52b9524" class="">Whenever analyzer behavior doesn&#x27;t match expectations after config changes, disable and re-enable in Cortex UI. This forces a fresh read from JSON and fresh write to Elasticsearch.</p></div><div style="display:contents" dir="auto"><hr id="36273f22-d440-8082-84b1-fb5437d3b01d"/></div><div style="display:contents" dir="auto"><h2 id="36273f22-d440-80b9-9aa8-c7c665f80620" class="">Final Stack Status</h2></div><div style="display:contents" dir="auto"><p id="36273f22-d440-808e-ad9f-f53dc51f01f3" class=""><code>✅ Suricata IDS          → Network threat detection<br/>✅ Wazuh SIEM            → Log correlation &amp; alert generation<br/>✅ TheHive 5.6.0         → Incident &amp; case management<br/>✅ Cortex 4.0.0          → Automated analysis engine<br/>✅ VirusTotal            → Malware hash &amp; file analysis<br/>✅ AbuseIPDB             → IP reputation scoring<br/>✅ MISP                  → Threat event sharing<br/>✅ OpenCTI               → Structured threat intelligence<br/>✅ AlienVault OTX        → External threat feed → OpenCTI<br/>✅ MISP → OpenCTI        → Internal feed connector<br/>✅ TheHive ↔ MISP        → Bidirectional case/event sync<br/>✅ TheHive → Cortex      → Auto-enrichment on observables<br/>✅ Cortex → OpenCTI      → TI query on every observable<br/>✅ Cortex → MISP         → Event lookup on every observable</code></p></div><div style="display:contents" dir="auto"><p id="36273f22-d440-80db-8541-ec0975814eca" class=""><strong>The result is a fully operational, open-source SOC/SOAR platform capable of automated threat detection, enrichment, and response — rivaling commercial solutions at zero licensing cost.</strong></p></div><div style="display:contents" dir="auto"><hr id="36273f22-d440-80b1-ad29-d162e9cb639d"/></div><div style="display:contents" dir="auto"><p id="36273f22-d440-80cc-bdda-c3afce25559d" class=""><em>Document prepared by AegisryxLabs | May 2026</em></p></div><div style="display:contents" dir="auto"><p id="36273f22-d440-8040-918d-d2af824d72f1" class=""><em>All errors encountered in real-world deployment. All solutions tested and verified.</em></p></div><div style="display:contents" dir="ltr"><figure id="36473f22-d440-8010-a5a1-e48213f2a46b" class="link-to-page"><a href="https://app.notion.com/p/Wazuh-OpenCTI-integration-Only-Labs-36473f22d4408010a5a1e48213f2a46b?pvs=21">Wazuh OpenCTI integration(Only Labs)</a></figure></div></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>
