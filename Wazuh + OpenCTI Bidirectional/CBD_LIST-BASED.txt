@@ -1,0 +1,40 @@
+I built and fully tested a Wazuh + OpenCTI by Filigran threat 
+intelligence integration — and recorded the entire 
+proof of concept.
+
+Here's exactly what you're watching in this video:
+
+① Pull live IOCs from OpenCTI
+ → 628 indicators: IPs, domains, MD5, SHA1, SHA256
+
+② Simulate a malicious SSH login attempt
+ → logger injects a real sshd log with a known-bad IP
+ → 93.125.114.57 (tagged: Cloud Atlas APT, 
+ NetSupport RAT)
+
+③ Wazuh fires Rule 100207 in real time
+ → Level 13 alert: HIGH confidence threat indicator
+ → CDB list match confirmed
+
+④ Integration script queries OpenCTI automatically
+ → Finds the indicator match
+ → Creates a STIX sighting relationship
+
+⑤ Sighting appears live in OpenCTI
+ → Indicator → Sighted in/at → ubuntu1 (agent)
+ → Qualification: True Positive
+ → Confidence: Probably True
+
+⑥ Full log trail confirmed
+ → opencti-integration.log shows every step
+ → Wazuh alerts.json captures the enriched event
+
+This is what a real blue team automation pipeline 
+looks like — not just theory, fully working end-to-end.
+
+🔧 Tools used:
+• Wazuh Manager + Agent (Ubuntu 22.04 VM)
+• OpenCTI self-hosted (Docker)
+• Python pycti SDK
+• Custom sync + integration scripts
+• Cron automation (every 6 hours)
