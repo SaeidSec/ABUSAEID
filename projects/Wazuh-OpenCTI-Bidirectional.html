@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wazuh + OpenCTI Bidirectional Integration | Abu Saeid</title>
+    <meta name="description" content="Deep dive analysis of Wazuh and OpenCTI bidirectional integration using CDB List approach and Pure GraphQL API approach.">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap"
+        rel="stylesheet">
+
+    <style>
+        :root {
+            --color-bg: #020617; /* slate-950 */
+            --color-card: #0f172a; /* slate-900 */
+            --color-border: #1e293b; /* slate-800 */
+            --color-primary: #3b82f6; /* blue-500 */
+            --color-secondary: #10b981; /* emerald-500 */
+            --color-danger: #ef4444; /* red-500 */
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--color-bg);
+            color: #e2e8f0;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #0f172a;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #475569;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .animate-fade-in {
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+
+        .glass-nav {
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(30, 41, 59, 0.5);
+        }
+
+        .section-card {
+            background: var(--color-card);
+            border: 1px solid var(--color-border);
+            border-radius: 1rem;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .section-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px -10px rgba(59, 130, 246, 0.2);
+        }
+
+        .hero-gradient {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(16, 185, 129, 0.1) 100%);
+            border-bottom: 1px solid rgba(59, 130, 246, 0.2);
+        }
+
+        h1, h2, h3, h4 {
+            color: white;
+            font-weight: 700;
+            letter-spacing: -0.025em;
+        }
+
+        .problem-badge {
+            background: rgba(239, 68, 68, 0.1);
+            color: #ef4444;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 1rem;
+        }
+
+        .solution-badge {
+            background: rgba(16, 185, 129, 0.1);
+            color: #10b981;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 1rem;
+        }
+
+        img {
+            border-radius: 0.5rem;
+            border: 1px solid var(--color-border);
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+
+<body class="antialiased">
+    <!-- Navigation -->
+    <nav class="glass-nav fixed w-full z-50 top-0 transition-all duration-300 py-4">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
+            <a href="../index.html" class="flex items-center space-x-2 group">
+                <div class="w-8 h-8 rounded-lg bg-blue-600 flex items-center justify-center text-white font-bold group-hover:bg-blue-500 transition-colors">
+                    AS
+                </div>
+                <span class="font-bold text-white tracking-tight">Abu Saeid</span>
+            </a>
+            <div class="flex items-center space-x-6">
+                <a href="../index.html" class="text-gray-300 hover:text-white transition-colors text-sm font-medium flex items-center">
+                    <i data-lucide="arrow-left" class="w-4 h-4 mr-1 icon"></i> Back to Portfolio
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="pt-32 pb-20 hero-gradient relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="inline-flex items-center space-x-2 bg-blue-500/10 border border-blue-500/20 rounded-full px-4 py-1.5 mb-6 animate-fade-in">
+                <span class="w-2 h-2 rounded-full bg-blue-500 animate-pulse"></span>
+                <span class="text-sm font-medium text-blue-400">Threat Intelligence Automation</span>
+            </div>
+            <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white mb-6 leading-tight animate-fade-in" style="animation-delay: 0.1s;">
+                Wazuh + OpenCTI <br/><span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-emerald-400">Bidirectional Threat Intelligence</span>
+            </h1>
+            <p class="text-xl text-gray-400 max-w-3xl mb-8 animate-fade-in" style="animation-delay: 0.2s;">
+                A comprehensive, two-phase implementation of integrating Wazuh SIEM with the OpenCTI Platform to achieve real-time threat detection, enrichment, and automated Telegram alerts.
+            </p>
+            <div class="flex flex-wrap gap-4 animate-fade-in" style="animation-delay: 0.3s;">
+                <div class="flex items-center space-x-2 text-sm text-gray-400 bg-slate-900/50 px-4 py-2 rounded-lg border border-slate-800">
+                    <i data-lucide="shield-check" class="w-4 h-4 icon"></i>
+                    <span>Wazuh SIEM</span>
+                </div>
+                <div class="flex items-center space-x-2 text-sm text-gray-400 bg-slate-900/50 px-4 py-2 rounded-lg border border-slate-800">
+                    <i data-lucide="database" class="w-4 h-4 icon"></i>
+                    <span>OpenCTI Platform</span>
+                </div>
+                <div class="flex items-center space-x-2 text-sm text-gray-400 bg-slate-900/50 px-4 py-2 rounded-lg border border-slate-800">
+                    <i data-lucide="bell" class="w-4 h-4 icon"></i>
+                    <span>Telegram Bot API</span>
+                </div>
+                <div class="flex items-center space-x-2 text-sm text-gray-400 bg-slate-900/50 px-4 py-2 rounded-lg border border-slate-800">
+                    <i data-lucide="code" class="w-4 h-4 icon"></i>
+                    <span>Python & GraphQL</span>
+                </div>
+            </div>
+
+            <!-- Built By -->
+            <div class="mt-10 animate-fade-in" style="animation-delay: 0.4s;">
+                <p class="text-sm font-semibold text-gray-500 uppercase tracking-widest mb-4">Built By</p>
+                <div class="flex flex-wrap gap-4">
+                    <a href="https://www.linkedin.com/in/mdabusaeid/" target="_blank" class="flex items-center space-x-3 bg-slate-900/60 border border-slate-700 hover:border-blue-500/50 rounded-xl px-5 py-3 transition-all duration-300 group hover:shadow-lg hover:shadow-blue-500/10">
+                        <div class="w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-cyan-400 flex items-center justify-center text-white font-bold text-sm flex-shrink-0">AS</div>
+                        <div>
+                            <p class="text-white font-semibold text-sm group-hover:text-blue-400 transition-colors">Md. Abu Saeid</p>
+                            <p class="text-gray-500 text-xs">Security Engineer & Architect</p>
+                        </div>
+                        <i data-lucide="linkedin" class="w-4 h-4 text-gray-600 group-hover:text-blue-400 transition-colors ml-2 icon"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        
+        <!-- Project Overview -->
+        <section class="mb-16 animate-fade-in" style="animation-delay: 0.5s;">
+            <div class="flex items-center space-x-3 mb-8">
+                <div class="w-10 h-10 rounded-lg bg-blue-500/10 flex items-center justify-center border border-blue-500/20">
+                    <i data-lucide="rocket" class="w-5 h-5 text-blue-400 icon"></i>
+                </div>
+                <h2 class="text-3xl font-bold">Project Overview</h2>
+            </div>
+            <div class="section-card">
+                <p class="text-gray-300 mb-6">
+                    This project was developed in two distinct phases to explore and optimize the integration between Wazuh and OpenCTI. The primary goal was to leverage OpenCTI's vast threat intelligence data to enhance Wazuh's detection capabilities, while also automating the incident response workflow via Telegram alerts.
+                </p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="bg-slate-800/50 p-6 rounded-lg border border-slate-700">
+                        <h4 class="text-emerald-400 font-semibold mb-3 text-lg">Phase 1: CDB List Approach</h4>
+                        <p class="text-sm text-gray-400 mb-4">The initial integration method relying on periodic synchronization of Indicators of Compromise (IOCs) into local text files.</p>
+                        <ul class="text-sm text-gray-400 space-y-2 list-disc list-inside">
+                            <li>Periodic Sync (Every 6 hours)</li>
+                            <li>Local File Storage on Wazuh Manager</li>
+                            <li>Internal CDB Matching</li>
+                        </ul>
+                    </div>
+                    <div class="bg-slate-800/50 p-6 rounded-lg border border-slate-700">
+                        <h4 class="text-blue-400 font-semibold mb-3 text-lg">Phase 2: Pure GraphQL API Approach</h4>
+                        <p class="text-sm text-gray-400 mb-4">The production-ready approach eliminating local files and executing real-time, live queries directly to the OpenCTI database.</p>
+                        <ul class="text-sm text-gray-400 space-y-2 list-disc list-inside">
+                            <li>Zero Storage Overhead</li>
+                            <li>Real-Time Data Freshness</li>
+                            <li>Richer Context (TTPs, Threat Actors)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Phase 1: CDB List Approach -->
+        <section class="mb-16">
+            <div class="flex items-center space-x-3 mb-8">
+                <div class="w-10 h-10 rounded-lg bg-orange-500/10 flex items-center justify-center border border-orange-500/20">
+                    <i data-lucide="database" class="w-5 h-5 text-orange-400 icon"></i>
+                </div>
+                <h2 class="text-3xl font-bold">Phase 1: CDB List Approach</h2>
+            </div>
+
+            <div class="section-card">
+                <div class="problem-badge mb-4">Initial Concept</div>
+                <p class="text-gray-300 mb-6">
+                    This was the initial integration method used in the lab. It relies on a periodic synchronization process. A Python script pulls Indicators of Compromise (IOCs) from OpenCTI every 6 hours via a cron job and writes them into local text files on the Wazuh manager. Wazuh then matches incoming logs against these static files using its internal CDB (Constant DataBase) list functionality.
+                </p>
+
+                <h3 class="text-xl font-bold mb-4 text-white">Architecture Flow</h3>
+                <img src="assets/Wazuh-OpenCTI-Bidirectional/cdb-architecture.png" alt="CDB List Approach Architecture" class="w-full mb-8 shadow-xl">
+
+                <div class="bg-red-500/5 border-l-4 border-red-500 p-4 rounded-r-lg mb-8">
+                    <h4 class="text-red-400 font-semibold mb-2">Limitations Identified</h4>
+                    <p class="text-gray-400 text-sm">
+                        This approach consumes disk space as the number of IOCs grows and creates a "sync gap" where new threats discovered between the 6-hour windows are missed.
+                    </p>
+                </div>
+
+                <h3 class="text-xl font-bold mb-4 text-white">Proof of Concept Videos (Phase 1)</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="relative w-full aspect-video rounded-xl overflow-hidden border border-slate-700 shadow-xl">
+                        <iframe class="absolute top-0 left-0 w-full h-full" src="https://www.youtube.com/embed/KUdM2CVDHvk" title="Wazuh with OpenCTI CDB List Approach (Phase 1)" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                    </div>
+                    <div class="relative w-full aspect-video rounded-xl overflow-hidden border border-slate-700 shadow-xl">
+                        <iframe class="absolute top-0 left-0 w-full h-full" src="https://www.youtube.com/embed/bin8pIOIdLk" title="Real time SOC alerts — straight to Telegram (CDB List)" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Phase 2: Pure GraphQL API Approach -->
+        <section class="mb-16">
+            <div class="flex items-center space-x-3 mb-8">
+                <div class="w-10 h-10 rounded-lg bg-emerald-500/10 flex items-center justify-center border border-emerald-500/20">
+                    <i data-lucide="zap" class="w-5 h-5 text-emerald-400 icon"></i>
+                </div>
+                <h2 class="text-3xl font-bold">Phase 2: Pure GraphQL API Approach</h2>
+            </div>
+
+            <div class="section-card border-emerald-500/30">
+                <div class="solution-badge mb-4">Production Ready</div>
+                <p class="text-gray-300 mb-6">
+                    This is considered the production-ready approach and was designed to solve the limitations of the CDB method. It eliminates local files entirely. Instead, every alert triggered by Wazuh initiates a live, real-time GraphQL query directly to the OpenCTI database.
+                </p>
+
+                <h3 class="text-xl font-bold mb-4 text-white">Architecture Flow</h3>
+                <img src="assets/Wazuh-OpenCTI-Bidirectional/graphql-architecture.png" alt="Pure GraphQL API Approach Architecture" class="w-full mb-8 shadow-xl">
+
+                <div class="bg-emerald-500/5 border-l-4 border-emerald-500 p-4 rounded-r-lg mb-8">
+                    <h4 class="text-emerald-400 font-semibold mb-2">Advantages</h4>
+                    <p class="text-gray-400 text-sm">
+                        It offers zero storage overhead, real-time data freshness, and provides much richer context (such as threat actor details and TTPs) directly from the OpenCTI threat graph. The integration script extracts all observables from the log (IPs, hashes, domains, etc.) and searches OpenCTI for matching indicators or raw observables.
+                    </p>
+                </div>
+
+                <h3 class="text-xl font-bold mb-4 text-white">Proof of Concept Videos (Phase 2)</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="relative w-full aspect-video rounded-xl overflow-hidden border border-slate-700 shadow-xl">
+                        <iframe class="absolute top-0 left-0 w-full h-full" src="https://www.youtube.com/embed/vyLQGbZZKQQ" title="Wazuh with OpenCTI Pure GraphQL API Approach" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                    </div>
+                    <div class="relative w-full aspect-video rounded-xl overflow-hidden border border-slate-700 shadow-xl">
+                        <iframe class="absolute top-0 left-0 w-full h-full" src="https://www.youtube.com/embed/gXKIUfG0xiU" title="Solving the Sighting Problem" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Final Status & Alerting -->
+        <section class="mb-16">
+            <div class="flex items-center space-x-3 mb-8">
+                <div class="w-10 h-10 rounded-lg bg-blue-500/10 flex items-center justify-center border border-blue-500/20">
+                    <i data-lucide="bell-ring" class="w-5 h-5 text-blue-400 icon"></i>
+                </div>
+                <h2 class="text-3xl font-bold">Automated Alerting Pipeline</h2>
+            </div>
+            
+            <div class="section-card">
+                <p class="text-gray-300 mb-6">
+                    Both approaches feature a robust automated alerting mechanism via Telegram. When a high-severity threat is detected and enriched with OpenCTI intelligence, an instant notification is dispatched to a dedicated SOC Telegram channel.
+                </p>
+                
+                <div class="grid md:grid-cols-3 gap-4">
+                    <div class="flex items-center space-x-3 bg-slate-800/30 p-4 rounded-lg border border-slate-700/50">
+                        <i data-lucide="shield-alert" class="w-6 h-6 text-emerald-400 icon"></i>
+                        <span class="text-gray-200 font-medium">Real-Time Threat Detection</span>
+                    </div>
+                    <div class="flex items-center space-x-3 bg-slate-800/30 p-4 rounded-lg border border-slate-700/50">
+                        <i data-lucide="share-2" class="w-6 h-6 text-blue-400 icon"></i>
+                        <span class="text-gray-200 font-medium">Automated CTI Enrichment</span>
+                    </div>
+                    <div class="flex items-center space-x-3 bg-slate-800/30 p-4 rounded-lg border border-slate-700/50">
+                        <i data-lucide="smartphone" class="w-6 h-6 text-purple-400 icon"></i>
+                        <span class="text-gray-200 font-medium">Instant Telegram Delivery</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-slate-800 bg-slate-900/50 mt-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex flex-col md:flex-row justify-between items-center">
+            <p class="text-center text-gray-500 text-sm mb-4 md:mb-0">
+                &copy; 2026 Abu Saeid. All rights reserved.
+            </p>
+            <div class="flex items-center space-x-4">
+                <a href="https://github.com/SaeidSec" target="_blank" class="text-gray-500 hover:text-white transition-colors">
+                    <i data-lucide="github" class="w-5 h-5 icon"></i>
+                </a>
+                <a href="https://www.linkedin.com/in/mdabusaeid/" target="_blank" class="text-gray-500 hover:text-white transition-colors">
+                    <i data-lucide="linkedin" class="w-5 h-5 icon"></i>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+    </script>
+</body>
+</html>

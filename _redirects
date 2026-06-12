@@ -26,3 +26,8 @@
 /How-to-Monitor-HAProxy.html   /articles/How-to-Monitor-HAProxy.html   301
 /How-to-Monitor-HAProxy        /articles/How-to-Monitor-HAProxy.html   301
 /how-to-monitor-haproxy        /articles/How-to-Monitor-HAProxy.html   301
+
+# Redirects for Wazuh + OpenCTI Bidirectional
+/Wazuh-OpenCTI-Bidirectional.html   /projects/Wazuh-OpenCTI-Bidirectional.html   301
+/Wazuh-OpenCTI-Bidirectional        /projects/Wazuh-OpenCTI-Bidirectional.html   301
+/wazuh-opencti-bidirectional        /projects/Wazuh-OpenCTI-Bidirectional.html   301

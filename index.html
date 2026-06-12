@@ -2294,6 +2294,19 @@
         // Data for Projects Section
         const projectData = [
             {
+                id: 12,
+                title: "Wazuh + OpenCTI: Bidirectional Threat Intelligence",
+                short_desc: "A two-phase integration of Wazuh SIEM with OpenCTI, featuring a CDB List Approach and a Pure GraphQL API Approach with real-time Telegram alerts.",
+                tags: ["SIEM", "CTI", "Wazuh", "Python", "GraphQL", "Automation"],
+                link: "projects/Wazuh-OpenCTI-Bidirectional.html",
+                details: {
+                    problem: "Traditional SIEM setups lack real-time threat intelligence context, making it difficult to prioritize alerts and identify sophisticated threat actors without manual investigation.",
+                    approach: "Implemented a two-phase bidirectional integration: Phase 1 utilized periodic syncs and CDB lists for local IOC matching. Phase 2 eliminated storage overhead by employing pure GraphQL API queries for real-time observable extraction and threat matching.",
+                    tools: ["Wazuh", "OpenCTI", "Python", "GraphQL", "Telegram API", "Bash"],
+                    outcome: "Achieved zero storage overhead and real-time data freshness with the GraphQL approach. Successfully automated threat detection, CTI enrichment, and instant Telegram notifications for SOC teams."
+                }
+            },
+            {
                 id: 11,
                 title: "Unified SOAR Platform: Automated Threat Detection & Response",
                 short_desc: "An end-to-end, open-source SOAR platform unifying Cortex, TheHive, OpenCTI, MISP, Wazuh, and Suricata into a fully automated detection and response pipeline.",
