@@ -1,0 +1,28 @@
+# Redirects for Project Aegis-OCSF
+/Project-Aegis-OCSF.html   /projects/Project-Aegis-OCSF.html   301
+/Project-Aegis-OCSF        /projects/Project-Aegis-OCSF.html   301
+/project-aegis-ocsf        /projects/Project-Aegis-OCSF.html   301
+
+# Redirects for Project Aegis-OCSF assets
+/Project%20Aegis-OCSF%20Building%20a%20Scalable%20Security%20Pipeline%20(Wazuh%20to%20ClickHouse).pdf   /projects/assets/Project-Aegis-OCSF/Project%20Aegis-OCSF%20Building%20a%20Scalable%20Security%20Pipeline%20(Wazuh%20to%20ClickHouse).pdf   301
+/Project%20Aegis-OCSF%20photo/*   /projects/assets/Project-Aegis-OCSF/:splat   301
+
+# Redirects for Enterprise Wazuh Cloud-Native SIEM
+/Enterprise-Wazuh-Cloud-Native.html   /projects/Enterprise-Wazuh-Cloud-Native.html   301
+/Enterprise-Wazuh-Cloud-Native        /projects/Enterprise-Wazuh-Cloud-Native.html   301
+/enterprise-wazuh-cloud-native        /projects/Enterprise-Wazuh-Cloud-Native.html   301
+
+# Redirects for Enterprise Wazuh
+/Enterprise-Wazuh.html   /projects/Enterprise-Wazuh.html   301
+/Enterprise-Wazuh        /projects/Enterprise-Wazuh.html   301
+/enterprise-wazuh        /projects/Enterprise-Wazuh.html   301
+
+# Redirects for How to Install Prometheus
+/How-to-Install-Prometheus.html   /articles/How-to-Install-Prometheus.html   301
+/How-to-Install-Prometheus        /articles/How-to-Install-Prometheus.html   301
+/how-to-install-prometheus        /articles/How-to-Install-Prometheus.html   301
+
+# Redirects for How to Monitor HAProxy
+/How-to-Monitor-HAProxy.html   /articles/How-to-Monitor-HAProxy.html   301
+/How-to-Monitor-HAProxy        /articles/How-to-Monitor-HAProxy.html   301
+/how-to-monitor-haproxy        /articles/How-to-Monitor-HAProxy.html   301
