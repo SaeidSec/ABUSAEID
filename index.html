@@ -2294,6 +2294,19 @@
         // Data for Projects Section
         const projectData = [
             {
+                id: 13,
+                title: "Advanced Malware Analysis MCP Server",
+                short_desc: "A secure, modular Model Context Protocol (MCP) server providing real-time threat intelligence and offline analysis utilities for AI assistants.",
+                tags: ["MCP", "AI", "Malware Analysis", "TypeScript", "CTI"],
+                link: "projects/Malware-Analysis-MCP-Server.html",
+                details: {
+                    problem: "AI assistants lack secure, context-aware access to real-time threat intelligence and local analysis utilities during cybersecurity investigations.",
+                    approach: "Developed an Anthropic Model Context Protocol (MCP) server that exposes 15+ threat intelligence tools (MalwareBazaar, VirusTotal) and offline crypto/analysis capabilities with strict path traversal protections and no live binary execution.",
+                    tools: ["TypeScript", "Node.js", "MCP", "MalwareBazaar API", "VirusTotal API", "Telegram API"],
+                    outcome: "Enabled AI models like Claude to autonomously and securely query threat data, extract IOCs, and perform local encryption/hashing, significantly accelerating defensive malware research workflows."
+                }
+            },
+            {
                 id: 12,
                 title: "Wazuh + OpenCTI: Bidirectional Threat Intelligence",
                 short_desc: "A two-phase integration of Wazuh SIEM with OpenCTI, featuring a CDB List Approach and a Pure GraphQL API Approach with real-time Telegram alerts.",
