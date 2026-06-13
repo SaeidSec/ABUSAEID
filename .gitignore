@@ -1,4 +1,5 @@
 # Ignore large video files
 projects/assets/Unified-Cyber-Defense/poc-video.mp4
 *.mp4
-Malware-Analysis-MCP-Server/
+/Malware-Analysis-MCP-Server/
+PoC/
