@@ -31,3 +31,8 @@
 /Wazuh-OpenCTI-Bidirectional.html   /projects/Wazuh-OpenCTI-Bidirectional.html   301
 /Wazuh-OpenCTI-Bidirectional        /projects/Wazuh-OpenCTI-Bidirectional.html   301
 /wazuh-opencti-bidirectional        /projects/Wazuh-OpenCTI-Bidirectional.html   301
+
+# Redirects for Advanced Malware Analysis MCP Server
+/Malware-Analysis-MCP-Server.html   /projects/Malware-Analysis-MCP-Server.html   301
+/Malware-Analysis-MCP-Server        /projects/Malware-Analysis-MCP-Server.html   301
+/malware-analysis-mcp-server        /projects/Malware-Analysis-MCP-Server.html   301
