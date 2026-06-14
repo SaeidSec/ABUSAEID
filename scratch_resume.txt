@@ -1,0 +1,246 @@
+MD. ABU SAEID
+CONTACT
+
+SUMMARY
+
+ +880-1752791256
+# contact.abusaeid@gmail.com
++ Dhaka, Bangladesh
+§ SaeidSec
+ SaeidSec.com
+
+SOC Analyst (L1) and Incident Responder with hands-on experience in security monitoring, alert
+triage, incident investigation, and SIEM engineering. Skilled in threat detection, log analysis, threat
+hunting, and detection engineering using Wazuh, Elastic Stack, Splunk, IBM QRadar, Microsoft
+Sentinel, OpenCTI, and MISP. Experienced in building enterprise-grade SIEM solutions, integrating
+threat intelligence platforms, and automating SOC workflows using Python and n8n to improve
+detection capabilities and operational efficiency.
+
+SKILLS
+
+WORK EXPERIENCE
+
+SOC & Security Tools: Wazuh, ELK,
+Splunk, IBM QRadar, Microsoft Sentinel,
+Suricata, Snort, Wireshark, YARA, Sigma,
+Sysmon, Burp Suite, Metasploit, OSQuery,
+Velociraptor
+
+• SOC INTERN
+
+Monitoring & Logging: Alert Triage, Incident Escalation, IOC Analysis, Log Analysis, SIEM Monitoring, Threat Hunting,
+Malware Investigation , MITRE ATT&CK
+Mapping
+Automation & SOAR: Python Playbooks,
+n8n, DFIR-IRIS, TheHive, Shuffle, Cortex
+Infrastructure & DevOps: Docker, Kubernetes, Ansible, HAProxy, Nginx, Keepalived,
+AWS, Proxmox, VMware
+Languages: Python, Bash, PowerShell, C,
+Go, Rust
+Operating Systems: Linux, Windows Server,
+Active Directory
+Frameworks: MITRE ATT&CK, NIST CSF,
+Cyber Kill Chain, Zero Trust, OWASP Top
+10
+
+EDUCATION
+Bachelor of Science in
+Computer Science & Engineering
+Green University of Bangladesh
+2021 – 2025
+Thesis: NeuroCrypt – A Privacy Preserving
+Federated Learning Framework for Secure
+Brain-Computer Interface Data Sharing
+
+Cyber Academy, Pakistan [Remote Internship]
+
+08/2025 – 09/2025
+
+• Monitored and analyzed security events using Wazuh SIEM, performing log analysis and
+
+alert triage on Windows Event Logs and Sysmon data to identify potential threats and
+anomalous activity.
+• Enhanced detection accuracy by 40% through SIEM rule tuning, correlation logic refinement, and false-positive reduction.
+• Developed and documented incident escalation procedures, improving response consistency
+and team coordination.
+• Supported endpoint monitoring and threat detection efforts across managed environments.
+
+• CYBERSECURITY INTERN & ASSOCIATE MEMBER
+Center for Cyber Security Studies & Research [Remote Internship; Lifetime Associate Member Since
+04/2026]
+
+04/2024 – 08/2024
+
+• Collaborated with researchers analyzing IoT vulnerabilities, contributing to security
+
+research.
+
+• Deployed Wazuh and ELK Stack, monitoring 50+ daily security events for real-time threat
+
+detection.
+
+• Presented threat landscape findings to internal teams, enhancing awareness of emerging
+
+attack vectors.
+
+• Active lifetime associate member (ID: SSF-A-2026-0063) engaged in cybersecurity research,
+
+knowledge sharing, and professional community initiatives.
+
+VOLUNTEERING
+Mentor
+
+May 2024 – Present
+
+GUCC Cyber Security Society
+• Cybersecurity workshop training
+• Resource making, Content making
+• Lab creating, solving
+
+LEARNING & NETWORKING Content Creator [Cybersecurity]
+YouTube – Bytes & Belief
+Å youtube.com/@saeidsec
+
+ï AbuSaeid
+
+CO-CURRICULAR ACTIVITIES
+
+ü ABUSAEID
+b SaeidSec
+
+LANGUAGE
+• English
+• Bengali (Native)
+
+• Platforms: CTF Player, TryHackMe, Hack The Box, LetsDefend, CyberDefender
+
+CERTIFICATION
+
+TOOLS
+
+• Blue Team Junior Analyst – Security
+Blue Team
+• ISO/IEC 27001:2022 Lead Auditor –
+Mastermind
+• Practical Ethical Hacking – TCM SECURITY
+• Mastering Cyber Threat Intelligence
+for SOC Analysts – SOCRadar® Extended Threat Intelligence
+• SOC Level 1 – TryHackMe
+• Linux/Windows Privilege Escalation
+for Beginners – TCM SECURITY
+
+• Network Forensics: Wireshark, Zeek, Suricata, Snort
+• SIEM: Wazuh, ELK (Elastic Stack), Splunk, IBM QRadar, Microsoft Sentinel
+• SOAR: TheHive, Shuffle, Cortex, DFIR-IRIS
+• Forensics: Velociraptor, YARA, Sigma, OSQuery
+• Malware Analysis: YARA, VirusTotal, ANYRUN Sandbox
+• EDR: Velociraptor, Sysmon
+• Threat Intelligence: MITRE ATT&CK, OSINT Framework, VirusTotal, MISP, OpenCTI
+• IPS/IDS: Snort, Suricata, Zeek
+• Automation: Python, n8n, Ansible
+
+PROJECTS
+1. Wazuh + OpenCTI: Bidirectional Threat Intelligence Pipeline 2
+Summary: Designed and deployed a bidirectional integration between Wazuh SIEM and the OpenCTI platform to automate real-time IOC
+matching, contextual enrichment, and incident alerting.
+• Developed a Phase 1 CDB (Constant Database) list ingestion pipeline using the pycti SDK to synchronize indicators of compromise
+
+(IOCs) from OpenCTI to the local Wazuh manager every 6 hours.
+
+• Engineered a Phase 2 live integration executing real-time, concurrent GraphQL API queries to fetch threat actor profiles, TTPs,
+
+and MITRE kill chain context directly from OpenCTI.
+
+• Completed the bidirectional feedback loop by designing an automated mechanism that registers STIX sighting relationships on the
+
+OpenCTI Evidence Ledger when Wazuh triggers a detection.
+
+• Built a notification pipeline that defangs network indicators and dispatches high-confidence security alerts containing full context to
+
+a dedicated SOC Telegram channel.
+
+• Stack: Wazuh · OpenCTI · Python · GraphQL · pycti SDK · Telegram Bot API
+
+2. Unified SOAR Platform — Automated Threat Detection & Response 2
+Summary: Designed and deployed an end-to-end, open-source SOAR platform integrating Suricata IDS, Wazuh SIEM, TheHive, Cortex, MISP,
+and OpenCTI — all containerized with Docker.
+• Designed and deployed an end-to-end, open-source SOAR platform integrating Suricata IDS, Wazuh SIEM, TheHive, Cortex, MISP,
+
+and OpenCTI — all containerized with Docker.
+
+• Automated observable enrichment via VirusTotal, AbuseIPDB, MISP, and OpenCTI, reducing MTTD and MTTR.
+• Stack: Cortex · TheHive · OpenCTI · MISP · Docker · Wazuh · Suricata
+
+3. Project Aegis-OCSF: Scalable Security Pipeline (Wazuh to ClickHouse) 2
+Summary: Engineered a high-performance security data pipeline using Rust and ClickHouse to bridge Wazuh SIEM and OCSF standardized
+telemetry.
+• Developed a multi-threaded Rust ETL engine to normalize Wazuh alerts to OCSF 1.7.0 under 1ms.
+• Optimized ClickHouse columnar storage, achieving 30x compression and sub-second queries on billions of events.
+• Standardized heterogeneous logs into OCSF to enable threat hunting and cross-platform analytics.
+• Integrated SQL-native Grafana dashboards to visualize ingestion rates, storage, and MITRE ATT&CK behavior.
+
+4. Advance Malware Analysis MCP Server 2
+Summary: Developed a secure MCP server for AI-assisted malware analysis, providing real-time threat intelligence, malware metadata, and IOC
+enrichment.
+• Integrated MalwareBazaar, VirusTotal, and Telegram to support triage, reputation checks, and YARA alerting.
+• Hardened platform security via path traversal protection, API rate limiting, and restricted local file hashing.
+
+5. eBPF-Sentry: Linux Kernel Security System 2
+Summary: Built high-performance eBPF-based IDS/IPS for syscall-level threat detection.
+• Implemented real-time active defense and process termination capabilities.
+• Designed stateful behavioral detection for multi-stage attacks with hot-reloadable rules.
+
+6. Network Traffic Monitoring and Analysis System 2
+Summary: Developed a full-stack network traffic analysis platform supporting both live capture and offline PCAP-based investigation for rapid
+threat identification.
+• Implemented deep packet inspection using Scapy and Wireshark with a real-time monitoring dashboard.
+• Automated protocol classification, port enumeration, and endpoint behavioral analysis to accelerate threat identification.
+
+7. Enterprise-Grade Wazuh SIEM Deployment with High Availability in Docker 2
+Summary: Architected and deployed a production-ready, fault-tolerant Wazuh SIEM platform with OpenSearch on Docker, designed for
+continuous SOC operations, high-volume log ingestion, and end-to-end security observability.
+• Deployed clustered Wazuh managers and redundant OpenSearch indexer nodes to ensure uninterrupted log ingestion, search, and
+
+real-time analysis during service disruptions.
+
+• Configured Keepalived floating VIPs and HAProxy load balancing to eliminate single points of failure and maximize platform
+
+availability.
+
+• Hardened agent-to-manager communication by implementing a secure log ingestion pipeline with a custom reverse proxy and mutual
+
+TLS (mTLS) authentication.
+
+• Integrated Prometheus, Grafana, Zabbix, and DFIR-IRIS for full-stack observability covering infrastructure health, security metrics,
+
+and incident response workflows.
+
+• Deployed honeypots and automated vulnerability scanning to broaden detection coverage and enrich threat intelligence context
+
+across the environment.
+
+• Conducted failover simulation and disaster recovery testing to validate platform resilience and ensure continuous SOC monitoring
+
+operations.
+
+8.Enterprise-Grade Wazuh SIEM Platform with High Availability 2
+Summary: Designed and deployed a production-ready, high-availability Wazuh SIEM platform to deliver resilient security monitoring, centralized
+log management, and continuous SOC operations.
+• Implemented a clustered Wazuh architecture with Master-Worker nodes for scalable event processing and fault tolerance.
+• Designed multi-layer load balancing and automated failover using Nginx, HAProxy, Keepalived, and floating VIPs.
+• Eliminated single points of failure across log ingestion, management, and monitoring services.
+• Integrated OpenSearch for centralized storage, indexing, and real-time security analytics.
+• Conducted failover and resilience testing to validate continuous monitoring during service disruptions.
+• Stack: Wazuh, OpenSearch, HAProxy, Keepalived, Nginx, Ubuntu Linux
+
+REFERENCE
+MD SAMIUL ISLAM
+SOC L2 ANALYST, Shorborno Holdings Ltd
+samiul008@gmail.com
+
+Md. Shakimul Islam, CISA
+Associate Manager (IT AUDITOR), NRB Bank PLC, Corporate
+Head Office
+shakimul.islan@nrbbankbd.com
+
+
