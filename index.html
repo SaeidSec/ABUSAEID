@@ -1933,31 +1933,22 @@
         </section>
 
         <!-- 7. Professional Experience -->
-        <section id="experience" class="py-16 md:py-24" data-aos="fade-up">
-            <h2 class="text-3xl font-bold mb-8 text-center text-black dark:text-gray-100">Professional Experience</h2>
-            <p class="text-center text-black dark:text-gray-300 text-lg mb-12 max-w-3xl mx-auto">
+        <section id="experience" class="py-16 md:py-24 relative overflow-hidden" data-aos="fade-up">
+            <!-- Experience Background Video -->
+            <div class="absolute inset-0 z-0 pointer-events-none">
+                <video id="experience-bg-video" autoplay loop muted playsinline class="w-full h-full object-cover opacity-30 dark:opacity-50 mix-blend-multiply dark:mix-blend-screen">
+                    <source src="video_experience.mp4" type="video/mp4">
+                </video>
+            </div>
+
+            <h2 class="text-3xl font-bold mb-8 text-center text-black dark:text-gray-100 relative z-10">Professional Experience</h2>
+            <p class="text-center text-black dark:text-gray-300 text-lg mb-12 max-w-3xl mx-auto relative z-10">
                 My journey in cybersecurity, from offensive security research to defensive SOC operations. Each role has
                 strengthened my expertise in protecting digital assets and responding to threats.
             </p>
 
-            <!-- Stats Grid -->
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-16 max-w-4xl mx-auto">
-                <div class="liquid-glass p-6 text-center">
-                    <div class="text-4xl font-bold text-accent mb-2">10+</div>
-                    <div class="text-gray-600 dark:text-gray-400">Months Experience</div>
-                </div>
-                <div class="liquid-glass p-6 text-center">
-                    <div class="text-4xl font-bold text-accent mb-2">5</div>
-                    <div class="text-gray-600 dark:text-gray-400">Critical Incidents</div>
-                </div>
-                <div class="liquid-glass p-6 text-center">
-                    <div class="text-4xl font-bold text-accent mb-2">15%</div>
-                    <div class="text-gray-600 dark:text-gray-400">Response Time Improvement</div>
-                </div>
-            </div>
-
             <!-- Filter Buttons -->
-            <div class="flex justify-center gap-4 mb-12">
+            <div class="flex justify-center gap-4 mb-12 relative z-10">
                 <button id="current-role-btn" onclick="filterExperience('current')"
                     class="experience-filter-btn px-6 py-3 rounded-xl font-semibold transition duration-300 bg-accent text-white border border-accent/20 shadow-md">
                     Current Role
@@ -1969,7 +1960,7 @@
             </div>
 
             <!-- Current Role Section -->
-            <div id="current-role-section" class="max-w-5xl mx-auto space-y-8">
+            <div id="current-role-section" class="max-w-5xl mx-auto space-y-8 relative z-10">
 
                 <!-- Aegisryx Labs Role Card -->
                 <div class="liquid-glass card-hover p-6 md:p-8 transition-all duration-300 border-l-4 border-accent">
@@ -2056,7 +2047,7 @@
                 </div>
 
                 <!-- Currently Focusing on Studies Card (preserved) -->
-                <div class="card p-8 rounded-xl text-center border border-dashed border-accent/30">
+                <div class="liquid-glass card-hover p-8 text-center border border-dashed border-accent/30">
                     <i data-lucide="graduation-cap" class="h-12 w-12 mx-auto mb-3 text-accent icon"></i>
                     <h3 class="text-xl font-bold text-gray-700 dark:text-gray-300 mb-2">Currently Focusing on Studies</h3>
                     <p class="text-gray-600 dark:text-gray-400 text-lg">
@@ -2071,7 +2062,7 @@
             </div>
 
             <!-- Previous Experience Timeline -->
-            <div id="previous-experience-section" class="max-w-5xl mx-auto space-y-8" style="display: none;">
+            <div id="previous-experience-section" class="max-w-5xl mx-auto space-y-8 relative z-10" style="display: none;">
 
                 <!-- Experience Card 1: Cyber Academy -->
                 <div class="liquid-glass card-hover p-6 md:p-8 transition-all duration-300">
@@ -3884,6 +3875,23 @@
                         const relativeScroll = scrollPos + viewportHeight - sectionTop;
                         // Slower translation for deep background effect
                         aboutVideo.style.transform = `translateY(${(relativeScroll - viewportHeight) * 0.15}px)`;
+                    }
+                });
+            }
+
+            const experienceVideo = document.getElementById('experience-bg-video');
+            const experienceSection = document.getElementById('experience');
+            if (experienceVideo && experienceSection) {
+                window.addEventListener('scroll', () => {
+                    const scrollPos = window.pageYOffset || document.documentElement.scrollTop;
+                    const sectionTop = experienceSection.offsetTop;
+                    const viewportHeight = window.innerHeight;
+                    
+                    // Only apply parallax when experience section is near/in the viewport
+                    if (scrollPos + viewportHeight > sectionTop && scrollPos < sectionTop + experienceSection.offsetHeight) {
+                        const relativeScroll = scrollPos + viewportHeight - sectionTop;
+                        // Slower translation for deep background effect
+                        experienceVideo.style.transform = `translateY(${(relativeScroll - viewportHeight) * 0.15}px)`;
                     }
                 });
             }
