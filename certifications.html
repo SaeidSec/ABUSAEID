@@ -24,6 +24,7 @@
 
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="assets/css/liquid-glass.css">
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -115,25 +116,6 @@
             }
         }
 
-        .card {
-            background-color: var(--color-bg-card);
-            border: 1px solid var(--color-border);
-            transition: all 0.3s ease;
-        }
-
-        .card:hover {
-            border-color: var(--color-accent);
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-        }
-
-        .project-tag {
-            background: rgba(124, 58, 237, 0.1);
-            /* Violet tint */
-            color: var(--color-accent);
-            border: 1px solid var(--color-accent);
-        }
-
         /* Scroll reveal animation */
         .reveal {
             opacity: 0;
@@ -150,7 +132,7 @@
 
 <body class="dark min-h-screen transition-colors duration-300">
     <!-- Navigation -->
-    <nav class="fixed top-0 left-0 right-0 z-50 backdrop-blur-xl bg-[#000319]/90 border-b border-indigo-500/20">
+    <nav class="fixed top-0 left-0 right-0 z-50 liquid-glass-nav">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
                 <a href="index.html"
@@ -360,7 +342,7 @@
             if (!container) return;
 
             container.innerHTML = certData.map(cert => `
-                <div class="card p-6 rounded-xl shadow-lg transition duration-300 reveal">
+                <div class="liquid-glass card-hover p-6 transition duration-300 reveal">
                     <h3 class="text-lg font-bold mb-2" style="color: var(--color-text-main)">${cert.title}</h3>
                     <p class="text-gray-600 dark:text-gray-400 text-sm mb-2 flex items-center">
                         <i data-lucide="award" class="h-4 w-4 inline-block mr-2 icon"></i> ${cert.issuer}
@@ -372,10 +354,10 @@
                         <i data-lucide="hash" class="h-4 w-4 inline-block mr-2 icon"></i> Credential ID: ${cert.id}
                     </p>` : ''}
                     <div class="flex flex-wrap gap-2 mb-4">
-                        ${cert.skills.map(skill => `<span class="project-tag px-3 py-1 text-xs rounded-full font-medium">${skill}</span>`).join('')}
+                        ${cert.skills.map(skill => `<span class="liquid-glass-tag px-3 py-1 text-xs font-medium">${skill}</span>`).join('')}
                     </div>
                     <a href="https://www.linkedin.com/in/mdabusaeid/details/certifications/" target="_blank"
-                        class="mt-auto inline-flex items-center justify-center px-4 py-2 border border-accent text-accent rounded-md text-sm font-medium hover:bg-accent hover:text-white transition duration-300">
+                        class="mt-auto inline-flex items-center justify-center px-4 py-2 border border-accent/40 text-accent rounded-md text-sm font-medium hover:bg-accent hover:text-white transition duration-300 liquid-glass-tag">
                         Show Credential <i data-lucide="external-link" class="h-4 w-4 ml-2 icon"></i>
                     </a>
                 </div>
@@ -429,6 +411,15 @@
             document.addEventListener('mousemove', (e) => {
                 mouseX = e.clientX;
                 mouseY = e.clientY;
+
+                const glassPanels = document.querySelectorAll('.liquid-glass');
+                glassPanels.forEach(panel => {
+                    const rect = panel.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    panel.style.setProperty('--x', `${x}px`);
+                    panel.style.setProperty('--y', `${y}px`);
+                });
             });
 
             function animateCursor() {
@@ -446,7 +437,7 @@
             }
             animateCursor();
 
-            const interactiveElements = 'a, button, .card';
+            const interactiveElements = 'a, button, .liquid-glass';
 
             document.addEventListener('mouseover', (e) => {
                 if (e.target.closest(interactiveElements)) {

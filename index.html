@@ -9,7 +9,7 @@
     2. Upload this file to a static hosting service.
 -->
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en" class="scroll-smooth dark">
 
 <head>
     <meta charset="UTF-8">
@@ -49,6 +49,16 @@
                 extend: {
                     colors: {
                         darkbg: '#000319',
+                        cyber: {
+                            bg: '#080b0e',
+                            surface: '#11161b',
+                            card: '#161d24',
+                            border: '#222c37',
+                            accent: '#38bdf8',
+                            glow: '#00f0ff',
+                            amber: '#f59e0b',
+                            lamp: '#ffb03a'
+                        }
                     }
                 }
             }
@@ -58,6 +68,7 @@
     <script src="https://unpkg.com/lucide@latest"></script>
     <!-- Vanilla-tilt.js for 3D effects -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js"></script>
+    <link rel="stylesheet" href="assets/css/liquid-glass.css">
 
 
     <style>
@@ -1318,6 +1329,77 @@
         #fp-nav ul li a span, .fp-slidesNav ul li a span { 
             background: var(--color-accent) !important; 
         }
+
+        /* Cyberpunk Floating Particles and Styles */
+        .particle {
+            position: absolute;
+            border-radius: 9999px;
+            background: #00f0ff;
+            box-shadow: 0 0 10px rgba(0, 240, 255, 0.65), 0 0 18px rgba(0, 240, 255, 0.35);
+            pointer-events: none;
+            animation-name: driftDown;
+            animation-timing-function: linear;
+            animation-iteration-count: infinite;
+            z-index: 1;
+        }
+
+        @keyframes driftDown {
+            0% {
+                transform: translateY(-10vh) translateX(0) scale(0.85);
+                opacity: 0;
+            }
+            12% {
+                opacity: 0.85;
+            }
+            88% {
+                opacity: 0.7;
+            }
+            100% {
+                transform: translateY(115vh) translateX(24px) scale(1.05);
+                opacity: 0;
+            }
+        }
+
+        .cursor-blink::after {
+            content: '|';
+            animation: blink-cursor 1s step-end infinite;
+        }
+
+        @keyframes blink-cursor {
+            from, to { color: transparent }
+            50% { color: #00f0ff }
+        }
+
+        .ambient-lamp {
+            background: radial-gradient(circle at 50% 50%, rgba(255, 176, 58, 0.08) 0%, rgba(56, 189, 248, 0.02) 45%, transparent 70%);
+        }
+
+        /* Liquid Glass Footer */
+        .liquid-glass-footer {
+            background: rgba(0, 3, 25, 0.45);
+            backdrop-filter: blur(20px) saturate(150%);
+            -webkit-backdrop-filter: blur(20px) saturate(150%);
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        :root:not(.dark) .liquid-glass-footer {
+            background: rgba(248, 250, 252, 0.6);
+            border-top-color: rgba(255, 255, 255, 0.5);
+        }
+
+        /* Liquid Glass Mobile Menu */
+        .liquid-glass-mobile-menu {
+            background: rgba(0, 3, 25, 0.85);
+            backdrop-filter: blur(30px) saturate(200%);
+            -webkit-backdrop-filter: blur(30px) saturate(200%);
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        :root:not(.dark) .liquid-glass-mobile-menu {
+            background: rgba(248, 250, 252, 0.85);
+            border-top-color: rgba(255, 255, 255, 0.5);
+        }
+
     </style>
 </head>
 
@@ -1357,9 +1439,9 @@
 
     <!-- Navigation Bar - Modern Glassmorphism -->
     <header class="sticky top-0 z-50 transition duration-500">
-        <!-- Glassmorphism Background -->
+        <!-- Liquid Glass Navbar -->
         <div
-            class="backdrop-blur-xl bg-[var(--color-nav)] border-b border-[var(--color-border)] shadow-sm dark:shadow-cyan-500/10 transition-colors duration-300">
+            class="liquid-glass-nav transition-colors duration-300">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
                 <a href="#hero"
                     class="text-2xl font-extrabold tracking-tight bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent transition duration-300 hover:from-cyan-300 hover:to-blue-400">
@@ -1432,7 +1514,7 @@
             </div>
             <!-- Mobile Menu Panel (Hidden by default) -->
             <div id="mobile-menu"
-                class="hidden md:hidden absolute w-full backdrop-blur-xl bg-[var(--color-bg)] opacity-95 border-t border-[var(--color-border)] shadow-lg pb-2 transition-colors duration-300">
+                class="hidden md:hidden absolute w-full liquid-glass-mobile-menu shadow-lg pb-2 transition-colors duration-300">
                 <a href="#projects"
                     class="block px-4 py-3 text-gray-700 dark:text-gray-300 hover:bg-cyan-500/10 hover:text-cyan-400 transition duration-300"
                     onclick="closeMobileMenu()">Projects</a>
@@ -1464,8 +1546,25 @@
     <!-- Main Content Area -->
     <div>
         <!-- 1. Hero Section with Profile Photo -->
-        <section id="hero" class="py-20 md:py-36">
-            <div class="max-w-6xl mx-auto">
+        <section id="hero" class="py-20 md:py-36 relative overflow-hidden">
+            <!-- Cinematic Background Video -->
+            <div class="absolute inset-0 z-0 pointer-events-none">
+                <video id="hero-bg-video" autoplay loop muted playsinline class="w-full h-full object-cover opacity-20 dark:opacity-45 mix-blend-multiply dark:mix-blend-screen">
+                    <source src="video.mp4" type="video/mp4">
+                </video>
+                <div class="absolute inset-0" style="background: linear-gradient(to top, var(--color-bg) 0%, transparent 100%);"></div>
+            </div>
+
+            <!-- Floating Cyber-Particles -->
+            <div class="absolute inset-0 pointer-events-none z-0 overflow-hidden">
+                <div class="particle" style="left: 14%; width: 3px; height: 3px; animation-duration: 4.5s; animation-delay: 0s;"></div>
+                <div class="particle" style="left: 39%; width: 2px; height: 2px; animation-duration: 3.8s; animation-delay: 1.2s;"></div>
+                <div class="particle" style="left: 67%; width: 4px; height: 4px; animation-duration: 5.2s; animation-delay: 2.4s;"></div>
+                <div class="particle" style="left: 83%; width: 2.5px; height: 2.5px; animation-duration: 4.2s; animation-delay: 0.7s;"></div>
+                <div class="particle" style="left: 58%; width: 2px; height: 2px; animation-duration: 4.9s; animation-delay: 3.1s;"></div>
+            </div>
+
+            <div class="max-w-6xl mx-auto relative z-10">
                 <!-- Responsive Grid: Stacks on mobile, side-by-side on desktop -->
                 <div class="grid md:grid-cols-2 gap-12 items-center">
 
@@ -1492,13 +1591,13 @@
                             </div>
 
                             <!-- Floating Decorative Elements -->
-                            <div class="absolute -top-4 -left-4 w-14 h-14 bg-darkbg/80 border border-accent/50 rounded-2xl flex items-center justify-center animate-float-slow shadow-xl backdrop-blur-xl z-20">
+                            <div class="absolute -top-4 -left-4 w-14 h-14 liquid-glass flex items-center justify-center animate-float-slow z-20">
                                 <i data-lucide="radar" class="w-7 h-7 text-accent"></i>
                             </div>
-                            <div class="absolute top-1/4 -right-6 w-12 h-12 bg-darkbg/80 border border-blue-500/50 rounded-full flex items-center justify-center animate-float-slow shadow-xl backdrop-blur-xl z-20" style="animation-delay: -3s;">
+                            <div class="absolute top-1/4 -right-6 w-12 h-12 liquid-glass flex items-center justify-center animate-float-slow z-20" style="animation-delay: -3s;">
                                 <i data-lucide="terminal" class="w-6 h-6 text-blue-400"></i>
                             </div>
-                            <div class="absolute -bottom-6 right-1/4 w-10 h-10 bg-darkbg/80 border border-purple-500/50 rotate-12 flex items-center justify-center animate-float-slow shadow-xl backdrop-blur-xl z-20" style="animation-delay: -1.5s;">
+                            <div class="absolute -bottom-6 right-1/4 w-10 h-10 liquid-glass rotate-12 flex items-center justify-center animate-float-slow z-20" style="animation-delay: -1.5s;">
                                 <i data-lucide="cpu" class="w-5 h-5 text-purple-400"></i>
                             </div>
 
@@ -1542,25 +1641,25 @@
 
                             <!-- 1. LinkedIn (Filled Accent) -->
                             <a href="https://www.linkedin.com/in/mdabusaeid/" target="_blank"
-                                class="cta-button bg-accent text-white py-3 px-6 rounded-xl font-semibold hover:bg-cyan-600 transition duration-300 shadow-lg shadow-accent/50 flex items-center justify-center gap-2">
+                                class="cta-button liquid-glass-btn text-white py-3 px-6 font-semibold flex items-center justify-center gap-2">
                                 <i data-lucide="linkedin" class="h-5 w-5 icon"></i> LinkedIn
                             </a>
 
                             <!-- 2. Projects (Outline) -->
                             <a href="#projects"
-                                class="cta-button border-2 border-gray-700 text-gray-700 dark:text-gray-300 py-3 px-6 rounded-xl font-semibold hover:border-accent hover:text-accent transition duration-300 flex items-center justify-center gap-2 bg-transparent">
+                                class="cta-button liquid-glass py-3 px-6 text-gray-700 dark:text-gray-300 font-semibold hover:border-accent hover:text-accent transition duration-300 flex items-center justify-center gap-2">
                                 <i data-lucide="folder" class="h-5 w-5 icon"></i> Projects
                             </a>
 
                             <!-- 3. Resume (Outline - Opens Modal) -->
                             <button onclick="openResumeModal()"
-                                class="cta-button border-2 border-gray-700 text-gray-700 dark:text-gray-300 py-3 px-6 rounded-xl font-semibold hover:border-accent hover:text-accent transition duration-300 flex items-center justify-center gap-2 bg-transparent">
+                                class="cta-button liquid-glass py-3 px-6 text-gray-700 dark:text-gray-300 font-semibold hover:border-accent hover:text-accent transition duration-300 flex items-center justify-center gap-2">
                                 <i data-lucide="file-text" class="h-5 w-5 icon"></i> Resume
                             </button>
 
                             <!-- 4. Hire Me / Contact (Outline) -->
                             <a href="#contact"
-                                class="cta-button border-2 border-gray-700 text-gray-700 dark:text-gray-300 py-3 px-6 rounded-xl font-semibold hover:border-accent hover:text-accent transition duration-300 flex items-center justify-center gap-2 bg-transparent">
+                                class="cta-button liquid-glass py-3 px-6 text-gray-700 dark:text-gray-300 font-semibold hover:border-accent hover:text-accent transition duration-300 flex items-center justify-center gap-2">
                                 <i data-lucide="briefcase" class="h-5 w-5 icon"></i> Hire Me
                             </a>
 
@@ -1572,14 +1671,29 @@
         </section>
 
         <!-- 2. About Section -->
-        <section id="about" class="py-16 md:py-24">
-            <h2 class="text-3xl font-bold mb-12 text-center text-black dark:text-gray-100">About Me</h2>
-            <div class="max-w-6xl mx-auto">
-                <!-- Responsive Grid: Photo on left, content on right -->
-                <div class="grid md:grid-cols-2 gap-12 items-center">
+        <section id="about" class="py-16 md:py-24 relative overflow-hidden">
+            <!-- About Background Video -->
+            <div class="absolute inset-0 z-0 pointer-events-none">
+                <video id="about-bg-video" autoplay loop muted playsinline class="w-full h-full object-cover opacity-30 dark:opacity-50 mix-blend-multiply dark:mix-blend-screen">
+                    <source src="video_about.mp4" type="video/mp4">
+                </video>
+                <div class="absolute inset-0" style="background: linear-gradient(to bottom, var(--color-bg) 0%, transparent 30%, transparent 70%, var(--color-bg) 100%);"></div>
+            </div>
 
-                    <!-- Left Side: Unique Morphing Photo Design -->
-                    <div class="flex justify-center md:justify-start order-1 md:order-1 w-full p-4">
+            <!-- Section Ambient Glow -->
+            <div class="absolute inset-0 pointer-events-none z-0 overflow-hidden opacity-40">
+                <div class="absolute top-[20%] left-[10%] w-[40vw] h-[40vw] ambient-lamp rounded-full blur-3xl"></div>
+                <div class="absolute bottom-[10%] right-[5%] w-[35vw] h-[35vw] bg-cyan-500/5 rounded-full blur-[100px]"></div>
+            </div>
+
+            <div class="max-w-6xl mx-auto px-4 relative z-10">
+                <h2 class="text-3xl font-bold mb-12 text-center text-black dark:text-gray-100">About Me</h2>
+                
+                <!-- Responsive Grid: Stacks on mobile, side-by-side on desktop -->
+                <div class="grid lg:grid-cols-12 gap-12 items-center">
+
+                    <!-- Left Side: Morphing Photo Design -->
+                    <div class="lg:col-span-5 flex justify-center lg:justify-end w-full p-4">
                         <div class="relative group" data-tilt data-tilt-max="15" data-tilt-speed="400" data-tilt-perspective="1000">
                             
                             <!-- Dynamic Background Glow -->
@@ -1592,15 +1706,15 @@
                                 <!-- Glass Overlay -->
                                 <div class="absolute inset-0 bg-gradient-to-tr from-accent/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                             </div>
-
+                            
                             <!-- Floating Decorative Elements -->
-                            <div class="absolute -top-6 -right-6 w-12 h-12 bg-darkbg border border-accent/50 rounded-xl flex items-center justify-center animate-float-slow shadow-lg backdrop-blur-md">
+                            <div class="absolute -top-6 -right-6 w-12 h-12 liquid-glass flex items-center justify-center animate-float-slow">
                                 <i data-lucide="shield" class="w-6 h-6 text-accent"></i>
                             </div>
-                            <div class="absolute -bottom-4 -left-4 w-10 h-10 bg-darkbg border border-blue-500/50 rounded-full flex items-center justify-center animate-float-slow shadow-lg backdrop-blur-md" style="animation-delay: -2s;">
+                            <div class="absolute -bottom-4 -left-4 w-10 h-10 liquid-glass flex items-center justify-center animate-float-slow" style="animation-delay: -2s;">
                                 <i data-lucide="lock" class="w-5 h-5 text-blue-400"></i>
                             </div>
-                            <div class="absolute top-1/2 -right-8 w-8 h-8 bg-darkbg border border-purple-500/50 rotate-45 flex items-center justify-center animate-float-slow shadow-lg backdrop-blur-md" style="animation-delay: -4s;">
+                            <div class="absolute top-1/2 -right-8 w-8 h-8 liquid-glass rotate-45 flex items-center justify-center animate-float-slow" style="animation-delay: -4s;">
                                 <i data-lucide="zap" class="w-4 h-4 text-purple-400 -rotate-45"></i>
                             </div>
 
@@ -1608,89 +1722,58 @@
                             <div class="absolute -inset-2 border-2 border-dashed border-accent/20 rounded-full animate-[spin_20s_linear_infinite] pointer-events-none"></div>
                         </div>
                     </div>
+                </div>
 
-                    <style>
-                        @keyframes rotate {
-                            0% {
-                                transform: rotate(0deg);
-                            }
+                <!-- Right Side: Terminal Mockup -->
+                <div class="lg:col-span-7 w-full liquid-glass shadow-2xl relative z-10">
+                    <!-- Terminal Bar -->
+                    <div class="bg-black/30 px-4 py-3 border-b border-white/10 flex items-center justify-between select-none">
+                        <div class="flex items-center gap-2">
+                            <span class="w-2.5 h-2.5 rounded-full bg-red-500/40"></span>
+                            <span class="w-2.5 h-2.5 rounded-full bg-yellow-500/40"></span>
+                            <span class="w-2.5 h-2.5 rounded-full bg-green-500/40"></span>
+                            <span class="font-mono text-xs text-slate-500 ml-2">saeid_profile.sh</span>
+                        </div>
+                        <span class="font-mono text-[10px] text-slate-600">TTY // 1</span>
+                    </div>
+                    
+                    <!-- Terminal Body -->
+                    <div class="p-6 font-mono text-xs sm:text-sm space-y-4 min-h-[360px] bg-transparent text-slate-300">
+                            <div class="flex items-start gap-2">
+                                <span class="text-cyber-accent">saeidsec@portfolio:~$</span>
+                                <span class="text-slate-300">cat whoami.txt</span>
+                            </div>
+                            <p class="text-slate-300 pl-4 border-l-2 border-cyber-accent/30 leading-relaxed">
+                                I am a dedicated **SOC Analyst and Cybersecurity Researcher** with a strong focus on bridging operational security with advanced analytical methods. My primary experience lies in Level 1/Level 2 Security Operations, specializing in **incident triage, threat hunting**, and the development of robust **SIEM (Wazuh/Elastic)** architectures. I translate threat intelligence into actionable detection rules, constantly tuning and hardening defense posture against emerging TTPs.
+                            </p>
 
-                            100% {
-                                transform: rotate(360deg);
-                            }
-                        }
+                            <div class="flex items-start gap-2 pt-2">
+                                <span class="text-cyber-accent">saeidsec@portfolio:~$</span>
+                                <span class="text-slate-300">cat core_philosophy.txt</span>
+                            </div>
+                            <p class="text-cyber-amber pl-4 border-l-2 border-cyber-amber/30 leading-relaxed">
+                                "Defensive security shouldn't just react to alerts. True protection lies in active threat hunting, continuous Purple Teaming validation, and ML-driven automation using Python and SOAR-lite playbooks to overcome rule-based detection fatigue and optimize response times."
+                            </p>
 
-                        @keyframes scan {
+                            <div class="flex items-start gap-2 pt-2">
+                                <span class="text-cyber-accent">saeidsec@portfolio:~$</span>
+                                <span class="text-slate-300">cat thesis_abstract.sh --view=researchgate</span>
+                            </div>
+                            <div class="text-slate-300 pl-4 border-l-2 border-purple-500/30 leading-relaxed space-y-2">
+                                <div>
+                                    <span class="font-bold text-white block">NeuroCrypt — Privacy-Preserving Federated Learning Framework for Secure BCI Data Sharing</span>
+                                    Investigated federated learning models combined with differential privacy to secure Brain-Computer Interface (BCI) data transfers without leaking proprietary user features.
+                                </div>
+                                <a href="https://www.researchgate.net/publication/400857347_NeuroCrypt_A_Privacy-Preserving_Federated_Learning_Framework_for_Secure_Brain-Computer_Interface_Data_Sharing" target="_blank" class="text-cyber-accent hover:underline flex items-center gap-2 font-semibold pt-1">
+                                    <i data-lucide="graduation-cap" class="h-4 w-4"></i> Read Research Gate Publication
+                                </a>
+                            </div>
 
-                            0%,
-                            100% {
-                                top: -10%;
-                                opacity: 0;
-                            }
-
-                            10% {
-                                opacity: 1;
-                            }
-
-                            90% {
-                                opacity: 1;
-                            }
-
-                            100% {
-                                top: 110%;
-                                opacity: 0;
-                            }
-                        }
-
-                        @keyframes float {
-
-                            0%,
-                            100% {
-                                transform: translateY(0px);
-                            }
-
-                            50% {
-                                transform: translateY(-20px);
-                            }
-                        }
-                    </style>
-
-                    <!-- Right Side: Text Content -->
-                    <div class="text-black dark:text-gray-300 text-lg space-y-6 order-2 md:order-2">
-                        <p>
-                            I am a dedicated **SOC Analyst and Cybersecurity Researcher** with a strong focus on
-                            bridging
-                            operational security with advanced analytical methods. My primary experience lies in Level
-                            1/Level 2
-                            Security Operations, specializing in **incident triage, threat hunting**, and the
-                            development of
-                            robust **SIEM (Wazuh/Elastic)** architectures. I translate threat intelligence into
-                            actionable
-                            detection rules, constantly tuning and hardening defense posture against emerging TTPs.
-                        </p>
-                        <p>
-                            My core value lies in **automation**. I leverage Python and SOAR-lite methodologies to
-                            automate
-                            repetitive tasks, significantly reducing Mean Time to Detection (MTTD) and Mean Time to
-                            Respond
-                            (MTTR). This includes developing playbooks for automated enrichment, containment, and,
-                            critically,
-                            implementing **AI/ML models** for anomaly detection to overcome rule-based detection
-                            fatigue.
-                        </p>
-                        <p>
-                            I am passionate about **Purple Teaming**, advocating for a collaborative approach where
-                            red-team
-                            insights directly inform and validate blue-team detections. This continuous feedback loop
-                            ensures
-                            defensive controls are measurable and effective. My academic work further explores the
-                            intersection
-                            of AI and security:
-                            <span class="block mt-2 font-semibold">
-                                <i data-lucide="graduation-cap" class="h-5 w-5 mr-2 icon text-accent"></i> Research
-                                Thesis: <a href="https://www.researchgate.net/publication/400857347_NeuroCrypt_A_Privacy-Preserving_Federated_Learning_Framework_for_Secure_Brain-Computer_Interface_Data_Sharing" target="_blank" class="text-accent hover:underline">NeuroCrypt — Privacy-Preserving Federated Learning Framework for Secure BCI Data Sharing</a>
-                            </span>
-                        </p>
+                            <div class="flex items-center gap-2 pt-4 border-t border-slate-800/80">
+                                <span class="text-cyber-accent">saeidsec@portfolio:~$</span>
+                                <span class="text-white cursor-blink" id="terminal-input-mock"></span>
+                            </div>
+                        </div>
                     </div>
 
                 </div>
@@ -1698,11 +1781,20 @@
         </section>
 
         <!-- 3. Core Skills / Competencies: Responsive Grid -->
-        <section id="skills" class="py-16 md:py-24">
-            <h2 class="text-3xl font-bold mb-12 text-center text-black dark:text-gray-100">Core Skills & Competencies
-            </h2>
-            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <!-- Skills will be dynamically rendered here by JS -->
+        <section id="skills" class="py-16 md:py-24 relative overflow-hidden">
+            <!-- Skills Background Video -->
+            <div class="absolute inset-0 z-0 pointer-events-none">
+                <video id="skills-bg-video" autoplay loop muted playsinline class="w-full h-full object-cover opacity-30 dark:opacity-50 mix-blend-multiply dark:mix-blend-screen">
+                    <source src="video_skills.mp4" type="video/mp4">
+                </video>
+                <div class="absolute inset-0" style="background: linear-gradient(to bottom, var(--color-bg) 0%, transparent 30%, transparent 70%, var(--color-bg) 100%);"></div>
+            </div>
+
+            <div class="max-w-6xl mx-auto px-4 relative z-10">
+                <h2 class="text-3xl font-bold mb-12 text-center text-black dark:text-gray-100">Core Skills & Competencies</h2>
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <!-- Skills will be dynamically rendered here by JS -->
+                </div>
             </div>
         </section>
 
@@ -1731,25 +1823,34 @@
         </section>
 
         <!-- 5. Projects & Case Studies: Responsive Grid -->
-        <section id="projects" class="py-16 md:py-24">
-            <h2 class="text-3xl font-bold mb-12 text-center text-black dark:text-gray-100">Key Projects & Case Studies
-            </h2>
-
-            <!-- Filter Buttons: Responsive flex-wrap -->
-            <div id="project-filters" class="flex flex-wrap justify-center gap-3 mb-10">
-                <button data-filter="All"
-                    class="project-filter-btn active py-2 px-4 rounded-full text-sm font-medium transition duration-300 bg-accent text-white">All</button>
-                <button data-filter="SIEM"
-                    class="project-filter-btn py-2 px-4 rounded-full text-sm font-medium transition duration-300 bg-gray-700 hover:bg-accent hover:text-white">SIEM
-                    Engineering</button>
-                <button data-filter="IDS/IPS"
-                    class="project-filter-btn py-2 px-4 rounded-full text-sm font-medium transition duration-300 bg-gray-700 hover:bg-accent hover:text-white">Network
-                    Security</button>
+        <section id="projects" class="py-16 md:py-24 relative overflow-hidden">
+            <!-- Projects Background Video -->
+            <div class="absolute inset-0 z-0 pointer-events-none">
+                <video id="projects-bg-video" autoplay loop muted playsinline class="w-full h-full object-cover opacity-30 dark:opacity-50 mix-blend-multiply dark:mix-blend-screen">
+                    <source src="video_projects.mp4" type="video/mp4">
+                </video>
+                <div class="absolute inset-0" style="background: linear-gradient(to bottom, var(--color-bg) 0%, transparent 30%, transparent 70%, var(--color-bg) 100%);"></div>
             </div>
 
-            <!-- Project Cards Grid: Responsive Grid -->
-            <div id="project-cards-container" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Project cards will be dynamically rendered here by JS -->
+            <div class="max-w-6xl mx-auto px-4 relative z-10">
+                <h2 class="text-3xl font-bold mb-12 text-center text-black dark:text-gray-100">Key Projects & Case Studies</h2>
+
+                <!-- Filter Buttons: Responsive flex-wrap -->
+                <div id="project-filters" class="flex flex-wrap justify-center gap-3 mb-10">
+                    <button data-filter="All"
+                        class="project-filter-btn active py-2 px-4 rounded-full text-sm font-medium transition duration-300 bg-accent text-white">All</button>
+                    <button data-filter="SIEM"
+                        class="project-filter-btn py-2 px-4 rounded-full text-sm font-medium transition duration-300 bg-gray-700 hover:bg-accent hover:text-white">SIEM
+                        Engineering</button>
+                    <button data-filter="IDS/IPS"
+                        class="project-filter-btn py-2 px-4 rounded-full text-sm font-medium transition duration-300 bg-gray-700 hover:bg-accent hover:text-white">Network
+                        Security</button>
+                </div>
+
+                <!-- Project Cards Grid: Responsive Grid -->
+                <div id="project-cards-container" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Project cards will be dynamically rendered here by JS -->
+                </div>
             </div>
         </section>
 
@@ -1760,10 +1861,64 @@
         <section id="articles" class="py-16 md:py-24">
             <h2 class="text-3xl font-bold mb-4 text-center text-black dark:text-gray-100">Security Insights &
                 Publications</h2>
-            <p class="text-center text-gray-700 dark:text-gray-300 text-lg mb-8 max-w-3xl mx-auto">
+            <p class="text-center text-gray-700 dark:text-gray-300 text-lg mb-12 max-w-3xl mx-auto">
                 Sharing knowledge and experiences in cybersecurity through research papers, technical articles, and
                 practical insights from the frontlines of digital defense.
             </p>
+
+            <!-- Featured Articles Grid -->
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto mb-12 px-4">
+                <!-- Article 1 -->
+                <div class="liquid-glass card-hover p-6 flex flex-col transition duration-300">
+                    <div class="flex items-center gap-2 mb-3 text-xs text-accent font-semibold uppercase tracking-wider">
+                        <i data-lucide="shield" class="h-4 w-4"></i> SIEM Tuning
+                    </div>
+                    <h3 class="text-xl font-bold text-black dark:text-white mb-3">Configuring SSL Certificates on Wazuh Dashboard using NGINX</h3>
+                    <p class="text-gray-600 dark:text-gray-400 text-sm mb-4">A complete, step-by-step technical guide to securing your Wazuh Dashboard using NGINX reverse proxy with custom SSL certificates for enterprise security compliance.</p>
+                    <div class="flex flex-wrap gap-2 mt-auto mb-4">
+                        <span class="liquid-glass-tag px-3 py-1 text-xs font-medium">Wazuh</span>
+                        <span class="liquid-glass-tag px-3 py-1 text-xs font-medium">SSL</span>
+                        <span class="liquid-glass-tag px-3 py-1 text-xs font-medium">NGINX</span>
+                    </div>
+                    <a href="https://socsignal-production-f46c.up.railway.app/" target="_blank" class="text-accent font-medium text-sm hover:underline flex items-center mt-auto">
+                        Read Article <i data-lucide="arrow-up-right" class="h-4 w-4 ml-1"></i>
+                    </a>
+                </div>
+
+                <!-- Article 2 -->
+                <div class="liquid-glass card-hover p-6 flex flex-col transition duration-300">
+                    <div class="flex items-center gap-2 mb-3 text-xs text-accent font-semibold uppercase tracking-wider">
+                        <i data-lucide="git-pull-request" class="h-4 w-4"></i> Threat Intel
+                    </div>
+                    <h3 class="text-xl font-bold text-black dark:text-white mb-3">Bidirectional Threat Intelligence Pipeline: Wazuh & OpenCTI</h3>
+                    <p class="text-gray-600 dark:text-gray-400 text-sm mb-4">Architecting a bidirectional threat intelligence framework that feeds live OpenCTI observables into Wazuh CDB lists and alerts active security events back to the TI graph.</p>
+                    <div class="flex flex-wrap gap-2 mt-auto mb-4">
+                        <span class="liquid-glass-tag px-3 py-1 text-xs font-medium">OpenCTI</span>
+                        <span class="liquid-glass-tag px-3 py-1 text-xs font-medium">Wazuh</span>
+                        <span class="liquid-glass-tag px-3 py-1 text-xs font-medium">APIs</span>
+                    </div>
+                    <a href="https://socsignal-production-f46c.up.railway.app/" target="_blank" class="text-accent font-medium text-sm hover:underline flex items-center mt-auto">
+                        Read Article <i data-lucide="arrow-up-right" class="h-4 w-4 ml-1"></i>
+                    </a>
+                </div>
+
+                <!-- Article 3 -->
+                <div class="liquid-glass card-hover p-6 flex flex-col transition duration-300">
+                    <div class="flex items-center gap-2 mb-3 text-xs text-accent font-semibold uppercase tracking-wider">
+                        <i data-lucide="cpu" class="h-4 w-4"></i> AI Automation
+                    </div>
+                    <h3 class="text-xl font-bold text-black dark:text-white mb-3">Building a Malware Analysis MCP Server for AI Agents</h3>
+                    <p class="text-gray-600 dark:text-gray-400 text-sm mb-4">A technical deep dive on building a Model Context Protocol (MCP) server that empowers LLM agents to execute automated static and dynamic malware analysis routines safely.</p>
+                    <div class="flex flex-wrap gap-2 mt-auto mb-4">
+                        <span class="liquid-glass-tag px-3 py-1 text-xs font-medium">MCP</span>
+                        <span class="liquid-glass-tag px-3 py-1 text-xs font-medium">Rust</span>
+                        <span class="liquid-glass-tag px-3 py-1 text-xs font-medium">Malware Analysis</span>
+                    </div>
+                    <a href="https://socsignal-production-f46c.up.railway.app/" target="_blank" class="text-accent font-medium text-sm hover:underline flex items-center mt-auto">
+                        Read Article <i data-lucide="arrow-up-right" class="h-4 w-4 ml-1"></i>
+                    </a>
+                </div>
+            </div>
 
             <div class="flex justify-center mb-12">
                 <a href="https://socsignal-production-f46c.up.railway.app/" target="_blank"
@@ -1785,15 +1940,15 @@
 
             <!-- Stats Grid -->
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-16 max-w-4xl mx-auto">
-                <div class="card p-6 rounded-xl text-center">
+                <div class="liquid-glass p-6 text-center">
                     <div class="text-4xl font-bold text-accent mb-2">10+</div>
                     <div class="text-gray-600 dark:text-gray-400">Months Experience</div>
                 </div>
-                <div class="card p-6 rounded-xl text-center">
+                <div class="liquid-glass p-6 text-center">
                     <div class="text-4xl font-bold text-accent mb-2">5</div>
                     <div class="text-gray-600 dark:text-gray-400">Critical Incidents</div>
                 </div>
-                <div class="card p-6 rounded-xl text-center">
+                <div class="liquid-glass p-6 text-center">
                     <div class="text-4xl font-bold text-accent mb-2">15%</div>
                     <div class="text-gray-600 dark:text-gray-400">Response Time Improvement</div>
                 </div>
@@ -1802,11 +1957,11 @@
             <!-- Filter Buttons -->
             <div class="flex justify-center gap-4 mb-12">
                 <button id="current-role-btn" onclick="filterExperience('current')"
-                    class="experience-filter-btn px-6 py-3 rounded-xl font-semibold transition duration-300 bg-accent text-white">
+                    class="experience-filter-btn px-6 py-3 rounded-xl font-semibold transition duration-300 bg-accent text-white border border-accent/20 shadow-md">
                     Current Role
                 </button>
                 <button id="previous-experience-btn" onclick="filterExperience('previous')"
-                    class="experience-filter-btn px-6 py-3 rounded-xl font-semibold transition duration-300 bg-gray-200 dark:bg-gray-700 text-black dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600">
+                    class="experience-filter-btn px-6 py-3 rounded-xl font-semibold transition duration-300 liquid-glass-tag border border-white/10 text-black dark:text-gray-300">
                     Previous Experience
                 </button>
             </div>
@@ -1815,7 +1970,7 @@
             <div id="current-role-section" class="max-w-5xl mx-auto space-y-8">
 
                 <!-- Aegisryx Labs Role Card -->
-                <div class="card p-6 md:p-8 rounded-xl hover:shadow-2xl transition-all duration-300 border-l-4 border-accent">
+                <div class="liquid-glass card-hover p-6 md:p-8 transition-all duration-300 border-l-4 border-accent">
                     <div class="flex flex-col md:flex-row md:items-start md:justify-between mb-4">
                         <div class="flex-1">
                             <h3 class="text-2xl font-bold text-accent mb-2">Founder & Chief of Research</h3>
@@ -1917,7 +2072,7 @@
             <div id="previous-experience-section" class="max-w-5xl mx-auto space-y-8" style="display: none;">
 
                 <!-- Experience Card 1: Cyber Academy -->
-                <div class="card p-6 md:p-8 rounded-xl hover:shadow-2xl transition-all duration-300">
+                <div class="liquid-glass card-hover p-6 md:p-8 transition-all duration-300">
                     <div class="flex flex-col md:flex-row md:items-start md:justify-between mb-4">
                         <div class="flex-1">
                             <h3 class="text-2xl font-bold text-accent mb-2">Cyber Security Analyst</h3>
@@ -1953,7 +2108,7 @@
                 </div>
 
                 <!-- Experience Card 2: Center for Cyber Security Studies -->
-                <div class="card p-6 md:p-8 rounded-xl hover:shadow-2xl transition-all duration-300">
+                <div class="liquid-glass card-hover p-6 md:p-8 transition-all duration-300">
                     <div class="flex flex-col md:flex-row md:items-start md:justify-between mb-4">
                         <div class="flex-1">
                             <h3 class="text-2xl font-bold text-accent mb-2">Associate Member & Cyber Security Intern
@@ -1989,7 +2144,7 @@
                 </div>
 
                 <!-- Experience Card 3: SEO Specialist -->
-                <div class="card p-6 md:p-8 rounded-xl hover:shadow-2xl transition-all duration-300">
+                <div class="liquid-glass card-hover p-6 md:p-8 transition-all duration-300">
                     <div class="flex flex-col md:flex-row md:items-start md:justify-between mb-4">
                         <div class="flex-1">
                             <h3 class="text-2xl font-bold text-accent mb-2">Search Engine Optimization Specialist</h3>
@@ -2026,7 +2181,7 @@
                 </div>
 
                 <!-- Experience Card 4: Junior SEO Associate -->
-                <div class="card p-6 md:p-8 rounded-xl hover:shadow-2xl transition-all duration-300">
+                <div class="liquid-glass card-hover p-6 md:p-8 transition-all duration-300">
                     <div class="flex flex-col md:flex-row md:items-start md:justify-between mb-4">
                         <div class="flex-1">
                             <h3 class="text-2xl font-bold text-accent mb-2">Junior SEO Associate</h3>
@@ -2057,7 +2212,7 @@
                 </div>
 
                 <!-- Experience Card 5: SOC Intern -->
-                <div class="card p-6 md:p-8 rounded-xl hover:shadow-2xl transition-all duration-300">
+                <div class="liquid-glass card-hover p-6 md:p-8 transition-all duration-300">
                     <div class="flex flex-col md:flex-row md:items-start md:justify-between mb-4">
                         <div class="flex-1">
                             <h3 class="text-2xl font-bold text-accent mb-2">Security Operation Center (SOC) Intern</h3>
@@ -2097,7 +2252,7 @@
 
             <!-- Education First -->
             <div class="max-w-4xl mx-auto mb-16">
-                <div class="card p-8 rounded-xl border-l-4 border-accent">
+                <div class="liquid-glass card-hover p-8 border-l-4 border-accent">
                     <h3 class="text-2xl font-bold text-black dark:text-gray-100 mb-4 flex items-center">
                         <i data-lucide="graduation-cap" class="h-8 w-8 mr-3 text-accent"></i> Education
                     </h3>
@@ -2108,7 +2263,7 @@
                             <p class="text-gray-600 dark:text-gray-400 text-lg mt-1">Green University of Bangladesh</p>
                         </div>
                         <span
-                            class="mt-2 md:mt-0 px-4 py-2 bg-gray-200 dark:bg-gray-800 rounded-full text-sm text-accent font-mono border border-gray-300 dark:border-gray-700">2021
+                            class="mt-2 md:mt-0 px-4 py-2 liquid-glass-tag text-sm text-accent font-mono border border-gray-300 dark:border-gray-700">2021
                             - 2025</span>
                     </div>
                 </div>
@@ -2118,7 +2273,7 @@
         <!-- 9. Contact: Responsive Grid -->
         <section id="contact" class="py-16 md:py-24">
             <h2 class="text-3xl font-bold mb-12 text-center text-black dark:text-gray-100">Get In Touch</h2>
-            <div class="max-w-3xl mx-auto card p-6 md:p-10 rounded-xl">
+            <div class="max-w-3xl mx-auto liquid-glass p-6 md:p-10">
                 <p class="mb-8 text-gray-700 dark:text-gray-300 text-lg text-center">
                     I am actively seeking roles focused on advanced threat detection, automation engineering, and
                     security research. Let's discuss a project or collaboration.
@@ -2140,18 +2295,18 @@
                 <!-- Formspree Contact Form -->
                 <form action="https://formspree.io/f/mjklqnbw" method="POST" class="space-y-4">
                     <input type="text" name="name" placeholder="Your Name"
-                        class="w-full p-3 rounded-lg border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 text-black dark:text-white focus:ring-accent focus:border-accent transition duration-300"
+                        class="liquid-glass-input w-full p-3 text-black dark:text-white transition duration-300"
                         required>
                     <input type="email" name="email" placeholder="Your Email"
-                        class="w-full p-3 rounded-lg border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 text-black dark:text-white focus:ring-accent focus:border-accent transition duration-300"
+                        class="liquid-glass-input w-full p-3 text-black dark:text-white transition duration-300"
                         required>
                     <input type="text" name="role_company" placeholder="Your Role / Company"
-                        class="w-full p-3 rounded-lg border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 text-black dark:text-white focus:ring-accent focus:border-accent transition duration-300">
+                        class="liquid-glass-input w-full p-3 text-black dark:text-white transition duration-300">
                     <textarea name="message" placeholder="Your Message" rows="4"
-                        class="w-full p-3 rounded-lg border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 text-black dark:text-white focus:ring-accent focus:border-accent transition duration-300"
+                        class="liquid-glass-input w-full p-3 text-black dark:text-white transition duration-300"
                         required></textarea>
                     <button type="submit"
-                        class="w-full bg-accent text-white py-3 rounded-xl font-semibold hover:bg-opacity-90 transition duration-300 flex items-center justify-center">
+                        class="liquid-glass-btn w-full text-white py-3 font-semibold transition duration-300 flex items-center justify-center">
                         <i data-lucide="send" class="h-5 w-5 mr-2 icon"></i> Send Message
                     </button>
                 </form>
@@ -2175,7 +2330,7 @@
             </div>
         </section>
         <!-- Footer -->
-        <footer class="border-t border-gray-200 dark:border-gray-800 py-10 text-gray-600 dark:text-gray-400">
+        <footer class="liquid-glass-footer py-10 text-gray-600 dark:text-gray-400">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
                 <p class="mb-4">&copy; 2025 Abu Saeid. All rights reserved.</p>
                 <div class="flex justify-center space-x-6 text-sm">
@@ -2595,7 +2750,7 @@
             if (!container) return;
 
             container.innerHTML = skillData.map(skill => `
-                <div class="card p-6 rounded-xl shadow-lg card-hover transition duration-300">
+                <div class="liquid-glass p-6 card-hover transition duration-300">
                     <div class="flex items-center mb-3">
                         <i data-lucide="${skill.icon}" class="h-6 w-6 text-accent mr-3 icon"></i>
                         <h3 class="text-xl font-semibold text-black dark:text-gray-50">${skill.title}</h3>
@@ -2657,7 +2812,7 @@
             const container = document.getElementById('project-cards-container');
             if (!container) return;
             container.innerHTML = projects.map(project => `
-                <div class="project-card card p-6 rounded-xl shadow-lg card-hover transition duration-300"
+                <div class="project-card liquid-glass p-6 card-hover transition duration-300"
                      data-tags="${project.tags.join(',')}" data-id="${project.id}">
                     <div class="flex items-start mb-4">
                          <i data-lucide="${project.tags.includes('AI/ML') ? 'cpu' : project.tags.includes('PurpleTeam') ? 'swords' : project.tags.includes('SIEM') ? 'database' : 'terminal'}" class="h-6 w-6 text-accent flex-shrink-0 mr-3 icon"></i>
@@ -2665,7 +2820,7 @@
                     </div>
                     <p class="text-gray-600 dark:text-gray-400 text-sm mb-4">${project.short_desc}</p>
                     <div class="flex flex-wrap gap-2 mb-4">
-                        ${project.tags.map(tag => `<span class="project-tag px-3 py-1 text-xs rounded-full font-medium">${tag}</span>`).join('')}
+                        ${project.tags.map(tag => `<span class="liquid-glass-tag px-3 py-1 text-xs font-medium">${tag}</span>`).join('')}
                     </div>
                     <div class="mt-auto flex gap-3">
                         <button data-id="${project.id}" class="view-details-btn text-accent font-medium text-sm hover:underline flex items-center">
@@ -2691,7 +2846,7 @@
             if (!container) return;
 
             container.innerHTML = certData.map(cert => `
-                <div class="card p-6 rounded-xl shadow-lg card-hover transition duration-300">
+                <div class="liquid-glass p-6 card-hover transition duration-300">
                     <h3 class="text-lg font-bold text-black dark:text-gray-50 mb-2">${cert.title}</h3>
                     <p class="text-gray-600 dark:text-gray-400 text-sm mb-2 flex items-center">
                         <i data-lucide="award" class="h-4 w-4 inline-block mr-2 icon"></i> ${cert.issuer}
@@ -2703,7 +2858,7 @@
                         <i data-lucide="hash" class="h-4 w-4 inline-block mr-2 icon"></i> Credential ID: ${cert.id}
                     </p>` : ''}
                     <div class="flex flex-wrap gap-2 mb-4">
-                        ${cert.skills.map(skill => `<span class="project-tag px-3 py-1 text-xs rounded-full font-medium">${skill}</span>`).join('')}
+                        ${cert.skills.map(skill => `<span class="liquid-glass-tag px-3 py-1 text-xs font-medium">${skill}</span>`).join('')}
                     </div>
                     <a href="https://www.linkedin.com/in/mdabusaeid/details/certifications/" target="_blank"
                         class="mt-auto inline-flex items-center justify-center px-4 py-2 border border-accent text-accent rounded-md text-sm font-medium hover:bg-accent hover:text-white transition duration-300">
@@ -2759,11 +2914,11 @@
          * Theme Management
          */
         function initTheme() {
-            // Check for saved preference or system preference
-            if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-                document.documentElement.classList.add('dark');
-            } else {
+            // Check for saved preference, defaulting to dark
+            if (localStorage.theme === 'light') {
                 document.documentElement.classList.remove('dark');
+            } else {
+                document.documentElement.classList.add('dark');
             }
         }
 
@@ -3656,6 +3811,133 @@
                 });
             }
         }
+    </script>
+
+    <!-- Cyberpunk Visual Effects & Interactive Terminal Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // 1. Parallax Scroll Effect for Hero and Projects Background Videos
+            const bgVideo = document.getElementById('hero-bg-video');
+            if (bgVideo) {
+                window.addEventListener('scroll', () => {
+                    const scrollPos = window.pageYOffset || document.documentElement.scrollTop;
+                    // Move the video slower than the page scroll for parallax effect
+                    bgVideo.style.transform = `translateY(${scrollPos * 0.3}px)`;
+                });
+            }
+
+            const projectsVideo = document.getElementById('projects-bg-video');
+            const projectsSection = document.getElementById('projects');
+            if (projectsVideo && projectsSection) {
+                window.addEventListener('scroll', () => {
+                    const scrollPos = window.pageYOffset || document.documentElement.scrollTop;
+                    const sectionTop = projectsSection.offsetTop;
+                    const viewportHeight = window.innerHeight;
+                    
+                    // Only apply parallax when projects section is near/in the viewport
+                    if (scrollPos + viewportHeight > sectionTop && scrollPos < sectionTop + projectsSection.offsetHeight) {
+                        const relativeScroll = scrollPos + viewportHeight - sectionTop;
+                        // Slower translation for deep background effect
+                        projectsVideo.style.transform = `translateY(${(relativeScroll - viewportHeight) * 0.15}px)`;
+                    }
+                });
+            }
+
+            const skillsVideo = document.getElementById('skills-bg-video');
+            const skillsSection = document.getElementById('skills');
+            if (skillsVideo && skillsSection) {
+                window.addEventListener('scroll', () => {
+                    const scrollPos = window.pageYOffset || document.documentElement.scrollTop;
+                    const sectionTop = skillsSection.offsetTop;
+                    const viewportHeight = window.innerHeight;
+                    
+                    // Only apply parallax when skills section is near/in the viewport
+                    if (scrollPos + viewportHeight > sectionTop && scrollPos < sectionTop + skillsSection.offsetHeight) {
+                        const relativeScroll = scrollPos + viewportHeight - sectionTop;
+                        // Slower translation for deep background effect
+                        skillsVideo.style.transform = `translateY(${(relativeScroll - viewportHeight) * 0.15}px)`;
+                    }
+                });
+            }
+
+            const aboutVideo = document.getElementById('about-bg-video');
+            const aboutSection = document.getElementById('about');
+            if (aboutVideo && aboutSection) {
+                window.addEventListener('scroll', () => {
+                    const scrollPos = window.pageYOffset || document.documentElement.scrollTop;
+                    const sectionTop = aboutSection.offsetTop;
+                    const viewportHeight = window.innerHeight;
+                    
+                    // Only apply parallax when about section is near/in the viewport
+                    if (scrollPos + viewportHeight > sectionTop && scrollPos < sectionTop + aboutSection.offsetHeight) {
+                        const relativeScroll = scrollPos + viewportHeight - sectionTop;
+                        // Slower translation for deep background effect
+                        aboutVideo.style.transform = `translateY(${(relativeScroll - viewportHeight) * 0.15}px)`;
+                    }
+                });
+            }
+
+            // 2. Typewriter Effect for Terminal Section
+            const mockInput = document.getElementById('terminal-input-mock');
+            if (mockInput) {
+                const securityCommands = [
+                    "wazuh-control status",
+                    "nmap -sV -sC -O 192.168.1.0/24",
+                    "sysmon -c config.xml -i",
+                    "python3 triager.py --threat-hunt --auto-enrich",
+                    "grep -rnI 'malware' /var/log/suricata/",
+                    "yara -r rule.yar /home/user/downloads/",
+                    "suricata -c /etc/suricata/suricata.yaml -i eth0"
+                ];
+                
+                let commandIndex = 0;
+                let charIndex = 0;
+                let isDeleting = false;
+                let typingDelay = 100;
+                
+                function type() {
+                    const currentCommand = securityCommands[commandIndex];
+                    
+                    if (isDeleting) {
+                        mockInput.textContent = currentCommand.substring(0, charIndex - 1);
+                        charIndex--;
+                        typingDelay = 50;
+                    } else {
+                        mockInput.textContent = currentCommand.substring(0, charIndex + 1);
+                        charIndex++;
+                        typingDelay = 120;
+                    }
+                    
+                    if (!isDeleting && charIndex === currentCommand.length) {
+                        // Pause at the end of the command
+                        typingDelay = 2000;
+                        isDeleting = true;
+                    } else if (isDeleting && charIndex === 0) {
+                        isDeleting = false;
+                        // Move to next command
+                        commandIndex = (commandIndex + 1) % securityCommands.length;
+                        typingDelay = 500;
+                    }
+                    
+                    setTimeout(type, typingDelay);
+                }
+                
+                // Start the typewriter loop with a slight initial delay
+                setTimeout(type, 1000);
+            }
+
+            // 3. Apple Liquid Glass Dynamic Specular Highlights
+            document.addEventListener('mousemove', (e) => {
+                const glassPanels = document.querySelectorAll('.liquid-glass');
+                glassPanels.forEach(panel => {
+                    const rect = panel.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    panel.style.setProperty('--x', `${x}px`);
+                    panel.style.setProperty('--y', `${y}px`);
+                });
+            });
+        });
     </script>
 </body>
 
