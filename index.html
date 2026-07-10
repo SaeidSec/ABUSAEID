@@ -1401,6 +1401,8 @@
         }
 
     </style>
+    <!-- AOS Animation CSS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 </head>
 
 <body class="bg-[var(--color-bg)] text-[var(--color-text-main)] transition-colors duration-300 min-h-screen">
@@ -1546,7 +1548,7 @@
     <!-- Main Content Area -->
     <div>
         <!-- 1. Hero Section with Profile Photo -->
-        <section id="hero" class="py-20 md:py-36 relative overflow-hidden">
+        <section id="hero" class="py-20 md:py-36 relative overflow-hidden" data-aos="fade-in" data-aos-duration="1200">
             <!-- Cinematic Background Video -->
             <div class="absolute inset-0 z-0 pointer-events-none">
                 <video id="hero-bg-video" autoplay loop muted playsinline class="w-full h-full object-cover opacity-20 dark:opacity-45 mix-blend-multiply dark:mix-blend-screen">
@@ -1671,7 +1673,7 @@
         </section>
 
         <!-- 2. About Section -->
-        <section id="about" class="py-16 md:py-24 relative overflow-hidden">
+        <section id="about" class="py-16 md:py-24 relative overflow-hidden" data-aos="fade-up">
             <!-- About Background Video -->
             <div class="absolute inset-0 z-0 pointer-events-none">
                 <video id="about-bg-video" autoplay loop muted playsinline class="w-full h-full object-cover opacity-30 dark:opacity-50 mix-blend-multiply dark:mix-blend-screen">
@@ -1781,7 +1783,7 @@
         </section>
 
         <!-- 3. Core Skills / Competencies: Responsive Grid -->
-        <section id="skills" class="py-16 md:py-24 relative overflow-hidden">
+        <section id="skills" class="py-16 md:py-24 relative overflow-hidden" data-aos="fade-up">
             <!-- Skills Background Video -->
             <div class="absolute inset-0 z-0 pointer-events-none">
                 <video id="skills-bg-video" autoplay loop muted playsinline class="w-full h-full object-cover opacity-30 dark:opacity-50 mix-blend-multiply dark:mix-blend-screen">
@@ -1799,7 +1801,7 @@
         </section>
 
         <!-- Tools & Stack Section -->
-        <section id="tools-stack" class="py-16 md:py-24 bg-slate-50 dark:bg-[#000319] overflow-hidden">
+        <section id="tools-stack" class="py-16 md:py-24 bg-slate-50 dark:bg-[#000319] overflow-hidden" data-aos="fade-up">
             <div class="max-w-7xl mx-auto px-4">
                 <!-- Header -->
                 <div class="mb-16 text-center" data-aos="fade-up">
@@ -1823,7 +1825,7 @@
         </section>
 
         <!-- 5. Projects & Case Studies: Responsive Grid -->
-        <section id="projects" class="py-16 md:py-24 relative overflow-hidden">
+        <section id="projects" class="py-16 md:py-24 relative overflow-hidden" data-aos="fade-up">
             <!-- Projects Background Video -->
             <div class="absolute inset-0 z-0 pointer-events-none">
                 <video id="projects-bg-video" autoplay loop muted playsinline class="w-full h-full object-cover opacity-30 dark:opacity-50 mix-blend-multiply dark:mix-blend-screen">
@@ -1858,7 +1860,7 @@
 
 
         <!-- 6. Blog / Articles (Updated Title): Responsive Grid -->
-        <section id="articles" class="py-16 md:py-24">
+        <section id="articles" class="py-16 md:py-24" data-aos="fade-up">
             <h2 class="text-3xl font-bold mb-4 text-center text-black dark:text-gray-100">Security Insights &
                 Publications</h2>
             <p class="text-center text-gray-700 dark:text-gray-300 text-lg mb-12 max-w-3xl mx-auto">
@@ -1931,7 +1933,7 @@
         </section>
 
         <!-- 7. Professional Experience -->
-        <section id="experience" class="py-16 md:py-24">
+        <section id="experience" class="py-16 md:py-24" data-aos="fade-up">
             <h2 class="text-3xl font-bold mb-8 text-center text-black dark:text-gray-100">Professional Experience</h2>
             <p class="text-center text-black dark:text-gray-300 text-lg mb-12 max-w-3xl mx-auto">
                 My journey in cybersecurity, from offensive security research to defensive SOC operations. Each role has
@@ -2246,7 +2248,7 @@
 
 
         <!-- 8. Certifications & Education: Responsive Grid -->
-        <section id="certs" class="py-16 md:py-24">
+        <section id="certs" class="py-16 md:py-24" data-aos="fade-up">
             <h2 class="text-3xl font-bold mb-12 text-center text-black dark:text-gray-100">Certifications & Education
             </h2>
 
@@ -2271,7 +2273,7 @@
         </section>
 
         <!-- 9. Contact: Responsive Grid -->
-        <section id="contact" class="py-16 md:py-24">
+        <section id="contact" class="py-16 md:py-24" data-aos="fade-up">
             <h2 class="text-3xl font-bold mb-12 text-center text-black dark:text-gray-100">Get In Touch</h2>
             <div class="max-w-3xl mx-auto liquid-glass p-6 md:p-10">
                 <p class="mb-8 text-gray-700 dark:text-gray-300 text-lg text-center">
@@ -2811,16 +2813,16 @@
         function renderProjects(projects) {
             const container = document.getElementById('project-cards-container');
             if (!container) return;
-            container.innerHTML = projects.map(project => `
-                <div class="project-card liquid-glass p-6 card-hover transition duration-300"
-                     data-tags="${project.tags.join(',')}" data-id="${project.id}">
+            container.innerHTML = projects.map((project, index) => `
+                <div class="project-card bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-xl border border-gray-200 dark:border-gray-700 hover:shadow-2xl transition duration-300 transform hover:-translate-y-2"
+                     data-tags="${project.tags.join(',')}" data-id="${project.id}" data-aos="fade-up" data-aos-delay="${(index % 3) * 100}">
                     <div class="flex items-start mb-4">
                          <i data-lucide="${project.tags.includes('AI/ML') ? 'cpu' : project.tags.includes('PurpleTeam') ? 'swords' : project.tags.includes('SIEM') ? 'database' : 'terminal'}" class="h-6 w-6 text-accent flex-shrink-0 mr-3 icon"></i>
                         <h3 class="text-xl font-bold text-black dark:text-gray-50" id="project-title-${project.id}">${project.title}</h3>
                     </div>
                     <p class="text-gray-600 dark:text-gray-400 text-sm mb-4">${project.short_desc}</p>
                     <div class="flex flex-wrap gap-2 mb-4">
-                        ${project.tags.map(tag => `<span class="liquid-glass-tag px-3 py-1 text-xs font-medium">${tag}</span>`).join('')}
+                        ${project.tags.map(tag => `<span class="bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 px-3 py-1 text-xs font-medium rounded-full">${tag}</span>`).join('')}
                     </div>
                     <div class="mt-auto flex gap-3">
                         <button data-id="${project.id}" class="view-details-btn text-accent font-medium text-sm hover:underline flex items-center">
@@ -3813,9 +3815,18 @@
         }
     </script>
 
-    <!-- Cyberpunk Visual Effects & Interactive Terminal Script -->
+    <!-- AOS Animation Library JS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            if(typeof AOS !== 'undefined') {
+                AOS.init({
+                    duration: 800,
+                    once: true,
+                    offset: 100
+                });
+            }
+            
             // 1. Parallax Scroll Effect for Hero and Projects Background Videos
             const bgVideo = document.getElementById('hero-bg-video');
             if (bgVideo) {
